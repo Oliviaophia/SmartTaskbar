@@ -1,6 +1,6 @@
 SmartTaskbar
 ===
-* SmartTaskbar is a small program which can switch the display state of the Windows Taskbar automatically
+* SmartTaskbar is a small program which can automatically switch the display state of the Windows Taskbar 
 
   SmartTaskbar是一个能自动切换Windows任务栏显示状态的小程序
 
