@@ -17,12 +17,18 @@ Installation 安装
 * To begin with,you should select the version that correspond your operation system:
 * 首先从[releases](https://github.com/ChanpleCai/SmartTaskbar/releases)下载对应版本：
 
-* Choose the 32-bit version or the 64-bit version depend on your X32 or X64 version of Windows
-* 32位Windows下载x86版本，64位Windows下载x64版本
-* Please download the 'SmartTaskbar_xxx.exe' if your operation system is Win8 or the olders
-* win10以前的系统下载SmartTaskbar_xxx.exe
-* Please download the 'SmartTaskbarWin10_xxx.exe' if your operation system is Win10
-* win10系统下载SmartTaskbarWin10_xxx.exe
+    * Choose the 32-bit version or the 64-bit version depend on your X32 or X64 version of Windows
+      
+      32位Windows下载x86版本，64位Windows下载x64版本
+      
+    * Please download the `martTaskbar_xxx.exe` if your operation system is win8.1 or the olders
+      
+      win10以前的系统下载`SmartTaskbar_xxx.exe`
+      
+    * Please download the `SmartTaskbarWin10_xxx.exe` if your operation system is win10
+      
+      win10系统下载`SmartTaskbarWin10_xxx.exe`
+    
 * Double-click the download file and the program will auto run
 * 双击程序即可运行
 
