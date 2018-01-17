@@ -3,7 +3,8 @@ SmartTaskbar
 * SmartTaskbar is a small program which can automatically switch the display state of the Windows Taskbar 
 
   SmartTaskbar是一个能自动切换Windows任务栏显示状态的小程序
-
+  
+![img](https://github.com/ChanpleCai/SmartTaskbar/blob/master/demo/Open_Close.gif)
 Features 功能
 -----
 * It will set the Taskbar to Auto-Hide mode when there is a maximized window exists (except UWP window)
@@ -83,3 +84,15 @@ Build 构建
 * Install Visual Studio 2017
 
   安装Visual Studio 2017 
+  
+Demo 演示
+----
+![img](https://github.com/ChanpleCai/SmartTaskbar/blob/master/demo/Open_Close2.gif)
+
+![img](https://github.com/ChanpleCai/SmartTaskbar/blob/master/demo/Hide_Show.gif)
+
+![img](https://github.com/ChanpleCai/SmartTaskbar/blob/master/demo/Maximize_Button.gif)
+
+![img](https://github.com/ChanpleCai/SmartTaskbar/blob/master/demo/Shortcut_Key.gif)
+
+![img](https://github.com/ChanpleCai/SmartTaskbar/blob/master/demo/block_UWP.gif)
