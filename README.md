@@ -24,25 +24,29 @@ Installation 安装
 
   首先从[releases](https://github.com/ChanpleCai/SmartTaskbar/releases)下载对应版本：
 
-    * Choose the 32-bit version or the 64-bit version depend on your X32 or X64 version of Windows.
+    * For 32-bit operating system please download x86 version, for 64-bit operating system please download the x64 version.
       
       32位Windows请下载x86版本，64位Windows请下载x64版本
       
-    * Please download the `martTaskbar_xxx.exe` if your operation system is win8.1 or earlier.
+    * if your operation system is win8.1 or earlier, please download the `martTaskbar_xxx.exe` .
       
       win8.1及以前的系统请下载`SmartTaskbar_xxx.exe`
       
-    * Please download the `SmartTaskbarWin10_xxx.exe` if your operation system is win10.
+    * if your are using win10, then download the `SmartTaskbarWin10_xxx.exe` .
       
       win10系统请下载`SmartTaskbarWin10_xxx.exe`
       
     * The program does't support the Windows Vista and earlier system.
       
-      该程序不支持Windows Vista及以下系统
-* Double-click the download file and the program will auto run.
+      该程序不支持Windows Vista及以前的系统
+* Double-click the `exe` file to run, the program will run in the background.
 
-  双击程序即可运行
+  双击运行程序，它将自动在后台运行
+  
+* this program will only use very little system resources, you can forget it's existence after the installtion is complete.
 
+  该程序只会占用极少的系统资源，安装完成后便可以忘记它的存在
+  
 Autostart 开机自启
 -----
 Copy the program to the Startup folder, it will autostart after system boots up. The folder is located at `%AppData%\Microsoft\Windows\Start Menu\Programs\Startup`
@@ -56,19 +60,19 @@ Copy the program to the Startup folder, it will autostart after system boots up.
   
   或打开运行（<kbd>Win</kbd> + <kbd>R</kbd>），输入： `shell:startup` ，回车，直接打开启动文件夹
 
-Close 关闭：
+Close 关闭
 ----
-Using Task Manage to select "SmartTaskbar", then click on the End Task button.
+Using Task Manage to find and select `SmartTaskbar_xxx.exe`, then click on the End Task button to stop it.
 
-  使用任务管理器找到并选中“SmartTaskbar”，点击结束任务
+  使用任务管理器找到并选中`SmartTaskbar_xxx.exe`，点击结束任务关闭
 
-Uninstall 卸载：
+Uninstall 卸载
 ----
 Delete the program file to uninstall.
 
   删除程序文件即可卸载
 
-Known Issues 已知问题：
+Known Issues 已知问题
 ----
 * Windows 10 version cannot autohide or display automatically based on UWP window state.
 
