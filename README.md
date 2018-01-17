@@ -5,6 +5,7 @@ SmartTaskbar
   SmartTaskbar是一个能自动切换Windows任务栏显示状态的小程序
   
 ![img](https://github.com/ChanpleCai/SmartTaskbar/blob/master/demo/Open_Close.gif)
+
 Features 功能
 -----
 * It will set the Taskbar to Auto-Hide mode when there is a maximized window exists (except UWP window)
@@ -38,7 +39,6 @@ Installation 安装
     * The program does't support the Windows Vista and earlier system
       
       该程序不支持Windows Vista及以下系统
-    
 * Double-click the download file and the program will auto run
 
   双击程序即可运行
@@ -51,9 +51,9 @@ Copy the program to the startup folder, it will autostart after system boots up
 * Drag the file directly into the Startup.lnk shortcut
   
   直接拖拽进Startup.lnk快捷方式
-* Or you can open the start up folder by use the `shell:startup` command in 'Win+R' form,then copy the file to the folder
-
-  或win+R运行 `shell:startup` 打开启动文件夹，将程序复制进去
+* Or you can directly access this folder, by open Run(<kbd>Win</kbd> + <kbd>R</kbd>), type `shell:startup` and hit Enter.
+  
+  或打开运行（<kbd>Win</kbd> + <kbd>R</kbd>），输入： `shell:startup` ，回车，直接打开启动文件夹
 
 Close 关闭：
 ----
