@@ -1,5 +1,5 @@
 SmartTaskbar
------
+===
 * SmartTaskbar is a tiny program which can automatically switch the state of the display options of the Windows Taskbar
 
   SmartTaskbar是一个能自动切换Windows任务栏显示状态的小程序
