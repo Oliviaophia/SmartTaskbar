@@ -1,18 +1,18 @@
 SmartTaskbar
 ===
-* SmartTaskbar is a tiny program which can automatically switch the state of the display options of the Windows Taskbar
+* SmartTaskbar is a small program which can switch the display state of the Windows Taskbar automatically
 
   SmartTaskbar是一个能自动切换Windows任务栏显示状态的小程序
 
 Features 功能
 -----
-* It will set the Taskbar to Auto-Hide mode when maximized window exist (UWP window exception)
+* It can set the Taskbar to Auto-Hide mode when the maximized window exists (UWP window exception)
 
   当有窗体最大化时（UWP除外），它会使任务栏自动隐藏
-* It will show the taskbar automatically if there is not any maximized window (UWP window exception)
+* It can show the taskbar automatically if there is without maximized window (UWP window exception)
 
   当没有窗体最大化时（UWP除外），它会自动使任务栏显示
-* It won't changed the state of the Taskbar when the mouse over it
+* It can't changed the state of the Taskbar when the mouse over it
 
   当有鼠标悬停在任务栏上方时，不改变任务栏状态
 
