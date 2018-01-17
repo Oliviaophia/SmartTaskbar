@@ -80,9 +80,9 @@ Known Issues 已知问题
 * The program may not work properly when using multiple monitors.
 
   在使用多显示屏时不能正常工作
-* If the program can't start because `VCRUNTIME140.dll` is missing. Please [download the Microsoft Visual C++ Redistributable  Packages](https://support.microsoft.com/en-us/help/2977003/the-latest-supported-visual-c-downloads)
+* If the program can't start and show the error message that `VCRUNTIME140.dll` is missing. Please [download and install the Microsoft Visual C++ Redistributable  Packages](https://support.microsoft.com/en-us/help/2977003/the-latest-supported-visual-c-downloads)
 
-  如果提示缺失`VCRUNTIME140.dll`无法运行，请[下载对应版本的VC++运行库](https://support.microsoft.com/zh-cn/help/2977003/the-latest-supported-visual-c-downloads)
+  如果提示缺失`VCRUNTIME140.dll`无法运行，请[下载并安装VC++运行库](https://support.microsoft.com/zh-cn/help/2977003/the-latest-supported-visual-c-downloads)
 
 Build 构建
 -----
