@@ -36,7 +36,7 @@ Autostart 开机自启
 * 或win+R运行 `shell:startup` 打开启动文件夹，将程序复制进去
 
 
-### Exit 结束程序
+Exit 结束程序
 -----
 * Go to the task manager details page, locate and select the program named `SmartTaskbar` or` SmartTaskbarWin10` and click 'end task'
 * 进入任务管理器详细信息页，找到并选中名为`SmartTaskbar`或`SmartTaskbarWin10`的程序，点击结束任务
