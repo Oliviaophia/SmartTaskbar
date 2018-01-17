@@ -1,6 +1,6 @@
 SmartTaskbar
 ===
-* SmartTaskbar is a small program which can automatically switch the display state of the Windows Taskbar 
+* SmartTaskbar is a small program which can automatically switch the display state of the Windows Taskbar.
 
   SmartTaskbar是一个能自动切换Windows任务栏显示状态的小程序
   
@@ -8,13 +8,13 @@ SmartTaskbar
 
 Features 功能
 -----
-* It will set the Taskbar to Auto-Hide mode when there is a maximized window exists (except UWP window)
+* It will set the Taskbar to Auto-Hide mode when there is a maximized window exists (except UWP window).
 
   当有窗体最大化时（UWP除外），它会使任务栏自动隐藏
-* Without maximized window (except UWP window)， the Taskbar will display automatically 
+* Without maximized window (except UWP window)， the Taskbar will display automatically.
 
   当没有窗体最大化时（UWP除外），它会自动使任务栏显示
-* It won't changed the state of the Taskbar with the mouse hovered over it
+* It won't changed the state of the Taskbar with the mouse hovered over it.
 
   当有鼠标悬停在任务栏上方时，不改变任务栏状态
 
@@ -24,55 +24,56 @@ Installation 安装
 
   首先从[releases](https://github.com/ChanpleCai/SmartTaskbar/releases)下载对应版本：
 
-    * Choose the 32-bit version or the 64-bit version depend on your X32 or X64 version of Windows
+    * Choose the 32-bit version or the 64-bit version depend on your X32 or X64 version of Windows.
       
       32位Windows请下载x86版本，64位Windows请下载x64版本
       
-    * Please download the `martTaskbar_xxx.exe` if your operation system is win8.1 or earlier
+    * Please download the `martTaskbar_xxx.exe` if your operation system is win8.1 or earlier.
       
       win8.1及以前的系统请下载`SmartTaskbar_xxx.exe`
       
-    * Please download the `SmartTaskbarWin10_xxx.exe` if your operation system is win10
+    * Please download the `SmartTaskbarWin10_xxx.exe` if your operation system is win10.
       
       win10系统请下载`SmartTaskbarWin10_xxx.exe`
       
-    * The program does't support the Windows Vista and earlier system
+    * The program does't support the Windows Vista and earlier system.
       
       该程序不支持Windows Vista及以下系统
-* Double-click the download file and the program will auto run
+* Double-click the download file and the program will auto run.
 
   双击程序即可运行
 
 Autostart 开机自启
 -----
-Copy the program to the startup folder, it will autostart after system boots up
+Copy the program to the Startup folder, it will autostart after system boots up. The folder is located at `%AppData%\Microsoft\Windows\Start Menu\Programs\Startup`
 
-  复制程序到启动文件夹，即可开机启动
-* Drag the file directly into the Startup.lnk shortcut
+
+  复制程序到启动文件夹，即可开机启动。文件夹位于`%AppData%\Microsoft\Windows\Start Menu\Programs\Startup`
+* You can drag the program file directly into the [Startup.lnk](https://github.com/ChanpleCai/SmartTaskbar/releases/download/v1.0.0/Startup.lnk).
   
-  直接拖拽进Startup.lnk快捷方式
-* Or you can directly access this folder, by open Run(<kbd>Win</kbd> + <kbd>R</kbd>), type `shell:startup` and hit Enter.
+  你可以直接拖拽程序到[Startup.lnk](https://github.com/ChanpleCai/SmartTaskbar/releases/download/v1.0.0/Startup.lnk)
+* Or you can directly access this folder, by open Run( <kbd>Win</kbd> + <kbd>R</kbd> ), type `shell:startup` and hit Enter.
   
   或打开运行（<kbd>Win</kbd> + <kbd>R</kbd>），输入： `shell:startup` ，回车，直接打开启动文件夹
 
 Close 关闭：
 ----
-Using Task Manage to select "SmartTaskbar", then click on the End Task button
+Using Task Manage to select "SmartTaskbar", then click on the End Task button.
 
   使用任务管理器找到并选中“SmartTaskbar”，点击结束任务
 
 Uninstall 卸载：
 ----
-Delete the program file to uninstall
+Delete the program file to uninstall.
 
   删除程序文件即可卸载
 
 Known Issues 已知问题：
 ----
-* Windows 10 version cannot autohide or display automatically based on UWP window state
+* Windows 10 version cannot autohide or display automatically based on UWP window state.
 
   Windows 10版不能根据UWP窗体状态自动隐藏或显示
-* The program may not work properly when using multiple monitors
+* The program may not work properly when using multiple monitors.
 
   在使用多显示屏时不能正常工作
 * If the program can't start because `VCRUNTIME140.dll` is missing. Please [download the Microsoft Visual C++ Redistributable  Packages](https://support.microsoft.com/en-us/help/2977003/the-latest-supported-visual-c-downloads)
@@ -81,7 +82,7 @@ Known Issues 已知问题：
 
 Build 构建
 -----
-* Install Visual Studio 2017
+* Install Visual Studio 2017.
 
   安装Visual Studio 2017 
   
