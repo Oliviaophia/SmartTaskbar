@@ -41,7 +41,7 @@ Installation 安装
       该程序不支持Windows Vista及以前的系统
 * Double-click the `exe` file to run, the program will run in the background.
 
-  双击运行程序，它将自动在后台运行
+  双击`exe`运行程序，它将自动在后台运行
   
 * this program will only use very little system resources, you can forget it's existence after the installtion is complete.
 
