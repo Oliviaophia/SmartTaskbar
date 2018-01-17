@@ -1,18 +1,18 @@
 SmartTaskbar
 -----
-* SmartTaskbar is a tiny program which can automatically switch the state of the display options of Windows
+* SmartTaskbar is a tiny program which can automatically switch the state of the display options of the Windows Taskbar
 
-  SmartTaskbar是一个能自动切换Windows显示状态的小程序
+  SmartTaskbar是一个能自动切换Windows任务栏显示状态的小程序
 
 Features 功能
 -----
-* It can hide the taskbar automatically when a form is in maximized
+* It will set the Taskbar to Auto-Hide mode when maximized window exist (UWP window exception)
 
-  当有窗体最大化时，它会自动使任务栏隐藏
-* It will show the taskbar automatically if there is not a form in maximized
+  当有窗体最大化时（UWP除外），它会使任务栏自动隐藏
+* It will show the taskbar automatically if there is not any maximized window (UWP window exception)
 
-  当没有窗体最大化时，它会自动使任务栏显示
-* It won't changed the state of taskbar when the mouse 
+  当没有窗体最大化时（UWP除外），它会自动使任务栏显示
+* It won't changed the state of the Taskbar when the mouse over it
 
   当有鼠标悬停在任务栏上方时，不改变任务栏状态
 
@@ -24,15 +24,19 @@ Installation 安装
 
     * Choose the 32-bit version or the 64-bit version depend on your X32 or X64 version of Windows
       
-      32位Windows下载x86版本，64位Windows下载x64版本
+      32位Windows请下载x86版本，64位Windows请下载x64版本
       
-    * Please download the `martTaskbar_xxx.exe` if your operation system is win8.1 or the olders
+    * Please download the `martTaskbar_xxx.exe` if your operation system is win8.1 or earlier
       
-      win10以前的系统下载`SmartTaskbar_xxx.exe`
+      win8.1及以前的系统请下载`SmartTaskbar_xxx.exe`
       
     * Please download the `SmartTaskbarWin10_xxx.exe` if your operation system is win10
       
-      win10系统下载`SmartTaskbarWin10_xxx.exe`
+      win10系统请下载`SmartTaskbarWin10_xxx.exe`
+      
+    * The program does't support the Windows Vista and earlier system
+      
+      该程序不支持Windows Vista及以下系统
     
 * Double-click the download file and the program will auto run
 
@@ -58,9 +62,9 @@ Using Task Manage to select "SmartTaskbar", then click on the End Task button
 
 Uninstall 卸载：
 ----
-Delete the file to uninstall
+Delete the program file to uninstall
 
-  删除文件即可卸载
+  删除程序文件即可卸载
 
 Known Issues 已知问题：
 ----
