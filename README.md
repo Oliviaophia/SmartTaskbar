@@ -9,7 +9,7 @@ Features 功能
 * It can set the Taskbar to Auto-Hide mode when the maximized window exists (UWP window exception)
 
   当有窗体最大化时（UWP除外），它会使任务栏自动隐藏
-* It can show the taskbar automatically if there is without maximized window (UWP window exception)
+* The Taskbar also can display automatically if there is without maximized window (UWP window exception)
 
   当没有窗体最大化时（UWP除外），它会自动使任务栏显示
 * It can't changed the state of the Taskbar when the mouse over it
