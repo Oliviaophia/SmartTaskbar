@@ -1,15 +1,16 @@
 SmartTaskbar
-===
-SmartTaskbar是一个能自动切换Windows显示状态的小程序
+-----
+* SmartTaskbar is a tiny program which can automatically switch the state of the display options of Windows
+* SmartTaskbar是一个能自动切换Windows显示状态的小程序
 
 Features 功能
-----
+-----
 * 当有窗体最大化时，它会自动使任务栏隐藏
 * 当没有窗体最大化时，它会自动使任务栏显示
 * 当有鼠标悬停在任务栏上方时，不改变任务栏状态
 
 Installation 安装
-----
+-----
 首先从[releases](https://github.com/ChanpleCai/SmartTaskbar/releases)下载对应版本
 
     32位Windows下载x86版本，64位Windows下载x64版本
@@ -19,22 +20,26 @@ Installation 安装
 双击程序即可运行
 
 ### Autostart 开机自启
-
-下载完成后，将文件复制到启动文件夹
+-----
+* 下载完成后，将文件复制到启动文件夹
 * 直接拖拽进Startup.lnk快捷方式
 * 或win+R运行 `shell:startup` 打开启动文件夹，将程序复制进去
 
 ### Exit 结束程序
 
-进入任务管理器详细信息页，找到并选中名为`SmartTaskbar`或`SmartTaskbarWin10`的程序，点击结束任务
+
+* 进入任务管理器详细信息页，找到并选中名为`SmartTaskbar`或`SmartTaskbarWin10`的程序，点击结束任务
 
 Uninstall 卸载
 ----
-直接删除程序文件即可卸载
+* It can be uninstall in short by delete the programming file 
+* 直接删除程序文件即可卸载
 
 Known Issues 已知问题
 -----
+* It can not change the status of taskbar based on the UWP form
 * 不能根据UWP窗体的状态改变任务栏状态
+* It can not work normally in Multi-monitor
 * 在多显示器下不能正常工作
 
 Build 构建
