@@ -19,7 +19,7 @@ Features 功能
 
 Installation 安装
 -----
-* To begin with, you should select the version that correspond your operation system:
+* Download `SmartTaskbar_xxx.exe` from [releases](https://github.com/ChanpleCai/SmartTaskbar/releases). Select the version that correspond your operation system:
 
   首先从[releases](https://github.com/ChanpleCai/SmartTaskbar/releases)下载对应版本：
 
