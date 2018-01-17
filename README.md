@@ -14,7 +14,7 @@ Features 功能
 * Without maximized window (except UWP window)， the Taskbar will display automatically.
 
   当没有窗体最大化时（UWP除外），它会自动使任务栏显示
-* The Taskbar won't changed the display state when the mouse hovered over it.
+* The Taskbar won't change the display state when the mouse hovered over it.
 
   当有鼠标悬停在任务栏上方时，不改变任务栏状态
 
