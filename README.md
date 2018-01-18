@@ -28,22 +28,22 @@ Installation 安装
       
       32位Windows请下载x86版本，64位Windows请下载x64版本
       
-    * If your operating system is win8.1 or the version before win8.1, please download the `martTaskbar_xxx.exe` .
+    * `martTaskbar_xxx.exe` for win8.1 or earlier system.
       
       win8.1及以前的系统请下载`SmartTaskbar_xxx.exe`
       
-    * For win10, then download the `SmartTaskbarWin10_xxx.exe` .
+    * `SmartTaskbarWin10_xxx.exe` for win10.
       
       win10系统请下载`SmartTaskbarWin10_xxx.exe`
       
-    * The Windows Vista and earlier system would not be support.
+    * The Windows Vista and earlier system would not be supported.
       
       该程序不支持Windows Vista及以前的系统
-* Double-click the `exe` file to run, the program will running in the background.
+* Double-click the `exe` file to run the program, and it will automatically run in the background.
 
   双击`exe`运行程序，它将自动在后台运行
   
-* This program will only use very little system resources, you can forget it's existence after the installtion is complete.
+* This program takes few resources so that you can forget its existence after the installtion.
 
   该程序只会占用极少的系统资源，安装完成后便可以忘记它的存在
   
