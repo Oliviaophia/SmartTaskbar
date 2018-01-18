@@ -24,7 +24,7 @@ Installation 安装
 
   首先从[releases](https://github.com/ChanpleCai/SmartTaskbar/releases)下载对应版本：
 
-    * For 32-bit operating system please download x86 version, for 64-bit operating system please download the x64 version.
+    * x86 version for 32-bit operating system, x64 version for 64-bit operating system.
       
       32位Windows请下载x86版本，64位Windows请下载x64版本
       
