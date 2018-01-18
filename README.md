@@ -10,19 +10,19 @@ SmartTaskbar
 
 Features 功能
 -----
-* It will set the Taskbar to Auto-Hide mode when there is a maximized window exists (except UWP window).
+* It will set the Taskbar to Auto-Hide mode when a maximized window exists (except UWP window).
 
   当有窗体最大化时（UWP除外），它会使任务栏自动隐藏
 * Without maximized window (except UWP window)， the Taskbar will display automatically.
 
   当没有窗体最大化时（UWP除外），它会自动使任务栏显示
-* The Taskbar won't change the display state when the mouse hovered over it.
+* The Taskbar won't change the display state as the mouse hovering over it.
 
   当有鼠标悬停在任务栏上方时，不改变任务栏状态
 
 Installation 安装
 -----
-* Download `SmartTaskbar_xxx.exe` from [releases](https://github.com/ChanpleCai/SmartTaskbar/releases). Select the version that suit your operating system:
+* Download `SmartTaskbar_xxx.exe` from [releases](https://github.com/ChanpleCai/SmartTaskbar/releases). Select the version that suits your operating system:
 
   首先从[releases](https://github.com/ChanpleCai/SmartTaskbar/releases)下载对应版本：
 
