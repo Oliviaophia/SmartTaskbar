@@ -43,7 +43,7 @@ Installation 安装
 
   双击`exe`运行程序，它将自动在后台运行
   
-* this program will only use very little system resources, you can forget it's existence after the installtion is complete.
+* This program will only use very little system resources, you can forget it's existence after the installtion is complete.
 
   该程序只会占用极少的系统资源，安装完成后便可以忘记它的存在
   
