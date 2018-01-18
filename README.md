@@ -4,7 +4,7 @@ SmartTaskbar
 
   SmartTaskbar是一个能自动切换Windows任务栏显示状态的小程序
   
-![img](https://github.com/ChanpleCai/SmartTaskbar/blob/master/demo/Open_Close.gif)
+![img](https://github.com/ChanpleCai/SmartTaskbar/blob/master/demo/Hide_Show.gif)
 
 Features 功能
 -----
@@ -94,7 +94,7 @@ Demo 演示
 ----
 ![img](https://github.com/ChanpleCai/SmartTaskbar/blob/master/demo/Open_Close2.gif)
 
-![img](https://github.com/ChanpleCai/SmartTaskbar/blob/master/demo/Hide_Show.gif)
+![img](https://github.com/ChanpleCai/SmartTaskbar/blob/master/demo/Open_Close.gif)
 
 ![img](https://github.com/ChanpleCai/SmartTaskbar/blob/master/demo/Maximize_Button.gif)
 
