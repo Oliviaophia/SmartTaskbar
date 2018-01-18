@@ -20,7 +20,7 @@ Features 功能
 
 Installation 安装
 -----
-* Download `SmartTaskbar_xxx.exe` from [releases](https://github.com/ChanpleCai/SmartTaskbar/releases). Select the version that correspond your operation system:
+* Download `SmartTaskbar_xxx.exe` from [releases](https://github.com/ChanpleCai/SmartTaskbar/releases). Select the version that suit your operation system:
 
   首先从[releases](https://github.com/ChanpleCai/SmartTaskbar/releases)下载对应版本：
 
@@ -28,18 +28,18 @@ Installation 安装
       
       32位Windows请下载x86版本，64位Windows请下载x64版本
       
-    * if your operation system is win8.1 or earlier, please download the `martTaskbar_xxx.exe` .
+    * If your operation system is win8.1 or the version before win8.1, please download the `martTaskbar_xxx.exe` .
       
       win8.1及以前的系统请下载`SmartTaskbar_xxx.exe`
       
-    * if your are using win10, then download the `SmartTaskbarWin10_xxx.exe` .
+    * For win10, then download the `SmartTaskbarWin10_xxx.exe` .
       
       win10系统请下载`SmartTaskbarWin10_xxx.exe`
       
-    * The program does't support the Windows Vista and earlier system.
+    * The Windows Vista and earlier system would not be support.
       
       该程序不支持Windows Vista及以前的系统
-* Double-click the `exe` file to run, the program will run in the background.
+* Double-click the `exe` file to run, the program will running in the background.
 
   双击`exe`运行程序，它将自动在后台运行
   
