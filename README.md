@@ -20,7 +20,7 @@ Features 功能
 
 Installation 安装
 -----
-* Download `SmartTaskbar_xxx.exe` from [releases](https://github.com/ChanpleCai/SmartTaskbar/releases). Select the version that suit your operation system:
+* Download `SmartTaskbar_xxx.exe` from [releases](https://github.com/ChanpleCai/SmartTaskbar/releases). Select the version that suit your operating system:
 
   首先从[releases](https://github.com/ChanpleCai/SmartTaskbar/releases)下载对应版本：
 
@@ -28,7 +28,7 @@ Installation 安装
       
       32位Windows请下载x86版本，64位Windows请下载x64版本
       
-    * If your operation system is win8.1 or the version before win8.1, please download the `martTaskbar_xxx.exe` .
+    * If your operating system is win8.1 or the version before win8.1, please download the `martTaskbar_xxx.exe` .
       
       win8.1及以前的系统请下载`SmartTaskbar_xxx.exe`
       
