@@ -51,11 +51,11 @@ Installation 安装
   
 Autostart 开机自启
 -----
-Copy the program file to the Startup folder, it will autostart after system boots up. The folder is located at `%AppData%\Microsoft\Windows\Start Menu\Programs\Startup`
+To make this application autostart you need to copy the `exe` file into the Startup folder, which is located at %AppData%\Microsoft\Windows\Start Menu\Programs\Startup
 
 
   复制程序到启动文件夹，即可开机启动。文件夹位于`%AppData%\Microsoft\Windows\Start Menu\Programs\Startup`
-* You can drag the program file directly into the [Startup.lnk](https://github.com/ChanpleCai/SmartTaskbar/releases/download/v1.0.0/Startup.lnk).
+* You can drag the `exe` file directly into the [Startup.lnk](https://github.com/ChanpleCai/SmartTaskbar/releases/download/v1.0.0/Startup.lnk).
   
   你可以直接拖拽程序到[Startup.lnk](https://github.com/ChanpleCai/SmartTaskbar/releases/download/v1.0.0/Startup.lnk)
 * Or you can directly access this folder, by open Run( <kbd>Win</kbd> + <kbd>R</kbd> ), type `shell:startup` and hit Enter.
