@@ -51,7 +51,7 @@ Installation 安装
   
 Autostart 开机自启
 -----
-To make this application autostart you need to copy the `exe` file into the Startup folder, which is located at %AppData%\Microsoft\Windows\Start Menu\Programs\Startup
+To make this application autostart you need to copy the `exe` file into the Startup folder. The folder is located at %AppData%\Microsoft\Windows\Start Menu\Programs\Startup
 
 
   复制程序到启动文件夹，即可开机启动。文件夹位于`%AppData%\Microsoft\Windows\Start Menu\Programs\Startup`
