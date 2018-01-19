@@ -2,7 +2,7 @@ SmartTaskbar
 ===
 [![GitHub version](https://badge.fury.io/gh/ChanpleCai%2FSmartTaskbar.svg)](https://badge.fury.io/gh/ChanpleCai%2FSmartTaskbar)
 [![Github All Releases](https://img.shields.io/github/downloads/ChanpleCai/SmartTaskbar/total.svg)](https://github.com/ChanpleCai/SmartTaskbar/releases)
-* SmartTaskbar is a small program which can automatically switch the display state of the Windows Taskbar.
+* SmartTaskbar is a small application which can automatically switch the display state of the Windows Taskbar.
 
   SmartTaskbar是一个能自动切换Windows任务栏显示状态的小程序
   
@@ -41,17 +41,17 @@ Installation 安装
     * The Windows Vista and earlier system are not supported.
       
       该程序不支持Windows Vista及以前的系统
-* Double-click the `exe` file to run the program, and it will automatically run in the background.
+* Double-click the `exe` file and it will automatically run in the background.
 
   双击`exe`运行程序，它将自动在后台运行
   
-* This program takes few resources so that you can forget its existence after the installation.
+* This application takes few resources so that you can forget its existence after the installation.
 
   该程序只会占用极少的系统资源，安装完成后便可以忘记它的存在
   
 Autostart 开机自启
 -----
-Copy the program to the Startup folder, it will autostart after system boots up. The folder is located at `%AppData%\Microsoft\Windows\Start Menu\Programs\Startup`
+Copy the program file to the Startup folder, it will autostart after system boots up. The folder is located at `%AppData%\Microsoft\Windows\Start Menu\Programs\Startup`
 
 
   复制程序到启动文件夹，即可开机启动。文件夹位于`%AppData%\Microsoft\Windows\Start Menu\Programs\Startup`
@@ -79,10 +79,10 @@ Known Issues 已知问题
 * Windows 10 version cannot autohide or display automatically based on UWP window state.
 
   Windows 10版不能根据UWP窗体状态自动隐藏或显示
-* The program may not work properly when using multiple monitors.
+* When using multiple monitors, this application may not work correctly.
 
   在使用多显示屏时不能正常工作
-* If the program can't start and show the error message that `VCRUNTIME140.dll` is missing. Please [download and install the Microsoft Visual C++ Redistributable  Packages](https://support.microsoft.com/en-us/help/2977003/the-latest-supported-visual-c-downloads)
+* If the application can't start and show the error message that `VCRUNTIME140.dll` is missing. Please [download and install the Microsoft Visual C++ Redistributable  Packages](https://support.microsoft.com/en-us/help/2977003/the-latest-supported-visual-c-downloads)
 
   如果提示缺失`VCRUNTIME140.dll`无法运行，请[下载并安装VC++运行库](https://support.microsoft.com/zh-cn/help/2977003/the-latest-supported-visual-c-downloads)
 
