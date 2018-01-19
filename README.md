@@ -38,9 +38,9 @@ Installation 安装
       
       win10系统请下载`SmartTaskbarWin10_xxx.exe`
       
-    * The Windows Vista and earlier system are not supported.
+    * The Windows Vista or earlier system do not support this application.
       
-      该程序不支持Windows Vista及以前的系统
+      Windows Vista及以前的系统不支持该程序
 * Double-click the `exe` file and it will automatically run in the background.
 
   双击`exe`运行程序，它将自动在后台运行
@@ -86,7 +86,7 @@ Known Issues 已知问题
 
   如果提示缺失`VCRUNTIME140.dll`无法运行，请[下载并安装VC++运行库](https://support.microsoft.com/zh-cn/help/2977003/the-latest-supported-visual-c-downloads)
 
-Build 构建
+Build 生成
 -----
 * Install Visual Studio 2017.
 
