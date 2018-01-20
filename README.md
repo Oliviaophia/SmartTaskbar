@@ -38,9 +38,6 @@ Installation 安装
       
       win10系统请下载`SmartTaskbarWin10_xxx.exe`
       
-    * The Windows Vista or earlier system do not support this application.
-      
-      Windows Vista及以前的系统不支持该程序
 * Double-click the `exe` file and it will automatically run in the background.
 
   双击`exe`运行程序，它将自动在后台运行
