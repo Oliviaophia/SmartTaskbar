@@ -79,9 +79,6 @@ Known Issues 已知问题
 * When using multiple monitors, this application may not work correctly.
 
   在使用多显示屏时不能正常工作
-* If the application can't start and popup the error message that "`VCRUNTIME140.dll` is missing". Please [download and install the Microsoft Visual C++ Redistributable  Packages](https://support.microsoft.com/en-us/help/2977003/the-latest-supported-visual-c-downloads)
-
-  如果提示缺失`VCRUNTIME140.dll`无法运行，请[下载并安装VC++运行库](https://support.microsoft.com/zh-cn/help/2977003/the-latest-supported-visual-c-downloads)
 
 Build 生成
 -----
