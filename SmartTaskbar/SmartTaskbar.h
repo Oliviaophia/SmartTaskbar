@@ -1,6 +1,5 @@
 #pragma once
 
-
 APPBARDATA msgData;
 
 WINDOWPLACEMENT placement;
@@ -12,7 +11,6 @@ POINT cursor;
 bool tryShowBar;
 
 bool isWin10;
-
 
 BOOL EnumWindowsProc(HWND hwnd, LPARAM lParam);
 
