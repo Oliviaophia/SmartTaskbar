@@ -12,8 +12,6 @@ bool tryShowBar;
 
 bool isWin10;
 
-BOOL EnumWindowsProc(HWND hwnd, LPARAM lParam);
-
 bool IsCursorOverTaskbar();
 
 DWORD uwpPID;
