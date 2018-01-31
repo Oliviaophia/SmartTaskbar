@@ -24,7 +24,7 @@ Installation 安装
 -----
 * Download `SmartTaskbar_Setup.exe` from [releases](https://github.com/ChanpleCai/SmartTaskbar/releases). 
 
-  首先从[releases](https://github.com/ChanpleCai/SmartTaskbar/releases)下载安装程序
+  从[releases](https://github.com/ChanpleCai/SmartTaskbar/releases)下载安装程序
   
 * This application takes few resources so that you can forget its existence after the installation.
 
