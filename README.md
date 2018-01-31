@@ -22,54 +22,19 @@ Features 功能
 
 Installation 安装
 -----
-* Download `SmartTaskbar_xxx.exe` from [releases](https://github.com/ChanpleCai/SmartTaskbar/releases). Select the version that suits your operating system:
+* Download `SmartTaskbar_Setup.exe` from [releases](https://github.com/ChanpleCai/SmartTaskbar/releases). 
 
-  首先从[releases](https://github.com/ChanpleCai/SmartTaskbar/releases)下载对应版本：
-
-    * x86 version for the 32-bit operating system, x64 version for the 64-bit operating system.
-      
-      32位Windows请下载x86版本，64位Windows请下载x64版本
-      
-    * `SmartTaskbar_xxx.exe` for win8.1 or earlier system.
-      
-      win8.1及以前的系统请下载`SmartTaskbar_xxx.exe`
-      
-    * `SmartTaskbarWin10_xxx.exe` for win10.
-      
-      win10系统请下载`SmartTaskbarWin10_xxx.exe`
-      
-* Double-click the `exe` file and it will automatically run in the background.
-
-  双击`exe`运行程序，它将自动在后台运行
+  首先从[releases](https://github.com/ChanpleCai/SmartTaskbar/releases)下载安装程序
   
 * This application takes few resources so that you can forget its existence after the installation.
 
   该程序只会占用极少的系统资源，安装完成后便可以忘记它的存在
-  
-Autostart 开机自启
------
-To make this application autostart you need to copy the `exe` file into the Startup folder. The folder is located at %AppData%\Microsoft\Windows\Start Menu\Programs\Startup
-
-
-  复制程序到启动文件夹，即可开机启动。文件夹位于`%AppData%\Microsoft\Windows\Start Menu\Programs\Startup`
-* You can drag the `exe` file directly into the [Startup.lnk](https://github.com/ChanpleCai/SmartTaskbar/releases/download/v1.0.0/Startup.lnk).
-  
-  你可以直接拖拽程序到[Startup.lnk](https://github.com/ChanpleCai/SmartTaskbar/releases/download/v1.0.0/Startup.lnk)
-* Or you can directly access this folder, by open Run( <kbd>Win</kbd> + <kbd>R</kbd> ), type `shell:startup` and hit Enter.
-  
-  或打开运行（<kbd>Win</kbd> + <kbd>R</kbd>），输入： `shell:startup` ，回车，直接打开启动文件夹
 
 Close 关闭
 ----
 Using Task Manage to find and select `SmartTaskbar_xxx.exe`, then click on the End Task button to stop it.
 
   使用任务管理器找到并选中`SmartTaskbar_xxx.exe`，点击结束任务关闭
-
-Uninstall 卸载
-----
-Delete the program file to uninstall.
-
-  删除程序文件即可卸载
 
 Known Issues 已知问题
 ----
