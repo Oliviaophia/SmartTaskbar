@@ -26,9 +26,13 @@ Installation 安装
 
   从[releases](https://github.com/ChanpleCai/SmartTaskbar/releases)下载安装程序
   
-* This application takes few resources so that you can forget its existence after the installation.
+* The program will start running in the background after the installtion.
 
-  该程序只会占用极少的系统资源，安装完成后便可以忘记它的存在
+  安装完成后，程序会自动在后台运行
+  
+* This application takes few resources so that you can forget its existence.
+
+  该程序只会占用极少的系统资源，你可以忘记它的存在
 
 Close 关闭
 ----
