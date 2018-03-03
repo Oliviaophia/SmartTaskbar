@@ -74,6 +74,7 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="Resource.de-DE.resx" />
     <EmbeddedResource Include="Resource.en-US.resx" />
     <EmbeddedResource Include="Resource.zh-CN.resx" />
     <EmbeddedResource Include="Resource_Icon.resx">

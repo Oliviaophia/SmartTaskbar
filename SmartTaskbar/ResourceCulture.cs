@@ -11,8 +11,18 @@ namespace SmartTaskbar
 
         public ResourceCulture()
         {
-            if (!Thread.CurrentThread.CurrentUICulture.Name.Equals("zh-CN"))
-                Thread.CurrentThread.CurrentUICulture = new CultureInfo("en-US");
+            switch (Thread.CurrentThread.CurrentUICulture.Name)
+            {
+                case "zh-CN":
+                    break;
+                case "en-US":
+                    break;
+                case "de-DE":
+                    break;
+                default:
+                    Thread.CurrentThread.CurrentUICulture = new CultureInfo("en-US");
+                    break;
+            }
             resourceManager = new ResourceManager("SmartTaskbar.Resource", Assembly.GetExecutingAssembly());
         }
 
