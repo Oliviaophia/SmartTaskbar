@@ -36,6 +36,10 @@ Installation 安装
 
   从[releases](https://github.com/ChanpleCai/SmartTaskbar/releases)下载安装程序
   
+* You need to install [.NET Framework 4.7.1](https://www.microsoft.com/net/download/dotnet-framework-runtime/net471?utm_source=getdotnet&utm_medium=referral) before Installtion. If the installation fails, please re-install after installing the Framework.
+
+  您需要在安装前，先安装[.NET Framework 4.7.1](https://www.microsoft.com/net/download/dotnet-framework-runtime/net471?utm_source=getdotnet&utm_medium=referral) 。如果安装失败，请在安装完框架后重新安装一次
+
 * If you do not like the GUI version of SmartTaskbar, you can download version v1.0.3 from [HERE](https://github.com/ChanpleCai/SmartTaskbar/releases/tag/v1.0.3).
 
   如果你不需要带GUI版本的Smartaskbar，可以在[这里](https://github.com/ChanpleCai/SmartTaskbar/releases/tag/v1.0.3)下载v1.0.3版本
