@@ -6,7 +6,7 @@ SmartTaskbar
 
   SmartTaskbar是一个能自动切换Windows任务栏显示状态的小程序
   
-![img](https://github.com/ChanpleCai/SmartTaskbar/blob/master/demo/Hide_Show.gif)
+![img](https://github.com/ChanpleCai/SmartTaskbar/blob/master/demo/Context_Menu.gif)
 
 Features 功能
 -----
@@ -14,7 +14,7 @@ Features 功能
 * Double-click the tray icon to switch the status of the taskbar between AlwaysOnTop Mode or Auto-Hide Mode.
 
   双击系统托盘可以快速切换任务栏的显示状态
-
+![img](https://github.com/ChanpleCai/SmartTaskbar/blob/master/demo/Double-click.gif)
 
 #### Auto Mode 自动模式
 
@@ -27,6 +27,8 @@ Features 功能
 * The Taskbar won't change the display state as the mouse hovering over it.
 
   当有鼠标悬停在任务栏上方时，不改变任务栏状态
+
+![img](https://github.com/ChanpleCai/SmartTaskbar/blob/master/demo/Hide_Show.gif)
 
 Installation 安装
 -----
@@ -63,6 +65,7 @@ Build 生成
   
 Demo 演示
 ----
+
 ![img](https://github.com/ChanpleCai/SmartTaskbar/blob/master/demo/Open_Close2.gif)
 
 ![img](https://github.com/ChanpleCai/SmartTaskbar/blob/master/demo/Open_Close.gif)
