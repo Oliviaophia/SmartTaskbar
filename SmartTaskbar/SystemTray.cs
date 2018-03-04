@@ -22,17 +22,20 @@ namespace SmartTaskbar
             about.Click += (s, e) => Process.Start("https://github.com/ChanpleCai/SmartTaskbar");
             auto = new ToolStripMenuItem
             {
-                Text = resource.GetString("auto")
+                Text = resource.GetString("auto"),
+                Name = "auto"
             };
             auto.Click += Auto_Click;
             show = new ToolStripMenuItem
             {
-                Text = resource.GetString("show")
+                Text = resource.GetString("show"),
+                Name = "show"
             };
             show.Click += Show_Click;
             hide = new ToolStripMenuItem
             {
-                Text = resource.GetString("hide")
+                Text = resource.GetString("hide"),
+                Name = "hide"
             };
             hide.Click += Hide_Click;
             exit = new ToolStripMenuItem
@@ -59,12 +62,14 @@ namespace SmartTaskbar
                 Visible = true
             };
             notifyIcon.Click += NotifyIcon_Click;
+            notifyIcon.MouseDoubleClick += NotifyIcon_MouseDoubleClick;
             switch (Settings.Default.TaskbarState)
             {
-                case 0:
+                case "auto":
+                    switcher.Start();
                     auto.Checked = true;
                     break;
-                case 1:
+                case "hide":
                     hide.Checked = true;
                     break;
                 default:
@@ -73,27 +78,37 @@ namespace SmartTaskbar
             }
         }
 
+        private void NotifyIcon_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            if (switcher.IsHide())
+            {
+                switcher.Show();
+                RadioChecked(ref show);
+            }
+            else
+            {
+                switcher.Hide();
+                RadioChecked(ref hide);
+            }
+        }
+
         private void NotifyIcon_Click(object sender, EventArgs e)
         {
             switch (Settings.Default.TaskbarState)
             {
-                case 0:
+                case "auto":
                     switcher.Resume();
                     break;
-                case 1:
+                case "hide":
                     if (switcher.IsHide() == false)
                     {
                         RadioChecked(ref show);
-                        Settings.Default.TaskbarState = 2;
-                        Settings.Default.Save();
                     }
                     break;
                 default:
                     if (switcher.IsHide())
                     {
                         RadioChecked(ref hide);
-                        Settings.Default.TaskbarState = 1;
-                        Settings.Default.Save();
                     }
                     break;
             }
@@ -105,8 +120,6 @@ namespace SmartTaskbar
                 return;
             switcher.Hide();
             RadioChecked(ref hide);
-            Settings.Default.TaskbarState = 1;
-            Settings.Default.Save();
         }
 
         private void Show_Click(object sender, EventArgs e)
@@ -115,8 +128,6 @@ namespace SmartTaskbar
                 return;
             switcher.Show();
             RadioChecked(ref show);
-            Settings.Default.TaskbarState = 2;
-            Settings.Default.Save();
         }
 
         private void Auto_Click(object sender, EventArgs e)
@@ -125,13 +136,13 @@ namespace SmartTaskbar
                 return;
             switcher.Start();
             RadioChecked(ref auto);
-            Settings.Default.TaskbarState = 0;
-            Settings.Default.Save();
         }
 
         private void RadioChecked(ref ToolStripMenuItem tool)
         {
             auto.Checked = show.Checked = hide.Checked = false;
+            Settings.Default.TaskbarState = tool.Name;
+            Settings.Default.Save();
             tool.Checked = true;
         }
 

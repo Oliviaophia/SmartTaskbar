@@ -5,8 +5,8 @@
     <Setting Name="SwitcherVersion" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">0</Value>
     </Setting>
-    <Setting Name="TaskbarState" Type="System.Int32" Scope="User">
-      <Value Profile="(Default)">0</Value>
+    <Setting Name="TaskbarState" Type="System.String" Scope="User">
+      <Value Profile="(Default)">auto</Value>
     </Setting>
   </Settings>
 </SettingsFile>

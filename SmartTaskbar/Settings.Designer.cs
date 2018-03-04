@@ -37,10 +37,10 @@ namespace SmartTaskbar {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("0")]
-        public int TaskbarState {
+        [global::System.Configuration.DefaultSettingValueAttribute("auto")]
+        public string TaskbarState {
             get {
-                return ((int)(this["TaskbarState"]));
+                return ((string)(this["TaskbarState"]));
             }
             set {
                 this["TaskbarState"] = value;

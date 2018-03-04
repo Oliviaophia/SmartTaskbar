@@ -10,6 +10,7 @@ namespace SmartTaskbar
         private string switcherPath;
         private Process process;
         private APPBARDATA aPPBARDATA;
+        private bool isStop;
 
         public TaskbarSwitcher()
         {
@@ -40,8 +41,7 @@ namespace SmartTaskbar
             aPPBARDATA.cbSize = (uint)Marshal.SizeOf(aPPBARDATA);
             process = new Process();
             process.StartInfo.FileName = switcherPath;
-            if (Settings.Default.TaskbarState == 0)
-                Start();
+            isStop = true;
         }
 
         public void Hide()
@@ -60,7 +60,11 @@ namespace SmartTaskbar
 
         public bool IsHide() => SHAppBarMessage(GetState, ref aPPBARDATA) == 1 ? true : false;
 
-        public void Start() => process.Start();
+        public void Start()
+        {
+            isStop = false;
+            process.Start();
+        }
 
         public void Resume()
         {
@@ -68,8 +72,11 @@ namespace SmartTaskbar
                 Start();
         }
 
-        public void Stop()
+        private void Stop()
         {
+            if (isStop)
+                return;
+            isStop = true;
             try
             {
                 process.Kill();
