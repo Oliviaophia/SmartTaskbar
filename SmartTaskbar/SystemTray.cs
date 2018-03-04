@@ -42,7 +42,12 @@ namespace SmartTaskbar
             {
                 Text = resource.GetString("exit")
             };
-            exit.Click += (s, e) => Application.Exit();
+            exit.Click += (s, e) =>
+            {
+                switcher.Stop();
+                notifyIcon.Dispose();
+                Application.Exit();
+            };
             contextMenuStrip = new ContextMenuStrip();
             contextMenuStrip.Items.AddRange(new ToolStripItem[]
             {
@@ -144,11 +149,6 @@ namespace SmartTaskbar
             Settings.Default.TaskbarState = tool.Name;
             Settings.Default.Save();
             tool.Checked = true;
-        }
-
-        ~SystemTray()
-        {
-            notifyIcon.Dispose();
         }
     }
 }

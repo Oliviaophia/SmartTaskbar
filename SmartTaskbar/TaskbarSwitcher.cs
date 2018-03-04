@@ -73,7 +73,7 @@ namespace SmartTaskbar
                 Start();
         }
 
-        private void Stop()
+        public void Stop()
         {
             if (isStop)
                 return;
@@ -84,11 +84,6 @@ namespace SmartTaskbar
                 process.WaitForExit();
             }
             catch { }
-        }
-
-        ~TaskbarSwitcher()
-        {
-            Stop();
         }
     }
 }
