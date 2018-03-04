@@ -1,6 +1,6 @@
 //{{NO_DEPENDENCIES}}
 // Microsoft Visual C++ 生成的包含文件。
-// 供 SmartTaskbar.rc 使用
+// 供 TaskbarSwitcherWin10.rc 使用
 //
 #define IDI_ICON1                       101
 
