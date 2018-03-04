@@ -53,15 +53,19 @@ Known Issues 已知问题
 * Windows 10 version cannot autohide or display automatically based on UWP window state.
 
   Windows 10版不能根据UWP窗体状态自动隐藏或显示
-* When using multiple monitors, this application may not work correctly.
+* When using multiple monitors, Auto Mode may not work correctly.
 
-  在使用多显示屏时不能正常工作
+  在使用多显示屏时自动模式不能正确工作
 
 Build 生成
 -----
 * Install Visual Studio 2017.
 
   安装Visual Studio 2017 
+  
+* .NET Framework 4.7.1
+
+* Visual C++
   
 Demo 演示
 ----
