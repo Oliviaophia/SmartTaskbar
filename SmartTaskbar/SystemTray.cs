@@ -42,12 +42,7 @@ namespace SmartTaskbar
             {
                 Text = resource.GetString("exit")
             };
-            exit.Click += (s, e) =>
-            {
-                switcher.Stop();
-                notifyIcon.Dispose();
-                Application.Exit();
-            };
+            exit.Click += Exit_Click;
             contextMenuStrip = new ContextMenuStrip();
             contextMenuStrip.Items.AddRange(new ToolStripItem[]
             {
@@ -81,6 +76,13 @@ namespace SmartTaskbar
                     show.Checked = true;
                     break;
             }
+        }
+
+        private void Exit_Click(object sender, EventArgs e)
+        {
+            switcher.Stop();
+            notifyIcon.Dispose();
+            Application.Exit();
         }
 
         private void NotifyIcon_MouseDoubleClick(object sender, MouseEventArgs e)
