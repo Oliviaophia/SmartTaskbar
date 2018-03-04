@@ -14,6 +14,7 @@ Features 功能
 * Double-click the tray icon to switch the status of the taskbar between AlwaysOnTop Mode or Auto-Hide Mode.
 
   双击系统托盘可以快速切换任务栏的显示状态
+  
 ![img](https://github.com/ChanpleCai/SmartTaskbar/blob/master/demo/Double-click.gif)
 
 #### Auto Mode 自动模式
