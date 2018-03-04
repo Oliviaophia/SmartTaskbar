@@ -3,6 +3,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Runtime.InteropServices;
 using static SmartTaskbar.SafeNativeMethods;
+
 namespace SmartTaskbar
 {
     class TaskbarSwitcher
