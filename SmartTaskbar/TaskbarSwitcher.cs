@@ -20,7 +20,7 @@ namespace SmartTaskbar
             {
                 Settings.Default.SwitcherVersion = Environment.OSVersion.Version.Major.ToString() == "10" ? 1 : 3;
                 if (Environment.Is64BitOperatingSystem)
-                    Settings.Default.SwitcherVersion++;
+                    ++Settings.Default.SwitcherVersion;
                 Settings.Default.Save();
             }
             switch (Settings.Default.SwitcherVersion)
