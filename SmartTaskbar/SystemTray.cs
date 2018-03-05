@@ -15,35 +15,44 @@ namespace SmartTaskbar
         {
             switcher = new TaskbarSwitcher();
             ResourceCulture resource = new ResourceCulture();
+            System.Drawing.Font font = new System.Drawing.Font("Segoe UI", 9F);
             about = new ToolStripMenuItem
             {
-                Text = resource.GetString("about")
+                Text = resource.GetString("about"),
+                Font = font
             };
             about.Click += (s, e) => Process.Start("https://github.com/ChanpleCai/SmartTaskbar");
             auto = new ToolStripMenuItem
             {
                 Text = resource.GetString("auto"),
-                Name = "auto"
+                Name = "auto",
+                Font = font
             };
             auto.Click += Auto_Click;
             show = new ToolStripMenuItem
             {
                 Text = resource.GetString("show"),
-                Name = "show"
+                Name = "show",
+                Font = font
             };
             show.Click += Show_Click;
             hide = new ToolStripMenuItem
             {
                 Text = resource.GetString("hide"),
-                Name = "hide"
+                Name = "hide",
+                Font = font
             };
             hide.Click += Hide_Click;
             exit = new ToolStripMenuItem
             {
-                Text = resource.GetString("exit")
+                Text = resource.GetString("exit"),
+                Font = font
             };
             exit.Click += Exit_Click;
-            contextMenuStrip = new ContextMenuStrip();
+            contextMenuStrip = new ContextMenuStrip
+            {
+                Renderer = new Win10Renderer()
+            };
             contextMenuStrip.Items.AddRange(new ToolStripItem[]
             {
                 about,

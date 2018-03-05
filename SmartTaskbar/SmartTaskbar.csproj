@@ -71,6 +71,7 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
+    <Compile Include="Style.cs" />
     <Compile Include="SystemTray.cs" />
     <Compile Include="TaskbarSwitcher.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -82,9 +83,9 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="Resource.de-DE.resx" />
-    <EmbeddedResource Include="Resource.en-US.resx" />
-    <EmbeddedResource Include="Resource.zh-CN.resx" />
+    <EmbeddedResource Include="Languages\Resource.de-DE.resx" />
+    <EmbeddedResource Include="Languages\Resource.en-US.resx" />
+    <EmbeddedResource Include="Languages\Resource.zh-CN.resx" />
     <EmbeddedResource Include="Resource_Icon.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resource_Icon.Designer.cs</LastGenOutput>

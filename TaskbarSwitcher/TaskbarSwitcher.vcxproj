@@ -72,21 +72,21 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <OutDir>..\SmartTaskbar\bin\Debug\Switcher</OutDir>
+    <OutDir>..\SmartTaskbar\bin\Debug\Switcher\</OutDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
-    <OutDir>..\SmartTaskbar\bin\Debug\Switcher</OutDir>
+    <OutDir>..\SmartTaskbar\bin\Debug\Switcher\</OutDir>
     <TargetName>$(ProjectName)_x64</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
-    <OutDir>..\SmartTaskbar\bin\Release\Switcher</OutDir>
+    <OutDir>..\SmartTaskbar\bin\Release\Switcher\</OutDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
     <TargetName>$(ProjectName)_x64</TargetName>
-    <OutDir>..\SmartTaskbar\bin\Release\Switcher</OutDir>
+    <OutDir>..\SmartTaskbar\bin\Release\Switcher\</OutDir>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>

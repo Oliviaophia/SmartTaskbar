@@ -2,6 +2,7 @@
 using System.Reflection;
 using System.Resources;
 using System.Threading;
+using System.Windows.Forms;
 
 namespace SmartTaskbar
 {
@@ -23,7 +24,7 @@ namespace SmartTaskbar
                     Thread.CurrentThread.CurrentUICulture = new CultureInfo("en-US");
                     break;
             }
-            resourceManager = new ResourceManager("SmartTaskbar.Resource", Assembly.GetExecutingAssembly());
+            resourceManager = new ResourceManager("SmartTaskbar.Languages.Resource", Assembly.GetExecutingAssembly());
         }
 
         public string GetString(string name) => resourceManager.GetString(name, Thread.CurrentThread.CurrentUICulture);
