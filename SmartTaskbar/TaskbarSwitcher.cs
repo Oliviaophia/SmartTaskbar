@@ -59,7 +59,7 @@ namespace SmartTaskbar
             SHAppBarMessage(SetState, ref aPPBARDATA);
         }
 
-        public bool IsHide() => SHAppBarMessage(GetState, ref aPPBARDATA) == 1 ? true : false;
+        public bool IsHide() => SHAppBarMessage(GetState, ref aPPBARDATA) == AutoHide ? true : false;
 
         public void Start()
         {
