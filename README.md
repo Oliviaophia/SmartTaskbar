@@ -43,7 +43,7 @@ Installation 安装
 
 * If you do not like the GUI version of SmartTaskbar, you can download version v1.0.3 from [HERE](https://github.com/ChanpleCai/SmartTaskbar/releases/tag/v1.0.3).
 
-  如果你不需要带GUI版本的Smartaskbar，可以在[这里](https://github.com/ChanpleCai/SmartTaskbar/releases/tag/v1.0.3)下载v1.0.3版本
+  如果您不需要带GUI版本的Smartaskbar，可以在[这里](https://github.com/ChanpleCai/SmartTaskbar/releases/tag/v1.0.3)下载v1.0.3版本
   
 * The program will start running in the background after the installtion.
 
@@ -77,7 +77,7 @@ Donate 捐赠
 
 * If you think SmartTaskbar is useful and you want to support the project, please donate it(via Alipay or WeChat Pay).
 
-  如果你觉得SmartTaskbar好用，欢迎您捐赠支持
+  如果您觉得SmartTaskbar好用，欢迎捐赠支持
 
 <div align=center>
   <img src="https://github.com/ChanpleCai/SmartTaskbar/blob/master/donate/Alipay.jpg" width="400" />
