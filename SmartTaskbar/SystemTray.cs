@@ -108,15 +108,11 @@ namespace SmartTaskbar
                     break;
                 case "hide":
                     if (switcher.IsHide() == false)
-                    {
                         RadioChecked(ref show);
-                    }
                     break;
                 default:
                     if (switcher.IsHide())
-                    {
                         RadioChecked(ref hide);
-                    }
                     break;
             }
         }
