@@ -41,6 +41,7 @@ Installation 安装
 -----
 
  [![Download Now](https://github.com/ChanpleCai/SmartTaskbar/blob/master/img/Download_Button.png)](https://github.com/ChanpleCai/SmartTaskbar/releases/download/v1.1.1/SmartTaskbar_Setup.exe)
+[![Download from Softpedia](https://github.com/ChanpleCai/SmartTaskbar/blob/master/img/Download_Softpedia.png)](http://www.softpedia.com/get/Tweak/System-Tweak/SmartTaskbar.shtml#download)
 
 * Download `SmartTaskbar_Setup.exe` from [releases](https://github.com/ChanpleCai/SmartTaskbar/releases). 
 
