@@ -1,6 +1,6 @@
 SmartTaskbar  [![Logo](https://github.com/ChanpleCai/SmartTaskbar/blob/master/logo/logo_blue_24x24.png)](http://www.softpedia.com/get/Tweak/System-Tweak/SmartTaskbar.shtml)
 =====
-[![GitHub version](https://badge.fury.io/gh/ChanpleCai%2FSmartTaskbar.svg)](https://badge.fury.io/gh/ChanpleCai%2FSmartTaskbar)
+[![GitHub version](https://badge.fury.io/gh/ChanpleCai%2FSmartTaskbar.svg)](https://github.com/ChanpleCai/SmartTaskbar/releases/download/v1.1.1/SmartTaskbar_Setup.exe)
 [![Github All Releases](https://img.shields.io/github/downloads/ChanpleCai/SmartTaskbar/total.svg)](https://github.com/ChanpleCai/SmartTaskbar/releases)
 [![License](http://img.shields.io/:license-MIT-blue.svg?style=flat)](LICENSE)
 
