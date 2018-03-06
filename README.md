@@ -37,8 +37,10 @@ Features 功能
 
 * [Read a Softpedia editor's review 查看Softpedia测评](http://www.softpedia.com/get/Tweak/System-Tweak/SmartTaskbar.shtml)
   
-Installation 安装
+Installation 安装 [![Download Now](https://github.com/ChanpleCai/SmartTaskbar/blob/master/img/Download-Button.png)](https://github.com/ChanpleCai/SmartTaskbar/releases/download/v1.1.1/SmartTaskbar_Setup.exe)
 -----
+
+
 * Download `SmartTaskbar_Setup.exe` from [releases](https://github.com/ChanpleCai/SmartTaskbar/releases). 
 
   从[releases](https://github.com/ChanpleCai/SmartTaskbar/releases)下载安装程序
