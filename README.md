@@ -33,7 +33,7 @@ Features 功能
 
 ![img](https://github.com/ChanpleCai/SmartTaskbar/blob/master/demo/Hide_Show.gif)
 
-* [Click for more demo 点击查看更多演示](https://github.com/ChanpleCai/SmartTaskbar/edit/master/demo/README.md)
+* [Click for more demo 点击查看更多演示](https://github.com/ChanpleCai/SmartTaskbar/tree/master/demo)
   
 Installation 安装
 -----
@@ -41,14 +41,14 @@ Installation 安装
 
   从[releases](https://github.com/ChanpleCai/SmartTaskbar/releases)下载安装程序
   
-* You need to install [.NET Framework 4.7.1](https://www.microsoft.com/net/download/dotnet-framework-runtime/net471?utm_source=getdotnet&utm_medium=referral) before Installation. If the installation fails, please re-install after installing the Framework.
+    * You need to install [.NET Framework 4.7.1](https://www.microsoft.com/net/download/dotnet-framework-runtime/net471?utm_source=getdotnet&utm_medium=referral) before Installation. If the installation fails, please re-install after installing the Framework.
 
-  您需要在安装前，先安装[.NET Framework 4.7.1](https://www.microsoft.com/net/download/dotnet-framework-runtime/net471?utm_source=getdotnet&utm_medium=referral) 。如果安装失败，请在安装完框架后重新安装一次
+      您需要在安装前，先安装[.NET Framework 4.7.1](https://www.microsoft.com/net/download/dotnet-framework-runtime/net471?utm_source=getdotnet&utm_medium=referral) 。如果安装失败，请在安装完框架后重新安装一次
 
-* If you do not like the GUI version of SmartTaskbar, you can download version v1.0.3 from [HERE](https://github.com/ChanpleCai/SmartTaskbar/releases/tag/v1.0.3).
+    * If you do not like the GUI version of SmartTaskbar, you can download version v1.0.3 from [HERE](https://github.com/ChanpleCai/SmartTaskbar/releases/tag/v1.0.3).
 
-  如果您不需要带GUI版本的Smartaskbar，可以在[这里](https://github.com/ChanpleCai/SmartTaskbar/releases/tag/v1.0.3)下载v1.0.3版本
-  
+      如果您不需要带GUI版本的Smartaskbar，可以在[这里](https://github.com/ChanpleCai/SmartTaskbar/releases/tag/v1.0.3)下载v1.0.3版本
+
 * The program will start running in the background after the installtion.
 
   安装完成后，程序会自动在后台运行
