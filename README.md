@@ -34,6 +34,8 @@ Features 功能
 ![img](https://github.com/ChanpleCai/SmartTaskbar/blob/master/demo/Hide_Show.gif)
 
 * [Click for more demo 点击查看更多演示](https://github.com/ChanpleCai/SmartTaskbar/tree/master/demo)
+
+* [Read a Softpedia editor's review 查看Softpedia测评](http://www.softpedia.com/get/Tweak/System-Tweak/SmartTaskbar.shtml)
   
 Installation 安装
 -----
@@ -47,7 +49,7 @@ Installation 安装
 
     * If you do not like the GUI version of SmartTaskbar, you can download version v1.0.3 from [HERE](https://github.com/ChanpleCai/SmartTaskbar/releases/tag/v1.0.3).
 
-      如果您不需要带GUI版本的Smartaskbar，可以在[这里](https://github.com/ChanpleCai/SmartTaskbar/releases/tag/v1.0.3)下载v1.0.3版本
+      如果您不需要带GUI版本的SmartTaskbar，可以在[这里](https://github.com/ChanpleCai/SmartTaskbar/releases/tag/v1.0.3)下载v1.0.3版本
 
 * The program will start running in the background after the installtion.
 
