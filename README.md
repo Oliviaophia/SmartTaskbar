@@ -39,13 +39,17 @@ Features 功能
   
 Installation 安装
 -----
+* Download `SmartTaskbar_Setup.exe` from [releases](https://github.com/ChanpleCai/SmartTaskbar/releases)： 
 
- [![Download Now](https://github.com/ChanpleCai/SmartTaskbar/blob/master/img/Download_Button.png)](https://github.com/ChanpleCai/SmartTaskbar/releases/download/v1.1.1/SmartTaskbar_Setup.exe)
-[![Download from Softpedia](https://github.com/ChanpleCai/SmartTaskbar/blob/master/img/Download_Softpedia.png)](http://www.softpedia.com/get/Tweak/System-Tweak/SmartTaskbar.shtml#download)
+  从[releases](https://github.com/ChanpleCai/SmartTaskbar/releases)下载安装程序：
+  
+  [![Download Now](https://github.com/ChanpleCai/SmartTaskbar/blob/master/img/Download_Button.png)](https://github.com/ChanpleCai/SmartTaskbar/releases/download/v1.1.1/SmartTaskbar_Setup.exe) 
 
-* Download `SmartTaskbar_Setup.exe` from [releases](https://github.com/ChanpleCai/SmartTaskbar/releases). 
+* Download form Softpedia：
 
-  从[releases](https://github.com/ChanpleCai/SmartTaskbar/releases)下载安装程序
+  从Softpedia下载：
+  
+  [![Download from Softpedia](https://github.com/ChanpleCai/SmartTaskbar/blob/master/img/Download_Softpedia.png)](http://www.softpedia.com/get/Tweak/System-Tweak/SmartTaskbar.shtml#download)
   
     * You need to install [.NET Framework 4.7.1](https://www.microsoft.com/net/download/dotnet-framework-runtime/net471?utm_source=getdotnet&utm_medium=referral) before Installation. If the installation fails, please re-install after installing the Framework.
 
@@ -68,6 +72,7 @@ Known Issues 已知问题
 * Windows 10 version cannot autohide or display automatically based on UWP window state.
 
   Windows 10版不能根据UWP窗体状态自动隐藏或显示
+  
 * When using multiple monitors, Auto Mode may not work correctly.
 
   在使用多显示屏时自动模式不能正确工作
@@ -76,11 +81,7 @@ Build 生成
 -----
 * Install Visual Studio 2017.
 
-  安装Visual Studio 2017 
-  
-* .NET Framework 4.7.1
-
-* Visual C++
+  安装 Visual Studio 2017 
 
 Donate 捐赠
 ----
