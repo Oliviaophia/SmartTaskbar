@@ -99,10 +99,12 @@ namespace SmartTaskbar
             if (switcher.IsHide())
             {
                 switcher.Show();
+                RadioChecked(ref show);
             }
             else
             {
                 switcher.Hide();
+                RadioChecked(ref hide);
             }
         }
 
