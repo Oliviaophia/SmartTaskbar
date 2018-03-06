@@ -2,6 +2,7 @@ SmartTaskbar
 ===
 [![GitHub version](https://badge.fury.io/gh/ChanpleCai%2FSmartTaskbar.svg)](https://badge.fury.io/gh/ChanpleCai%2FSmartTaskbar)
 [![Github All Releases](https://img.shields.io/github/downloads/ChanpleCai/SmartTaskbar/total.svg)](https://github.com/ChanpleCai/SmartTaskbar/releases)
+[![License](http://img.shields.io/:license-MIT-blue.svg?style=flat)](LICENSE)
 * SmartTaskbar is a small application which can automatically switch the display state of the Windows Taskbar.
 
   SmartTaskbar是一个能自动切换Windows任务栏显示状态的小程序
