@@ -33,6 +33,8 @@ Features 功能
 
 ![img](https://github.com/ChanpleCai/SmartTaskbar/blob/master/demo/Hide_Show.gif)
 
+* [Click for more demo 点击查看更多演示](https://github.com/ChanpleCai/SmartTaskbar/edit/master/demo/README.md)
+  
 Installation 安装
 -----
 * Download `SmartTaskbar_Setup.exe` from [releases](https://github.com/ChanpleCai/SmartTaskbar/releases). 
@@ -85,16 +87,3 @@ Donate 捐赠
   <img src="https://github.com/ChanpleCai/SmartTaskbar/blob/master/donate/Alipay.jpg" width="400" />
   <img src="https://github.com/ChanpleCai/SmartTaskbar/blob/master/donate/WeChat_Pay.jpg" width="400" />
 </div>
-
-Demo 演示
-----
-
-![img](https://github.com/ChanpleCai/SmartTaskbar/blob/master/demo/Open_Close2.gif)
-
-![img](https://github.com/ChanpleCai/SmartTaskbar/blob/master/demo/Open_Close.gif)
-
-![img](https://github.com/ChanpleCai/SmartTaskbar/blob/master/demo/Maximize_Button.gif)
-
-![img](https://github.com/ChanpleCai/SmartTaskbar/blob/master/demo/Shortcut_Key.gif)
-
-![img](https://github.com/ChanpleCai/SmartTaskbar/blob/master/demo/block_UWP.gif)
