@@ -5,7 +5,7 @@ using System.Security;
 namespace SmartTaskbar
 {
     [SuppressUnmanagedCodeSecurity]
-    class SafeNativeMethods
+    static class SafeNativeMethods
     {
         #region SHAppBarMessage
         public const uint GetState = 4;
@@ -60,6 +60,103 @@ namespace SmartTaskbar
         [DllImport("shell32.dll", EntryPoint = "SHAppBarMessage", CallingConvention = CallingConvention.StdCall)]
         public static extern uint SHAppBarMessage(uint dwMessage, ref APPBARDATA pData);
 
+        #endregion
+
+        #region JobObject
+
+        [StructLayout(LayoutKind.Sequential)]
+        public struct SECURITY_ATTRIBUTES
+        {
+
+            /// DWORD->unsigned int
+            public uint nLength;
+
+            /// LPVOID->void*
+            public System.IntPtr lpSecurityDescriptor;
+
+            /// BOOL->int
+            [MarshalAs(UnmanagedType.Bool)]
+            public bool bInheritHandle;
+        }
+
+        /// Return Type: HANDLE->void*
+        ///lpJobAttributes: LPSECURITY_ATTRIBUTES->_SECURITY_ATTRIBUTES*
+        ///lpName: LPCWSTR->WCHAR*
+        [DllImport("kernel32.dll", EntryPoint = "CreateJobObjectW")]
+        public static extern IntPtr CreateJobObjectW([In()] IntPtr lpJobAttributes, [In()] [MarshalAs(UnmanagedType.LPWStr)] string lpName);
+
+        [Flags]
+        public enum JOBOBJECTLIMIT : uint
+        {
+            JOB_OBJECT_LIMIT_KILL_ON_JOB_CLOSE = 0x2000
+        }
+
+        public enum JobObjectInfoType
+        {
+            AssociateCompletionPortInformation = 7,
+            BasicLimitInformation = 2,
+            BasicUIRestrictions = 4,
+            EndOfJobTimeInformation = 6,
+            ExtendedLimitInformation = 9,
+            SecurityLimitInformation = 5,
+            GroupInformation = 11
+        }
+        /// Return Type: BOOL->int
+        ///hJob: HANDLE->void*
+        ///JobObjectInformationClass: JOBOBJECTINFOCLASS->_JOBOBJECTINFOCLASS
+        ///lpJobObjectInformation: LPVOID->void*
+        ///cbJobObjectInformationLength: DWORD->unsigned int
+        [DllImport("kernel32.dll", EntryPoint = "SetInformationJobObject")]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern bool SetInformationJobObject([In()] IntPtr hJob, JobObjectInfoType JobObjectInformationClass,
+            [In()] IntPtr lpJobObjectInformation, uint cbJobObjectInformationLength);
+
+
+        /// Return Type: BOOL->int
+        ///hJob: HANDLE->void*
+        ///hProcess: HANDLE->void*
+        [DllImport("kernel32.dll", EntryPoint = "AssignProcessToJobObject")]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern bool AssignProcessToJobObject([In()] IntPtr hJob, [In()] IntPtr hProcess);
+
+        [StructLayout(LayoutKind.Sequential)]
+        public struct JOBOBJECT_BASIC_LIMIT_INFORMATION
+        {
+            public Int64 PerProcessUserTimeLimit;
+            public Int64 PerJobUserTimeLimit;
+            public JOBOBJECTLIMIT LimitFlags;
+            public UIntPtr MinimumWorkingSetSize;
+            public UIntPtr MaximumWorkingSetSize;
+            public UInt32 ActiveProcessLimit;
+            public Int64 Affinity;
+            public UInt32 PriorityClass;
+            public UInt32 SchedulingClass;
+        }
+
+
+
+
+        [StructLayout(LayoutKind.Sequential)]
+        public struct IO_COUNTERS
+        {
+            public UInt64 ReadOperationCount;
+            public UInt64 WriteOperationCount;
+            public UInt64 OtherOperationCount;
+            public UInt64 ReadTransferCount;
+            public UInt64 WriteTransferCount;
+            public UInt64 OtherTransferCount;
+        }
+
+        [StructLayout(LayoutKind.Sequential)]
+        public struct JOBOBJECT_EXTENDED_LIMIT_INFORMATION
+        {
+            public JOBOBJECT_BASIC_LIMIT_INFORMATION BasicLimitInformation;
+            public IO_COUNTERS IoInfo;
+            public UIntPtr ProcessMemoryLimit;
+            public UIntPtr JobMemoryLimit;
+            public UIntPtr PeakProcessMemoryUsed;
+            public UIntPtr PeakJobMemoryUsed;
+        }
         #endregion
     }
 }

@@ -13,7 +13,6 @@ namespace SmartTaskbar
 
         public SystemTray()
         {
-            switcher = new TaskbarSwitcher();
             ResourceCulture resource = new ResourceCulture();
             System.Drawing.Font font = new System.Drawing.Font("Segoe UI", 9F);
             about = new ToolStripMenuItem
@@ -67,11 +66,23 @@ namespace SmartTaskbar
             {
                 ContextMenuStrip = contextMenuStrip,
                 Icon = Resource_Icon.logo_32,
-                Text = "SmartTaskbar",
+                Text = Application.ProductName,
                 Visible = true
             };
             notifyIcon.Click += NotifyIcon_Click;
             notifyIcon.MouseDoubleClick += NotifyIcon_MouseDoubleClick;
+            if (Settings.Default.SwitcherVersion == 0)
+            {
+                Settings.Default.SwitcherVersion = Environment.OSVersion.Version.Major.ToString() == "10" ? 1 : 3;
+                if (Environment.Is64BitOperatingSystem)
+                    ++Settings.Default.SwitcherVersion;
+                Settings.Default.Save();
+                notifyIcon.BalloonTipTitle = Application.ProductName;
+                notifyIcon.BalloonTipText = resource.GetString("firstrun");
+                notifyIcon.BalloonTipIcon = ToolTipIcon.Info;
+                notifyIcon.ShowBalloonTip(5);
+            }
+            switcher = new TaskbarSwitcher();
             switch (Settings.Default.TaskbarState)
             {
                 case "auto":

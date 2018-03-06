@@ -4,6 +4,7 @@ using System.Windows.Forms;
 
 namespace SmartTaskbar
 {
+    //https://stackoverflow.com/questions/32786250/windows-10-styled-contextmenustrip
     public class Win10ColorTable : ProfessionalColorTable
     {
         public override Color MenuItemBorder => Color.WhiteSmoke;

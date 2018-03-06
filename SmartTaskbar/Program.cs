@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Diagnostics;
+using System.Threading;
 using System.Windows.Forms;
 
 namespace SmartTaskbar
@@ -12,12 +12,15 @@ namespace SmartTaskbar
         [STAThread]
         static void Main()
         {
-            if (Process.GetProcessesByName(Process.GetCurrentProcess().ProcessName).Length > 1)
-                return;
-            Application.EnableVisualStyles();
-            Application.SetCompatibleTextRenderingDefault(false);
-            new SystemTray();
-            Application.Run();
+            using (Mutex mutex = new Mutex(true, Application.ProductName, out bool createNew))
+            {
+                if (!createNew)
+                    return;
+                Application.EnableVisualStyles();
+                Application.SetCompatibleTextRenderingDefault(false);
+                new SystemTray();
+                Application.Run();
+            }
         }
     }
 }

@@ -126,6 +126,9 @@
   <data name="exit" xml:space="preserve">
     <value>Beenden</value>
   </data>
+  <data name="firstrun" xml:space="preserve">
+    <value>SmartTaskbar wird im Hintergrund ausgeführt</value>
+  </data>
   <data name="hide" xml:space="preserve">
     <value>Ausblenden</value>
   </data>

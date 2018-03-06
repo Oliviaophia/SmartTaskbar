@@ -1,5 +1,4 @@
-﻿using System;
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using System.IO;
 using System.Runtime.InteropServices;
 using static SmartTaskbar.SafeNativeMethods;
@@ -16,13 +15,6 @@ namespace SmartTaskbar
         public TaskbarSwitcher()
         {
             string folder = "Switcher";
-            if (Settings.Default.SwitcherVersion == 0)
-            {
-                Settings.Default.SwitcherVersion = Environment.OSVersion.Version.Major.ToString() == "10" ? 1 : 3;
-                if (Environment.Is64BitOperatingSystem)
-                    ++Settings.Default.SwitcherVersion;
-                Settings.Default.Save();
-            }
             switch (Settings.Default.SwitcherVersion)
             {
                 case 1:
@@ -65,6 +57,7 @@ namespace SmartTaskbar
         {
             isStop = false;
             process.Start();
+            ChildProcessTracker.AddProcess(process);
         }
 
         public void Resume()
@@ -78,12 +71,8 @@ namespace SmartTaskbar
             if (isStop)
                 return;
             isStop = true;
-            try
-            {
-                process.Kill();
-                process.WaitForExit();
-            }
-            catch { }
+            process.Kill();
+            process.WaitForExit();
         }
     }
 }
