@@ -8,6 +8,7 @@ namespace SmartTaskbar
     static class SafeNativeMethods
     {
         #region SHAppBarMessage
+
         public const uint GetState = 4;
         public const uint SetState = 10;
 
@@ -63,21 +64,6 @@ namespace SmartTaskbar
         #endregion
 
         #region JobObject
-
-        [StructLayout(LayoutKind.Sequential)]
-        public struct SECURITY_ATTRIBUTES
-        {
-
-            /// DWORD->unsigned int
-            public uint nLength;
-
-            /// LPVOID->void*
-            public System.IntPtr lpSecurityDescriptor;
-
-            /// BOOL->int
-            [MarshalAs(UnmanagedType.Bool)]
-            public bool bInheritHandle;
-        }
 
         /// Return Type: HANDLE->void*
         ///lpJobAttributes: LPSECURITY_ATTRIBUTES->_SECURITY_ATTRIBUTES*
