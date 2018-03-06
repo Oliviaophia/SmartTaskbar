@@ -34,8 +34,6 @@ Features 功能
 ![img](https://github.com/ChanpleCai/SmartTaskbar/blob/master/demo/Hide_Show.gif)
 
 * [Click for more demo 点击查看更多演示](https://github.com/ChanpleCai/SmartTaskbar/tree/master/demo)
-
-* [Read a Softpedia editor's review 查看Softpedia测评](http://www.softpedia.com/get/Tweak/System-Tweak/SmartTaskbar.shtml)
   
 Installation 安装
 -----
@@ -45,9 +43,9 @@ Installation 安装
   
   [![Download Now](https://github.com/ChanpleCai/SmartTaskbar/blob/master/img/Download_Button.png)](https://github.com/ChanpleCai/SmartTaskbar/releases/download/v1.1.1/SmartTaskbar_Setup.exe) 
 
-* Download form Softpedia：
+* Download from [Softpedia](http://www.softpedia.com/get/Tweak/System-Tweak/SmartTaskbar.shtml)：
 
-  从Softpedia下载：
+  从[Softpedia](http://www.softpedia.com/get/Tweak/System-Tweak/SmartTaskbar.shtml)下载：
   
   [![Download from Softpedia](https://github.com/ChanpleCai/SmartTaskbar/blob/master/img/Download_Softpedia.png)](http://www.softpedia.com/get/Tweak/System-Tweak/SmartTaskbar.shtml#download)
   
