@@ -36,8 +36,8 @@ namespace SmartTaskbar
             // The job name is optional (and can be null) but it helps with diagnostics.
             //  If it's not null, it has to be unique. Use SysInternals' Handle command-line
             //  utility: handle -a ChildProcessTracker
-            string jobName = "ChildProcessTracker" + Process.GetCurrentProcess().Id;
-            s_jobHandle = CreateJobObjectW(IntPtr.Zero, jobName);
+            //string jobName = "ChildProcessTracker" + Process.GetCurrentProcess().Id;
+            s_jobHandle = CreateJobObjectW(IntPtr.Zero, null);
 
             var info = new JOBOBJECT_BASIC_LIMIT_INFORMATION
             {
@@ -71,8 +71,4 @@ namespace SmartTaskbar
         //  is closed, the child processes will be killed.
         private static readonly IntPtr s_jobHandle;
     }
-
-
-
-
 }
