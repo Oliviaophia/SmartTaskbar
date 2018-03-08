@@ -74,15 +74,3 @@ Build 生成
 * Install Visual Studio 2017.
 
   安装 Visual Studio 2017 
-
-Donate 捐赠
-----
-
-* If you think SmartTaskbar is useful and you want to support the project, please donate it(via Alipay or WeChat Pay).
-
-  如果您觉得SmartTaskbar好用，欢迎捐赠支持
-
-<div align=center>
-  <img src="https://github.com/ChanpleCai/SmartTaskbar/blob/master/donate/Alipay.jpg" width="400" />
-  <img src="https://github.com/ChanpleCai/SmartTaskbar/blob/master/donate/WeChat_Pay.jpg" width="400" />
-</div>
