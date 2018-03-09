@@ -71,22 +71,8 @@ namespace SmartTaskbar
         [DllImport("kernel32.dll", EntryPoint = "CreateJobObjectW")]
         public static extern IntPtr CreateJobObjectW([In()] IntPtr lpJobAttributes, [In()] [MarshalAs(UnmanagedType.LPWStr)] string lpName);
 
-        [Flags]
-        public enum JOBOBJECTLIMIT : uint
-        {
-            JOB_OBJECT_LIMIT_KILL_ON_JOB_CLOSE = 0x2000
-        }
-
-        public enum JobObjectInfoType
-        {
-            AssociateCompletionPortInformation = 7,
-            BasicLimitInformation = 2,
-            BasicUIRestrictions = 4,
-            EndOfJobTimeInformation = 6,
-            ExtendedLimitInformation = 9,
-            SecurityLimitInformation = 5,
-            GroupInformation = 11
-        }
+        public const uint JOB_OBJECT_LIMIT_KILL_ON_JOB_CLOSE = 0x2000;
+        public const int ExtendedLimitInformation = 9;
         /// Return Type: BOOL->int
         ///hJob: HANDLE->void*
         ///JobObjectInformationClass: JOBOBJECTINFOCLASS->_JOBOBJECTINFOCLASS
@@ -94,7 +80,7 @@ namespace SmartTaskbar
         ///cbJobObjectInformationLength: DWORD->unsigned int
         [DllImport("kernel32.dll", EntryPoint = "SetInformationJobObject")]
         [return: MarshalAs(UnmanagedType.Bool)]
-        public static extern bool SetInformationJobObject([In()] IntPtr hJob, JobObjectInfoType JobObjectInformationClass,
+        public static extern bool SetInformationJobObject([In()] IntPtr hJob, int JobObjectInformationClass,
             [In()] IntPtr lpJobObjectInformation, uint cbJobObjectInformationLength);
 
 
@@ -110,7 +96,7 @@ namespace SmartTaskbar
         {
             public Int64 PerProcessUserTimeLimit;
             public Int64 PerJobUserTimeLimit;
-            public JOBOBJECTLIMIT LimitFlags;
+            public UInt32 LimitFlags;
             public UIntPtr MinimumWorkingSetSize;
             public UIntPtr MaximumWorkingSetSize;
             public UInt32 ActiveProcessLimit;
@@ -118,9 +104,6 @@ namespace SmartTaskbar
             public UInt32 PriorityClass;
             public UInt32 SchedulingClass;
         }
-
-
-
 
         [StructLayout(LayoutKind.Sequential)]
         public struct IO_COUNTERS
