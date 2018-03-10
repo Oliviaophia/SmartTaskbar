@@ -81,9 +81,9 @@ Known Issues 已知问题
     
       有些应用程序如Steam，不能正常的最大化(任务栏隐藏后会留下一道空隙)
       
-* Under Windows 10, sometimes the taskbar(Auto-Hide Mode) can't be automatically hidden, the taskbar will blocks the content behind it(This is probably a bug in windows 10).
+* Under Windows 10, sometimes the taskbar(Auto-Hide Mode) can't be automatically hidden, the taskbar will blocks the content behind it(This is probably a bug in Windows 10).
 
-  在Windows 10下，有时自动隐藏模式的任务栏，会掩盖下方的内容，而不能真正的自动隐藏(这很可能是windows 10系统的一个bug)
+  在Windows 10下，有时自动隐藏模式的任务栏，会掩盖下方的内容，而不能真正的自动隐藏(这很可能是Windows 10系统的一个bug)
 
 Build 生成
 -----
