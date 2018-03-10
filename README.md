@@ -61,9 +61,9 @@ Installation 安装
 
 Known Issues 已知问题
 ----
-* Windows 10 version cannot autohide or display automatically based on UWP window state.
+* The SmartTaskbar(Auto Mode) cannot autohide or display automatically based on UWP window state.
 
-  Windows 10版不能根据UWP窗体状态自动隐藏或显示
+  SmartTaskbar(Auto Mode)不能根据UWP窗体状态自动隐藏或显示
   
 * When using multiple monitors, Auto Mode may not work correctly.
 
