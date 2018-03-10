@@ -27,7 +27,7 @@ Features 功能
 * In the Auto Mode, SmartTaskbar will set the Taskbar to Auto-Hide(Hide) Mode when a maximized window exists (except UWP window).
 
   当有窗体最大化时（UWP除外），它会使任务栏自动隐藏
-* Without maximized window (except UWP window), the Taskbar will display automatically.
+* Without maximized window (except UWP window), the Taskbar will display(Show) automatically.
 
   当没有窗体最大化时（UWP除外），它会自动使任务栏显示
 * The Taskbar won't change the display state as the mouse hovering over it.
