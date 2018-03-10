@@ -73,7 +73,7 @@ Known Issues 已知问题
 
   有些应用不能和自动模式兼容，例如：
   
-    * If you use the Dell Display Manager, the taskbar will switch between the AlwaysOnTop Mode and Auto-Hide Mode frequently.
+    * If you use the Dell Display Manager, the taskbar will switch between the AlwaysOnTop(Show) Mode and Auto-Hide(Hide) Mode frequently.
     
       如果你同时安装了Dell Display Manager，任务栏会频繁地在显示和隐藏模式间来回切换
       
@@ -83,7 +83,7 @@ Known Issues 已知问题
       
 * Under Windows 10, sometimes the taskbar(Auto-Hide Mode) can't be automatically hidden, the taskbar will blocks the content behind it(This is probably a bug in Windows 10).
 
-  在Windows 10下，有时自动隐藏模式的任务栏，会掩盖下方的内容，而不能真正的自动隐藏(这很可能是Windows 10系统的一个bug)
+  在Windows 10下，有时隐藏模式的任务栏，会掩盖下方的内容，而不能真正的隐藏(这很可能是Windows 10系统的一个bug)
 
 Build 生成
 -----
