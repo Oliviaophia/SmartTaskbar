@@ -73,7 +73,7 @@ Known Issues 已知问题
 
   有些应用不能和自动模式兼容，例如：
   
-    * If you use the Dell Display Manager, the taskbar will switch back and forth between the AlwaysOnTop Mode and Auto-Hide Mode frequently.
+    * If you use the Dell Display Manager, the taskbar will switch between the AlwaysOnTop Mode and Auto-Hide Mode frequently.
     
       如果你同时安装了Dell Display Manager，任务栏会频繁地在显示和隐藏模式间来回切换
       
