@@ -78,7 +78,7 @@ Known Issues 已知问题
   
     * If you use the Dell Display Manager, the taskbar will switch between the Show Mode and Auto-Hide(Hide) Mode frequently.
     
-      如果你同时安装了Dell Display Manager，任务栏会频繁地在显示和隐藏模式间来回切换
+      如果你同时在使用Dell Display Manager，任务栏会频繁地在显示和隐藏模式间来回切换
       
     * Some applications, such as Steam, cannot be maximized properly(After the taskbar is hidden, it will leave a blank space).
     
