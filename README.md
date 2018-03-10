@@ -13,9 +13,12 @@ SmartTaskbar  [![Logo](https://github.com/ChanpleCai/SmartTaskbar/blob/master/lo
 Features 功能
 -----
 
-* Double-click the tray icon to switch the status of the taskbar between AlwaysOnTop Mode or Auto-Hide Mode.
+* Double-click the tray icon to switch the display status of the taskbar between Show or Auto-Hide.
 
   双击系统托盘可以快速切换任务栏的显示状态
+    * [The taskbar supports two display options](https://msdn.microsoft.com/en-us/library/windows/desktop/cc144179(v=vs.85).aspx): Auto-Hide and, in Windows Vista and earlier only, Always On Top (the taskbar is always in this mode in Windows 7 and later). 
+    
+      任务栏支持两种显示模式，自动隐藏和总在最前端
   
 ![img](https://github.com/ChanpleCai/SmartTaskbar/blob/master/demo/Double-click.gif)
 
@@ -24,7 +27,7 @@ Features 功能
 * In the Auto Mode, SmartTaskbar will set the Taskbar to Auto-Hide(Hide) Mode when a maximized window exists (except UWP window).
 
   当有窗体最大化时（UWP除外），它会使任务栏自动隐藏
-* Without maximized window (except UWP window), the Taskbar will display automatically (AlwaysOnTop Mode).
+* Without maximized window (except UWP window), the Taskbar will display automatically.
 
   当没有窗体最大化时（UWP除外），它会自动使任务栏显示
 * The Taskbar won't change the display state as the mouse hovering over it.
@@ -73,7 +76,7 @@ Known Issues 已知问题
 
   有些应用不能和自动模式兼容，例如：
   
-    * If you use the Dell Display Manager, the taskbar will switch between the AlwaysOnTop(Show) Mode and Auto-Hide(Hide) Mode frequently.
+    * If you use the Dell Display Manager, the taskbar will switch between the Show Mode and Auto-Hide(Hide) Mode frequently.
     
       如果你同时安装了Dell Display Manager，任务栏会频繁地在显示和隐藏模式间来回切换
       
