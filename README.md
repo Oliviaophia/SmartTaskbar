@@ -68,6 +68,22 @@ Known Issues 已知问题
 * When using multiple monitors, Auto Mode may not work correctly.
 
   在使用多显示屏时自动模式不能正确工作
+  
+* Some applications are not compatible with Auto Mode, for example:
+
+  有些应用不能和自动模式兼容，例如：
+  
+    * If you use the Dell Display Manager, the taskbar will switch back and forth between the AlwaysOnTop Mode and Auto-Hide Mode frequently.
+    
+      如果你同时安装了Dell Display Manager，任务栏会频繁地在显示和隐藏模式间来回切换
+      
+    * Some applications, such as Steam, cannot be maximized properly(After the taskbar is hidden, it will leave a blank space).
+    
+      有些应用程序如Steam，不能正常的最大化(任务栏隐藏后会留下一道空隙)
+      
+* Under Windows 10, sometimes the taskbar(Auto-Hide Mode) can't be automatically hidden, the taskbar will blocks the content behind it(This is probably a bug in windows 10).
+
+  在Windows 10下，有时自动隐藏模式的任务栏，会掩盖下方的内容，而不能真正的自动隐藏(这很可能是windows 10系统的一个bug)
 
 Build 生成
 -----
