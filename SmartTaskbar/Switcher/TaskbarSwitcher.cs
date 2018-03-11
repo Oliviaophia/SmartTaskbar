@@ -86,7 +86,7 @@ namespace SmartTaskbar
         public bool AnimationSwitcher()
         {
             animationenable = !animationenable;
-            SetSystemParameters(SPI_SETMENUANIMATION, 0, animationenable, 2);
+            SetSystemParameters(SPI_SETMENUANIMATION, 0, animationenable, 0x01 | 0x02);
             return animationenable;
         }
     }
