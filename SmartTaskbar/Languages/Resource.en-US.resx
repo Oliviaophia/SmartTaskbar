@@ -120,6 +120,9 @@
   <data name="about" xml:space="preserve">
     <value>About</value>
   </data>
+  <data name="animation" xml:space="preserve">
+    <value>Animation</value>
+  </data>
   <data name="auto" xml:space="preserve">
     <value>Auto</value>
   </data>

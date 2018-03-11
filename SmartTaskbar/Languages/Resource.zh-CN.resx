@@ -120,6 +120,9 @@
   <data name="about" xml:space="preserve">
     <value>关于</value>
   </data>
+  <data name="animation" xml:space="preserve">
+    <value>动画</value>
+  </data>
   <data name="auto" xml:space="preserve">
     <value>智能</value>
   </data>

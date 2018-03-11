@@ -127,5 +127,26 @@ namespace SmartTaskbar
             public UIntPtr PeakJobMemoryUsed;
         }
         #endregion
+
+        #region TaskbarAnimation
+
+        /// Return Type: BOOL->int
+        ///uiAction: UINT->unsigned int
+        ///uiParam: UINT->unsigned int
+        ///pvParam: PVOID->void*
+        ///fWinIni: UINT->unsigned int
+        [DllImport("user32.dll", EntryPoint = "SystemParametersInfoW")]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern bool SetSystemParameters(uint uiAction, uint uiParam,
+            bool pvParam, uint fWinIni);
+
+        [DllImport("user32.dll", EntryPoint = "SystemParametersInfoW")]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern bool GetSystemParameters(uint uiAction, uint uiParam,
+            out bool pvParam, uint fWinIni);
+
+        public const uint SPI_GETMENUANIMATION = 0x1002;
+        public const uint SPI_SETMENUANIMATION = 0x1003;
+        #endregion
     }
 }

@@ -8,7 +8,7 @@ namespace SmartTaskbar
     {
         private NotifyIcon notifyIcon;
         private ContextMenuStrip contextMenuStrip;
-        private ToolStripMenuItem about, auto, show, hide, exit;
+        private ToolStripMenuItem about, animation, auto, show, hide, exit;
         private TaskbarSwitcher switcher;
 
         public SystemTray()
@@ -21,6 +21,12 @@ namespace SmartTaskbar
                 Font = font
             };
             about.Click += (s, e) => Process.Start("https://github.com/ChanpleCai/SmartTaskbar");
+            animation = new ToolStripMenuItem
+            {
+                Text = resource.GetString("animation"),
+                Font = font
+            };
+            animation.Click += Animation_Click;
             auto = new ToolStripMenuItem
             {
                 Text = resource.GetString("auto"),
@@ -55,6 +61,7 @@ namespace SmartTaskbar
             contextMenuStrip.Items.AddRange(new ToolStripItem[]
             {
                 about,
+                animation,
                 new ToolStripSeparator(),
                 auto,
                 show,
@@ -98,6 +105,8 @@ namespace SmartTaskbar
             }
         }
 
+        private void Animation_Click(object sender, EventArgs e) => animation.Checked = switcher.AnimationSwitcher();
+
         private void Exit_Click(object sender, EventArgs e)
         {
             switcher.Stop();
@@ -135,6 +144,7 @@ namespace SmartTaskbar
                         RadioChecked(ref hide);
                     break;
             }
+            animation.Checked = switcher.IsAnimationEnable();
         }
 
         private void Hide_Click(object sender, EventArgs e)
