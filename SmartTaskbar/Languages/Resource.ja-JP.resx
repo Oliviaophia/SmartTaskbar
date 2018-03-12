@@ -130,7 +130,7 @@
     <value>退出</value>
   </data>
   <data name="firstrun" xml:space="preserve">
-    <value>SmartTaskbar運行している</value>
+    <value>スマートタスクバーはバックグラウンドで実行されています</value>
   </data>
   <data name="hide" xml:space="preserve">
     <value>隠し</value>
