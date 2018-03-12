@@ -36,6 +36,12 @@ Features 功能
 
 ![img](https://github.com/ChanpleCai/SmartTaskbar/blob/master/demo/Hide_Show.gif)
 
+* Click the Animation button to turn on or off the taskbar animation
+
+  点击动画按钮开启或关闭任务栏动画
+  
+![img](https://github.com/ChanpleCai/SmartTaskbar/blob/master/demo/Animation_button.gif)
+
 * [Click for more demo 点击查看更多演示](https://github.com/ChanpleCai/SmartTaskbar/tree/master/demo)
   
 Installation 安装
