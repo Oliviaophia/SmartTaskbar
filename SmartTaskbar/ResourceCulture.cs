@@ -13,8 +13,13 @@ namespace SmartTaskbar
         {
             switch (Thread.CurrentThread.CurrentUICulture.Name)
             {
+                case "zh-CN":
+                case "en-US":
+                case "de-DE":
+                case "ja-JP":
+                    break;
                 case string str when str.StartsWith("zh"):
-                    Thread.CurrentThread.CurrentUICulture = new CultureInfo("zh-CN");
+                    Thread.CurrentThread.CurrentUICulture = new CultureInfo("zh-CHT");
                     break;
                 case string str when str.StartsWith("de"):
                     Thread.CurrentThread.CurrentUICulture = new CultureInfo("de-DE");

@@ -75,6 +75,8 @@
     <Compile Include="Tray\Style.cs" />
     <Compile Include="Tray\SystemTray.cs" />
     <Compile Include="Switcher\TaskbarSwitcher.cs" />
+    <EmbeddedResource Include="Languages\Resource.ja-JP.resx" />
+    <EmbeddedResource Include="Languages\Resource.zh-CHT.resx" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
