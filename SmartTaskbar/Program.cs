@@ -12,7 +12,7 @@ namespace SmartTaskbar
         [STAThread]
         static void Main()
         {
-            using (Mutex mutex = new Mutex(true, "{860ab31a-2170-44ca-b3b2-83dcc9d0edb2}", out bool createNew))
+            using (Mutex mutex = new Mutex(true, "{ab69d52f-4086-4dcb-98e9-a71ad78e71ca}", out bool createNew))
             {
                 if (!createNew)
                     return;
