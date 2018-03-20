@@ -73,6 +73,7 @@ namespace SmartTaskbar
             {
                 ContextMenuStrip = contextMenuStrip,
                 Text = Application.ProductName,
+                Icon = Resource_Icon.logo_32,
                 Visible = true
             };
             notifyIcon.Click += NotifyIcon_Click;
@@ -88,7 +89,6 @@ namespace SmartTaskbar
                 notifyIcon.BalloonTipIcon = ToolTipIcon.Info;
                 notifyIcon.ShowBalloonTip(5);
             }
-            notifyIcon.Icon = Settings.Default.SwitcherVersion > 2 ? Resource_Icon.logo_128 : Resource_Icon.logo_32;
             switcher = new TaskbarSwitcher();
             switch (Settings.Default.TaskbarState)
             {
