@@ -37,8 +37,7 @@ namespace SmartTaskbar
         {
             if (s_jobHandle != IntPtr.Zero)
             {
-                bool success = AssignProcessToJobObject(s_jobHandle, process.Handle);
-                if (!success)
+                if (!(bool)AssignProcessToJobObject(s_jobHandle, process.Handle))
                     return;
             }
         }
