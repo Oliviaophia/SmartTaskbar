@@ -20,7 +20,7 @@ namespace SmartTaskbar
                 Text = resource.GetString("about"),
                 Font = font
             };
-            about.Click += (s, e) => Process.Start("https://github.com/ChanpleCai/SmartTaskbar");
+            //about.Click += (s, e) => Process.Start("https://github.com/ChanpleCai/SmartTaskbar");
             animation = new ToolStripMenuItem
             {
                 Text = resource.GetString("animation"),

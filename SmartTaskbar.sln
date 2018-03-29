@@ -4,6 +4,10 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 15.0.27130.2036
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartTaskbar", "SmartTaskbar\SmartTaskbar.csproj", "{6A7CF22A-900B-4234-AE5C-E2CB53615AD8}"
+	ProjectSection(ProjectDependencies) = postProject
+		{78CFFA36-7E0B-4DDE-8824-9FDF2AB42F94} = {78CFFA36-7E0B-4DDE-8824-9FDF2AB42F94}
+		{30E30399-983D-4F30-AB64-62F4D13F6F3B} = {30E30399-983D-4F30-AB64-62F4D13F6F3B}
+	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TaskbarSwitcher", "TaskbarSwitcher\TaskbarSwitcher.vcxproj", "{78CFFA36-7E0B-4DDE-8824-9FDF2AB42F94}"
 EndProject
@@ -32,6 +36,7 @@ Global
 		{6A7CF22A-900B-4234-AE5C-E2CB53615AD8}.Release|x86.ActiveCfg = Release|Any CPU
 		{6A7CF22A-900B-4234-AE5C-E2CB53615AD8}.Release|x86.Build.0 = Release|Any CPU
 		{78CFFA36-7E0B-4DDE-8824-9FDF2AB42F94}.Debug|Any CPU.ActiveCfg = Debug|Win32
+		{78CFFA36-7E0B-4DDE-8824-9FDF2AB42F94}.Debug|Any CPU.Build.0 = Debug|Win32
 		{78CFFA36-7E0B-4DDE-8824-9FDF2AB42F94}.Debug|x64.ActiveCfg = Debug|x64
 		{78CFFA36-7E0B-4DDE-8824-9FDF2AB42F94}.Debug|x64.Build.0 = Debug|x64
 		{78CFFA36-7E0B-4DDE-8824-9FDF2AB42F94}.Debug|x86.ActiveCfg = Debug|Win32
@@ -42,6 +47,7 @@ Global
 		{78CFFA36-7E0B-4DDE-8824-9FDF2AB42F94}.Release|x86.ActiveCfg = Release|Win32
 		{78CFFA36-7E0B-4DDE-8824-9FDF2AB42F94}.Release|x86.Build.0 = Release|Win32
 		{30E30399-983D-4F30-AB64-62F4D13F6F3B}.Debug|Any CPU.ActiveCfg = Debug|Win32
+		{30E30399-983D-4F30-AB64-62F4D13F6F3B}.Debug|Any CPU.Build.0 = Debug|Win32
 		{30E30399-983D-4F30-AB64-62F4D13F6F3B}.Debug|x64.ActiveCfg = Debug|x64
 		{30E30399-983D-4F30-AB64-62F4D13F6F3B}.Debug|x64.Build.0 = Debug|x64
 		{30E30399-983D-4F30-AB64-62F4D13F6F3B}.Debug|x86.ActiveCfg = Debug|Win32

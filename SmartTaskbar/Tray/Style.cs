@@ -22,10 +22,7 @@ namespace SmartTaskbar
 
     public class Win10Renderer : ToolStripProfessionalRenderer
     {
-        public Win10Renderer()
-            : base(new Win10ColorTable())
-        {
-        }
+        public Win10Renderer() : base(new Win10ColorTable()){}
         //protected override void OnRenderArrow(ToolStripArrowRenderEventArgs e)
         //{
         //    e.Graphics.SmoothingMode = SmoothingMode.AntiAlias;
