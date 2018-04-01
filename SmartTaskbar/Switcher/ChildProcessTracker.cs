@@ -35,11 +35,9 @@ namespace SmartTaskbar
 
         public void AddProcess(Process process)
         {
-            if (s_jobHandle != IntPtr.Zero)
-            {
-                if (!(bool)AssignProcessToJobObject(s_jobHandle, process.Handle))
-                    return;
-            }
+            if (s_jobHandle == IntPtr.Zero)
+                return;
+            AssignProcessToJobObject(s_jobHandle, process.Handle);
         }
     }
 }
