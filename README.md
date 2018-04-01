@@ -14,11 +14,6 @@ Features 功能
 -----
 
 * Double-click the tray icon to switch the display status of the taskbar between Show or Auto-Hide.
-
-  双击系统托盘可以快速切换任务栏的显示状态
-    * [The taskbar supports two display options](https://msdn.microsoft.com/en-us/library/windows/desktop/cc144179(v=vs.85).aspx): Auto-Hide and, in Windows Vista and earlier only, Always On Top (the taskbar is always in this mode in Windows 7 and later). 
-    
-      任务栏支持两种显示模式，自动隐藏和总在最前端
   
 ![img](https://github.com/ChanpleCai/SmartTaskbar/blob/master/demo/Double-click.gif)
 
