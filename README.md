@@ -13,10 +13,6 @@ SmartTaskbar  [![Logo](https://github.com/ChanpleCai/SmartTaskbar/blob/master/lo
 Features 功能
 -----
 
-* Double-click the tray icon to switch the display status of the taskbar between Show or Auto-Hide.
-  
-![img](https://github.com/ChanpleCai/SmartTaskbar/blob/master/demo/Double-click.gif)
-
 #### Auto Mode 自动模式
 
 * In the Auto Mode, SmartTaskbar will set the Taskbar to Auto-Hide(Hide) Mode when a maximized window exists (except UWP window).
@@ -30,6 +26,14 @@ Features 功能
   当有鼠标悬停在任务栏上方时，不改变任务栏状态
 
 ![img](https://github.com/ChanpleCai/SmartTaskbar/blob/master/demo/Hide_Show.gif)
+
+
+* Double-click the tray icon to switch the display status of the taskbar between Show or Auto-Hide.
+  
+    双击系统托盘图标切换任务栏显示和隐藏状态
+  
+![img](https://github.com/ChanpleCai/SmartTaskbar/blob/master/demo/Double-click.gif)
+
 
 * Click the Animation button to turn on or off the taskbar animation
 
