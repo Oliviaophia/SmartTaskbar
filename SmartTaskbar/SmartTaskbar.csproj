@@ -56,6 +56,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="FormAbout.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormAbout.Designer.cs">
+      <DependentUpon>FormAbout.cs</DependentUpon>
+    </Compile>
     <Compile Include="Switcher\ChildProcessTracker.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -75,6 +81,9 @@
     <Compile Include="Tray\Style.cs" />
     <Compile Include="Tray\SystemTray.cs" />
     <Compile Include="Switcher\TaskbarSwitcher.cs" />
+    <EmbeddedResource Include="FormAbout.resx">
+      <DependentUpon>FormAbout.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Languages\Resource.ja-JP.resx" />
     <EmbeddedResource Include="Languages\Resource.zh-CHT.resx" />
     <EmbeddedResource Include="Properties\Resources.resx">
