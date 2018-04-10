@@ -56,10 +56,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="FormAbout.cs">
+    <Compile Include="GUI\FormAbout.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FormAbout.Designer.cs">
+    <Compile Include="GUI\FormAbout.Designer.cs">
       <DependentUpon>FormAbout.cs</DependentUpon>
     </Compile>
     <Compile Include="Switcher\ChildProcessTracker.cs" />
@@ -78,10 +78,10 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
-    <Compile Include="Tray\Style.cs" />
-    <Compile Include="Tray\SystemTray.cs" />
+    <Compile Include="GUI\Style.cs" />
     <Compile Include="Switcher\TaskbarSwitcher.cs" />
-    <EmbeddedResource Include="FormAbout.resx">
+    <Compile Include="GUI\SystemTray.cs" />
+    <EmbeddedResource Include="GUI\FormAbout.resx">
       <DependentUpon>FormAbout.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Languages\Resource.ja-JP.resx" />
@@ -94,6 +94,7 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <EmbeddedResource Include="Languages\Resource.de-DE.resx" />
     <EmbeddedResource Include="Languages\Resource.en-US.resx" />
@@ -126,5 +127,9 @@
   <ItemGroup>
     <None Include="Resources\logo_128.ico" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\logo_blue.png" />
+  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
