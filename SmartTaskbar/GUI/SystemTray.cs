@@ -168,6 +168,7 @@ namespace SmartTaskbar
                 }
             };
         }
+
         private void RadioChecked(ref ToolStripMenuItem tool)
         {
             auto.Checked = show.Checked = hide.Checked = false;
