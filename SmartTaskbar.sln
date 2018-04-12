@@ -7,11 +7,14 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartTaskbar", "SmartTaskba
 	ProjectSection(ProjectDependencies) = postProject
 		{78CFFA36-7E0B-4DDE-8824-9FDF2AB42F94} = {78CFFA36-7E0B-4DDE-8824-9FDF2AB42F94}
 		{30E30399-983D-4F30-AB64-62F4D13F6F3B} = {30E30399-983D-4F30-AB64-62F4D13F6F3B}
+		{0D07E7D3-9F74-442C-A250-5A9941CFA0B7} = {0D07E7D3-9F74-442C-A250-5A9941CFA0B7}
 	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TaskbarSwitcher", "TaskbarSwitcher\TaskbarSwitcher.vcxproj", "{78CFFA36-7E0B-4DDE-8824-9FDF2AB42F94}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TaskbarSwitcherWin10", "TaskbarSwitcherWin10\TaskbarSwitcherWin10.vcxproj", "{30E30399-983D-4F30-AB64-62F4D13F6F3B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartTaskbarSettings", "SmartTaskbarSettings\SmartTaskbarSettings.csproj", "{0D07E7D3-9F74-442C-A250-5A9941CFA0B7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -57,6 +60,18 @@ Global
 		{30E30399-983D-4F30-AB64-62F4D13F6F3B}.Release|x64.Build.0 = Release|x64
 		{30E30399-983D-4F30-AB64-62F4D13F6F3B}.Release|x86.ActiveCfg = Release|Win32
 		{30E30399-983D-4F30-AB64-62F4D13F6F3B}.Release|x86.Build.0 = Release|Win32
+		{0D07E7D3-9F74-442C-A250-5A9941CFA0B7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0D07E7D3-9F74-442C-A250-5A9941CFA0B7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0D07E7D3-9F74-442C-A250-5A9941CFA0B7}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{0D07E7D3-9F74-442C-A250-5A9941CFA0B7}.Debug|x64.Build.0 = Debug|Any CPU
+		{0D07E7D3-9F74-442C-A250-5A9941CFA0B7}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{0D07E7D3-9F74-442C-A250-5A9941CFA0B7}.Debug|x86.Build.0 = Debug|Any CPU
+		{0D07E7D3-9F74-442C-A250-5A9941CFA0B7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0D07E7D3-9F74-442C-A250-5A9941CFA0B7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0D07E7D3-9F74-442C-A250-5A9941CFA0B7}.Release|x64.ActiveCfg = Release|Any CPU
+		{0D07E7D3-9F74-442C-A250-5A9941CFA0B7}.Release|x64.Build.0 = Release|Any CPU
+		{0D07E7D3-9F74-442C-A250-5A9941CFA0B7}.Release|x86.ActiveCfg = Release|Any CPU
+		{0D07E7D3-9F74-442C-A250-5A9941CFA0B7}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
