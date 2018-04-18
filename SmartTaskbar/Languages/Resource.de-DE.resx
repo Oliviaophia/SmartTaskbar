@@ -135,6 +135,9 @@
   <data name="hide" xml:space="preserve">
     <value>Ausblenden</value>
   </data>
+  <data name="setting" xml:space="preserve">
+    <value>Einstellungen</value>
+  </data>
   <data name="show" xml:space="preserve">
     <value>Anzeigen</value>
   </data>

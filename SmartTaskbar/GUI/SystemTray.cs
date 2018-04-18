@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Diagnostics;
+using System.IO;
 using System.Windows.Forms;
 
 namespace SmartTaskbar
@@ -7,7 +9,7 @@ namespace SmartTaskbar
     {
         private NotifyIcon notifyIcon;
         private ContextMenuStrip contextMenuStrip;
-        private ToolStripMenuItem about, animation, auto, show, hide, exit;
+        private ToolStripMenuItem about, setting, auto, show, hide, exit;
         private TaskbarSwitcher switcher;
         private FormAbout form;
 
@@ -20,9 +22,9 @@ namespace SmartTaskbar
                 Text = resource.GetString("about"),
                 Font = font
             };
-            animation = new ToolStripMenuItem
+            setting = new ToolStripMenuItem
             {
-                Text = resource.GetString("animation"),
+                Text = resource.GetString("setting"),
                 Font = font
             };
             auto = new ToolStripMenuItem
@@ -55,7 +57,7 @@ namespace SmartTaskbar
             contextMenuStrip.Items.AddRange(new ToolStripItem[]
             {
                 about,
-                animation,
+                setting,
                 new ToolStripSeparator(),
                 auto,
                 show,
@@ -102,7 +104,7 @@ namespace SmartTaskbar
                 form.Show();
             };
 
-            animation.Click += (s, e) => animation.Checked = switcher.AnimationSwitcher();
+            setting.Click += (s, e) => ChildProcessTracker.AddProcess(Process.Start(Path.Combine(Directory.GetCurrentDirectory(), "SmartTaskbarSettings")));
 
             auto.Click += (s, e) =>
             {
@@ -151,7 +153,6 @@ namespace SmartTaskbar
                             RadioChecked(ref hide);
                         break;
                 }
-                animation.Checked = switcher.IsAnimationEnable();
             };
 
             notifyIcon.MouseDoubleClick += (s, e) =>

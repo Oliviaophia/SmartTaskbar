@@ -6,11 +6,11 @@ using static SmartTaskbar.SafeNativeMethods;
 namespace SmartTaskbar
 {
     //https://stackoverflow.com/questions/3342941/kill-child-process-when-parent-process-is-killed
-    class ChildProcessTracker
+    static class ChildProcessTracker
     {
-        private readonly IntPtr s_jobHandle;
+        private static readonly IntPtr s_jobHandle;
 
-        public ChildProcessTracker()
+        static ChildProcessTracker()
         {
             s_jobHandle = CreateJobObjectW(IntPtr.Zero, null);
 
@@ -33,7 +33,7 @@ namespace SmartTaskbar
             }
         }
 
-        public void AddProcess(Process process)
+        public static void AddProcess(Process process)
         {
             if (s_jobHandle == IntPtr.Zero)
                 return;

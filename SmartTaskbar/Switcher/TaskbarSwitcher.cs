@@ -10,7 +10,6 @@ namespace SmartTaskbar
         private string switcherPath;
         private Process process;
         private APPBARDATA aPPBARDATA;
-        private ChildProcessTracker child;
         private bool isStop, animationenable;
 
         public TaskbarSwitcher()
@@ -35,7 +34,6 @@ namespace SmartTaskbar
             aPPBARDATA.cbSize = (uint)Marshal.SizeOf(aPPBARDATA);
             process = new Process();
             process.StartInfo.FileName = switcherPath;
-            child = new ChildProcessTracker();
             isStop = true;
         }
 
@@ -59,7 +57,7 @@ namespace SmartTaskbar
         {
             isStop = false;
             process.Start();
-            child.AddProcess(process);
+            ChildProcessTracker.AddProcess(process);
         }
 
         public void Resume()
