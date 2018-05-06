@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace SmartTaskbar.Properties
+namespace SmartTaskbar.Settings.Properties
 {
 
 
