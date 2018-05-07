@@ -74,7 +74,7 @@
             this.labelVersion.Name = "labelVersion";
             this.labelVersion.Size = new System.Drawing.Size(72, 15);
             this.labelVersion.TabIndex = 0;
-            this.labelVersion.Text = "version 1.1.4";
+            this.labelVersion.Text = "version 2.0.0";
             // 
             // linkRelease
             // 

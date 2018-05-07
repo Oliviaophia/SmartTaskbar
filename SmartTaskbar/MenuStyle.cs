@@ -11,7 +11,7 @@ namespace SmartTaskbar
 
         public override Color MenuItemSelected => Color.WhiteSmoke;
 
-        //public override Color ToolStripDropDownBackground => Color.White;
+        public override Color ToolStripDropDownBackground => Color.White;
 
         public override Color ImageMarginGradientBegin => Color.White;
 
@@ -23,16 +23,16 @@ namespace SmartTaskbar
     public class Win10Renderer : ToolStripProfessionalRenderer
     {
         public Win10Renderer() : base(new Win10ColorTable()) { }
-        //protected override void OnRenderArrow(ToolStripArrowRenderEventArgs e)
-        //{
-        //    e.Graphics.SmoothingMode = SmoothingMode.AntiAlias;
-        //    var r = new Rectangle(e.ArrowRectangle.Location, e.ArrowRectangle.Size);
-        //    r.Inflate(-2, -6);
-        //    e.Graphics.DrawLines(Pens.Black, new Point[]{
-        //        new Point(r.Left, r.Top),
-        //        new Point(r.Right, r.Top + r.Height / 2),
-        //        new Point(r.Left, r.Top + r.Height)});
-        //}
+        protected override void OnRenderArrow(ToolStripArrowRenderEventArgs e)
+        {
+            e.Graphics.SmoothingMode = SmoothingMode.AntiAlias;
+            var r = new Rectangle(e.ArrowRectangle.Location, e.ArrowRectangle.Size);
+            r.Inflate(-2, -6);
+            e.Graphics.DrawLines(Pens.Black, new Point[]{
+                new Point(r.Left, r.Top),
+                new Point(r.Right, r.Top + r.Height / 2),
+                new Point(r.Left, r.Top + r.Height)});
+        }
 
         protected override void OnRenderItemCheck(ToolStripItemImageRenderEventArgs e)
         {

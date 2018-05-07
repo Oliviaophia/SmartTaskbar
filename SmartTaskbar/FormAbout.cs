@@ -1,11 +1,16 @@
-﻿using System.Diagnostics;
+﻿using System;
+using System.Diagnostics;
 using System.Windows.Forms;
 
 namespace SmartTaskbar
 {
     public partial class FormAbout : Form
     {
-        public FormAbout()
+        private static readonly Lazy<FormAbout> lazy = new Lazy<FormAbout>(() => new FormAbout());
+
+        public static FormAbout FormInstance => lazy.Value;
+
+        private FormAbout()
         {
             InitializeComponent();
             linkWeb.Click += (s, e) => Process.Start(@"https://github.com/ChanpleCai/SmartTaskbar");

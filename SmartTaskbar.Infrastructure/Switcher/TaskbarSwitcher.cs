@@ -5,14 +5,14 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SmartTaskbar.Infrastructure
+namespace SmartTaskbar.Infrastructure.Switcher
 {
     public class TaskbarSwitcher
     {
         //http://csharpindepth.com/Articles/General/Singleton.aspx
         private static readonly Lazy<TaskbarSwitcher> lazy = new Lazy<TaskbarSwitcher>(() => new TaskbarSwitcher());
 
-        public static TaskbarSwitcher Instance => lazy.Value;
+        public static TaskbarSwitcher SwitcherInstance => lazy.Value;
 
 
         private SafeNativeMethods.APPBARDATA msgData = new SafeNativeMethods.APPBARDATA();
@@ -29,5 +29,20 @@ namespace SmartTaskbar.Infrastructure
         public void ShowTaskbar() => SafeNativeMethods.ShowTaskbar(ref msgData);
 
         public void HideTaskbar() => SafeNativeMethods.HideTaskbar(ref msgData);
+
+        public void DefaultAutoMode()
+        {
+            //todo
+        }
+
+        public void WhitelistAutoMode()
+        {
+            //todo
+        }
+
+        public void BlacklistAutoMode()
+        {
+            //todo
+        }
     }
 }
