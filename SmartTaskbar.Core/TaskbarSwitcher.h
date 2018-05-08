@@ -10,4 +10,7 @@ extern "C" {
 
     __declspec(dllexport) void HideTaskbar(PAPPBARDATA msgData);
 
+    /*__declspec(dllexport) void DefaultAutoMode(PAPPBARDATA msgData, PWINDOWPLACEMENT placement, HWND maxWindow, );*/
+
+
 }

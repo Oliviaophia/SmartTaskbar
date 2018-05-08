@@ -26,9 +26,32 @@ extern "C" {
         SHAppBarMessage(ABM_SETSTATE, msgData);
     }
 
+
 }
 
-
+inline bool IsCursorOverTaskbar(POINT cursor, APPBARDATA msgData) {
+    GetCursorPos(&cursor);
+    switch (msgData.uEdge)
+    {
+    case ABE_BOTTOM:
+        if (cursor.y >= msgData.rc.top)
+            return true;
+        break;
+    case ABE_LEFT:
+        if (cursor.x <= msgData.rc.right)
+            return true;
+        break;
+    case ABE_TOP:
+        if (cursor.y <= msgData.rc.bottom)
+            return true;
+        break;
+    default:
+        if (cursor.x >= msgData.rc.left)
+            return true;
+        break;
+    }
+    return false;
+}
 
 
 

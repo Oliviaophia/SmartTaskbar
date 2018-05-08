@@ -71,6 +71,41 @@ namespace SmartTaskbar.Infrastructure
             /// LONG->int
             public int bottom;
         }
+
+        [StructLayout(LayoutKind.Sequential)]
+        public struct WINDOWPLACEMENT
+        {
+
+            /// UINT->unsigned int
+            public uint length;
+
+            /// UINT->unsigned int
+            public uint flags;
+
+            /// UINT->unsigned int
+            public uint showCmd;
+
+            /// POINT->tagPOINT
+            public Point ptMinPosition;
+
+            /// POINT->tagPOINT
+            public Point ptMaxPosition;
+
+            /// RECT->tagRECT
+            public TagRECT rcNormalPosition;
+        }
+
+        [StructLayout(LayoutKind.Sequential)]
+        public struct Point
+        {
+
+            /// LONG->int
+            public int x;
+
+            /// LONG->int
+            public int y;
+        }
+
         #endregion
 
 

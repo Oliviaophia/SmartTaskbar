@@ -31,6 +31,9 @@
     <WarningLevel>4</WarningLevel>
     <LangVersion>latest</LangVersion>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Drawing" />
@@ -45,10 +48,19 @@
     <Compile Include="Languages\ResourceCulture.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SafeNativeMethods.cs" />
+    <Compile Include="Switcher\AutoModeWin10\AutoModeBase.cs" />
+    <Compile Include="Switcher\AutoMode\AutoModeBase.cs" />
+    <Compile Include="Switcher\AutoMode\DefaultAutoMode.cs" />
+    <Compile Include="Switcher\AutoModeWin10\DefaultAutoMode.cs" />
+    <Compile Include="Switcher\ISwitcher.cs" />
+    <Compile Include="Switcher\SwitcherManager.cs" />
     <Compile Include="Switcher\TaskbarSwitcher.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Languages\Resource.zh-CN.resx" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.manifest" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

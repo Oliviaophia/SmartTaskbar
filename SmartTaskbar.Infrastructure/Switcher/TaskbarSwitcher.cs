@@ -14,7 +14,6 @@ namespace SmartTaskbar.Infrastructure.Switcher
 
         public static TaskbarSwitcher SwitcherInstance => lazy.Value;
 
-
         private SafeNativeMethods.APPBARDATA msgData = new SafeNativeMethods.APPBARDATA();
 
         private TaskbarSwitcher()
@@ -30,19 +29,11 @@ namespace SmartTaskbar.Infrastructure.Switcher
 
         public void HideTaskbar() => SafeNativeMethods.HideTaskbar(ref msgData);
 
-        public void DefaultAutoMode()
-        {
-            //todo
-        }
+        public void DefaultAutoMode() => SwitcherManager.Instance.RunDefaultAutoMode();
 
-        public void WhitelistAutoMode()
-        {
-            //todo
-        }
+        public void WhitelistAutoMode() => SwitcherManager.Instance.RunWhitelistAutoMode();
 
-        public void BlacklistAutoMode()
-        {
-            //todo
-        }
+        public void BlacklistAutoMode() => SwitcherManager.Instance.RunBlacklistAutoMode();
+
     }
 }
