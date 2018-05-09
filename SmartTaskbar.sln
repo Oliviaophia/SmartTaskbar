@@ -5,9 +5,9 @@ VisualStudioVersion = 15.0.27130.2036
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartTaskbar.Infrastructure", "SmartTaskbar.Infrastructure\SmartTaskbar.Infrastructure.csproj", "{DC3C6B83-6F0B-4E1F-8A3D-7181B35FAFEC}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SmartTaskbar.Core", "SmartTaskbar.Core\SmartTaskbar.Core.vcxproj", "{166190CA-0F87-4EBF-8F80-393EA3F85163}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartTaskbar", "SmartTaskbar\SmartTaskbar.csproj", "{84DAE47B-77AC-4459-8C87-68BD89AA725C}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SmartTaskbar.Core", "SmartTaskbar.Core\SmartTaskbar.Core.vcxproj", "{15D24FDE-DD8B-4AFD-A0DE-3092C69A7FBD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -31,16 +31,6 @@ Global
 		{DC3C6B83-6F0B-4E1F-8A3D-7181B35FAFEC}.Release|x64.Build.0 = Release|Any CPU
 		{DC3C6B83-6F0B-4E1F-8A3D-7181B35FAFEC}.Release|x86.ActiveCfg = Release|Any CPU
 		{DC3C6B83-6F0B-4E1F-8A3D-7181B35FAFEC}.Release|x86.Build.0 = Release|Any CPU
-		{166190CA-0F87-4EBF-8F80-393EA3F85163}.Debug|Any CPU.ActiveCfg = Debug|Win32
-		{166190CA-0F87-4EBF-8F80-393EA3F85163}.Debug|x64.ActiveCfg = Debug|x64
-		{166190CA-0F87-4EBF-8F80-393EA3F85163}.Debug|x64.Build.0 = Debug|x64
-		{166190CA-0F87-4EBF-8F80-393EA3F85163}.Debug|x86.ActiveCfg = Debug|Win32
-		{166190CA-0F87-4EBF-8F80-393EA3F85163}.Debug|x86.Build.0 = Debug|Win32
-		{166190CA-0F87-4EBF-8F80-393EA3F85163}.Release|Any CPU.ActiveCfg = Release|Win32
-		{166190CA-0F87-4EBF-8F80-393EA3F85163}.Release|x64.ActiveCfg = Release|x64
-		{166190CA-0F87-4EBF-8F80-393EA3F85163}.Release|x64.Build.0 = Release|x64
-		{166190CA-0F87-4EBF-8F80-393EA3F85163}.Release|x86.ActiveCfg = Release|Win32
-		{166190CA-0F87-4EBF-8F80-393EA3F85163}.Release|x86.Build.0 = Release|Win32
 		{84DAE47B-77AC-4459-8C87-68BD89AA725C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{84DAE47B-77AC-4459-8C87-68BD89AA725C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{84DAE47B-77AC-4459-8C87-68BD89AA725C}.Debug|x64.ActiveCfg = Debug|Any CPU
@@ -53,6 +43,16 @@ Global
 		{84DAE47B-77AC-4459-8C87-68BD89AA725C}.Release|x64.Build.0 = Release|Any CPU
 		{84DAE47B-77AC-4459-8C87-68BD89AA725C}.Release|x86.ActiveCfg = Release|Any CPU
 		{84DAE47B-77AC-4459-8C87-68BD89AA725C}.Release|x86.Build.0 = Release|Any CPU
+		{15D24FDE-DD8B-4AFD-A0DE-3092C69A7FBD}.Debug|Any CPU.ActiveCfg = Debug|Win32
+		{15D24FDE-DD8B-4AFD-A0DE-3092C69A7FBD}.Debug|x64.ActiveCfg = Debug|x64
+		{15D24FDE-DD8B-4AFD-A0DE-3092C69A7FBD}.Debug|x64.Build.0 = Debug|x64
+		{15D24FDE-DD8B-4AFD-A0DE-3092C69A7FBD}.Debug|x86.ActiveCfg = Debug|Win32
+		{15D24FDE-DD8B-4AFD-A0DE-3092C69A7FBD}.Debug|x86.Build.0 = Debug|Win32
+		{15D24FDE-DD8B-4AFD-A0DE-3092C69A7FBD}.Release|Any CPU.ActiveCfg = Release|Win32
+		{15D24FDE-DD8B-4AFD-A0DE-3092C69A7FBD}.Release|x64.ActiveCfg = Release|x64
+		{15D24FDE-DD8B-4AFD-A0DE-3092C69A7FBD}.Release|x64.Build.0 = Release|x64
+		{15D24FDE-DD8B-4AFD-A0DE-3092C69A7FBD}.Release|x86.ActiveCfg = Release|Win32
+		{15D24FDE-DD8B-4AFD-A0DE-3092C69A7FBD}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
