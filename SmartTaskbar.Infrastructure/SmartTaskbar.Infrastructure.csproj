@@ -47,9 +47,7 @@
   <ItemGroup>
     <Compile Include="Languages\ResourceCulture.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SafeNativeMethods.cs" />
-    <Compile Include="Switcher\AutoModeWin10\AutoModeBase.cs" />
-    <Compile Include="Switcher\AutoMode\AutoModeBase.cs" />
+    <Compile Include="Switcher\AutoModeBase.cs" />
     <Compile Include="Switcher\AutoMode\DefaultAutoMode.cs" />
     <Compile Include="Switcher\AutoModeWin10\DefaultAutoMode.cs" />
     <Compile Include="Switcher\ISwitcher.cs" />
@@ -61,6 +59,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.manifest" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\SmartTaskbar.Core\SmartTaskbar.Core.vcxproj">
+      <Project>{15d24fde-dd8b-4afd-a0de-3092c69a7fbd}</Project>
+      <Name>SmartTaskbar.Core</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
