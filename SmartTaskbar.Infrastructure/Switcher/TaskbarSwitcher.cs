@@ -28,7 +28,7 @@ namespace SmartTaskbar.Infrastructure.Switcher
 
         public void HideTaskbar() => SafeNativeMethods.HideTaskbar(ref msgData);
 
-        //public void DefaultAutoMode() => SwitcherManager.Instance.RunDefaultAutoMode();
+        public void DefaultAutoMode() => SwitcherManager.Instance.RunDefaultAutoMode();
 
         //public void WhitelistAutoMode() => SwitcherManager.Instance.RunWhitelistAutoMode();
 

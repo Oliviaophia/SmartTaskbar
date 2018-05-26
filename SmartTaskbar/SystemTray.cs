@@ -19,7 +19,7 @@ namespace SmartTaskbar
                 Text = CultureInstance.GetString(nameof(menu_about)),
                 Font = font
             };
-            menu_about.Click += (s, e) => FormAbout.FormInstance.Show();
+            menu_about.Click += (s, e) => FormAbout.FormInstance.SwitchWindow();
             menu_settings = new ToolStripMenuItem
             {
                 Text = CultureInstance.GetString(nameof(menu_settings)),
@@ -31,7 +31,7 @@ namespace SmartTaskbar
                 Text = CultureInstance.GetString(nameof(menu_auto)),
                 Font = font
             };
-            //menu_auto.Click += (s, e) => SwitcherInstance.DefaultAutoMode();
+            menu_auto.Click += (s, e) => SwitcherInstance.DefaultAutoMode();
             menu_show = new ToolStripMenuItem
             {
                 Text = CultureInstance.GetString(nameof(menu_show)),
@@ -78,6 +78,13 @@ namespace SmartTaskbar
                 Visible = true
             };
             notify.MouseDoubleClick += (s, e) => SwitcherInstance.SwitchTaskbar();
+            notify.MouseClick += (s, e) =>
+            {
+                if (e.Button == MouseButtons.Right)
+                {
+                    //todo
+                }
+            };
         }
     }
 }

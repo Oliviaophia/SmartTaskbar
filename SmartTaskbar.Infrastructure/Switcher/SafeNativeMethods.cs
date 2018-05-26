@@ -6,7 +6,7 @@ using System.Security;
 namespace SmartTaskbar.Infrastructure.Switcher
 {
     [SuppressUnmanagedCodeSecurity]
-    public class SafeNativeMethods
+    public static class SafeNativeMethods
     {
         static SafeNativeMethods()
         {
@@ -32,21 +32,24 @@ namespace SmartTaskbar.Infrastructure.Switcher
         [DllImport("SmartTaskbar.Core.dll")]
         public static extern void HideTaskbar(ref APPBARDATA msgData);
 
-        //[DllImport("SmartTaskbar.Core.dll")]
-        //public static extern bool IsCursorOverTaskbar(ref POINT cursor, ref APPBARDATA msgData);
+        #region AutoMode
 
-        //[DllImport("SmartTaskbar.Core.dll")]
-        //public static extern bool NonMaximized(IntPtr hwnd, ref WINDOWPLACEMENT placement);
+        [DllImport("SmartTaskbar.Core.dll")]
+        public static extern bool IsCursorOverTaskbar(ref POINT cursor, ref APPBARDATA msgData);
 
-        //[DllImport("SmartTaskbar.Core.dll")]
-        //public static extern bool NonMaximizedWin10(IntPtr hwnd, IntPtr windowPID, IntPtr uwpPID, ref WINDOWPLACEMENT placement);
+        [DllImport("SmartTaskbar.Core.dll")]
+        public static extern bool CallBack(IntPtr hwnd, ref IntPtr maxWindow, ref WINDOWPLACEMENT placement);
 
-        //[DllImport("SmartTaskbar.Core.dll")]
-        //public static extern void WhileMaximized(IntPtr maxWindow, ref WINDOWPLACEMENT placement);
+        [DllImport("SmartTaskbar.Core.dll")]
+        public static extern bool CallBackWin10(IntPtr hwnd, ref IntPtr windowPID, ref IntPtr uwpPID, ref IntPtr maxWindow, ref WINDOWPLACEMENT placement);
 
-        //[DllImport("SmartTaskbar.Core.dll")]
-        //public static extern bool SetuwpPID(IntPtr uwpPID);
+        [DllImport("SmartTaskbar.Core.dll")]
+        public static extern bool SetuwpPID(ref IntPtr uwpPID);
 
+        [DllImport("SmartTaskbar.Core.dll")]
+        public static extern void WhileMax(IntPtr maxWindow, ref WINDOWPLACEMENT placement);
+
+        #endregion
 
         [StructLayout(LayoutKind.Sequential)]
         public struct APPBARDATA
@@ -97,6 +100,14 @@ namespace SmartTaskbar.Infrastructure.Switcher
         [StructLayout(LayoutKind.Sequential)]
         public struct WINDOWPLACEMENT
         {
+
+            public static WINDOWPLACEMENT New()
+            {
+                return new WINDOWPLACEMENT
+                {
+                    length = (uint)Marshal.SizeOf(typeof(WINDOWPLACEMENT))
+                };
+            }
 
             /// UINT->unsigned int
             public uint length;
