@@ -49,6 +49,11 @@ namespace SmartTaskbar.Infrastructure.Switcher
         public void CustomMode(bool isWin10)
         {
             CloseSwitcher();
+            if (isWin10)
+                switcher = new AutoModeWin10.CustomMode();
+            else
+                switcher = new AutoMode.CustomMode();
+            switcher.Start();
         }
 
 

@@ -48,8 +48,10 @@
     <Compile Include="Languages\ResourceCulture.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Switcher\AutoModeBase.cs" />
-    <Compile Include="Switcher\AutoMode\DefaultAutoMode.cs" />
-    <Compile Include="Switcher\AutoModeWin10\DefaultAutoMode.cs" />
+    <Compile Include="Switcher\AutoModeWin10\CustomMode.cs" />
+    <Compile Include="Switcher\AutoMode\CustomMode.cs" />
+    <Compile Include="Switcher\AutoMode\DefaultMode.cs" />
+    <Compile Include="Switcher\AutoModeWin10\DefaultMode.cs" />
     <Compile Include="Switcher\ISwitcher.cs" />
     <Compile Include="Switcher\SafeNativeMethods.cs" />
     <Compile Include="Switcher\TaskbarSwitcher.cs" />
