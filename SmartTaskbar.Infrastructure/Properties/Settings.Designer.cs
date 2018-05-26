@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace SmartTaskbar.Properties {
+namespace SmartTaskbar.Infrastructure.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
@@ -20,18 +20,6 @@ namespace SmartTaskbar.Properties {
         public static Settings Default {
             get {
                 return defaultInstance;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("menu_auto")]
-        public string DefaultMode {
-            get {
-                return ((string)(this["DefaultMode"]));
-            }
-            set {
-                this["DefaultMode"] = value;
             }
         }
     }
