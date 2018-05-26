@@ -40,28 +40,10 @@ extern "C" {
             return FALSE;
         }
     }
-
-    inline __declspec(dllexport) BOOL CallBack(HWND hwnd, HWND* maxWindow, PWINDOWPLACEMENT placement) {
-        if (IsWindowVisible(hwnd) == FALSE)
-            return TRUE;
+    inline __declspec(dllexport) BOOL IsWindowNotMax(HWND hwnd, PWINDOWPLACEMENT placement) {
         GetWindowPlacement(hwnd, placement);
         if (placement->showCmd != SW_MAXIMIZE)
             return TRUE;
-        *maxWindow = hwnd;
-        return FALSE;
-    }
-
-
-    inline __declspec(dllexport) BOOL CallBackWin10(HWND hwnd, PDWORD windowPID, PDWORD uwpPID, HWND* maxWindow, PWINDOWPLACEMENT placement) {
-        if (IsWindowVisible(hwnd) == FALSE)
-            return TRUE;
-        GetWindowPlacement(hwnd, placement);
-        if (placement->showCmd != SW_MAXIMIZE)
-            return TRUE;
-        GetWindowThreadProcessId(hwnd, windowPID);
-        if (*uwpPID == *windowPID)
-            return TRUE;
-        *maxWindow = hwnd;
         return FALSE;
     }
 
@@ -81,14 +63,14 @@ extern "C" {
         return FALSE;
     }
 
-    inline __declspec(dllexport) void WhileMax(HWND maxWindow, PWINDOWPLACEMENT placement) {
-        do
-        {
-            Sleep(500);
-            if (IsWindowVisible(maxWindow) == FALSE)
-                break;
-            GetWindowPlacement(maxWindow, placement);
-        } while (placement->showCmd == SW_MAXIMIZE);
+    inline __declspec(dllexport) BOOL IsWindowMax(HWND maxWindow, PWINDOWPLACEMENT placement) {
+        Sleep(500);
+        if (IsWindowVisible(maxWindow) == FALSE)
+            return FALSE;
+        GetWindowPlacement(maxWindow, placement);
+        if (placement->showCmd == SW_MAXIMIZE)
+            return TRUE;
+        return FALSE;
     }
 
 }

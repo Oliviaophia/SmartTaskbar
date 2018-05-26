@@ -12,10 +12,11 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using MahApps.Metro.Controls;
 
 namespace SmartTaskbar
 {
-    public partial class SettingsWindow : Window
+    public partial class SettingsWindow : MetroWindow
     {
         private static readonly Lazy<SettingsWindow> lazy = new Lazy<SettingsWindow>(() => new SettingsWindow());
 

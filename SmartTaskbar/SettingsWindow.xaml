@@ -1,12 +1,23 @@
-﻿<Window x:Class="SmartTaskbar.SettingsWindow"
+﻿<Controls:MetroWindow x:Class="SmartTaskbar.SettingsWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:Controls="http://metro.mahapps.com/winfx/xaml/controls"
         xmlns:local="clr-namespace:SmartTaskbar"
         mc:Ignorable="d"
-        Title="SmartTaskbar" Height="450" Width="800">
+        Title="SmartTaskbar" Height="460" Width="800" WindowStartupLocation="CenterScreen" 
+        Topmost="True" ResizeMode="NoResize" ShowTitleBar="False">
     <Grid>
-        
+        <TabControl Margin="4,4,10,10"
+            Controls:TabControlHelper.Underlined="SelectedTabItem"
+            TabStripPlacement="Top">
+            <Controls:MetroTabItem Controls:ControlsHelper.HeaderFontSize="18" Header="一般设置">
+                <TextBlock FontSize="30" Text="Content" />
+            </Controls:MetroTabItem>
+            <Controls:MetroTabItem Controls:ControlsHelper.HeaderFontSize="18" Header="自动模式">
+                <TextBlock FontSize="30" Text="More content" />
+            </Controls:MetroTabItem>
+        </TabControl>
     </Grid>
-</Window>
+</Controls:MetroWindow>

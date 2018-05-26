@@ -35,16 +35,14 @@ namespace SmartTaskbar.Infrastructure.Switcher
         public static extern bool IsCursorOverTaskbar(ref POINT cursor, ref APPBARDATA msgData);
 
         [DllImport("SmartTaskbar.Core.dll")]
-        public static extern bool CallBack(IntPtr hwnd, ref IntPtr maxWindow, ref WINDOWPLACEMENT placement);
+        public static extern bool SetuwpPID(out int uwpPID);
 
         [DllImport("SmartTaskbar.Core.dll")]
-        public static extern bool CallBackWin10(IntPtr hwnd, ref IntPtr windowPID, ref IntPtr uwpPID, ref IntPtr maxWindow, ref WINDOWPLACEMENT placement);
+        public static extern bool IsWindowMax(IntPtr maxWindow, ref WINDOWPLACEMENT placement);
 
         [DllImport("SmartTaskbar.Core.dll")]
-        public static extern bool SetuwpPID(ref IntPtr uwpPID);
+        public static extern bool IsWindowNotMax(IntPtr hwnd, ref WINDOWPLACEMENT placement);
 
-        [DllImport("SmartTaskbar.Core.dll")]
-        public static extern void WhileMax(IntPtr maxWindow, ref WINDOWPLACEMENT placement);
 
         #endregion
 
@@ -143,6 +141,20 @@ namespace SmartTaskbar.Infrastructure.Switcher
         [DllImport("user32.dll")]
         public static extern bool EnumWindows(EnumWindowsProc enumProc, IntPtr lParam);
         public delegate bool EnumWindowsProc(IntPtr hWnd, IntPtr lParam);
+
+        #endregion
+
+        #region IsWindowVisible
+
+        [DllImport("user32.dll")]
+        public static extern bool IsWindowVisible(IntPtr hWnd);
+
+        #endregion
+
+        #region GetWindowThreadProcessId
+
+        [DllImport("user32.dll")]
+        public static extern uint GetWindowThreadProcessId(IntPtr hWnd, out int  lpdwProcessId);
 
         #endregion
     }

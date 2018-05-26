@@ -18,7 +18,15 @@ namespace SmartTaskbar.Infrastructure.Switcher.AutoMode
             {
                 while (IsCursorOverTaskbar(ref cursor, ref msgData))
                     Thread.Sleep(250);
-                EnumWindows((h, l) => CallBack(h, ref maxWindow, ref placement), IntPtr.Zero);
+                EnumWindows((h, l) =>
+                {
+                    if (!IsWindowVisible(h))
+                        return true;
+                    if (IsWindowNotMax(h, ref placement))
+                        return true;
+                    maxWindow = h;
+                    return false;
+                }, IntPtr.Zero);
                 if (maxWindow == IntPtr.Zero)
                 {
                     if (tryShowBar == false)
@@ -32,7 +40,7 @@ namespace SmartTaskbar.Infrastructure.Switcher.AutoMode
                     continue;
                 }
                 HideTaskbar(ref msgData);
-                WhileMax(maxWindow, ref placement);
+                while(IsWindowMax(maxWindow, ref placement));
                 tryShowBar = true;
                 maxWindow = IntPtr.Zero;
             }
