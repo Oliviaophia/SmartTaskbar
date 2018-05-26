@@ -11,40 +11,28 @@ namespace SmartTaskbar.Infrastructure.Switcher
     {
         //http://csharpindepth.com/Articles/General/Singleton.aspx
         private static readonly Lazy<TaskbarSwitcher> lazy = new Lazy<TaskbarSwitcher>(() => new TaskbarSwitcher());
+        private SafeNativeMethods.APPBARDATA msgData = SafeNativeMethods.APPBARDATA.New();
 
         public static TaskbarSwitcher SwitcherInstance => lazy.Value;
 
         private TaskbarSwitcher()
         {
-
+            
         }
 
-        public void SwitchTaskbar()
-        {
-            //SafeNativeMethods.SwitchTaskbar(ref msgData);
-        }
+        public void SwitchTaskbar() => SafeNativeMethods.SwitchTaskbar(ref msgData);
 
-        public bool IsTaskbarAutoHide()
-        {
-            //SafeNativeMethods.IsTaskbarAutoHide(ref msgData);
-            return true;
-        }
+        public bool IsTaskbarAutoHide => SafeNativeMethods.IsTaskbarAutoHide(ref msgData);
 
-        public void ShowTaskbar()
-        {
-            //SafeNativeMethods.ShowTaskbar(ref msgData);
-        }
+        public void ShowTaskbar() => SafeNativeMethods.ShowTaskbar(ref msgData);
 
-        public void HideTaskbar()
-        {
-            //SafeNativeMethods.HideTaskbar(ref msgData);
-        }
+        public void HideTaskbar() => SafeNativeMethods.HideTaskbar(ref msgData);
 
-        public void DefaultAutoMode() => SwitcherManager.Instance.RunDefaultAutoMode();
+        //public void DefaultAutoMode() => SwitcherManager.Instance.RunDefaultAutoMode();
 
-        public void WhitelistAutoMode() => SwitcherManager.Instance.RunWhitelistAutoMode();
+        //public void WhitelistAutoMode() => SwitcherManager.Instance.RunWhitelistAutoMode();
 
-        public void BlacklistAutoMode() => SwitcherManager.Instance.RunBlacklistAutoMode();
+        //public void BlacklistAutoMode() => SwitcherManager.Instance.RunBlacklistAutoMode();
 
     }
 }

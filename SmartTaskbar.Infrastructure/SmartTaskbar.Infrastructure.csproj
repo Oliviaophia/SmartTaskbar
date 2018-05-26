@@ -51,6 +51,7 @@
     <Compile Include="Switcher\AutoMode\DefaultAutoMode.cs" />
     <Compile Include="Switcher\AutoModeWin10\DefaultAutoMode.cs" />
     <Compile Include="Switcher\ISwitcher.cs" />
+    <Compile Include="Switcher\SafeNativeMethods.cs" />
     <Compile Include="Switcher\SwitcherManager.cs" />
     <Compile Include="Switcher\TaskbarSwitcher.cs" />
   </ItemGroup>

@@ -31,7 +31,7 @@ namespace SmartTaskbar
                 Text = CultureInstance.GetString(nameof(menu_auto)),
                 Font = font
             };
-            menu_auto.Click += (s, e) => SwitcherInstance.DefaultAutoMode();
+            //menu_auto.Click += (s, e) => SwitcherInstance.DefaultAutoMode();
             menu_show = new ToolStripMenuItem
             {
                 Text = CultureInstance.GetString(nameof(menu_show)),
