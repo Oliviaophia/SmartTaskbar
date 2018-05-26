@@ -4,9 +4,9 @@ using static SmartTaskbar.Infrastructure.Switcher.SafeNativeMethods;
 
 namespace SmartTaskbar.Infrastructure.Switcher.AutoMode
 {
-    class DefaultAutoMode : AutoModeBase
+    class DefaultMode : AutoModeBase
     {
-        public DefaultAutoMode() : base()
+        public DefaultMode() : base()
         {
             autothread = new Thread(AutoMode);
         }
@@ -14,7 +14,6 @@ namespace SmartTaskbar.Infrastructure.Switcher.AutoMode
         private static void AutoMode()
         {
             bool tryShowBar = true;
-
             while (true)
             {
                 while (IsCursorOverTaskbar(ref cursor, ref msgData))

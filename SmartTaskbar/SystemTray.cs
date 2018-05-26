@@ -34,19 +34,37 @@ namespace SmartTaskbar
                 Text = CultureInstance.GetString(nameof(menu_auto)),
                 Font = font
             };
-            menu_auto.Click += (s, e) => SwitcherInstance.DefaultAutoMode(IsWin10);
+            menu_auto.Click += (s, e) => 
+            {
+                if (menu_auto.Checked)
+                    return;
+                SwitcherInstance.DefaultMode(IsWin10);
+                RadioButton(ref menu_auto);
+            };
             menu_show = new ToolStripMenuItem
             {
                 Text = CultureInstance.GetString(nameof(menu_show)),
                 Font = font
             };
-            menu_show.Click += (s, e) => SwitcherInstance.ShowTaskbar();
+            menu_show.Click += (s, e) => 
+            {
+                if (menu_show.Checked)
+                    return;
+                SwitcherInstance.ShowTaskbar();
+                RadioButton(ref menu_show);
+            };
             menu_hide = new ToolStripMenuItem
             {
                 Text = CultureInstance.GetString(nameof(menu_hide)),
                 Font = font
             };
-            menu_hide.Click += (s, e) => SwitcherInstance.HideTaskbar();
+            menu_hide.Click += (s, e) => 
+            {
+                if(menu_hide)
+                    return;
+                SwitcherInstance.HideTaskbar();
+                RadioButton(ref menu_hide);
+            };
             menu_exit = new ToolStripMenuItem
             {
                 Text = CultureInstance.GetString(nameof(menu_exit)),
@@ -55,6 +73,7 @@ namespace SmartTaskbar
             menu_exit.Click += (s, e) =>
             {
                 notify.Dispose();
+                SwitcherInstance.CloseSwitcher();
                 System.Windows.Application.Current.Shutdown();
             };
 
@@ -85,9 +104,46 @@ namespace SmartTaskbar
             {
                 if (e.Button == MouseButtons.Right)
                 {
-                    //todo
+                    switch (Properties.Settings.Default.DefaultMode)
+                    {
+                        case nameof(menu_hide):
+                            if (!SwitcherInstance.IsTaskbarAutoHide)
+                                RadioChecked(ref menu_show);
+                            break;
+                        case nameof(menu_show):
+                            if (SwitcherInstance.IsTaskbarAutoHide)
+                                RadioChecked(ref menu_hide);
+                            break;
+                        default:
+                            break;
+                    }
                 }
             };
+
+            #region LoadSettings
+
+            //LoadDefaultTaskbarMode:
+            switch (Properties.Settings.Default.DefaultMode)
+            {
+                case nameof(menu_hide):
+                    SwitcherInstance.HideTaskbar();
+                    break;
+                case nameof(menu_show):
+                    SwitcherInstance.ShowTaskbar();
+                    break;
+                default:
+                    SwitcherInstance.DefaultMode(IsWin10);
+                    break;
+            }
+            #endregion
+        }
+
+        private void RadioChecked(ref ToolStripMenuItem tool)
+        {
+            menu_auto.Checked = menu_hide.Checked = menu_show.Checked = false;
+            Properties.Settings.Default.DefaultMode = tool.Name;
+            Properties.Settings.Default.Save();
+            tool.Checked = true;
         }
     }
 }

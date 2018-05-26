@@ -13,7 +13,7 @@ extern "C" {
     }
 
     inline __declspec(dllexport) BOOL IsTaskbarAutoHide(PAPPBARDATA msgData) {
-        return SHAppBarMessage(ABM_GETSTATE, msgData);
+        return (BOOL)SHAppBarMessage(ABM_GETSTATE, msgData);
     }
 
     inline __declspec(dllexport) void ShowTaskbar(PAPPBARDATA msgData) {
