@@ -39,7 +39,7 @@ namespace SmartTaskbar
                 if (menu_auto.Checked)
                     return;
                 SwitcherInstance.DefaultMode(IsWin10);
-                RadioButton(ref menu_auto);
+                RadioChecked(ref menu_auto);
             };
             menu_show = new ToolStripMenuItem
             {
@@ -51,7 +51,7 @@ namespace SmartTaskbar
                 if (menu_show.Checked)
                     return;
                 SwitcherInstance.ShowTaskbar();
-                RadioButton(ref menu_show);
+                RadioChecked(ref menu_show);
             };
             menu_hide = new ToolStripMenuItem
             {
@@ -60,10 +60,10 @@ namespace SmartTaskbar
             };
             menu_hide.Click += (s, e) => 
             {
-                if(menu_hide)
+                if(menu_hide.Checked)
                     return;
                 SwitcherInstance.HideTaskbar();
-                RadioButton(ref menu_hide);
+                RadioChecked(ref menu_hide);
             };
             menu_exit = new ToolStripMenuItem
             {
