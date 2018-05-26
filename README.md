@@ -1,6 +1,6 @@
 
 
-`This project will be suspended for about 2 months`
+`This project will be suspended for about 1 months`
 
 SmartTaskbar  [![Logo](https://github.com/ChanpleCai/SmartTaskbar/blob/master/logo/logo_blue_24x24.png)](http://www.softpedia.com/get/Tweak/System-Tweak/SmartTaskbar.shtml)
 =====
