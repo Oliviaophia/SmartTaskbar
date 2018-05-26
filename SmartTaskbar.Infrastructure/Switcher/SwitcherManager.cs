@@ -26,9 +26,9 @@ namespace SmartTaskbar.Infrastructure.Switcher
         {
             switcher?.Close();
             if (IsWin10)
-                switcher = new AutoMode.DefaultAutoMode();
-            else
                 switcher = new AutoModeWin10.DefaultAutoMode();
+            else
+                switcher = new AutoMode.DefaultAutoMode();
             switcher.Start();
         }
 
