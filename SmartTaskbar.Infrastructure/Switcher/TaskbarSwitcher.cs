@@ -22,17 +22,23 @@ namespace SmartTaskbar.Infrastructure.Switcher
             
         }
 
-        public void SwitchTaskbar() => SafeNativeMethods.SwitchTaskbar(ref msgData);
-
         public bool IsTaskbarAutoHide => SafeNativeMethods.IsTaskbarAutoHide(ref msgData);
 
-        public void ShowTaskbar() => SafeNativeMethods.ShowTaskbar(ref msgData);
+        public void ShowTaskbar()
+        {
+            CloseSwitcher();
+            SafeNativeMethods.ShowTaskbar(ref msgData);
+        }
 
-        public void HideTaskbar() => SafeNativeMethods.HideTaskbar(ref msgData);
+        public void HideTaskbar()
+        {
+            CloseSwitcher();
+            SafeNativeMethods.HideTaskbar(ref msgData);
+        }
 
         public void DefaultMode(bool isWin10)
         {
-            switcher?.Close();
+            CloseSwitcher();
             if (isWin10)
                 switcher = new AutoModeWin10.DefaultMode();
             else
@@ -42,7 +48,7 @@ namespace SmartTaskbar.Infrastructure.Switcher
 
         public void CustomMode(bool isWin10)
         {
-            switcher?.Close();
+            CloseSwitcher();
         }
 
 

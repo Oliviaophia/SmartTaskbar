@@ -32,9 +32,10 @@ namespace SmartTaskbar
             menu_auto = new ToolStripMenuItem
             {
                 Text = CultureInstance.GetString(nameof(menu_auto)),
-                Font = font
+                Font = font,
+                Name = nameof(menu_auto)
             };
-            menu_auto.Click += (s, e) => 
+            menu_auto.Click += (s, e) =>
             {
                 if (menu_auto.Checked)
                     return;
@@ -44,9 +45,10 @@ namespace SmartTaskbar
             menu_show = new ToolStripMenuItem
             {
                 Text = CultureInstance.GetString(nameof(menu_show)),
-                Font = font
+                Font = font,
+                Name = nameof(menu_show)
             };
-            menu_show.Click += (s, e) => 
+            menu_show.Click += (s, e) =>
             {
                 if (menu_show.Checked)
                     return;
@@ -56,11 +58,12 @@ namespace SmartTaskbar
             menu_hide = new ToolStripMenuItem
             {
                 Text = CultureInstance.GetString(nameof(menu_hide)),
-                Font = font
+                Font = font,
+                Name = nameof(menu_hide)
             };
-            menu_hide.Click += (s, e) => 
+            menu_hide.Click += (s, e) =>
             {
-                if(menu_hide.Checked)
+                if (menu_hide.Checked)
                     return;
                 SwitcherInstance.HideTaskbar();
                 RadioChecked(ref menu_hide);
@@ -99,7 +102,19 @@ namespace SmartTaskbar
                 Icon = Properties.Resources.logo_32,
                 Visible = true
             };
-            notify.MouseDoubleClick += (s, e) => SwitcherInstance.SwitchTaskbar();
+            notify.MouseDoubleClick += (s, e) =>
+            {
+                if (SwitcherInstance.IsTaskbarAutoHide)
+                {
+                    SwitcherInstance.ShowTaskbar();
+                    RadioChecked(ref menu_show);
+                }
+                else
+                {
+                    SwitcherInstance.HideTaskbar();
+                    RadioChecked(ref menu_hide);
+                }
+            };
             notify.MouseClick += (s, e) =>
             {
                 if (e.Button == MouseButtons.Right)
@@ -127,12 +142,15 @@ namespace SmartTaskbar
             {
                 case nameof(menu_hide):
                     SwitcherInstance.HideTaskbar();
+                    RadioChecked(ref menu_hide);
                     break;
                 case nameof(menu_show):
                     SwitcherInstance.ShowTaskbar();
+                    RadioChecked(ref menu_show);
                     break;
                 default:
                     SwitcherInstance.DefaultMode(IsWin10);
+                    RadioChecked(ref menu_auto);
                     break;
             }
             #endregion

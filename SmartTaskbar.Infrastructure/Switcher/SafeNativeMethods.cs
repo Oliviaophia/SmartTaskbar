@@ -21,9 +21,6 @@ namespace SmartTaskbar.Infrastructure.Switcher
         #region TaskbarSwitcher
 
         [DllImport("SmartTaskbar.Core.dll")]
-        public static extern void SwitchTaskbar(ref APPBARDATA msgData);
-
-        [DllImport("SmartTaskbar.Core.dll")]
         public static extern bool IsTaskbarAutoHide(ref APPBARDATA msgData);
 
         [DllImport("SmartTaskbar.Core.dll")]

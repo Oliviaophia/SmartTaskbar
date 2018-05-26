@@ -3,15 +3,6 @@
 
 extern "C" {
 
-    inline __declspec(dllexport) void SwitchTaskbar(PAPPBARDATA msgData) {
-        if (IsTaskbarAutoHide(msgData)) {
-            ShowTaskbar(msgData);
-        }
-        else {
-            HideTaskbar(msgData);
-        }
-    }
-
     inline __declspec(dllexport) BOOL IsTaskbarAutoHide(PAPPBARDATA msgData) {
         return (BOOL)SHAppBarMessage(ABM_GETSTATE, msgData);
     }

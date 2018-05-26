@@ -1,8 +1,6 @@
 #pragma once
 extern "C" {
 
-    __declspec(dllexport) void SwitchTaskbar(PAPPBARDATA msgData);
-
     __declspec(dllexport) BOOL IsTaskbarAutoHide(PAPPBARDATA msgData);
 
     __declspec(dllexport) void ShowTaskbar(PAPPBARDATA msgData);
