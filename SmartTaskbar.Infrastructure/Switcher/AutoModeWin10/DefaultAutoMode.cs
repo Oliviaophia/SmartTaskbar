@@ -11,8 +11,8 @@ namespace SmartTaskbar.Infrastructure.Switcher.AutoModeWin10
         }
 
         private static void AutoMode()
-
         {
+            
         }
     }
 }
