@@ -1,4 +1,5 @@
-﻿using System.Windows.Forms;
+﻿using System;
+using System.Windows.Forms;
 using static SmartTaskbar.Infrastructure.Languages.ResourceCulture;
 using static SmartTaskbar.Infrastructure.Switcher.TaskbarSwitcher;
 
@@ -9,6 +10,8 @@ namespace SmartTaskbar
         private NotifyIcon notify;
         private ContextMenuStrip contextMenuStrip;
         private ToolStripMenuItem menu_about, menu_settings, menu_auto, menu_show, menu_hide, menu_exit;
+
+        public static bool IsWin10 { get; } = Environment.OSVersion.Version.Major.ToString() == "10";
 
         public SystemTray()
         {
@@ -31,7 +34,7 @@ namespace SmartTaskbar
                 Text = CultureInstance.GetString(nameof(menu_auto)),
                 Font = font
             };
-            menu_auto.Click += (s, e) => SwitcherInstance.DefaultAutoMode();
+            menu_auto.Click += (s, e) => SwitcherInstance.DefaultAutoMode(IsWin10);
             menu_show = new ToolStripMenuItem
             {
                 Text = CultureInstance.GetString(nameof(menu_show)),

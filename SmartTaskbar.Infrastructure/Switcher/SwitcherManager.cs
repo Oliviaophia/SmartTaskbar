@@ -15,29 +15,27 @@ namespace SmartTaskbar.Infrastructure.Switcher
 
         private ISwitcher switcher;
 
-        public bool IsWin10 { get; } = Environment.OSVersion.Version.Major.ToString() == "10";
-
         public SwitcherManager()
         {
-            
+
         }
 
-        public void RunDefaultAutoMode()
+        public void RunDefaultAutoMode(bool isWin10)
         {
             switcher?.Close();
-            if (IsWin10)
+            if (isWin10)
                 switcher = new AutoModeWin10.DefaultAutoMode();
             else
                 switcher = new AutoMode.DefaultAutoMode();
             switcher.Start();
         }
 
-        public void RunWhitelistAutoMode()
+        public void RunWhitelistAutoMode(bool isWin10)
         {
             switcher?.Close();
         }
 
-        public void RunBlacklistAutoMode()
+        public void RunBlacklistAutoMode(bool isWin10)
         {
             switcher?.Close();
         }
