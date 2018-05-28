@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace SmartTaskbar.Properties {
+namespace SmartTaskbar {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
@@ -20,6 +20,30 @@ namespace SmartTaskbar.Properties {
         public static Settings Default {
             get {
                 return defaultInstance;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int SwitcherVersion {
+            get {
+                return ((int)(this["SwitcherVersion"]));
+            }
+            set {
+                this["SwitcherVersion"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("auto")]
+        public string TaskbarState {
+            get {
+                return ((string)(this["TaskbarState"]));
+            }
+            set {
+                this["TaskbarState"] = value;
             }
         }
     }

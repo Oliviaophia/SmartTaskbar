@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace SmartTaskbar.Properties {
+namespace SmartTaskbar {
     using System;
     
     
@@ -22,14 +22,14 @@ namespace SmartTaskbar.Properties {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class Resources {
+    internal class Resource_Icon {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal Resources() {
+        internal Resource_Icon() {
         }
         
         /// <summary>
@@ -39,7 +39,7 @@ namespace SmartTaskbar.Properties {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("SmartTaskbar.Properties.Resources", typeof(Resources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("SmartTaskbar.Resource_Icon", typeof(Resource_Icon).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -61,12 +61,22 @@ namespace SmartTaskbar.Properties {
         }
         
         /// <summary>
-        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
+        ///   查找类似于 (图标) 的 System.Drawing.Icon 类型的本地化资源。
         /// </summary>
-        internal static System.Drawing.Bitmap logo_blue {
+        internal static System.Drawing.Icon logo_128 {
             get {
-                object obj = ResourceManager.GetObject("logo_blue", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
+                object obj = ResourceManager.GetObject("logo_128", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似于 (图标) 的 System.Drawing.Icon 类型的本地化资源。
+        /// </summary>
+        internal static System.Drawing.Icon logo_32 {
+            get {
+                object obj = ResourceManager.GetObject("logo_32", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
             }
         }
     }

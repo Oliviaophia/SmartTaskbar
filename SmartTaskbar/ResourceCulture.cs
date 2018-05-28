@@ -1,0 +1,36 @@
+﻿using System.Globalization;
+using System.Reflection;
+using System.Resources;
+using System.Threading;
+
+namespace SmartTaskbar
+{
+    class ResourceCulture
+    {
+        private ResourceManager resourceManager;
+
+        public ResourceCulture()
+        {
+            switch (Thread.CurrentThread.CurrentUICulture.Name)
+            {
+                case "zh-CN":
+                case "en-US":
+                case "de-DE":
+                case "ja-JP":
+                    break;
+                case string str when str.StartsWith("zh"):
+                    Thread.CurrentThread.CurrentUICulture = new CultureInfo("zh-CHT");
+                    break;
+                case string str when str.StartsWith("de"):
+                    Thread.CurrentThread.CurrentUICulture = new CultureInfo("de-DE");
+                    break;
+                default:
+                    Thread.CurrentThread.CurrentUICulture = new CultureInfo("en-US");
+                    break;
+            }
+            resourceManager = new ResourceManager("SmartTaskbar.Languages.Resource", Assembly.GetExecutingAssembly());
+        }
+
+        public string GetString(string name) => resourceManager.GetString(name, Thread.CurrentThread.CurrentUICulture);
+    }
+}
