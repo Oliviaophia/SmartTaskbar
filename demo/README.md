@@ -24,9 +24,3 @@ Demo 演示
   当使用键盘热键时：
   
 ![img](https://github.com/ChanpleCai/SmartTaskbar/blob/master/demo/Shortcut_Key.gif)
-
-* Windows 10 version cannot autohide or display automatically based on UWP window state (Auto Mode).
-  
-  win10环境下无法根据UWP窗体状态进行改变
-  
-![img](https://github.com/ChanpleCai/SmartTaskbar/blob/master/demo/block_UWP.gif)
