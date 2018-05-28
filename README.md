@@ -4,7 +4,7 @@
 
 SmartTaskbar  [![Logo](https://github.com/ChanpleCai/SmartTaskbar/blob/master/logo/logo_blue_24x24.png)](http://www.softpedia.com/get/Tweak/System-Tweak/SmartTaskbar.shtml)
 =====
-[![GitHub version](https://badge.fury.io/gh/ChanpleCai%2FSmartTaskbar.svg)](https://github.com/ChanpleCai/SmartTaskbar/releases/download/v1.1.4/SmartTaskbar_Setup.exe)
+[![GitHub version](https://badge.fury.io/gh/ChanpleCai%2FSmartTaskbar.svg)](https://github.com/ChanpleCai/SmartTaskbar/releases/download/v1.1.5/SmartTaskbar_Setup.exe)
 [![Github All Releases](https://img.shields.io/github/downloads/ChanpleCai/SmartTaskbar/total.svg)](https://github.com/ChanpleCai/SmartTaskbar/releases)
 [![License](http://img.shields.io/:license-MIT-blue.svg?style=flat)](LICENSE)
 
@@ -19,12 +19,12 @@ Features 功能
 
 #### Auto Mode 自动模式
 
-* In the Auto Mode, SmartTaskbar will set the Taskbar to Auto-Hide(Hide) Mode when a maximized window exists (except UWP window).
+* In the Auto Mode, SmartTaskbar will set the Taskbar to Auto-Hide(Hide) Mode when a maximized window exists .
 
-  当有窗体最大化时（UWP除外），它会使任务栏自动隐藏
-* Without maximized window (except UWP window), the Taskbar will display(Show) automatically.
+  当有窗体最大化时，它会使任务栏自动隐藏
+* Without maximized window, the Taskbar will display(Show) automatically.
 
-  当没有窗体最大化时（UWP除外），它会自动使任务栏显示
+  当没有窗体最大化时，它会自动使任务栏显示
 * The Taskbar won't change the display state as the mouse hovering over it.
 
   当有鼠标悬停在任务栏上方时，不改变任务栏状态
@@ -53,15 +53,11 @@ Installation 安装
 
   从[releases](https://github.com/ChanpleCai/SmartTaskbar/releases)或[Softpedia](http://www.softpedia.com/get/Tweak/System-Tweak/SmartTaskbar.shtml)下载安装程序：
   
-  [![Download Now](https://github.com/ChanpleCai/SmartTaskbar/blob/master/img/Download_Softpedia.png)](https://github.com/ChanpleCai/SmartTaskbar/releases/download/v1.1.4/SmartTaskbar_Setup.exe) 
+  [![Download Now](https://github.com/ChanpleCai/SmartTaskbar/blob/master/img/Download_Softpedia.png)](https://github.com/ChanpleCai/SmartTaskbar/releases/download/v1.1.5/SmartTaskbar_Setup.exe) 
   
     * If the installation fails, please re-install after installing the [.NET Framework 4.7.1](https://www.microsoft.com/net/download/dotnet-framework-runtime/net471?utm_source=getdotnet&utm_medium=referral).
 
       如果安装失败，请在安装完[.NET Framework 4.7.1](https://www.microsoft.com/net/download/dotnet-framework-runtime/net471?utm_source=getdotnet&utm_medium=referral)框架后重新安装一次
-
-    * If you do not like the GUI version of SmartTaskbar, you can download version v1.0.3 from [HERE](https://github.com/ChanpleCai/SmartTaskbar/releases/tag/v1.0.3).
-
-      如果您不需要带GUI版本的SmartTaskbar，可以在[这里](https://github.com/ChanpleCai/SmartTaskbar/releases/tag/v1.0.3)下载v1.0.3版本
 
 * The program will start running in the background after the installtion.
 
@@ -73,9 +69,6 @@ Installation 安装
 
 Known Issues 已知问题
 ----
-* The SmartTaskbar(Auto Mode) cannot autohide or display automatically based on UWP window state.
-
-  SmartTaskbar(Auto Mode)不能根据UWP窗体状态自动隐藏或显示
   
 * When using multiple monitors, Auto Mode may not work correctly.
 
