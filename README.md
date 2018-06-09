@@ -1,10 +1,6 @@
-
-
-`This project will be suspended for about 1 months`
-
 SmartTaskbar  [![Logo](https://github.com/ChanpleCai/SmartTaskbar/blob/master/logo/logo_blue_24x24.png)](http://www.softpedia.com/get/Tweak/System-Tweak/SmartTaskbar.shtml)
 =====
-[![GitHub version](https://badge.fury.io/gh/ChanpleCai%2FSmartTaskbar.svg)](https://github.com/ChanpleCai/SmartTaskbar/releases/download/v1.1.5/SmartTaskbar_Setup.exe)
+[![GitHub version](https://badge.fury.io/gh/ChanpleCai%2FSmartTaskbar.svg)](https://github.com/ChanpleCai/SmartTaskbar/releases/download/v1.1.6/SmartTaskbar_Setup.exe)
 [![Github All Releases](https://img.shields.io/github/downloads/ChanpleCai/SmartTaskbar/total.svg)](https://github.com/ChanpleCai/SmartTaskbar/releases)
 [![License](http://img.shields.io/:license-MIT-blue.svg?style=flat)](LICENSE)
 
@@ -22,12 +18,10 @@ Features 功能
 * In the Auto Mode, SmartTaskbar will set the Taskbar to Auto-Hide(Hide) Mode when a maximized window exists .
 
   当有窗体最大化时，它会使任务栏自动隐藏
+  
 * Without maximized window, the Taskbar will display(Show) automatically.
 
   当没有窗体最大化时，它会自动使任务栏显示
-* The Taskbar won't change the display state as the mouse hovering over it.
-
-  当有鼠标悬停在任务栏上方时，不改变任务栏状态
 
 ![img](https://github.com/ChanpleCai/SmartTaskbar/blob/master/demo/Hide_Show.gif)
 
@@ -53,7 +47,7 @@ Installation 安装
 
   从[releases](https://github.com/ChanpleCai/SmartTaskbar/releases)或[Softpedia](http://www.softpedia.com/get/Tweak/System-Tweak/SmartTaskbar.shtml)下载安装程序：
   
-  [![Download Now](https://github.com/ChanpleCai/SmartTaskbar/blob/master/img/Download_Softpedia.png)](https://github.com/ChanpleCai/SmartTaskbar/releases/download/v1.1.5/SmartTaskbar_Setup.exe) 
+  [![Download Now](https://github.com/ChanpleCai/SmartTaskbar/blob/master/img/Download_Softpedia.png)](https://github.com/ChanpleCai/SmartTaskbar/releases/download/v1.1.6/SmartTaskbar_Setup.exe) 
   
     * If the installation fails, please re-install after installing the [.NET Framework 4.7.1](https://www.microsoft.com/net/download/dotnet-framework-runtime/net471?utm_source=getdotnet&utm_medium=referral).
 
@@ -85,10 +79,6 @@ Known Issues 已知问题
     * Some applications, such as Steam, cannot be maximized properly(After the taskbar is hidden, it will leave a blank space).
     
       有些应用程序如Steam，不能正常的最大化(任务栏隐藏后会留下一道空隙)
-      
-* Under Windows 10, sometimes the taskbar(Auto-Hide Mode) can't be automatically hidden, the taskbar will blocks the content behind it(This is probably a bug in Windows 10).
-
-  在Windows 10下，有时隐藏模式的任务栏，会掩盖下方的内容，而不能真正的隐藏(这很可能是Windows 10系统的一个bug)
 
 Build 生成
 -----
