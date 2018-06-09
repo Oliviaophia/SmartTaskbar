@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Diagnostics;
 using System.IO;
-using static SmartTaskbar.Switcher.SafeNativeMethods;
+using static SmartTaskbar.SafeNativeMethods;
 
-namespace SmartTaskbar.Switcher
+namespace SmartTaskbar
 {
     class TaskbarSwitcher
     {

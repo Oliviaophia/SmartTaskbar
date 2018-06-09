@@ -7,12 +7,12 @@ namespace SmartTaskbar
         private NotifyIcon notifyIcon;
         private ContextMenuStrip contextMenuStrip;
         private ToolStripMenuItem about, animation, auto, show, hide, exit;
-        private Switcher.TaskbarSwitcher switcher = new Switcher.TaskbarSwitcher();
+        private TaskbarSwitcher switcher = new TaskbarSwitcher();
 
         public SystemTray()
         {
             #region Load Auto-Mode
-            
+            //Turn on Auto-Mode as soon as possible
             if (Properties.Settings.Default.TaskbarState.Equals(nameof(auto)))
                 switcher.Start();
 

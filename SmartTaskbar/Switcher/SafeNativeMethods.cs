@@ -2,7 +2,7 @@
 using System.Runtime.InteropServices;
 using System.Security;
 
-namespace SmartTaskbar.Switcher
+namespace SmartTaskbar
 {
     [SuppressUnmanagedCodeSecurity]
     static class SafeNativeMethods
