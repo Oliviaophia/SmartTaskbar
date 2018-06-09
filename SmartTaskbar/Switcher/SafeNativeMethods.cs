@@ -2,7 +2,7 @@
 using System.Runtime.InteropServices;
 using System.Security;
 
-namespace SmartTaskbar
+namespace SmartTaskbar.Switcher
 {
     [SuppressUnmanagedCodeSecurity]
     static class SafeNativeMethods
@@ -18,6 +18,13 @@ namespace SmartTaskbar
         [StructLayout(LayoutKind.Sequential)]
         public struct APPBARDATA
         {
+            public static APPBARDATA New()
+            {
+                return new APPBARDATA
+                {
+                    cbSize = (uint)Marshal.SizeOf(typeof(APPBARDATA))
+                };
+            }
 
             /// DWORD->unsigned int
             public uint cbSize;
@@ -80,8 +87,7 @@ namespace SmartTaskbar
         ///cbJobObjectInformationLength: DWORD->unsigned int
         [DllImport("kernel32.dll", EntryPoint = "SetInformationJobObject")]
         [return: MarshalAs(UnmanagedType.Bool)]
-        public static extern bool SetInformationJobObject([In()] IntPtr hJob, int JobObjectInformationClass,
-            [In()] IntPtr lpJobObjectInformation, uint cbJobObjectInformationLength);
+        public static extern bool SetInformationJobObject([In()] IntPtr hJob, int JobObjectInformationClass, [In()] IntPtr lpJobObjectInformation, uint cbJobObjectInformationLength);
 
 
         /// Return Type: BOOL->int
@@ -137,13 +143,11 @@ namespace SmartTaskbar
         ///fWinIni: UINT->unsigned int
         [DllImport("user32.dll", EntryPoint = "SystemParametersInfoW")]
         [return: MarshalAs(UnmanagedType.Bool)]
-        public static extern bool SetSystemParameters(uint uiAction, uint uiParam,
-            bool pvParam, uint fWinIni);
+        public static extern bool SetSystemParameters(uint uiAction, uint uiParam, bool pvParam, uint fWinIni);
 
         [DllImport("user32.dll", EntryPoint = "SystemParametersInfoW")]
         [return: MarshalAs(UnmanagedType.Bool)]
-        public static extern bool GetSystemParameters(uint uiAction, uint uiParam,
-            out bool pvParam, uint fWinIni);
+        public static extern bool GetSystemParameters(uint uiAction, uint uiParam, out bool pvParam, uint fWinIni);
 
         public const uint SPI_GETMENUANIMATION = 0x1002;
         public const uint SPI_SETMENUANIMATION = 0x1003;

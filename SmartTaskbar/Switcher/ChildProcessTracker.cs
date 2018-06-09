@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
-using static SmartTaskbar.SafeNativeMethods;
+using static SmartTaskbar.Switcher.SafeNativeMethods;
 
-namespace SmartTaskbar
+namespace SmartTaskbar.Switcher
 {
     //https://stackoverflow.com/questions/3342941/kill-child-process-when-parent-process-is-killed
     class ChildProcessTracker
@@ -40,4 +40,5 @@ namespace SmartTaskbar
             AssignProcessToJobObject(s_jobHandle, process.Handle);
         }
     }
+
 }

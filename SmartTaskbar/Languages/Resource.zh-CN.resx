@@ -129,9 +129,6 @@
   <data name="exit" xml:space="preserve">
     <value>退出</value>
   </data>
-  <data name="firstrun" xml:space="preserve">
-    <value>SmartTaskbar正在后台运行</value>
-  </data>
   <data name="hide" xml:space="preserve">
     <value>隐藏</value>
   </data>

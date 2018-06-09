@@ -3,15 +3,12 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27130.2036
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartTaskbar", "SmartTaskbar\SmartTaskbar.csproj", "{6A7CF22A-900B-4234-AE5C-E2CB53615AD8}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartTaskbar", "SmartTaskbar\SmartTaskbar.csproj", "{59AE9BA6-47C4-4671-8A58-6EB87A9674D3}"
 	ProjectSection(ProjectDependencies) = postProject
-		{78CFFA36-7E0B-4DDE-8824-9FDF2AB42F94} = {78CFFA36-7E0B-4DDE-8824-9FDF2AB42F94}
-		{30E30399-983D-4F30-AB64-62F4D13F6F3B} = {30E30399-983D-4F30-AB64-62F4D13F6F3B}
+		{7DC84F13-E083-4F15-8E94-E45EA92877A2} = {7DC84F13-E083-4F15-8E94-E45EA92877A2}
 	EndProjectSection
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TaskbarSwitcher", "TaskbarSwitcher\TaskbarSwitcher.vcxproj", "{78CFFA36-7E0B-4DDE-8824-9FDF2AB42F94}"
-EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TaskbarSwitcherWin10", "TaskbarSwitcherWin10\TaskbarSwitcherWin10.vcxproj", "{30E30399-983D-4F30-AB64-62F4D13F6F3B}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TaskbarSwitcher", "TaskbarSwitcher\TaskbarSwitcher.vcxproj", "{7DC84F13-E083-4F15-8E94-E45EA92877A2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -23,40 +20,28 @@ Global
 		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{6A7CF22A-900B-4234-AE5C-E2CB53615AD8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{6A7CF22A-900B-4234-AE5C-E2CB53615AD8}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{6A7CF22A-900B-4234-AE5C-E2CB53615AD8}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{6A7CF22A-900B-4234-AE5C-E2CB53615AD8}.Debug|x64.Build.0 = Debug|Any CPU
-		{6A7CF22A-900B-4234-AE5C-E2CB53615AD8}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{6A7CF22A-900B-4234-AE5C-E2CB53615AD8}.Debug|x86.Build.0 = Debug|Any CPU
-		{6A7CF22A-900B-4234-AE5C-E2CB53615AD8}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{6A7CF22A-900B-4234-AE5C-E2CB53615AD8}.Release|Any CPU.Build.0 = Release|Any CPU
-		{6A7CF22A-900B-4234-AE5C-E2CB53615AD8}.Release|x64.ActiveCfg = Release|Any CPU
-		{6A7CF22A-900B-4234-AE5C-E2CB53615AD8}.Release|x64.Build.0 = Release|Any CPU
-		{6A7CF22A-900B-4234-AE5C-E2CB53615AD8}.Release|x86.ActiveCfg = Release|Any CPU
-		{6A7CF22A-900B-4234-AE5C-E2CB53615AD8}.Release|x86.Build.0 = Release|Any CPU
-		{78CFFA36-7E0B-4DDE-8824-9FDF2AB42F94}.Debug|Any CPU.ActiveCfg = Debug|Win32
-		{78CFFA36-7E0B-4DDE-8824-9FDF2AB42F94}.Debug|Any CPU.Build.0 = Debug|Win32
-		{78CFFA36-7E0B-4DDE-8824-9FDF2AB42F94}.Debug|x64.ActiveCfg = Debug|x64
-		{78CFFA36-7E0B-4DDE-8824-9FDF2AB42F94}.Debug|x64.Build.0 = Debug|x64
-		{78CFFA36-7E0B-4DDE-8824-9FDF2AB42F94}.Debug|x86.ActiveCfg = Debug|Win32
-		{78CFFA36-7E0B-4DDE-8824-9FDF2AB42F94}.Debug|x86.Build.0 = Debug|Win32
-		{78CFFA36-7E0B-4DDE-8824-9FDF2AB42F94}.Release|Any CPU.ActiveCfg = Release|Win32
-		{78CFFA36-7E0B-4DDE-8824-9FDF2AB42F94}.Release|x64.ActiveCfg = Release|x64
-		{78CFFA36-7E0B-4DDE-8824-9FDF2AB42F94}.Release|x64.Build.0 = Release|x64
-		{78CFFA36-7E0B-4DDE-8824-9FDF2AB42F94}.Release|x86.ActiveCfg = Release|Win32
-		{78CFFA36-7E0B-4DDE-8824-9FDF2AB42F94}.Release|x86.Build.0 = Release|Win32
-		{30E30399-983D-4F30-AB64-62F4D13F6F3B}.Debug|Any CPU.ActiveCfg = Debug|Win32
-		{30E30399-983D-4F30-AB64-62F4D13F6F3B}.Debug|Any CPU.Build.0 = Debug|Win32
-		{30E30399-983D-4F30-AB64-62F4D13F6F3B}.Debug|x64.ActiveCfg = Debug|x64
-		{30E30399-983D-4F30-AB64-62F4D13F6F3B}.Debug|x64.Build.0 = Debug|x64
-		{30E30399-983D-4F30-AB64-62F4D13F6F3B}.Debug|x86.ActiveCfg = Debug|Win32
-		{30E30399-983D-4F30-AB64-62F4D13F6F3B}.Debug|x86.Build.0 = Debug|Win32
-		{30E30399-983D-4F30-AB64-62F4D13F6F3B}.Release|Any CPU.ActiveCfg = Release|Win32
-		{30E30399-983D-4F30-AB64-62F4D13F6F3B}.Release|x64.ActiveCfg = Release|x64
-		{30E30399-983D-4F30-AB64-62F4D13F6F3B}.Release|x64.Build.0 = Release|x64
-		{30E30399-983D-4F30-AB64-62F4D13F6F3B}.Release|x86.ActiveCfg = Release|Win32
-		{30E30399-983D-4F30-AB64-62F4D13F6F3B}.Release|x86.Build.0 = Release|Win32
+		{59AE9BA6-47C4-4671-8A58-6EB87A9674D3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{59AE9BA6-47C4-4671-8A58-6EB87A9674D3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{59AE9BA6-47C4-4671-8A58-6EB87A9674D3}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{59AE9BA6-47C4-4671-8A58-6EB87A9674D3}.Debug|x64.Build.0 = Debug|Any CPU
+		{59AE9BA6-47C4-4671-8A58-6EB87A9674D3}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{59AE9BA6-47C4-4671-8A58-6EB87A9674D3}.Debug|x86.Build.0 = Debug|Any CPU
+		{59AE9BA6-47C4-4671-8A58-6EB87A9674D3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{59AE9BA6-47C4-4671-8A58-6EB87A9674D3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{59AE9BA6-47C4-4671-8A58-6EB87A9674D3}.Release|x64.ActiveCfg = Release|Any CPU
+		{59AE9BA6-47C4-4671-8A58-6EB87A9674D3}.Release|x64.Build.0 = Release|Any CPU
+		{59AE9BA6-47C4-4671-8A58-6EB87A9674D3}.Release|x86.ActiveCfg = Release|Any CPU
+		{59AE9BA6-47C4-4671-8A58-6EB87A9674D3}.Release|x86.Build.0 = Release|Any CPU
+		{7DC84F13-E083-4F15-8E94-E45EA92877A2}.Debug|Any CPU.ActiveCfg = Debug|Win32
+		{7DC84F13-E083-4F15-8E94-E45EA92877A2}.Debug|x64.ActiveCfg = Debug|x64
+		{7DC84F13-E083-4F15-8E94-E45EA92877A2}.Debug|x64.Build.0 = Debug|x64
+		{7DC84F13-E083-4F15-8E94-E45EA92877A2}.Debug|x86.ActiveCfg = Debug|Win32
+		{7DC84F13-E083-4F15-8E94-E45EA92877A2}.Debug|x86.Build.0 = Debug|Win32
+		{7DC84F13-E083-4F15-8E94-E45EA92877A2}.Release|Any CPU.ActiveCfg = Release|Win32
+		{7DC84F13-E083-4F15-8E94-E45EA92877A2}.Release|x64.ActiveCfg = Release|x64
+		{7DC84F13-E083-4F15-8E94-E45EA92877A2}.Release|x64.Build.0 = Release|x64
+		{7DC84F13-E083-4F15-8E94-E45EA92877A2}.Release|x86.ActiveCfg = Release|Win32
+		{7DC84F13-E083-4F15-8E94-E45EA92877A2}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,5 +1,4 @@
-﻿using System;
-using System.Windows.Forms;
+﻿using System.Windows.Forms;
 
 namespace SmartTaskbar
 {
@@ -8,43 +7,51 @@ namespace SmartTaskbar
         private NotifyIcon notifyIcon;
         private ContextMenuStrip contextMenuStrip;
         private ToolStripMenuItem about, animation, auto, show, hide, exit;
-        private TaskbarSwitcher switcher;
+        private Switcher.TaskbarSwitcher switcher = new Switcher.TaskbarSwitcher();
 
         public SystemTray()
         {
+            #region Load Auto-Mode
+            
+            if (Properties.Settings.Default.TaskbarState.Equals(nameof(auto)))
+                switcher.Start();
+
+            #endregion
+
+            #region Initialization
             ResourceCulture resource = new ResourceCulture();
             System.Drawing.Font font = new System.Drawing.Font("Segoe UI", 9F);
             about = new ToolStripMenuItem
             {
-                Text = resource.GetString("about"),
+                Text = resource.GetString(nameof(about)),
                 Font = font
             };
             animation = new ToolStripMenuItem
             {
-                Text = resource.GetString("animation"),
+                Text = resource.GetString(nameof(animation)),
                 Font = font
             };
             auto = new ToolStripMenuItem
             {
-                Text = resource.GetString("auto"),
-                Name = "auto",
+                Text = resource.GetString(nameof(auto)),
+                Name = nameof(auto),
                 Font = font
             };
             show = new ToolStripMenuItem
             {
-                Text = resource.GetString("show"),
-                Name = "show",
+                Text = resource.GetString(nameof(show)),
+                Name = nameof(show),
                 Font = font
             };
             hide = new ToolStripMenuItem
             {
-                Text = resource.GetString("hide"),
-                Name = "hide",
+                Text = resource.GetString(nameof(hide)),
+                Name = nameof(hide),
                 Font = font
             };
             exit = new ToolStripMenuItem
             {
-                Text = resource.GetString("exit"),
+                Text = resource.GetString(nameof(exit)),
                 Font = font
             };
             contextMenuStrip = new ContextMenuStrip
@@ -65,37 +72,15 @@ namespace SmartTaskbar
             notifyIcon = new NotifyIcon
             {
                 ContextMenuStrip = contextMenuStrip,
-                Text = Application.ProductName,
-                Icon = Resource_Icon.logo_32,
+                Text = "SmartTaskbar v1.1.6",
+                Icon = Properties.Resources.logo_32,
                 Visible = true
             };
-            if (Settings.Default.SwitcherVersion == 0)
-            {
-                Settings.Default.SwitcherVersion = Environment.OSVersion.Version.Major.ToString() == "10" ? 1 : 3;
-                if (Environment.Is64BitOperatingSystem)
-                    ++Settings.Default.SwitcherVersion;
-                Settings.Default.Save();
-                notifyIcon.BalloonTipTitle = Application.ProductName;
-                notifyIcon.BalloonTipText = resource.GetString("firstrun");
-                notifyIcon.BalloonTipIcon = ToolTipIcon.Info;
-                notifyIcon.ShowBalloonTip(5);
-            }
-            switcher = new TaskbarSwitcher();
-            switch (Settings.Default.TaskbarState)
-            {
-                case "auto":
-                    switcher.Start();
-                    auto.Checked = true;
-                    break;
-                case "hide":
-                    hide.Checked = true;
-                    break;
-                default:
-                    show.Checked = true;
-                    break;
-            }
+            #endregion
 
-            about.Click += (s, e) => FormAbout.FormInstance.Switch();
+            #region Load Event
+
+            about.Click += (s, e) => System.Diagnostics.Process.Start(@"https://github.com/ChanpleCai/SmartTaskbar/releases");
 
             animation.Click += (s, e) => animation.Checked = switcher.AnimationSwitcher();
 
@@ -135,13 +120,13 @@ namespace SmartTaskbar
                 if (e.Button != MouseButtons.Right)
                     return;
 
-                switch (Settings.Default.TaskbarState)
+                switch (Properties.Settings.Default.TaskbarState)
                 {
                     case "auto":
                         switcher.Resume();
                         break;
                     case "hide":
-                        if (switcher.IsHide() == false)
+                        if (!switcher.IsHide())
                             RadioChecked(ref show);
                         break;
                     default:
@@ -163,13 +148,32 @@ namespace SmartTaskbar
                     switcher.Hide();
                 }
             };
+
+            #endregion
+
+            #region Load Check State
+
+            switch (Properties.Settings.Default.TaskbarState)
+            {
+                case "auto":
+                    auto.Checked = true;
+                    break;
+                case "hide":
+                    hide.Checked = true;
+                    break;
+                default:
+                    show.Checked = true;
+                    break;
+            }
+
+            #endregion
         }
 
         private void RadioChecked(ref ToolStripMenuItem tool)
         {
             auto.Checked = show.Checked = hide.Checked = false;
-            Settings.Default.TaskbarState = tool.Name;
-            Settings.Default.Save();
+            Properties.Settings.Default.TaskbarState = tool.Name;
+            Properties.Settings.Default.Save();
             tool.Checked = true;
         }
     }

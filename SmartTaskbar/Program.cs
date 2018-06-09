@@ -6,13 +6,10 @@ namespace SmartTaskbar
 {
     static class Program
     {
-        /// <summary>
-        /// 应用程序的主入口点。
-        /// </summary>
         [STAThread]
         static void Main()
         {
-            using (Mutex mutex = new Mutex(true, "{ab69d52f-4086-4dcb-98e9-a71ad78e71ca}", out bool createNew))
+            using (Mutex mutex = new Mutex(true, "{959d3545-aa5c-42a8-a327-6e2c079daa94}", out bool createNew))
             {
                 if (!createNew)
                     return;

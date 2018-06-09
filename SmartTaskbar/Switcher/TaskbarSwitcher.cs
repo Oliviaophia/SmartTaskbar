@@ -1,59 +1,34 @@
-﻿using System.Diagnostics;
+﻿using System;
+using System.Diagnostics;
 using System.IO;
-using System.Runtime.InteropServices;
-using static SmartTaskbar.SafeNativeMethods;
+using static SmartTaskbar.Switcher.SafeNativeMethods;
 
-namespace SmartTaskbar
+namespace SmartTaskbar.Switcher
 {
     class TaskbarSwitcher
     {
-        private string switcherPath;
-        private Process process;
-        private APPBARDATA aPPBARDATA;
-        private ChildProcessTracker child;
-        private bool isStop, animationenable;
+        private Process process = new Process();
+        private APPBARDATA msgData = APPBARDATA.New();
+        private ChildProcessTracker child = new ChildProcessTracker();
+        private bool isStop = true, animation;
 
-        public TaskbarSwitcher()
-        {
-            string folder = "Switcher";
-            switch (Settings.Default.SwitcherVersion)
-            {
-                case 1:
-                    switcherPath = Path.Combine(Directory.GetCurrentDirectory(), folder, "TaskbarSwitcherWin10");
-                    break;
-                case 2:
-                    switcherPath = Path.Combine(Directory.GetCurrentDirectory(), folder, "TaskbarSwitcherWin10_x64");
-                    break;
-                case 3:
-                    switcherPath = Path.Combine(Directory.GetCurrentDirectory(), folder, "TaskbarSwitcher");
-                    break;
-                default:
-                    switcherPath = Path.Combine(Directory.GetCurrentDirectory(), folder, "TaskbarSwitcher_x64");
-                    break;
-            }
-            aPPBARDATA = new APPBARDATA();
-            aPPBARDATA.cbSize = (uint)Marshal.SizeOf(aPPBARDATA);
-            process = new Process();
-            process.StartInfo.FileName = switcherPath;
-            child = new ChildProcessTracker();
-            isStop = true;
-        }
+        public TaskbarSwitcher() => process.StartInfo.FileName = Path.Combine(Directory.GetCurrentDirectory(), Environment.Is64BitOperatingSystem ? "x64" : "x86", "TaskbarSwitcher");
 
         public void Hide()
         {
             Stop();
-            aPPBARDATA.lParam = AutoHide;
-            SHAppBarMessage(SetState, ref aPPBARDATA);
+            msgData.lParam = AutoHide;
+            SHAppBarMessage(SetState, ref msgData);
         }
 
         public void Show()
         {
             Stop();
-            aPPBARDATA.lParam = AlwaysOnTop;
-            SHAppBarMessage(SetState, ref aPPBARDATA);
+            msgData.lParam = AlwaysOnTop;
+            SHAppBarMessage(SetState, ref msgData);
         }
 
-        public bool IsHide() => SHAppBarMessage(GetState, ref aPPBARDATA) == AutoHide ? true : false;
+        public bool IsHide() => SHAppBarMessage(GetState, ref msgData) == AutoHide ? true : false;
 
         public void Start()
         {
@@ -79,15 +54,15 @@ namespace SmartTaskbar
 
         public bool IsAnimationEnable()
         {
-            GetSystemParameters(SPI_GETMENUANIMATION, 0, out animationenable, 0);
-            return animationenable;
+            GetSystemParameters(SPI_GETMENUANIMATION, 0, out animation, 0);
+            return animation;
         }
 
         public bool AnimationSwitcher()
         {
-            animationenable = !animationenable;
-            SetSystemParameters(SPI_SETMENUANIMATION, 0, animationenable, 0x01 | 0x02);
-            return animationenable;
+            animation = !animation;
+            SetSystemParameters(SPI_SETMENUANIMATION, 0, animation, 0x01 | 0x02);
+            return animation;
         }
     }
 }

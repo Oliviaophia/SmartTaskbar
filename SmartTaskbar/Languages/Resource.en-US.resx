@@ -129,9 +129,6 @@
   <data name="exit" xml:space="preserve">
     <value>Exit</value>
   </data>
-  <data name="firstrun" xml:space="preserve">
-    <value>SmartTaskbar is running in the background</value>
-  </data>
   <data name="hide" xml:space="preserve">
     <value>Hide</value>
   </data>
