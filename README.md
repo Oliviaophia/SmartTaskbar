@@ -25,6 +25,12 @@ Features 功能
 
 ![img](https://github.com/ChanpleCai/SmartTaskbar/blob/master/demo/Hide_Show.gif)
 
+* Double-click the tray icon to switch the display status of the taskbar between Show or Auto-Hide.
+  
+    双击系统托盘图标切换任务栏显示和隐藏状态
+  
+![img](https://github.com/ChanpleCai/SmartTaskbar/blob/master/demo/Double-click.gif)
+
 * [Click for more demo 点击查看更多演示](https://github.com/ChanpleCai/SmartTaskbar/tree/master/demo)
   
 Installation 安装
