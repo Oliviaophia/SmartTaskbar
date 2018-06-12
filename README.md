@@ -4,7 +4,7 @@ SmartTaskbar  [![Logo](https://github.com/ChanpleCai/SmartTaskbar/blob/master/lo
 [![Github All Releases](https://img.shields.io/github/downloads/ChanpleCai/SmartTaskbar/total.svg)](https://github.com/ChanpleCai/SmartTaskbar/releases)
 [![License](http://img.shields.io/:license-MIT-blue.svg?style=flat)](LICENSE)
 
-* SmartTaskbar is a small application which can automatically switch the display state of the Windows Taskbar.
+* SmartTaskbar is a lightweight utility which can automatically switch the display state of the Windows Taskbar.
 
   SmartTaskbar是一个能自动切换Windows任务栏显示状态的小程序
   
@@ -25,20 +25,6 @@ Features 功能
 
 ![img](https://github.com/ChanpleCai/SmartTaskbar/blob/master/demo/Hide_Show.gif)
 
-
-* Double-click the tray icon to switch the display status of the taskbar between Show or Auto-Hide.
-  
-    双击系统托盘图标切换任务栏显示和隐藏状态
-  
-![img](https://github.com/ChanpleCai/SmartTaskbar/blob/master/demo/Double-click.gif)
-
-
-* Click the Animation button to turn on or off the taskbar animation
-
-  点击动画按钮开启或关闭任务栏动画
-  
-![img](https://github.com/ChanpleCai/SmartTaskbar/blob/master/demo/Animation_button.gif)
-
 * [Click for more demo 点击查看更多演示](https://github.com/ChanpleCai/SmartTaskbar/tree/master/demo)
   
 Installation 安装
@@ -56,10 +42,6 @@ Installation 安装
 * The program will start running in the background after the installtion.
 
   安装完成后，程序会自动在后台运行
-  
-* This application takes few resources so that you can forget its existence.
-
-  该程序只会占用极少的系统资源，你可以忘记它的存在
 
 Known Issues 已知问题
 ----
