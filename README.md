@@ -6,7 +6,7 @@ SmartTaskbar  ![Logo](https://github.com/ChanpleCai/SmartTaskbar/blob/master/log
 
 * SmartTaskbar is a lightweight utility which can automatically switch the display state of the Windows Taskbar.
   
-  * It was originally designed to solve the problem that the Taskbar takes up too much space on a small screen laptop while always hiding it does not satisfy me. so I designed this utility to hide the taskbar when there is an application maximization and show it when no application is maximized.
+  * It was originally designed to solve the problem that the Taskbar takes up too much space on a small screen laptop and always hiding it does not satisfy me(I still want to see it on the desktop). So I write this utility to hide the Taskbar when there is an application maximization and show it when no application is maximized.
   
 ![img](https://github.com/ChanpleCai/SmartTaskbar/blob/master/demo/Context_Menu.gif)
 
