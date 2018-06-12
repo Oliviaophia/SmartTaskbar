@@ -10,10 +10,10 @@ SmartTaskbar  ![Logo](https://github.com/ChanpleCai/SmartTaskbar/blob/master/log
   
 ![img](https://github.com/ChanpleCai/SmartTaskbar/blob/master/demo/Context_Menu.gif)
 
-Features 功能
+Features
 -----
 
-#### Auto Mode 自动模式
+#### Auto Mode
 
 * In the Auto Mode, SmartTaskbar will set the Taskbar to Auto-Hide(Hide) Mode when a maximized window exists .
 
@@ -33,7 +33,7 @@ Features 功能
 
 * [Click for more demo 点击查看更多演示](https://github.com/ChanpleCai/SmartTaskbar/tree/master/demo)
   
-Installation 安装
+Installation
 -----
 * Download `SmartTaskbar_Setup.exe` from [releases](https://github.com/ChanpleCai/SmartTaskbar/releases):
 
@@ -45,7 +45,7 @@ Installation 安装
 
   安装完成后，程序会自动在后台运行
 
-Known Issues 已知问题
+Known Issues
 ----
   
 * SmartTaskbar is designed for single-monitor users, so Auto-Mode does not work correctly when using multiple monitors.
@@ -64,8 +64,6 @@ Known Issues 已知问题
     
       有些应用程序如Steam，不能正常的最大化(任务栏隐藏后会留下一道空隙)
 
-Build 生成
+Build
 -----
 * Install Visual Studio 2017.
-
-  安装 Visual Studio 2017 
