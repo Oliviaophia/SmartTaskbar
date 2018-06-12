@@ -33,8 +33,8 @@ Demo 演示
   
 ![img](https://github.com/ChanpleCai/SmartTaskbar/blob/master/demo/Maximize_Button.gif)
 
-* When using shortcuts (Auto Mode):
+* When using HotKey to change the form state(Auto Mode):
   
-  当使用键盘热键时：
+  当使用键盘热键切换窗体状态时：
   
 ![img](https://github.com/ChanpleCai/SmartTaskbar/blob/master/demo/Shortcut_Key.gif)
