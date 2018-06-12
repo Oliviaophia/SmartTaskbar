@@ -1,12 +1,12 @@
-SmartTaskbar  [![Logo](https://github.com/ChanpleCai/SmartTaskbar/blob/master/logo/logo_blue_24x24.png)](http://www.softpedia.com/get/Tweak/System-Tweak/SmartTaskbar.shtml)
+SmartTaskbar  ![Logo](https://github.com/ChanpleCai/SmartTaskbar/blob/master/logo/logo_blue_24x24.png)
 =====
 [![GitHub version](https://badge.fury.io/gh/ChanpleCai%2FSmartTaskbar.svg)](https://github.com/ChanpleCai/SmartTaskbar/releases/download/v1.1.6/SmartTaskbar_Setup.exe)
 [![Github All Releases](https://img.shields.io/github/downloads/ChanpleCai/SmartTaskbar/total.svg)](https://github.com/ChanpleCai/SmartTaskbar/releases)
 [![License](http://img.shields.io/:license-MIT-blue.svg?style=flat)](LICENSE)
 
 * SmartTaskbar is a lightweight utility which can automatically switch the display state of the Windows Taskbar.
-
-  SmartTaskbar是一个能自动切换Windows任务栏显示状态的小程序
+  
+  * It was originally designed to solve the problem that the Taskbar takes up too much space on a small screen laptop while always hiding it does not satisfy me. so I designed this utility to hide the taskbar when there is an application maximization and show it when no application is maximized.
   
 ![img](https://github.com/ChanpleCai/SmartTaskbar/blob/master/demo/Context_Menu.gif)
 
@@ -34,10 +34,6 @@ Installation 安装
   从[releases](https://github.com/ChanpleCai/SmartTaskbar/releases)下载：
   
   [![Download Now](https://github.com/ChanpleCai/SmartTaskbar/blob/master/img/Download_Softpedia.png)](https://github.com/ChanpleCai/SmartTaskbar/releases/download/v1.1.6/SmartTaskbar_Setup.exe) 
-  
-    * If the installation fails, please re-install after installing the [.NET Framework 4.7.1](https://www.microsoft.com/net/download/dotnet-framework-runtime/net471?utm_source=getdotnet&utm_medium=referral).
-
-      如果安装失败，请在安装完[.NET Framework 4.7.1](https://www.microsoft.com/net/download/dotnet-framework-runtime/net471?utm_source=getdotnet&utm_medium=referral)框架后重新安装一次
 
 * It will start running in the background after the installtion.
 
