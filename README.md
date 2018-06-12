@@ -29,9 +29,9 @@ Features 功能
   
 Installation 安装
 -----
-* Download `SmartTaskbar_Setup.exe` from [releases](https://github.com/ChanpleCai/SmartTaskbar/releases) or [Softpedia](http://www.softpedia.com/get/Tweak/System-Tweak/SmartTaskbar.shtml)： 
+* Download `SmartTaskbar_Setup.exe` from [releases](https://github.com/ChanpleCai/SmartTaskbar/releases):
 
-  从[releases](https://github.com/ChanpleCai/SmartTaskbar/releases)或[Softpedia](http://www.softpedia.com/get/Tweak/System-Tweak/SmartTaskbar.shtml)下载安装程序：
+  从[releases](https://github.com/ChanpleCai/SmartTaskbar/releases)下载：
   
   [![Download Now](https://github.com/ChanpleCai/SmartTaskbar/blob/master/img/Download_Softpedia.png)](https://github.com/ChanpleCai/SmartTaskbar/releases/download/v1.1.6/SmartTaskbar_Setup.exe) 
   
@@ -39,16 +39,16 @@ Installation 安装
 
       如果安装失败，请在安装完[.NET Framework 4.7.1](https://www.microsoft.com/net/download/dotnet-framework-runtime/net471?utm_source=getdotnet&utm_medium=referral)框架后重新安装一次
 
-* The program will start running in the background after the installtion.
+* It will start running in the background after the installtion.
 
   安装完成后，程序会自动在后台运行
 
 Known Issues 已知问题
 ----
   
-* When using multiple monitors, Auto Mode may not work correctly.
+* SmartTaskbar is designed for single-monitor users, so Auto-Mode does not work correctly when using multiple monitors.
 
-  在使用多显示屏时自动模式不能正确工作
+  SmartTaskbar是为单显示器用户设计的，在使用多显示屏时自动模式不能正确工作
   
 * Some applications are not compatible with Auto Mode, for example:
 
