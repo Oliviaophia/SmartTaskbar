@@ -73,7 +73,7 @@ namespace SmartTaskbar
             {
                 ContextMenuStrip = contextMenuStrip,
                 Text = "SmartTaskbar v1.1.6",
-                Icon = Properties.Resources.logo_32,
+                Icon = System.Environment.OSVersion.Version.Major.ToString() == "10" ? Properties.Resources.logo_32 : Properties.Resources.logo_blue_128,
                 Visible = true
             };
             #endregion
