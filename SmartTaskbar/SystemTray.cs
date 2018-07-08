@@ -20,7 +20,7 @@ namespace SmartTaskbar
 
             #region Initialization
             ResourceCulture resource = new ResourceCulture();
-            System.Drawing.Font font = new System.Drawing.Font("Segoe UI", 9F);
+            System.Drawing.Font font = new System.Drawing.Font("Segoe UI", 10F);
             about = new ToolStripMenuItem
             {
                 Text = resource.GetString(nameof(about)),
@@ -72,7 +72,7 @@ namespace SmartTaskbar
             notifyIcon = new NotifyIcon
             {
                 ContextMenuStrip = contextMenuStrip,
-                Text = "SmartTaskbar v1.1.6",
+                Text = "SmartTaskbar v1.1.7",
                 Icon = System.Environment.OSVersion.Version.Major.ToString() == "10" ? Properties.Resources.logo_32 : Properties.Resources.logo_blue_32,
                 Visible = true
             };
