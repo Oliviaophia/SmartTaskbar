@@ -124,7 +124,7 @@
     <value>Taskbar Animation</value>
   </data>
   <data name="auto_display" xml:space="preserve">
-    <value>Auto Display</value>
+    <value>Auto Hide</value>
   </data>
   <data name="auto_size" xml:space="preserve">
     <value>Auto Size</value>
