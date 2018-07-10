@@ -75,6 +75,7 @@ namespace SmartTaskbar
 
         public void ChangeState()
         {
+            Stop();
             currentType = AutoModeType.none;
             if (IsHide(ref msgData))
             {
