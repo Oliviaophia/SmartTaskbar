@@ -25,13 +25,25 @@ namespace SmartTaskbar.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("auto")]
-        public string TaskbarState {
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int TaskbarState {
             get {
-                return ((string)(this["TaskbarState"]));
+                return ((int)(this["TaskbarState"]));
             }
             set {
                 this["TaskbarState"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int IconSize {
+            get {
+                return ((int)(this["IconSize"]));
+            }
+            set {
+                this["IconSize"] = value;
             }
         }
     }

@@ -2,8 +2,11 @@
 <SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="SmartTaskbar.Properties" GeneratedClassName="Settings">
   <Profiles />
   <Settings>
-    <Setting Name="TaskbarState" Type="System.String" Scope="User">
-      <Value Profile="(Default)">auto</Value>
+    <Setting Name="TaskbarState" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">0</Value>
+    </Setting>
+    <Setting Name="IconSize" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">0</Value>
     </Setting>
   </Settings>
 </SettingsFile>

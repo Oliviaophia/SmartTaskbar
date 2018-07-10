@@ -9,38 +9,51 @@ namespace SmartTaskbar
     {
         private Process process = new Process();
         private APPBARDATA msgData = APPBARDATA.New();
-        private ChildProcessTracker child = new ChildProcessTracker();
         private bool isStop = true, animation;
+        private AutoModeType currentType = (AutoModeType)Properties.Settings.Default.TaskbarState;
 
-        public TaskbarSwitcher() => process.StartInfo.FileName = Path.Combine(Directory.GetCurrentDirectory(), Environment.Is64BitOperatingSystem ? "x64" : "x86", "TaskbarSwitcher");
+        private readonly string auto_displayPath = Path.Combine(Directory.GetCurrentDirectory(), Environment.Is64BitOperatingSystem ? "x64" : "x86", "TaskbarSwitcher");
 
-        public void Hide()
+        private readonly string auto_sizePath = Path.Combine(Directory.GetCurrentDirectory(), Environment.Is64BitOperatingSystem ? "x64" : "x86", "IconSizeSwitcher");
+
+        public TaskbarSwitcher()
         {
-            Stop();
-            msgData.lParam = AutoHide;
-            SHAppBarMessage(SetState, ref msgData);
-        }
-
-        public void Show()
-        {
-            Stop();
-            msgData.lParam = AlwaysOnTop;
-            SHAppBarMessage(SetState, ref msgData);
-        }
-
-        public bool IsHide() => SHAppBarMessage(GetState, ref msgData) == AutoHide ? true : false;
-
-        public void Start()
-        {
+            Reset();
+            switch (currentType)
+            {
+                case AutoModeType.display:
+                    process.StartInfo.FileName = auto_displayPath;
+                    break;
+                case AutoModeType.size:
+                    process.StartInfo.FileName = auto_sizePath;
+                    break;
+                default:
+                    return;
+            }
             isStop = false;
             process.Start();
-            child.AddProcess(process);
+            AddProcess(process);
         }
 
-        public void Resume()
+        public void Start(AutoModeType type)
         {
-            if (process.HasExited)
-                Start();
+            Stop();
+            currentType = type;
+            switch (type)
+            {
+                case AutoModeType.display:
+                    process.StartInfo.FileName = auto_displayPath;
+                    break;
+                case AutoModeType.size:
+                    process.StartInfo.FileName = auto_sizePath;
+                    Show(ref msgData);
+                    break;
+                default:
+                    return;
+            }
+            process.Start();
+            isStop = false;
+            AddProcess(process);
         }
 
         public void Stop()
@@ -48,21 +61,37 @@ namespace SmartTaskbar
             if (isStop)
                 return;
             isStop = true;
+            if (currentType == AutoModeType.none)
+                return;
             process.Kill();
             process.WaitForExit();
+            currentType = AutoModeType.none;
+            Reset();
         }
 
-        public bool IsAnimationEnable()
+        public bool IsAnimationEnable() => GetTaskbarAnimation(out animation);
+
+        public bool AnimationSwitcher() => ChangeTaskbarAnimation(ref animation);
+
+        public void ChangeState()
         {
-            GetSystemParameters(SPI_GETMENUANIMATION, 0, out animation, 0);
-            return animation;
+            currentType = AutoModeType.none;
+            if (IsHide(ref msgData))
+            {
+                Show(ref msgData);
+            }
+            else
+            {
+                Hide(ref msgData);
+            }
         }
 
-        public bool AnimationSwitcher()
+        public void Reset()
         {
-            animation = !animation;
-            SetSystemParameters(SPI_SETMENUANIMATION, 0, animation, 0x01 | 0x02);
-            return animation;
+            Show(ref msgData);
+            SetIconSize(Properties.Settings.Default.IconSize);
         }
+
+        public void SetSize() => SetIconSize(Properties.Settings.Default.IconSize);
     }
 }

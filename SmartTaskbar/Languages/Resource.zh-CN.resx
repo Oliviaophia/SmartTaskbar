@@ -118,21 +118,21 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="about" xml:space="preserve">
-    <value>关于</value>
+    <value>关于 (v1.1.7)</value>
   </data>
   <data name="animation" xml:space="preserve">
-    <value>动画</value>
+    <value>任务栏动画</value>
   </data>
-  <data name="auto" xml:space="preserve">
-    <value>智能</value>
+  <data name="auto_display" xml:space="preserve">
+    <value>自动显隐</value>
+  </data>
+  <data name="auto_size" xml:space="preserve">
+    <value>自动大小</value>
   </data>
   <data name="exit" xml:space="preserve">
     <value>退出</value>
   </data>
-  <data name="hide" xml:space="preserve">
-    <value>隐藏</value>
-  </data>
-  <data name="show" xml:space="preserve">
-    <value>显示</value>
+  <data name="smallIcon" xml:space="preserve">
+    <value>使用小按钮</value>
   </data>
 </root>

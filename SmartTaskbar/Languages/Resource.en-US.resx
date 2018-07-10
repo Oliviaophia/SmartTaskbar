@@ -118,21 +118,21 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="about" xml:space="preserve">
-    <value>About</value>
+    <value>About (v1.1.7)</value>
   </data>
   <data name="animation" xml:space="preserve">
-    <value>Animation</value>
+    <value>Taskbar Animation</value>
   </data>
-  <data name="auto" xml:space="preserve">
-    <value>Auto</value>
+  <data name="auto_display" xml:space="preserve">
+    <value>Auto Display</value>
+  </data>
+  <data name="auto_size" xml:space="preserve">
+    <value>Auto Size</value>
   </data>
   <data name="exit" xml:space="preserve">
     <value>Exit</value>
   </data>
-  <data name="hide" xml:space="preserve">
-    <value>Hide</value>
-  </data>
-  <data name="show" xml:space="preserve">
-    <value>Show</value>
+  <data name="smallIcon" xml:space="preserve">
+    <value>Use Small Buttons</value>
   </data>
 </root>

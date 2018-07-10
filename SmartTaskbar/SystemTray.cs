@@ -6,24 +6,22 @@ namespace SmartTaskbar
     {
         private NotifyIcon notifyIcon;
         private ContextMenuStrip contextMenuStrip;
-        private ToolStripMenuItem about, animation, auto, show, hide, exit;
+        private ToolStripMenuItem about, smallIcon, animation, auto_size, auto_display, exit;
         private TaskbarSwitcher switcher = new TaskbarSwitcher();
 
         public SystemTray()
         {
-            #region Load Auto-Mode
-            //Turn on Auto-Mode as soon as possible
-            if (Properties.Settings.Default.TaskbarState.Equals(nameof(auto)))
-                switcher.Start();
-
-            #endregion
-
             #region Initialization
             ResourceCulture resource = new ResourceCulture();
-            System.Drawing.Font font = new System.Drawing.Font("Segoe UI", 10F);
+            System.Drawing.Font font = new System.Drawing.Font("Segoe UI", 9F);
             about = new ToolStripMenuItem
             {
                 Text = resource.GetString(nameof(about)),
+                Font = font
+            };
+            smallIcon = new ToolStripMenuItem
+            {
+                Text = resource.GetString(nameof(smallIcon)),
                 Font = font
             };
             animation = new ToolStripMenuItem
@@ -31,22 +29,14 @@ namespace SmartTaskbar
                 Text = resource.GetString(nameof(animation)),
                 Font = font
             };
-            auto = new ToolStripMenuItem
+            auto_size = new ToolStripMenuItem
             {
-                Text = resource.GetString(nameof(auto)),
-                Name = nameof(auto),
+                Text = resource.GetString(nameof(auto_size)),
                 Font = font
             };
-            show = new ToolStripMenuItem
+            auto_display = new ToolStripMenuItem
             {
-                Text = resource.GetString(nameof(show)),
-                Name = nameof(show),
-                Font = font
-            };
-            hide = new ToolStripMenuItem
-            {
-                Text = resource.GetString(nameof(hide)),
-                Name = nameof(hide),
+                Text = resource.GetString(nameof(auto_display)),
                 Font = font
             };
             exit = new ToolStripMenuItem
@@ -61,11 +51,11 @@ namespace SmartTaskbar
             contextMenuStrip.Items.AddRange(new ToolStripItem[]
             {
                 about,
+                smallIcon,
                 animation,
                 new ToolStripSeparator(),
-                auto,
-                show,
-                hide,
+                auto_size,
+                auto_display,
                 new ToolStripSeparator(),
                 exit
             });
@@ -82,30 +72,58 @@ namespace SmartTaskbar
 
             about.Click += (s, e) => System.Diagnostics.Process.Start(@"https://github.com/ChanpleCai/SmartTaskbar/releases");
 
+            smallIcon.Click += (s, e) =>
+            {
+                if (smallIcon.Checked)
+                {
+                    Properties.Settings.Default.IconSize = 0;
+                    Properties.Settings.Default.Save();
+                    switcher.SetSize();
+                    smallIcon.Checked = false;
+                    return;
+                }
+                Properties.Settings.Default.IconSize = 1;
+                Properties.Settings.Default.Save();
+                switcher.SetSize();
+                smallIcon.Checked = true;
+            };
+
             animation.Click += (s, e) => animation.Checked = switcher.AnimationSwitcher();
 
-            auto.Click += (s, e) =>
+            auto_size.Click += (s, e) =>
             {
-                if (auto.Checked)
+                if (auto_size.Checked)
+                {
+                    auto_size.Checked = false;
+                    Properties.Settings.Default.TaskbarState = (int)AutoModeType.none;
+                    Properties.Settings.Default.Save();
+                    switcher.Stop();
+                    smallIcon.Enabled = true;
                     return;
-                switcher.Start();
-                RadioChecked(ref auto);
+                }
+                switcher.Start(AutoModeType.size);
+                auto_size.Checked = true;
+                auto_display.Checked = smallIcon.Enabled = false;
+                Properties.Settings.Default.TaskbarState = (int)AutoModeType.size;
+                Properties.Settings.Default.Save();
             };
 
-            show.Click += (s, e) =>
+            auto_display.Click += (s, e) =>
             {
-                if (show.Checked)
+                smallIcon.Enabled = true;
+                if (auto_display.Checked)
+                {
+                    auto_display.Checked = false;
+                    Properties.Settings.Default.TaskbarState = (int)AutoModeType.none;
+                    Properties.Settings.Default.Save();
+                    switcher.Stop();
                     return;
-                switcher.Show();
-                RadioChecked(ref show);
-            };
-
-            hide.Click += (s, e) =>
-            {
-                if (hide.Checked)
-                    return;
-                switcher.Hide();
-                RadioChecked(ref hide);
+                }
+                switcher.Start(AutoModeType.display);
+                auto_display.Checked = true;
+                auto_size.Checked = false;
+                Properties.Settings.Default.TaskbarState = (int)AutoModeType.display;
+                Properties.Settings.Default.Save();
             };
 
             exit.Click += (s, e) =>
@@ -120,63 +138,36 @@ namespace SmartTaskbar
                 if (e.Button != MouseButtons.Right)
                     return;
 
-                switch (Properties.Settings.Default.TaskbarState)
-                {
-                    case "auto":
-                        switcher.Resume();
-                        break;
-                    case "hide":
-                        if (!switcher.IsHide())
-                            RadioChecked(ref show);
-                        break;
-                    default:
-                        if (switcher.IsHide())
-                            RadioChecked(ref hide);
-                        break;
-                }
                 animation.Checked = switcher.IsAnimationEnable();
             };
 
             notifyIcon.MouseDoubleClick += (s, e) =>
             {
-                if (switcher.IsHide())
-                {
-                    switcher.Show();
-                    RadioChecked(ref show);
-                }
-                else
-                {
-                    switcher.Hide();
-                    RadioChecked(ref hide);
-                }
+                smallIcon.Enabled = true;
+                switcher.ChangeState();
+                switcher.SetSize();
+                auto_size.Checked = auto_display.Checked = false;
             };
 
             #endregion
 
             #region Load Check State
 
-            switch (Properties.Settings.Default.TaskbarState)
+            switch ((AutoModeType)Properties.Settings.Default.TaskbarState)
             {
-                case "auto":
-                    auto.Checked = true;
+                case AutoModeType.display:
+                    auto_display.Checked = true;
                     break;
-                case "hide":
-                    hide.Checked = true;
-                    break;
-                default:
-                    show.Checked = true;
+                case AutoModeType.size:
+                    auto_size.Checked = true;
+                    smallIcon.Enabled = false;
                     break;
             }
 
-            #endregion
-        }
+            if (Properties.Settings.Default.IconSize == 1)
+                smallIcon.Checked = true;
 
-        private void RadioChecked(ref ToolStripMenuItem tool)
-        {
-            auto.Checked = show.Checked = hide.Checked = false;
-            Properties.Settings.Default.TaskbarState = tool.Name;
-            Properties.Settings.Default.Save();
-            tool.Checked = true;
+            #endregion
         }
     }
 }
