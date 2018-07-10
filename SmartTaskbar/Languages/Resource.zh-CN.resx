@@ -130,7 +130,7 @@
     <value>自动大小</value>
   </data>
   <data name="exit" xml:space="preserve">
-    <value>退出</value>
+    <value>退出程序</value>
   </data>
   <data name="smallIcon" xml:space="preserve">
     <value>使用小按钮</value>

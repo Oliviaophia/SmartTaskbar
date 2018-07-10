@@ -130,7 +130,7 @@
     <value>Auto Size</value>
   </data>
   <data name="exit" xml:space="preserve">
-    <value>Exit</value>
+    <value>Exit SmartTaskbar</value>
   </data>
   <data name="smallIcon" xml:space="preserve">
     <value>Use Small Buttons</value>
