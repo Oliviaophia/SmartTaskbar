@@ -13,7 +13,7 @@ namespace SmartTaskbar
         {
             #region Initialization
             ResourceCulture resource = new ResourceCulture();
-            System.Drawing.Font font = new System.Drawing.Font("Segoe UI", 10F);
+            System.Drawing.Font font = new System.Drawing.Font("Segoe UI", 9F);
             about = new ToolStripMenuItem
             {
                 Text = resource.GetString(nameof(about)),
