@@ -127,7 +127,7 @@
     <value>智能显隐</value>
   </data>
   <data name="auto_size" xml:space="preserve">
-    <value>智能缩放</value>
+    <value>自适应大小</value>
   </data>
   <data name="exit" xml:space="preserve">
     <value>退出程序</value>

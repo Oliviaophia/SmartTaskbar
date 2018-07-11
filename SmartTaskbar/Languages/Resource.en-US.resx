@@ -124,10 +124,10 @@
     <value>Taskbar Animation</value>
   </data>
   <data name="auto_display" xml:space="preserve">
-    <value>Auto Hide</value>
+    <value>Auto Show/Hide</value>
   </data>
   <data name="auto_size" xml:space="preserve">
-    <value>Auto Size</value>
+    <value>Adaptive Size</value>
   </data>
   <data name="exit" xml:space="preserve">
     <value>Exit SmartTaskbar</value>
