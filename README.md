@@ -24,6 +24,16 @@ Features
 
 ![img](https://github.com/ChanpleCai/SmartTaskbar/blob/master/demo/Hide_Show.gif)
 
+#### Adaptive Mode
+
+* In the Adaptive Mode, SmartTaskbar will set the Taskbar buttons to be smaller when a maximized window exists .
+
+  当有窗体最大化时，它会使任务栏图标变小
+  
+* Without maximized window, the Taskbar will buttons restores original size.
+
+  当没有窗体最大化时，任务栏图标恢复默认尺寸
+
 * Double-click the tray icon to switch the display status of the taskbar between Show or Auto-Hide.
   
     双击系统托盘图标切换任务栏显示和隐藏状态
