@@ -124,10 +124,10 @@
     <value>任务栏动画</value>
   </data>
   <data name="auto_display" xml:space="preserve">
-    <value>自动显隐</value>
+    <value>智能显隐</value>
   </data>
   <data name="auto_size" xml:space="preserve">
-    <value>自动大小</value>
+    <value>智能缩放</value>
   </data>
   <data name="exit" xml:space="preserve">
     <value>退出程序</value>

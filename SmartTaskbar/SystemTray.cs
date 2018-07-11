@@ -129,6 +129,7 @@ namespace SmartTaskbar
             exit.Click += (s, e) =>
             {
                 switcher.Stop();
+                switcher.Reset();
                 notifyIcon.Dispose();
                 Application.Exit();
             };
@@ -139,6 +140,8 @@ namespace SmartTaskbar
                     return;
 
                 animation.Checked = switcher.IsAnimationEnable();
+                if (smallIcon.Enabled)
+                    switcher.SetSize();
             };
 
             notifyIcon.MouseDoubleClick += (s, e) =>
