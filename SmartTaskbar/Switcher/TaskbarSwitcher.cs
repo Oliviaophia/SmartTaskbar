@@ -61,12 +61,19 @@ namespace SmartTaskbar
             if (isStop)
                 return;
             isStop = true;
-            if (currentType == AutoModeType.none)
-                return;
             process.Kill();
             process.WaitForExit();
             currentType = AutoModeType.none;
             Reset();
+        }
+
+        public void Resume()
+        {
+            if (!isStop && process.HasExited)
+            {
+                process.Start();
+                AddProcess(process);
+            }
         }
 
         public bool IsAnimationEnable() => GetTaskbarAnimation(out animation);

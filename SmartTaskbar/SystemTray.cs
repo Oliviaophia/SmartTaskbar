@@ -139,6 +139,7 @@ namespace SmartTaskbar
                 if (e.Button != MouseButtons.Right)
                     return;
 
+                switcher.Resume();
                 animation.Checked = switcher.IsAnimationEnable();
                 if (smallIcon.Enabled)
                     switcher.SetSize();
