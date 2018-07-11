@@ -34,6 +34,8 @@ Features
 
   当没有窗体最大化时，任务栏图标恢复默认尺寸
 
+![img](https://github.com/ChanpleCai/SmartTaskbar/blob/master/demo/Adaptive_Mode.gif)
+
 * Double-click the tray icon to switch the display status of the taskbar between Show or Auto-Hide.
   
     双击系统托盘图标切换任务栏显示和隐藏状态
