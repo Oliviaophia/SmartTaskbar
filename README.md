@@ -59,15 +59,15 @@ Installation
 Known Issues
 ----
   
-* SmartTaskbar is designed for single-monitor users, so Auto-Mode does not work correctly when using multiple monitors.
+* SmartTaskbar is designed for single-monitor users, so Auto Mode or Adaptive Mode does not work correctly when using multiple monitors.
 
   SmartTaskbar是为单显示器用户设计的，在使用多显示屏时自动模式不能正确工作
   
-* Some applications are not compatible with Auto Mode, for example:
+* Some applications are not compatible with Auto Mode and Adaptive Mode, for example:
 
   有些应用不能和自动模式兼容，例如：
   
-    * If you use the Dell Display Manager, the taskbar will switch between the Show Mode and Auto-Hide(Hide) Mode frequently.
+    * If you use the Dell Display Manager, the taskbar will switch between the Show and Auto-Hide(Hide) frequently.
     
       如果你同时在使用Dell Display Manager，任务栏会频繁地在显示和隐藏模式间来回切换
       
