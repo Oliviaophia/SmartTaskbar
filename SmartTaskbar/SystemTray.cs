@@ -62,7 +62,7 @@ namespace SmartTaskbar
             notifyIcon = new NotifyIcon
             {
                 ContextMenuStrip = contextMenuStrip,
-                Text = "SmartTaskbar",
+                Text = "SmartTaskbar v1.1.7",
                 Icon = System.Environment.OSVersion.Version.Major.ToString() == "10" ? Properties.Resources.logo_32 : Properties.Resources.logo_blue_32,
                 Visible = true
             };
