@@ -1,7 +1,7 @@
 SmartTaskbar  ![Logo](https://github.com/ChanpleCai/SmartTaskbar/blob/master/logo/logo_blue_24x24.png)
 =====
-[![Version](https://badge.fury.io/gh/ChanpleCai%2FSmartTaskbar.svg)](https://github.com/ChanpleCai/SmartTaskbar/releases/download/v1.1.6/SmartTaskbar_Setup.exe)
-[![Latest Release](https://img.shields.io/github/downloads/ChanpleCai/SmartTaskbar/latest/total.svg)](https://github.com/ChanpleCai/SmartTaskbar/releases/download/v1.1.6/SmartTaskbar_Setup.exe)
+[![Version](https://badge.fury.io/gh/ChanpleCai%2FSmartTaskbar.svg)](https://github.com/ChanpleCai/SmartTaskbar/releases/download/v1.1.7/SmartTaskbar_Setup.exe)
+[![Latest Release](https://img.shields.io/github/downloads/ChanpleCai/SmartTaskbar/latest/total.svg)](https://github.com/ChanpleCai/SmartTaskbar/releases/download/v1.1.7/SmartTaskbar_Setup.exe)
 [![All Releases](https://img.shields.io/github/downloads/ChanpleCai/SmartTaskbar/total.svg)](https://github.com/ChanpleCai/SmartTaskbar/releases)
 [![License](http://img.shields.io/:license-MIT-blue.svg?style=flat)](LICENSE)
 
@@ -24,6 +24,16 @@ Features
 
 ![img](https://github.com/ChanpleCai/SmartTaskbar/blob/master/demo/Hide_Show.gif)
 
+#### Adaptive Mode
+
+* In the Adaptive Mode, SmartTaskbar will set the Taskbar buttons to be smaller when a maximized window exists .
+
+  当有窗体最大化时，它会使任务栏图标变小
+  
+* Without maximized window, the Taskbar will buttons restores original size.
+
+  当没有窗体最大化时，任务栏图标恢复默认尺寸
+
 * Double-click the tray icon to switch the display status of the taskbar between Show or Auto-Hide.
   
     双击系统托盘图标切换任务栏显示和隐藏状态
@@ -38,7 +48,7 @@ Installation
 
   从[releases](https://github.com/ChanpleCai/SmartTaskbar/releases)下载：
   
-  [![Download Now](https://github.com/ChanpleCai/SmartTaskbar/blob/master/img/Download_Softpedia.png)](https://github.com/ChanpleCai/SmartTaskbar/releases/download/v1.1.6/SmartTaskbar_Setup.exe) 
+  [![Download Now](https://github.com/ChanpleCai/SmartTaskbar/blob/master/img/Download_Softpedia.png)](https://github.com/ChanpleCai/SmartTaskbar/releases/download/v1.1.7/SmartTaskbar_Setup.exe) 
 
 * It will start running in the background after the installtion.
 
