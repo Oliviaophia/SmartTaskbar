@@ -14,11 +14,11 @@ Features
 
 #### Auto Mode
 
-* In the Auto Mode, SmartTaskbar will set the Taskbar to Auto-Hide(Hide) Mode when a maximized window exists .
+* In the Auto Mode, SmartTaskbar will set the Taskbar to Auto-Hide(Hide) Mode when a maximized window exists<sup>[[1]](#footnote)</sup>.
 
   当有窗体最大化时，它会使任务栏自动隐藏
   
-* Without maximized window, the Taskbar will display(Show) automatically.
+* Without maximized window, the Taskbar will display(Show) automatically<sup>[[1]](#footnote)</sup>.
 
   当没有窗体最大化时，它会自动使任务栏显示
 
@@ -26,11 +26,11 @@ Features
 
 #### Adaptive Mode
 
-* In the Adaptive Mode, SmartTaskbar will set the Taskbar buttons to be smaller when a maximized window exists .
+* In the Adaptive Mode, SmartTaskbar will set the Taskbar buttons to be smaller when a maximized window exists<sup>[[1]](#footnote)</sup>.
 
   当有窗体最大化时，它会使任务栏图标变小
   
-* Without maximized window, the Taskbar will buttons restores original size.
+* Without maximized window, the Taskbar will buttons restores original size<sup>[[1]](#footnote)</sup>.
 
   当没有窗体最大化时，任务栏图标恢复默认尺寸
 
@@ -43,7 +43,11 @@ Features
 ![img](https://github.com/ChanpleCai/SmartTaskbar/blob/master/demo/Double-click.gif)
 
 * [Click for more demo 点击查看更多演示](https://github.com/ChanpleCai/SmartTaskbar/tree/master/demo)
-  
+ 
+<a name="footnote">Note</a>: The status of the taskbar does not change when the mouse is over the taskbar.  
+
+   注意：当鼠标在任务栏上方时，任务栏状态不自行改变。
+ 
 Installation
 -----
 * Download `SmartTaskbar_Setup.exe` from [releases](https://github.com/ChanpleCai/SmartTaskbar/releases):
