@@ -43,11 +43,7 @@ Features
 ![img](https://github.com/ChanpleCai/SmartTaskbar/blob/master/demo/Double-click.gif)
 
 * [Click for more demo 点击查看更多演示](https://github.com/ChanpleCai/SmartTaskbar/tree/master/demo)
- 
-<a name="footnote">Note</a>: The status of the taskbar does not change when the mouse is over the taskbar.  
 
-   注意：当鼠标在任务栏上方时，任务栏状态不自行改变。
- 
 Installation
 -----
 * Download `SmartTaskbar_Setup.exe` from [releases](https://github.com/ChanpleCai/SmartTaskbar/releases):
@@ -82,3 +78,11 @@ Known Issues
 Build
 -----
 * Install Visual Studio 2017.
+
+
+
+
+ 
+<a name="footnote">Note</a>: The status of the taskbar does not change when the mouse is over the taskbar.  
+
+   注意：当鼠标在任务栏上方时，任务栏状态不自行改变。
