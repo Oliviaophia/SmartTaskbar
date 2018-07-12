@@ -15,11 +15,11 @@ Demo 演示
   
 ![img](https://github.com/ChanpleCai/SmartTaskbar/blob/master/demo/Open_Close2.gif)
 
-* Manually switch the taskbar status.
+* Manually switch the Taskbar buttons size.
   
-  手动切换任务栏状态
+  手动改变任务栏按钮大小
   
-![img](https://github.com/ChanpleCai/SmartTaskbar/blob/master/demo/Open_Close.gif)
+![img](https://github.com/ChanpleCai/SmartTaskbar/blob/master/demo/Small_Buttons.gif)
 
 * When the form state changes(Auto Mode):
   
