@@ -8,13 +8,15 @@ namespace SmartTaskbar
     class TaskbarSwitcher
     {
         private Process process = new Process();
-        private bool isStop = true, animation;
+        private bool isStop = true;
         private AutoModeType currentType = (AutoModeType)Properties.Settings.Default.TaskbarState;
 
         private readonly string auto_displayPath = Path.Combine(Directory.GetCurrentDirectory(), Environment.Is64BitOperatingSystem ? "x64" : "x86", "TaskbarSwitcher");
 
         private readonly string auto_sizePath = Path.Combine(Directory.GetCurrentDirectory(), Environment.Is64BitOperatingSystem ? "x64" : "x86", "IconSizeSwitcher");
-
+        /// <summary>
+        /// Startup process
+        /// </summary>
         public TaskbarSwitcher()
         {
             Reset();
@@ -33,7 +35,10 @@ namespace SmartTaskbar
             process.Start();
             AddProcess(process.Handle);
         }
-
+        /// <summary>
+        /// Start process
+        /// </summary>
+        /// <param name="type">AutoModeType</param>
         public void Start(AutoModeType type)
         {
             Stop();
@@ -54,7 +59,9 @@ namespace SmartTaskbar
             isStop = false;
             AddProcess(process.Handle);
         }
-
+        /// <summary>
+        /// Shutdown process
+        /// </summary>
         public void Stop()
         {
             if (isStop)
@@ -65,7 +72,9 @@ namespace SmartTaskbar
             currentType = AutoModeType.none;
             Reset();
         }
-
+        /// <summary>
+        /// Restart process, if it is terminated unexpectedly
+        /// </summary>
         public void Resume()
         {
             if (!isStop && process.HasExited)
@@ -74,11 +83,19 @@ namespace SmartTaskbar
                 AddProcess(process.Handle);
             }
         }
-
-        public bool IsAnimationEnable() => GetTaskbarAnimation(out animation);
-
-        public bool AnimationSwitcher() => ChangeTaskbarAnimation(ref animation);
-
+        /// <summary>
+        /// Get the taskbar animation state
+        /// </summary>
+        /// <returns>Taskbar animation state</returns>
+        public bool IsAnimationEnable() => GetTaskbarAnimation();
+        /// <summary>
+        /// Change the taskbar animation state
+        /// </summary>
+        /// <returns>Taskbar animation state</returns>
+        public bool AnimationSwitcher() => ChangeTaskbarAnimation();
+        /// <summary>
+        /// Change the display status of the Taskbar
+        /// </summary>
         public void ChangeState()
         {
             Stop();
@@ -92,13 +109,17 @@ namespace SmartTaskbar
                 Hide();
             }
         }
-
+        /// <summary>
+        /// Show the Taskbar and reset buttons size
+        /// </summary>
         public void Reset()
         {
             Show();
             SetIconSize(Properties.Settings.Default.IconSize);
         }
-
+        /// <summary>
+        /// Set the Taskbar buttons size
+        /// </summary>
         public void SetSize() => SetIconSize(Properties.Settings.Default.IconSize);
     }
 }

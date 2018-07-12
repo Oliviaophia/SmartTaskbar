@@ -14,7 +14,7 @@ namespace SmartTaskbar
         private static APPBARDATA msgData = new APPBARDATA { cbSize = (uint)Marshal.SizeOf(typeof(APPBARDATA)) }; 
 
         [StructLayout(LayoutKind.Sequential)]
-        public struct APPBARDATA
+        private struct APPBARDATA
         {
 
             /// DWORD->unsigned int
@@ -37,7 +37,7 @@ namespace SmartTaskbar
         }
 
         [StructLayout(LayoutKind.Sequential)]
-        public struct TagRECT
+        private struct TagRECT
         {
 
             /// LONG->int
@@ -58,19 +58,26 @@ namespace SmartTaskbar
         ///pData: PAPPBARDATA->_AppBarData*
         [DllImport("shell32.dll", EntryPoint = "SHAppBarMessage", CallingConvention = CallingConvention.StdCall)]
         private static extern uint SHAppBarMessage(uint dwMessage, ref APPBARDATA pData);
-
+        /// <summary>
+        /// Set Auto-Hide Mode
+        /// </summary>
         public static void Hide()
         {
             msgData.lParam = 1;
             SHAppBarMessage(10, ref msgData);
         }
-
+        /// <summary>
+        /// Set AlwaysOnTop Mode
+        /// </summary>
         public static void Show()
         {
             msgData.lParam = 0;
             SHAppBarMessage(10, ref msgData);
         }
-
+        /// <summary>
+        /// Indicate if the Taskbar is Auto-Hide
+        /// </summary>
+        /// <returns>Return true when Auto-Hide</returns>
         public static bool IsHide() => SHAppBarMessage(4, ref msgData) == 1 ? true : false;
         #endregion
 
@@ -98,7 +105,10 @@ namespace SmartTaskbar
                 Marshal.FreeHGlobal(extendedInfoPtr);
             }
         }
-
+        /// <summary>
+        /// Add process to current Job
+        /// </summary>
+        /// <param name="handle">Process handle</param>
         public static void AddProcess(IntPtr handle)
         {
             if (s_jobHandle == IntPtr.Zero)
@@ -182,13 +192,21 @@ namespace SmartTaskbar
         [return: MarshalAs(UnmanagedType.Bool)]
         private static extern bool GetSystemParameters(uint uiAction, uint uiParam, out bool pvParam, uint fWinIni);
 
-        public static bool GetTaskbarAnimation(out bool animation)
+        private static bool animation;
+        /// <summary>
+        /// Get the taskbar animation state
+        /// </summary>
+        /// <returns>Taskbar animation state</returns>
+        public static bool GetTaskbarAnimation()
         {
             GetSystemParameters(0x1002, 0, out animation, 0);
             return animation;
         }
-
-        public static bool ChangeTaskbarAnimation(ref bool animation)
+        /// <summary>
+        /// Change the taskbar animation state
+        /// </summary>
+        /// <returns>Taskbar animation state</returns>
+        public static bool ChangeTaskbarAnimation()
         {
             animation = !animation;
             SetSystemParameters(0x1003, 0, animation, 0x01 | 0x02);
@@ -201,14 +219,17 @@ namespace SmartTaskbar
         /// Return Type: BOOL->int
         ///hWnd: HWND->HWND__*
         ///Msg: UINT->unsigned int
-        ///wParam: WPARAM->UINT_PTR->unsigned int
-        ///lParam: LPARAM->LONG_PTR->int
+        ///wParam: WPARAM->UINT_PTR->UIntPtr
+        ///lParam: LPARAM->LONG_PTR->string
         [DllImport("user32.dll")]
         [return: MarshalAs(UnmanagedType.Bool)]
         private static extern bool SendNotifyMessage(IntPtr hWnd, uint Msg, UIntPtr wParam, string lParam);
 
         private static readonly RegistryKey key = Registry.CurrentUser.OpenSubKey(@"SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced", true);
-
+        /// <summary>
+        /// Modify the Taskbar buttons size
+        /// </summary>
+        /// <param name="size">1 = small，0 = big</param>
         public static void SetIconSize(int size)
         {
             key.SetValue("TaskbarSmallIcons", size);

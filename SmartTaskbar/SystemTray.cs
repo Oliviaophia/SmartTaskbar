@@ -155,7 +155,7 @@ namespace SmartTaskbar
 
             #endregion
 
-            #region Load Check State
+            #region Load Settings
 
             switch ((AutoModeType)Properties.Settings.Default.TaskbarState)
             {
