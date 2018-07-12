@@ -81,8 +81,8 @@ Build
 
 
 
+Notice
+------
+<a name="footnote"> The status of the taskbar does not change when the mouse is over the taskbar.</a>  
 
- 
-<a name="footnote">Note</a>: The status of the taskbar does not change when the mouse is over the taskbar.  
-
-   注意：当鼠标在任务栏上方时，任务栏状态不自行改变。
+   当鼠标在任务栏上方时，任务栏状态不自行改变。
