@@ -1,6 +1,5 @@
 ﻿using Microsoft.Win32;
 using System;
-using System.Diagnostics;
 using System.Runtime.InteropServices;
 using System.Security;
 
@@ -12,16 +11,11 @@ namespace SmartTaskbar
 
         #region SHAppBarMessage
 
+        private static APPBARDATA msgData = new APPBARDATA { cbSize = (uint)Marshal.SizeOf(typeof(APPBARDATA)) }; 
+
         [StructLayout(LayoutKind.Sequential)]
         public struct APPBARDATA
         {
-            public static APPBARDATA New()
-            {
-                return new APPBARDATA
-                {
-                    cbSize = (uint)Marshal.SizeOf(typeof(APPBARDATA))
-                };
-            }
 
             /// DWORD->unsigned int
             public uint cbSize;
@@ -65,28 +59,27 @@ namespace SmartTaskbar
         [DllImport("shell32.dll", EntryPoint = "SHAppBarMessage", CallingConvention = CallingConvention.StdCall)]
         private static extern uint SHAppBarMessage(uint dwMessage, ref APPBARDATA pData);
 
-        public static void Hide(ref APPBARDATA msgData)
+        public static void Hide()
         {
             msgData.lParam = 1;
             SHAppBarMessage(10, ref msgData);
         }
 
-        public static void Show(ref APPBARDATA msgData)
+        public static void Show()
         {
             msgData.lParam = 0;
             SHAppBarMessage(10, ref msgData);
         }
 
-        public static bool IsHide(ref APPBARDATA msgData) => SHAppBarMessage(4, ref msgData) == 1 ? true : false;
+        public static bool IsHide() => SHAppBarMessage(4, ref msgData) == 1 ? true : false;
         #endregion
 
         #region JobObject
-        private static readonly IntPtr s_jobHandle;
+
+        private static readonly IntPtr s_jobHandle = CreateJobObjectW(IntPtr.Zero, null);
 
         static SafeNativeMethods()
         {
-            s_jobHandle = CreateJobObjectW(IntPtr.Zero, null);
-
             int length = Marshal.SizeOf(typeof(JOBOBJECT_EXTENDED_LIMIT_INFORMATION));
             IntPtr extendedInfoPtr = Marshal.AllocHGlobal(length);
             try
@@ -104,14 +97,13 @@ namespace SmartTaskbar
             {
                 Marshal.FreeHGlobal(extendedInfoPtr);
             }
-
         }
 
-        public static void AddProcess(Process process)
+        public static void AddProcess(IntPtr handle)
         {
             if (s_jobHandle == IntPtr.Zero)
                 return;
-            AssignProcessToJobObject(s_jobHandle, process.Handle);
+            AssignProcessToJobObject(s_jobHandle, handle);
         }
 
 
@@ -215,14 +207,12 @@ namespace SmartTaskbar
         [return: MarshalAs(UnmanagedType.Bool)]
         private static extern bool SendNotifyMessage(IntPtr hWnd, uint Msg, UIntPtr wParam, string lParam);
 
+        private static readonly RegistryKey key = Registry.CurrentUser.OpenSubKey(@"SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced", true);
 
         public static void SetIconSize(int size)
         {
-            using (RegistryKey key = Registry.CurrentUser.OpenSubKey(@"SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced", true))
-            {
-                key.SetValue("TaskbarSmallIcons", size);
-                SendNotifyMessage((IntPtr)0xffff, 0x001a, (UIntPtr)0, "TraySettings");
-            }
+            key.SetValue("TaskbarSmallIcons", size);
+            SendNotifyMessage((IntPtr)0xffff, 0x001a, (UIntPtr)0, "TraySettings");
         }
 
         #endregion

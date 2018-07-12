@@ -8,7 +8,6 @@ namespace SmartTaskbar
     class TaskbarSwitcher
     {
         private Process process = new Process();
-        private APPBARDATA msgData = APPBARDATA.New();
         private bool isStop = true, animation;
         private AutoModeType currentType = (AutoModeType)Properties.Settings.Default.TaskbarState;
 
@@ -32,7 +31,7 @@ namespace SmartTaskbar
             }
             isStop = false;
             process.Start();
-            AddProcess(process);
+            AddProcess(process.Handle);
         }
 
         public void Start(AutoModeType type)
@@ -46,14 +45,14 @@ namespace SmartTaskbar
                     break;
                 case AutoModeType.size:
                     process.StartInfo.FileName = auto_sizePath;
-                    Show(ref msgData);
+                    Show();
                     break;
                 default:
                     return;
             }
             process.Start();
             isStop = false;
-            AddProcess(process);
+            AddProcess(process.Handle);
         }
 
         public void Stop()
@@ -72,7 +71,7 @@ namespace SmartTaskbar
             if (!isStop && process.HasExited)
             {
                 process.Start();
-                AddProcess(process);
+                AddProcess(process.Handle);
             }
         }
 
@@ -84,19 +83,19 @@ namespace SmartTaskbar
         {
             Stop();
             currentType = AutoModeType.none;
-            if (IsHide(ref msgData))
+            if (IsHide())
             {
-                Show(ref msgData);
+                Show();
             }
             else
             {
-                Hide(ref msgData);
+                Hide();
             }
         }
 
         public void Reset()
         {
-            Show(ref msgData);
+            Show();
             SetIconSize(Properties.Settings.Default.IconSize);
         }
 
