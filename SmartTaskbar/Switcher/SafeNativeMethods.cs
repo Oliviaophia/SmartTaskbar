@@ -8,8 +8,46 @@ namespace SmartTaskbar
     [SuppressUnmanagedCodeSecurity]
     static class SafeNativeMethods
     {
+        static SafeNativeMethods()
+        {
+            int length = Marshal.SizeOf(typeof(JOBOBJECT_EXTENDED_LIMIT_INFORMATION));
+            IntPtr extendedInfoPtr = Marshal.AllocHGlobal(length);
+            try
+            {
+                Marshal.StructureToPtr(new JOBOBJECT_EXTENDED_LIMIT_INFORMATION
+                {
+                    BasicLimitInformation = new JOBOBJECT_BASIC_LIMIT_INFORMATION
+                    {
+                        LimitFlags = 0x2000
+                    }
+                }, extendedInfoPtr, false);
+                SetInformationJobObject(s_jobHandle, 9, extendedInfoPtr, (uint)length);
+            }
+            finally
+            {
+                Marshal.FreeHGlobal(extendedInfoPtr);
+            }
 
-        #region SHAppBarMessage
+            var accent = new AccentPolicy()
+            {
+                AccentState = 2,
+                AccentFlags = 2,
+                GradientColor = 0
+            };
+
+            var accentPtr = Marshal.AllocHGlobal(Marshal.SizeOf(accent));
+            Marshal.StructureToPtr(accent, accentPtr, false);
+
+            data = new WindowCompositionAttributeData()
+            {
+                Attribute = 19,
+                SizeOfData = Marshal.SizeOf(accent),
+                Data = accentPtr
+            };
+        }
+
+
+        #region Taskbar Display State
 
         private static APPBARDATA msgData = new APPBARDATA { cbSize = (uint)Marshal.SizeOf(typeof(APPBARDATA)) }; 
 
@@ -81,30 +119,10 @@ namespace SmartTaskbar
         public static bool IsHide() => SHAppBarMessage(4, ref msgData) == 1 ? true : false;
         #endregion
 
-        #region JobObject
+        #region Job Container
 
         private static readonly IntPtr s_jobHandle = CreateJobObjectW(IntPtr.Zero, null);
 
-        static SafeNativeMethods()
-        {
-            int length = Marshal.SizeOf(typeof(JOBOBJECT_EXTENDED_LIMIT_INFORMATION));
-            IntPtr extendedInfoPtr = Marshal.AllocHGlobal(length);
-            try
-            {
-                Marshal.StructureToPtr(new JOBOBJECT_EXTENDED_LIMIT_INFORMATION
-                {
-                    BasicLimitInformation = new JOBOBJECT_BASIC_LIMIT_INFORMATION
-                    {
-                        LimitFlags = 0x2000
-                    }
-                }, extendedInfoPtr, false);
-                SetInformationJobObject(s_jobHandle, 9, extendedInfoPtr, (uint)length);
-            }
-            finally
-            {
-                Marshal.FreeHGlobal(extendedInfoPtr);
-            }
-        }
         /// <summary>
         /// Add process to current Job
         /// </summary>
@@ -117,25 +135,25 @@ namespace SmartTaskbar
         }
 
 
-        /// Return Type: HANDLE->void*
-        ///lpJobAttributes: LPSECURITY_ATTRIBUTES->_SECURITY_ATTRIBUTES*
-        ///lpName: LPCWSTR->WCHAR*
+        /// Return Type: HANDLE->IntPtr
+        ///lpJobAttributes: LPSECURITY_ATTRIBUTES->IntPtr
+        ///lpName: LPCWSTR->string
         [DllImport("kernel32.dll", EntryPoint = "CreateJobObjectW")]
         private static extern IntPtr CreateJobObjectW(IntPtr lpJobAttributes, [MarshalAs(UnmanagedType.LPWStr)] string lpName);
 
-        /// Return Type: BOOL->int
-        ///hJob: HANDLE->void*
-        ///JobObjectInformationClass: JOBOBJECTINFOCLASS->_JOBOBJECTINFOCLASS
-        ///lpJobObjectInformation: LPVOID->void*
-        ///cbJobObjectInformationLength: DWORD->unsigned int
+        /// Return Type: BOOL->bool
+        ///hJob: HANDLE->IntPtr
+        ///JobObjectInformationClass: JOBOBJECTINFOCLASS->int
+        ///lpJobObjectInformation: LPVOID->IntPtr
+        ///cbJobObjectInformationLength: DWORD->uint
         [DllImport("kernel32.dll", EntryPoint = "SetInformationJobObject")]
         [return: MarshalAs(UnmanagedType.Bool)]
         private static extern bool SetInformationJobObject(IntPtr hJob, int JobObjectInformationClass, IntPtr lpJobObjectInformation, uint cbJobObjectInformationLength);
 
 
-        /// Return Type: BOOL->int
-        ///hJob: HANDLE->void*
-        ///hProcess: HANDLE->void*
+        /// Return Type: BOOL->bool
+        ///hJob: HANDLE->IntPtr
+        ///hProcess: HANDLE->IntPtr
         [DllImport("kernel32.dll", EntryPoint = "AssignProcessToJobObject")]
         [return: MarshalAs(UnmanagedType.Bool)]
         private static extern bool AssignProcessToJobObject([In()] IntPtr hJob, [In()] IntPtr hProcess);
@@ -177,17 +195,22 @@ namespace SmartTaskbar
         }
         #endregion
 
-        #region TaskbarAnimation
+        #region Taskbar Animation
 
-        /// Return Type: BOOL->int
-        ///uiAction: UINT->unsigned int
-        ///uiParam: UINT->unsigned int
-        ///pvParam: PVOID->void*
-        ///fWinIni: UINT->unsigned int
+        /// Return Type: BOOL->bool
+        ///uiAction: UINT->uint
+        ///uiParam: UINT->uint
+        ///pvParam: PVOID->bool
+        ///fWinIni: UINT->uint
         [DllImport("user32.dll", EntryPoint = "SystemParametersInfoW")]
         [return: MarshalAs(UnmanagedType.Bool)]
         private static extern bool SetSystemParameters(uint uiAction, uint uiParam, bool pvParam, uint fWinIni);
 
+        /// Return Type: BOOL->bool
+        ///uiAction: UINT->uint
+        ///uiParam: UINT->uint
+        ///pvParam: PVOID->out bool
+        ///fWinIni: UINT->uint
         [DllImport("user32.dll", EntryPoint = "SystemParametersInfoW")]
         [return: MarshalAs(UnmanagedType.Bool)]
         private static extern bool GetSystemParameters(uint uiAction, uint uiParam, out bool pvParam, uint fWinIni);
@@ -214,11 +237,11 @@ namespace SmartTaskbar
         }
         #endregion
 
-        #region SendNotifyMessageW
+        #region Taskbar Buttons Size
 
-        /// Return Type: BOOL->int
-        ///hWnd: HWND->HWND__*
-        ///Msg: UINT->unsigned int
+        /// Return Type: BOOL->bool
+        ///hWnd: HWND->IntPtr
+        ///Msg: UINT->uint
         ///wParam: WPARAM->UINT_PTR->UIntPtr
         ///lParam: LPARAM->LONG_PTR->string
         [DllImport("user32.dll")]
@@ -237,5 +260,47 @@ namespace SmartTaskbar
         }
 
         #endregion
+
+        #region Transparent Taskbar
+
+        [DllImport("user32.dll")]
+        private static extern int SetWindowCompositionAttribute(IntPtr hwnd, ref WindowCompositionAttributeData data);
+
+        [StructLayout(LayoutKind.Sequential)]
+        private struct AccentPolicy
+        {
+            public int AccentState;
+            public int AccentFlags;
+            public int GradientColor;
+            public int AnimationId;
+        }
+
+        [StructLayout(LayoutKind.Sequential)]
+        private struct WindowCompositionAttributeData
+        {
+            public int Attribute;
+            public IntPtr Data;
+            public int SizeOfData;
+        }
+
+        /// Return Type: HWND->IntPtr
+        ///lpClassName: LPCWSTR->string
+        ///lpWindowName: LPCWSTR->string
+        [DllImport("user32.dll", EntryPoint = "FindWindowW")]
+        private static extern IntPtr FindWindowW([In()] [MarshalAs(UnmanagedType.LPWStr)] string lpClassName, [In()] [MarshalAs(UnmanagedType.LPWStr)] string lpWindowName);
+
+        private static IntPtr taskbar = FindWindowW("Shell_TrayWnd", null);
+        private static WindowCompositionAttributeData data;
+        /// <summary>
+        ///  make Taskbar Transparent
+        /// </summary>
+        public static void Transparent() => SetWindowCompositionAttribute(taskbar, ref data);
+        /// <summary>
+        /// Update Taskbar Handle
+        /// </summary>
+        public static void UpdataTaskbarHandle() => taskbar = FindWindowW("Shell_TrayWnd", null);
+
+        #endregion
+
     }
 }

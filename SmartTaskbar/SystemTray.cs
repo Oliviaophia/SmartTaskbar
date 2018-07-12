@@ -6,8 +6,9 @@ namespace SmartTaskbar
     {
         private NotifyIcon notifyIcon;
         private ContextMenuStrip contextMenuStrip;
-        private ToolStripMenuItem about, smallIcon, animation, auto_size, auto_display, exit;
+        private ToolStripMenuItem about, transparent, smallIcon, animation, auto_size, auto_display, exit;
         private TaskbarSwitcher switcher = new TaskbarSwitcher();
+        private Timer timer = new Timer();
 
         public SystemTray()
         {
@@ -17,6 +18,11 @@ namespace SmartTaskbar
             about = new ToolStripMenuItem
             {
                 Text = resource.GetString(nameof(about)),
+                Font = font
+            };
+            transparent = new ToolStripMenuItem
+            {
+                Text = resource.GetString(nameof(transparent)),
                 Font = font
             };
             smallIcon = new ToolStripMenuItem
@@ -53,39 +59,46 @@ namespace SmartTaskbar
                 about,
                 smallIcon,
                 animation,
+                transparent,
                 new ToolStripSeparator(),
-                auto_size,
                 auto_display,
+                auto_size,
                 new ToolStripSeparator(),
                 exit
             });
             notifyIcon = new NotifyIcon
             {
                 ContextMenuStrip = contextMenuStrip,
-                Text = "SmartTaskbar v1.1.7",
+                Text = "SmartTaskbar v1.1.8",
                 Icon = System.Environment.OSVersion.Version.Major.ToString() == "10" ? Properties.Resources.logo_32 : Properties.Resources.logo_blue_32,
                 Visible = true
             };
+
+            timer.Interval = 15;
+            timer.Tick += (s, e) => switcher.TransparentTaskbar();
             #endregion
 
             #region Load Event
 
             about.Click += (s, e) => System.Diagnostics.Process.Start(@"https://github.com/ChanpleCai/SmartTaskbar/releases");
 
+            Properties.Settings.Default.PropertyChanged += (s, e) => Properties.Settings.Default.Save();
+
+            transparent.Click += (s, e) => transparent.Checked = timer.Enabled = Properties.Settings.Default.Transparent = !transparent.Checked;
+
             smallIcon.Click += (s, e) =>
             {
                 if (smallIcon.Checked)
                 {
                     Properties.Settings.Default.IconSize = 0;
-                    Properties.Settings.Default.Save();
-                    switcher.SetSize();
                     smallIcon.Checked = false;
-                    return;
                 }
-                Properties.Settings.Default.IconSize = 1;
-                Properties.Settings.Default.Save();
+                else
+                {
+                    Properties.Settings.Default.IconSize = 1;
+                    smallIcon.Checked = true;
+                }
                 switcher.SetSize();
-                smallIcon.Checked = true;
             };
 
             animation.Click += (s, e) => animation.Checked = switcher.AnimationSwitcher();
@@ -94,36 +107,36 @@ namespace SmartTaskbar
             {
                 if (auto_size.Checked)
                 {
-                    auto_size.Checked = false;
-                    Properties.Settings.Default.TaskbarState = (int)AutoModeType.none;
-                    Properties.Settings.Default.Save();
                     switcher.Stop();
+                    Properties.Settings.Default.TaskbarState = (int)AutoModeType.none;
                     smallIcon.Enabled = true;
-                    return;
+                    auto_size.Checked = false;
                 }
-                switcher.Start(AutoModeType.size);
-                auto_size.Checked = true;
-                auto_display.Checked = smallIcon.Enabled = false;
-                Properties.Settings.Default.TaskbarState = (int)AutoModeType.size;
-                Properties.Settings.Default.Save();
+                else
+                {
+                    switcher.Start(AutoModeType.size);
+                    Properties.Settings.Default.TaskbarState = (int)AutoModeType.size;
+                    auto_size.Checked = true;
+                    auto_display.Checked = smallIcon.Enabled = false;
+                }
             };
 
             auto_display.Click += (s, e) =>
             {
-                smallIcon.Enabled = true;
                 if (auto_display.Checked)
                 {
-                    auto_display.Checked = false;
-                    Properties.Settings.Default.TaskbarState = (int)AutoModeType.none;
-                    Properties.Settings.Default.Save();
                     switcher.Stop();
-                    return;
+                    Properties.Settings.Default.TaskbarState = (int)AutoModeType.none;
+                    auto_display.Checked = false;
                 }
-                switcher.Start(AutoModeType.display);
-                auto_display.Checked = true;
-                auto_size.Checked = false;
-                Properties.Settings.Default.TaskbarState = (int)AutoModeType.display;
-                Properties.Settings.Default.Save();
+                else
+                {
+                    switcher.Start(AutoModeType.display);
+                    Properties.Settings.Default.TaskbarState = (int)AutoModeType.display;
+                    auto_display.Checked = true;
+                    auto_size.Checked = false;
+                }
+                smallIcon.Enabled = true;
             };
 
             exit.Click += (s, e) =>
@@ -140,9 +153,13 @@ namespace SmartTaskbar
                     return;
 
                 switcher.Resume();
+
                 animation.Checked = switcher.IsAnimationEnable();
+
                 if (smallIcon.Enabled)
                     switcher.SetSize();
+
+                switcher.UpdateTaskbar();
             };
 
             notifyIcon.MouseDoubleClick += (s, e) =>
@@ -171,6 +188,7 @@ namespace SmartTaskbar
             if (Properties.Settings.Default.IconSize == 1)
                 smallIcon.Checked = true;
 
+             transparent.Checked = timer.Enabled = Properties.Settings.Default.Transparent;
             #endregion
         }
     }

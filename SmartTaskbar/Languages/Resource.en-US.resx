@@ -135,4 +135,7 @@
   <data name="smallIcon" xml:space="preserve">
     <value>Small Buttons</value>
   </data>
+  <data name="transparent" xml:space="preserve">
+    <value>Transparent</value>
+  </data>
 </root>

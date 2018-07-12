@@ -84,16 +84,6 @@ namespace SmartTaskbar
             }
         }
         /// <summary>
-        /// Get the taskbar animation state
-        /// </summary>
-        /// <returns>Taskbar animation state</returns>
-        public bool IsAnimationEnable() => GetTaskbarAnimation();
-        /// <summary>
-        /// Change the taskbar animation state
-        /// </summary>
-        /// <returns>Taskbar animation state</returns>
-        public bool AnimationSwitcher() => ChangeTaskbarAnimation();
-        /// <summary>
         /// Change the display status of the Taskbar
         /// </summary>
         public void ChangeState()
@@ -121,5 +111,23 @@ namespace SmartTaskbar
         /// Set the Taskbar buttons size
         /// </summary>
         public void SetSize() => SetIconSize(Properties.Settings.Default.IconSize);
+        /// <summary>
+        /// Get the taskbar animation state
+        /// </summary>
+        /// <returns>Taskbar animation state</returns>
+        public bool IsAnimationEnable() => GetTaskbarAnimation();
+        /// <summary>
+        /// Change the taskbar animation state
+        /// </summary>
+        /// <returns>Taskbar animation state</returns>
+        public bool AnimationSwitcher() => ChangeTaskbarAnimation();
+        /// <summary>
+        /// Make Taskbar Transparent
+        /// </summary>
+        public void TransparentTaskbar() => Transparent();
+        /// <summary>
+        /// Update Taskbar Handle
+        /// </summary>
+        public void UpdateTaskbar() => UpdataTaskbarHandle();
     }
 }
