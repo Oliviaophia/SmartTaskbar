@@ -1,4 +1,5 @@
 ﻿using System.Windows.Forms;
+using static SmartTaskbar.SafeNativeMethods;
 
 namespace SmartTaskbar
 {
@@ -12,17 +13,13 @@ namespace SmartTaskbar
 
         public SystemTray()
         {
+            bool isWin10 = System.Environment.OSVersion.Version.Major.ToString() == "10";
             #region Initialization
             ResourceCulture resource = new ResourceCulture();
             System.Drawing.Font font = new System.Drawing.Font("Segoe UI", 9F);
             about = new ToolStripMenuItem
             {
                 Text = resource.GetString(nameof(about)),
-                Font = font
-            };
-            transparent = new ToolStripMenuItem
-            {
-                Text = resource.GetString(nameof(transparent)),
                 Font = font
             };
             smallIcon = new ToolStripMenuItem
@@ -54,28 +51,51 @@ namespace SmartTaskbar
             {
                 Renderer = new Win10Renderer()
             };
-            contextMenuStrip.Items.AddRange(new ToolStripItem[]
+            if (isWin10)
             {
-                about,
-                smallIcon,
-                animation,
-                transparent,
-                new ToolStripSeparator(),
-                auto_display,
-                auto_size,
-                new ToolStripSeparator(),
-                exit
-            });
+                transparent = new ToolStripMenuItem
+                {
+                    Text = resource.GetString(nameof(transparent)),
+                    Font = font
+                };
+                contextMenuStrip.Items.AddRange(new ToolStripItem[]
+                {
+                    about,
+                    smallIcon,
+                    animation,
+                    transparent,
+                    new ToolStripSeparator(),
+                    auto_display,
+                    auto_size,
+                    new ToolStripSeparator(),
+                    exit
+                });
+
+                timer.Interval = 15;
+                timer.Tick += (s, e) => Transparent();
+            }
+            else
+            {
+                contextMenuStrip.Items.AddRange(new ToolStripItem[]
+                {
+                    about,
+                    smallIcon,
+                    animation,
+                    new ToolStripSeparator(),
+                    auto_display,
+                    auto_size,
+                    new ToolStripSeparator(),
+                    exit
+                });
+            }
+
             notifyIcon = new NotifyIcon
             {
                 ContextMenuStrip = contextMenuStrip,
                 Text = "SmartTaskbar v1.1.8",
-                Icon = System.Environment.OSVersion.Version.Major.ToString() == "10" ? Properties.Resources.logo_32 : Properties.Resources.logo_blue_32,
+                Icon = isWin10 ? Properties.Resources.logo_32 : Properties.Resources.logo_blue_32,
                 Visible = true
             };
-
-            timer.Interval = 15;
-            timer.Tick += (s, e) => switcher.TransparentTaskbar();
             #endregion
 
             #region Load Event
@@ -98,10 +118,10 @@ namespace SmartTaskbar
                     Properties.Settings.Default.IconSize = 1;
                     smallIcon.Checked = true;
                 }
-                switcher.SetSize();
+                SetIconSize(Properties.Settings.Default.IconSize);
             };
 
-            animation.Click += (s, e) => animation.Checked = switcher.AnimationSwitcher();
+            animation.Click += (s, e) => animation.Checked = ChangeTaskbarAnimation();
 
             auto_size.Click += (s, e) =>
             {
@@ -147,26 +167,45 @@ namespace SmartTaskbar
                 Application.Exit();
             };
 
-            notifyIcon.MouseClick += (s, e) =>
+            if (isWin10)
             {
-                if (e.Button != MouseButtons.Right)
-                    return;
+                notifyIcon.MouseClick += (s, e) =>
+                {
+                    if (e.Button != MouseButtons.Right)
+                        return;
 
-                switcher.Resume();
+                    switcher.Resume();
 
-                animation.Checked = switcher.IsAnimationEnable();
+                    animation.Checked = GetTaskbarAnimation();
 
-                if (smallIcon.Enabled)
-                    switcher.SetSize();
+                    if (smallIcon.Enabled)
+                        SetIconSize(Properties.Settings.Default.IconSize);
 
-                switcher.UpdateTaskbar();
-            };
+                    UpdataTaskbarHandle();
+                };
+            }
+            else
+            {
+                notifyIcon.MouseClick += (s, e) =>
+                {
+                    if (e.Button != MouseButtons.Right)
+                        return;
+
+                    switcher.Resume();
+
+                    animation.Checked = GetTaskbarAnimation();
+
+                    if (smallIcon.Enabled)
+                        SetIconSize(Properties.Settings.Default.IconSize);
+                };
+            }
+
 
             notifyIcon.MouseDoubleClick += (s, e) =>
             {
                 smallIcon.Enabled = true;
                 switcher.ChangeState();
-                switcher.SetSize();
+                SetIconSize(Properties.Settings.Default.IconSize);
                 auto_size.Checked = auto_display.Checked = false;
             };
 
@@ -188,7 +227,7 @@ namespace SmartTaskbar
             if (Properties.Settings.Default.IconSize == 1)
                 smallIcon.Checked = true;
 
-             transparent.Checked = timer.Enabled = Properties.Settings.Default.Transparent;
+            transparent.Checked = timer.Enabled = Properties.Settings.Default.Transparent;
             #endregion
         }
     }

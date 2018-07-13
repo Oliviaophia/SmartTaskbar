@@ -27,23 +27,28 @@ namespace SmartTaskbar
             {
                 Marshal.FreeHGlobal(extendedInfoPtr);
             }
-
-            var accent = new AccentPolicy()
+            //Transparent taskbar is only valid in win10
+            if (Environment.OSVersion.Version.Major.ToString() == "10")
             {
-                AccentState = 2,
-                AccentFlags = 2,
-                GradientColor = 0
-            };
+                var accent = new AccentPolicy()
+                {
+                    AccentState = 2,
+                    AccentFlags = 2,
+                    GradientColor = 0
+                };
 
-            var accentPtr = Marshal.AllocHGlobal(Marshal.SizeOf(accent));
-            Marshal.StructureToPtr(accent, accentPtr, false);
+                var accentPtr = Marshal.AllocHGlobal(Marshal.SizeOf(accent));
+                Marshal.StructureToPtr(accent, accentPtr, false);
 
-            data = new WindowCompositionAttributeData()
-            {
-                Attribute = 19,
-                SizeOfData = Marshal.SizeOf(accent),
-                Data = accentPtr
-            };
+                data = new WindowCompositionAttributeData()
+                {
+                    Attribute = 19,
+                    SizeOfData = Marshal.SizeOf(accent),
+                    Data = accentPtr
+                };
+
+                taskbar = FindWindowW("Shell_TrayWnd", null);
+            }
         }
 
 
@@ -289,10 +294,10 @@ namespace SmartTaskbar
         [DllImport("user32.dll", EntryPoint = "FindWindowW")]
         private static extern IntPtr FindWindowW([In()] [MarshalAs(UnmanagedType.LPWStr)] string lpClassName, [In()] [MarshalAs(UnmanagedType.LPWStr)] string lpWindowName);
 
-        private static IntPtr taskbar = FindWindowW("Shell_TrayWnd", null);
+        private static IntPtr taskbar;
         private static WindowCompositionAttributeData data;
         /// <summary>
-        ///  make Taskbar Transparent
+        ///  Make Taskbar Transparent
         /// </summary>
         public static void Transparent() => SetWindowCompositionAttribute(taskbar, ref data);
         /// <summary>
