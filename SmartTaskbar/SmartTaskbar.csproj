@@ -65,6 +65,8 @@
     <Compile Include="Switcher\TaskbarSwitcher.cs" />
     <Compile Include="SystemTray.cs" />
     <EmbeddedResource Include="Languages\Resource.en-US.resx" />
+    <EmbeddedResource Include="Languages\Resource.uk-UA.resx" />
+    <EmbeddedResource Include="Languages\Resource.ru-RU.resx" />
     <EmbeddedResource Include="Languages\Resource.zh-CN.resx" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
