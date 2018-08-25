@@ -7,7 +7,7 @@ namespace SmartTaskbar
 {
     class ResourceCulture
     {
-        private ResourceManager resourceManager  = new ResourceManager("SmartTaskbar.Languages.Resource", Assembly.GetExecutingAssembly());
+        private readonly ResourceManager resourceManager  = new ResourceManager("SmartTaskbar.Languages.Resource", Assembly.GetExecutingAssembly());
 
         public ResourceCulture()
         {
