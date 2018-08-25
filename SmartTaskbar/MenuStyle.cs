@@ -27,7 +27,7 @@ namespace SmartTaskbar
             e.Graphics.SmoothingMode = SmoothingMode.AntiAlias;
             var r = new Rectangle(e.ImageRectangle.Location, e.ImageRectangle.Size);
             r.Inflate(-4, -6);
-            e.Graphics.DrawLines(Pens.Black, new Point[]{
+            e.Graphics.DrawLines(Pens.Black, new[]{
                 new Point(r.Left, r.Bottom - r.Height / 2),
                 new Point(r.Left + r.Width / 3,  r.Bottom),
                 new Point(r.Right, r.Top)});
