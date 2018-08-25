@@ -140,11 +140,10 @@ namespace SmartTaskbar
 
                 animation.Checked = GetTaskbarAnimation();
 
-                if (smallIcon.Enabled)
-                {
-                    SetIconSize(Settings.Default.IconSize);
-                    smallIcon.Checked = GetIconSize() == SmallIcon;
-                }
+                if (!smallIcon.Enabled) return;
+
+                SetIconSize(Settings.Default.IconSize);
+                smallIcon.Checked = GetIconSize() == SmallIcon;
             };
 
             notifyIcon.MouseDoubleClick += (s, e) =>

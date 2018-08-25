@@ -5,7 +5,7 @@ using System.Threading;
 
 namespace SmartTaskbar
 {
-    class ResourceCulture
+    internal class ResourceCulture
     {
         private readonly ResourceManager resourceManager  = new ResourceManager("SmartTaskbar.Languages.Resource", Assembly.GetExecutingAssembly());
 

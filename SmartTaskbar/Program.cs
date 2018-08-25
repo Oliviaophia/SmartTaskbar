@@ -4,10 +4,10 @@ using System.Windows.Forms;
 
 namespace SmartTaskbar
 {
-    static class Program
+    internal static class Program
     {
         [STAThread]
-        static void Main()
+        private static void Main()
         {
             //Use a mutex to ensure single instance
             using (new Mutex(true, "{959d3545-aa5c-42a8-a327-6e2c079daa94}", out bool createNew))

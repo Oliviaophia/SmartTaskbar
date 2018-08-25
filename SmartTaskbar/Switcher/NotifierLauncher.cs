@@ -6,7 +6,7 @@ using static SmartTaskbar.SafeNativeMethods;
 
 namespace SmartTaskbar
 {
-    class NotifierLauncher
+    internal class NotifierLauncher
     {
         private readonly Process notifier = new Process();
         /// <summary>
