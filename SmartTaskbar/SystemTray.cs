@@ -140,10 +140,11 @@ namespace SmartTaskbar
 
                 animation.Checked = GetTaskbarAnimation();
 
-                smallIcon.Checked = GetIconSize() == SmallIcon;
-
                 if (smallIcon.Enabled)
+                {
                     SetIconSize(Settings.Default.IconSize);
+                    smallIcon.Checked = GetIconSize() == SmallIcon;
+                }
             };
 
             notifyIcon.MouseDoubleClick += (s, e) =>
@@ -183,8 +184,8 @@ namespace SmartTaskbar
                         auto_display.Checked = auto_size.Checked = false;
                         break;
                 }
-
                 Reset();
+                smallIcon.Checked = GetIconSize() == SmallIcon;
             }
 
             #endregion
