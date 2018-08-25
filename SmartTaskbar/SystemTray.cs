@@ -3,17 +3,21 @@ using static SmartTaskbar.SafeNativeMethods;
 
 namespace SmartTaskbar
 {
-    class SystemTray
+    internal class SystemTray : ApplicationContext
     {
-        private NotifyIcon notifyIcon;
-        private ContextMenuStrip contextMenuStrip;
-        private ToolStripMenuItem about, transparent, smallIcon, animation, auto_size, auto_display, exit;
-        private TaskbarSwitcher switcher = new TaskbarSwitcher();
-        private Timer timer = new Timer();
+        private readonly NotifyIcon notifyIcon;
+        private readonly ContextMenuStrip contextMenuStrip;
+        private readonly ToolStripMenuItem about;
+        private readonly ToolStripMenuItem smallIcon;
+        private readonly ToolStripMenuItem animation;
+        private readonly ToolStripMenuItem auto_size;
+        private readonly ToolStripMenuItem auto_display;
+        private readonly ToolStripMenuItem exit;
+
+        private readonly NotifierLauncher notifierLauncher = new NotifierLauncher();
 
         public SystemTray()
         {
-            bool isWin10 = System.Environment.OSVersion.Version.Major.ToString() == "10";
             #region Initialization
             ResourceCulture resource = new ResourceCulture();
             System.Drawing.Font font = new System.Drawing.Font("Segoe UI", 9F);
@@ -51,49 +55,24 @@ namespace SmartTaskbar
             {
                 Renderer = new Win10Renderer()
             };
-            if (isWin10)
-            {
-                transparent = new ToolStripMenuItem
-                {
-                    Text = resource.GetString(nameof(transparent)),
-                    Font = font
-                };
-                contextMenuStrip.Items.AddRange(new ToolStripItem[]
-                {
-                    about,
-                    smallIcon,
-                    animation,
-                    transparent,
-                    new ToolStripSeparator(),
-                    auto_display,
-                    auto_size,
-                    new ToolStripSeparator(),
-                    exit
-                });
 
-                timer.Interval = 15;
-                timer.Tick += (s, e) => Transparent();
-            }
-            else
+            contextMenuStrip.Items.AddRange(new ToolStripItem[]
             {
-                contextMenuStrip.Items.AddRange(new ToolStripItem[]
-                {
-                    about,
-                    smallIcon,
-                    animation,
-                    new ToolStripSeparator(),
-                    auto_display,
-                    auto_size,
-                    new ToolStripSeparator(),
-                    exit
-                });
-            }
+                about,
+                smallIcon,
+                animation,
+                new ToolStripSeparator(),
+                auto_display,
+                auto_size,
+                new ToolStripSeparator(),
+                exit
+            });
 
             notifyIcon = new NotifyIcon
             {
                 ContextMenuStrip = contextMenuStrip,
-                Text = "SmartTaskbar v1.1.8",
-                Icon = isWin10 ? Properties.Resources.logo_32 : Properties.Resources.logo_blue_32,
+                Text = @"SmartTaskbar v1.1.8",
+                Icon = System.Environment.OSVersion.Version.Major.ToString() == "10" ? Properties.Resources.logo_32 : Properties.Resources.logo_blue_32,
                 Visible = true
             };
             #endregion
@@ -102,132 +81,113 @@ namespace SmartTaskbar
 
             about.Click += (s, e) => System.Diagnostics.Process.Start(@"https://github.com/ChanpleCai/SmartTaskbar/releases");
 
-            Properties.Settings.Default.PropertyChanged += (s, e) => Properties.Settings.Default.Save();
-
-            transparent.Click += (s, e) => transparent.Checked = timer.Enabled = Properties.Settings.Default.Transparent = !transparent.Checked;
+            Properties.Settings.Default.PropertyChanged += (s, e) =>
+            {
+                Properties.Settings.Default.Save();
+                switch ((AutoModeType)Properties.Settings.Default.TaskbarState)
+                {
+                    case AutoModeType.Display:
+                        smallIcon.Enabled = auto_display.Checked = true;
+                        auto_size.Checked = false;
+                        ChangeDisplayState();
+                        SetIconSize(Properties.Settings.Default.IconSize);
+                        break;
+                    case AutoModeType.Size:
+                        smallIcon.Enabled = auto_display.Checked = false;
+                        auto_size.Checked = true;
+                        ChangeIconSize();
+                        Show();
+                        break;
+                    case AutoModeType.None:
+                        smallIcon.Enabled = true;
+                        auto_display.Checked = auto_size.Checked = false;
+                        break;
+                }
+            };
 
             smallIcon.Click += (s, e) =>
             {
-                if (smallIcon.Checked)
-                {
-                    Properties.Settings.Default.IconSize = 0;
-                    smallIcon.Checked = false;
-                }
-                else
-                {
-                    Properties.Settings.Default.IconSize = 1;
-                    smallIcon.Checked = true;
-                }
+                Properties.Settings.Default.IconSize = smallIcon.Checked ? 0 : 1;
                 SetIconSize(Properties.Settings.Default.IconSize);
             };
 
             animation.Click += (s, e) => animation.Checked = ChangeTaskbarAnimation();
 
-            auto_size.Click += (s, e) =>
-            {
-                if (auto_size.Checked)
-                {
-                    switcher.Stop();
-                    Properties.Settings.Default.TaskbarState = (int)AutoModeType.none;
-                    smallIcon.Enabled = true;
-                    auto_size.Checked = false;
-                }
-                else
-                {
-                    switcher.Start(AutoModeType.size);
-                    Properties.Settings.Default.TaskbarState = (int)AutoModeType.size;
-                    auto_size.Checked = true;
-                    auto_display.Checked = smallIcon.Enabled = false;
-                }
-            };
+            auto_size.Click += (s, e) => Properties.Settings.Default.TaskbarState = auto_size.Checked ? (int)AutoModeType.None : (int)AutoModeType.Size;
 
-            auto_display.Click += (s, e) =>
-            {
-                if (auto_display.Checked)
-                {
-                    switcher.Stop();
-                    Properties.Settings.Default.TaskbarState = (int)AutoModeType.none;
-                    auto_display.Checked = false;
-                }
-                else
-                {
-                    switcher.Start(AutoModeType.display);
-                    Properties.Settings.Default.TaskbarState = (int)AutoModeType.display;
-                    auto_display.Checked = true;
-                    auto_size.Checked = false;
-                }
-                smallIcon.Enabled = true;
-            };
+            auto_display.Click += (s, e) => Properties.Settings.Default.TaskbarState = auto_display.Checked ? (int)AutoModeType.None : (int)AutoModeType.Display;
 
             exit.Click += (s, e) =>
             {
-                switcher.Stop();
-                switcher.Reset();
+                notifierLauncher.Stop();
+                Reset();
                 notifyIcon.Dispose();
                 Application.Exit();
             };
 
-            if (isWin10)
+            notifyIcon.MouseClick += (s, e) =>
             {
-                notifyIcon.MouseClick += (s, e) =>
+                if (e.Button != MouseButtons.Right)
                 {
-                    if (e.Button != MouseButtons.Right)
-                        return;
+                    return;
+                }
 
-                    switcher.Resume();
+                notifierLauncher.Resume();
 
-                    animation.Checked = GetTaskbarAnimation();
+                animation.Checked = GetTaskbarAnimation();
 
-                    if (smallIcon.Enabled)
-                        SetIconSize(Properties.Settings.Default.IconSize);
+                smallIcon.Checked = GetIconSize() == SmallIcon;
 
-                    UpdataTaskbarHandle();
-                };
-            }
-            else
-            {
-                notifyIcon.MouseClick += (s, e) =>
+                if (smallIcon.Enabled)
                 {
-                    if (e.Button != MouseButtons.Right)
-                        return;
-
-                    switcher.Resume();
-
-                    animation.Checked = GetTaskbarAnimation();
-
-                    if (smallIcon.Enabled)
-                        SetIconSize(Properties.Settings.Default.IconSize);
-                };
-            }
-
+                    SetIconSize(Properties.Settings.Default.IconSize);
+                }
+            };
 
             notifyIcon.MouseDoubleClick += (s, e) =>
             {
-                smallIcon.Enabled = true;
-                switcher.ChangeState();
+                Properties.Settings.Default.TaskbarState = (int)AutoModeType.None;
                 SetIconSize(Properties.Settings.Default.IconSize);
-                auto_size.Checked = auto_display.Checked = false;
+                if (IsHide())
+                {
+                    Show();
+                }
+                else
+                {
+                    Hide();
+                }
             };
 
             #endregion
 
             #region Load Settings
 
-            switch ((AutoModeType)Properties.Settings.Default.TaskbarState)
+            if (Properties.Settings.Default.TaskbarState == -1)
             {
-                case AutoModeType.display:
-                    auto_display.Checked = true;
-                    break;
-                case AutoModeType.size:
-                    auto_size.Checked = true;
-                    smallIcon.Enabled = false;
-                    break;
+                //Run the software for the first time
+                Properties.Settings.Default.TaskbarState = (int)AutoModeType.Size;
+                Properties.Settings.Default.IconSize = GetIconSize();
+            }
+            else
+            {
+                switch ((AutoModeType)Properties.Settings.Default.TaskbarState)
+                {
+                    case AutoModeType.Display:
+                        smallIcon.Enabled = auto_display.Checked = true;
+                        auto_size.Checked = false;
+                        break;
+                    case AutoModeType.Size:
+                        smallIcon.Enabled = auto_display.Checked = false;
+                        auto_size.Checked = true;
+                        break;
+                    case AutoModeType.None:
+                        smallIcon.Enabled = true;
+                        auto_display.Checked = auto_size.Checked = false;
+                        break;
+                }
+                Reset();
             }
 
-            if (Properties.Settings.Default.IconSize == 1)
-                smallIcon.Checked = true;
-
-            transparent.Checked = timer.Enabled = Properties.Settings.Default.Transparent;
             #endregion
         }
     }

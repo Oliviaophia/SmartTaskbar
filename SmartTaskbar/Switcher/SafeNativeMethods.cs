@@ -1,5 +1,6 @@
 ﻿using Microsoft.Win32;
 using System;
+using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using System.Security;
 
@@ -8,6 +9,11 @@ namespace SmartTaskbar
     [SuppressUnmanagedCodeSecurity]
     static class SafeNativeMethods
     {
+
+        public const int MSG_MAX = 0x501;
+        public const int MSG_UNMAX = 0x502;
+        public static bool IsMax { get; set; } = false;
+
         static SafeNativeMethods()
         {
             int length = Marshal.SizeOf(typeof(JOBOBJECT_EXTENDED_LIMIT_INFORMATION));
@@ -26,28 +32,6 @@ namespace SmartTaskbar
             finally
             {
                 Marshal.FreeHGlobal(extendedInfoPtr);
-            }
-            //Transparent taskbar is only valid in win10
-            if (Environment.OSVersion.Version.Major.ToString() == "10")
-            {
-                var accent = new AccentPolicy()
-                {
-                    AccentState = 2,
-                    AccentFlags = 2,
-                    GradientColor = 0
-                };
-
-                var accentPtr = Marshal.AllocHGlobal(Marshal.SizeOf(accent));
-                Marshal.StructureToPtr(accent, accentPtr, false);
-
-                data = new WindowCompositionAttributeData()
-                {
-                    Attribute = 19,
-                    SizeOfData = Marshal.SizeOf(accent),
-                    Data = accentPtr
-                };
-
-                taskbar = FindWindowW("Shell_TrayWnd", null);
             }
         }
 
@@ -121,7 +105,17 @@ namespace SmartTaskbar
         /// Indicate if the Taskbar is Auto-Hide
         /// </summary>
         /// <returns>Return true when Auto-Hide</returns>
-        public static bool IsHide() => SHAppBarMessage(4, ref msgData) == 1 ? true : false;
+        public static bool IsHide() => SHAppBarMessage(4, ref msgData) == 1;
+        /// <summary>
+        /// Change the display status of the Taskbar
+        /// </summary>
+        public static void ChangeDisplayState()
+        {
+            if (IsMax)
+                Hide();
+            else
+                Show();
+        }
         #endregion
 
         #region Job Container
@@ -253,59 +247,40 @@ namespace SmartTaskbar
         [return: MarshalAs(UnmanagedType.Bool)]
         private static extern bool SendNotifyMessage(IntPtr hWnd, uint Msg, UIntPtr wParam, string lParam);
 
-        private static readonly RegistryKey key = Registry.CurrentUser.OpenSubKey(@"SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced", true);
+        private static readonly RegistryKey Key = Registry.CurrentUser.OpenSubKey(@"SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced", true);
+
+        public const int SmallIcon = 1;
+        public const int BigIcon = 0;
         /// <summary>
         /// Modify the Taskbar buttons size
         /// </summary>
         /// <param name="size">1 = small，0 = big</param>
         public static void SetIconSize(int size)
         {
-            key.SetValue("TaskbarSmallIcons", size);
+            Key.SetValue("TaskbarSmallIcons", size);
             SendNotifyMessage((IntPtr)0xffff, 0x001a, (UIntPtr)0, "TraySettings");
         }
 
-        #endregion
-
-        #region Transparent Taskbar
-
-        [DllImport("user32.dll")]
-        private static extern int SetWindowCompositionAttribute(IntPtr hwnd, ref WindowCompositionAttributeData data);
-
-        [StructLayout(LayoutKind.Sequential)]
-        private struct AccentPolicy
-        {
-            public int AccentState;
-            public int AccentFlags;
-            public int GradientColor;
-            public int AnimationId;
-        }
-
-        [StructLayout(LayoutKind.Sequential)]
-        private struct WindowCompositionAttributeData
-        {
-            public int Attribute;
-            public IntPtr Data;
-            public int SizeOfData;
-        }
-
-        /// Return Type: HWND->IntPtr
-        ///lpClassName: LPCWSTR->string
-        ///lpWindowName: LPCWSTR->string
-        [DllImport("user32.dll", EntryPoint = "FindWindowW")]
-        private static extern IntPtr FindWindowW([In()] [MarshalAs(UnmanagedType.LPWStr)] string lpClassName, [In()] [MarshalAs(UnmanagedType.LPWStr)] string lpWindowName);
-
-        private static IntPtr taskbar;
-        private static WindowCompositionAttributeData data;
         /// <summary>
-        ///  Make Taskbar Transparent
+        /// Get the Taskbar buttons size
         /// </summary>
-        public static void Transparent() => SetWindowCompositionAttribute(taskbar, ref data);
+        /// <returns>1 = small，0 = big</returns>
+        public static int GetIconSize() => (int)Key.GetValue("TaskbarSmallIcons", BigIcon);
+
         /// <summary>
-        /// Update Taskbar Handle
+        /// Change the Taskbar buttons size
         /// </summary>
-        public static void UpdataTaskbarHandle() => taskbar = FindWindowW("Shell_TrayWnd", null);
+        public static void ChangeIconSize() => SetIconSize(IsMax ? SmallIcon : BigIcon);
 
         #endregion
 
+        /// <summary>
+        /// Show the Taskbar and reset buttons size
+        /// </summary>
+        public static void Reset()
+        {
+            Show();
+            SetIconSize(Properties.Settings.Default.IconSize);
+        }
     }
 }

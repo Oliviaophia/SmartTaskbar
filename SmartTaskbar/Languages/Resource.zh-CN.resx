@@ -135,7 +135,4 @@
   <data name="smallIcon" xml:space="preserve">
     <value>小按钮</value>
   </data>
-  <data name="transparent" xml:space="preserve">
-    <value>透明</value>
-  </data>
 </root>

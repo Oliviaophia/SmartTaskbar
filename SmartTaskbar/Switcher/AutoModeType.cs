@@ -2,8 +2,8 @@
 {
     public enum AutoModeType
     {
-        display,
-        size,
-        none
+        Display,
+        Size,
+        None
     }
 }
