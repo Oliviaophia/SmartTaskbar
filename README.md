@@ -9,6 +9,10 @@ SmartTaskbar  ![Logo](https://github.com/ChanpleCai/SmartTaskbar/blob/master/log
   
 ![img](https://github.com/ChanpleCai/SmartTaskbar/blob/master/demo/Context_Menu.gif)
 
+* A streamlined version that supports high DPI is now available on [Microsoft Store](https://www.microsoft.com/en-us/p/smarttaskbar/9pjm69mps6t9?activetab=pivot%3aoverviewtab).
+
+  支持高DPI的精简版本，现已上架[win10应用商店](https://www.microsoft.com/zh-cn/p/smarttaskbar/9pjm69mps6t9?activetab=pivot%3aoverviewtab#)
+
 Features
 -----
 
