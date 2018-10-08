@@ -11,12 +11,9 @@ namespace SmartTaskbar
     {
         private readonly NotifyIcon notifyIcon;
         private readonly ContextMenuStrip contextMenuStrip;
-        private readonly ToolStripMenuItem about;
-        private readonly ToolStripMenuItem smallIcon;
-        private readonly ToolStripMenuItem animation;
-        private readonly ToolStripMenuItem auto_size;
-        private readonly ToolStripMenuItem auto_display;
-        private readonly ToolStripMenuItem exit;
+        private readonly ToolStripMenuItem menu_settings;
+        private readonly ToolStripMenuItem menu_auto;
+        private readonly ToolStripMenuItem menu_exit;
 
         private readonly NotifierLauncher notifierLauncher = new NotifierLauncher();
 
@@ -26,34 +23,19 @@ namespace SmartTaskbar
 
             var resource = new ResourceCulture();
             var font = new Font("Segoe UI", 9F);
-            about = new ToolStripMenuItem
+            menu_settings = new ToolStripMenuItem
             {
-                Text = resource.GetString(nameof(about)),
+                Text = resource.GetString(nameof(menu_settings)),
                 Font = font
             };
-            smallIcon = new ToolStripMenuItem
+            menu_auto = new ToolStripMenuItem
             {
-                Text = resource.GetString(nameof(smallIcon)),
+                Text = resource.GetString(nameof(menu_auto)),
                 Font = font
             };
-            animation = new ToolStripMenuItem
+            menu_exit = new ToolStripMenuItem
             {
-                Text = resource.GetString(nameof(animation)),
-                Font = font
-            };
-            auto_size = new ToolStripMenuItem
-            {
-                Text = resource.GetString(nameof(auto_size)),
-                Font = font
-            };
-            auto_display = new ToolStripMenuItem
-            {
-                Text = resource.GetString(nameof(auto_display)),
-                Font = font
-            };
-            exit = new ToolStripMenuItem
-            {
-                Text = resource.GetString(nameof(exit)),
+                Text = resource.GetString(nameof(menu_exit)),
                 Font = font
             };
             contextMenuStrip = new ContextMenuStrip
@@ -63,14 +45,10 @@ namespace SmartTaskbar
 
             contextMenuStrip.Items.AddRange(new ToolStripItem[]
             {
-                about,
-                smallIcon,
-                animation,
+                menu_settings,
+                menu_auto,
                 new ToolStripSeparator(),
-                auto_display,
-                auto_size,
-                new ToolStripSeparator(),
-                exit
+                menu_exit
             });
 
             notifyIcon = new NotifyIcon
@@ -85,45 +63,9 @@ namespace SmartTaskbar
 
             #region Load Event
 
-            about.Click += (s, e) => Process.Start(@"https://github.com/ChanpleCai/SmartTaskbar/releases");
+            menu_settings.Click += (s, e) => SettingsForm.Instance.ChangeDisplayState();
 
-            Settings.Default.PropertyChanged += (s, e) =>
-            {
-                Settings.Default.Save();
-                switch ((AutoModeType) Settings.Default.TaskbarState)
-                {
-                    case AutoModeType.Display:
-                        smallIcon.Enabled = auto_display.Checked = true;
-                        auto_size.Checked = false;
-                        ChangeDisplayState();
-                        SetIconSize(Settings.Default.IconSize);
-                        break;
-                    case AutoModeType.Size:
-                        smallIcon.Enabled = auto_display.Checked = false;
-                        auto_size.Checked = true;
-                        ChangeIconSize();
-                        Show();
-                        break;
-                    case AutoModeType.None:
-                        smallIcon.Enabled = true;
-                        auto_display.Checked = auto_size.Checked = false;
-                        break;
-                }
-            };
-
-            smallIcon.Click += (s, e) =>
-            {
-                Settings.Default.IconSize = smallIcon.Checked ? 0 : 1;
-                SetIconSize(Settings.Default.IconSize);
-            };
-
-            animation.Click += (s, e) => animation.Checked = ChangeTaskbarAnimation();
-
-            auto_size.Click += (s, e) => Settings.Default.TaskbarState = auto_size.Checked ? (int) AutoModeType.None : (int) AutoModeType.Size;
-
-            auto_display.Click += (s, e) => Settings.Default.TaskbarState = auto_display.Checked ? (int) AutoModeType.None : (int) AutoModeType.Display;
-
-            exit.Click += (s, e) =>
+            menu_exit.Click += (s, e) =>
             {
                 notifierLauncher.Stop();
                 Reset();
@@ -131,61 +73,22 @@ namespace SmartTaskbar
                 Application.Exit();
             };
 
-            notifyIcon.MouseClick += (s, e) =>
+            notifyIcon.Click += (s, e) =>
             {
-                if (e.Button != MouseButtons.Right)
-                    return;
 
-                notifierLauncher.Resume();
 
-                animation.Checked = GetTaskbarAnimation();
-
-                if (!smallIcon.Enabled) return;
-
-                SetIconSize(Settings.Default.IconSize);
-                smallIcon.Checked = GetIconSize() == SmallIcon;
             };
 
             notifyIcon.MouseDoubleClick += (s, e) =>
             {
-                Settings.Default.TaskbarState = (int) AutoModeType.None;
-                SetIconSize(Settings.Default.IconSize);
-                if (IsHide())
-                    Show();
-                else
-                    Hide();
+                if (e.Button != MouseButtons.Left) return;
+
             };
 
             #endregion
 
             #region Load Settings
 
-            if (Settings.Default.TaskbarState == -1)
-            {
-                //Run the software for the first time
-                Settings.Default.TaskbarState = (int) AutoModeType.Display;
-                Settings.Default.IconSize = GetIconSize();
-            }
-            else
-            {
-                switch ((AutoModeType) Settings.Default.TaskbarState)
-                {
-                    case AutoModeType.Display:
-                        smallIcon.Enabled = auto_display.Checked = true;
-                        auto_size.Checked = false;
-                        break;
-                    case AutoModeType.Size:
-                        smallIcon.Enabled = auto_display.Checked = false;
-                        auto_size.Checked = true;
-                        break;
-                    case AutoModeType.None:
-                        smallIcon.Enabled = true;
-                        auto_display.Checked = auto_size.Checked = false;
-                        break;
-                }
-                Reset();
-                smallIcon.Checked = GetIconSize() == SmallIcon;
-            }
 
             #endregion
         }
