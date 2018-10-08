@@ -9,6 +9,8 @@ namespace SmartTaskbar
     {
         private readonly ResourceManager resourceManager  = new ResourceManager("SmartTaskbar.Languages.Resource", Assembly.GetExecutingAssembly());
 
+        private readonly CultureInfo cultureInfo = new CultureInfo("en-US");
+
         public ResourceCulture()
         {
             switch (Thread.CurrentThread.CurrentUICulture.Name)
@@ -18,15 +20,22 @@ namespace SmartTaskbar
                 case "ru-RU":
                 case "uk-UA":
                     break;
-                case string str when str.StartsWith("zh"):
-                    Thread.CurrentThread.CurrentUICulture = new CultureInfo("zh-CN");
-                    break;
                 default:
-                    Thread.CurrentThread.CurrentUICulture = new CultureInfo("en-US");
+                    Thread.CurrentThread.CurrentUICulture = cultureInfo;
                     break;
             }
         }
 
-        public string GetString(string name) => resourceManager.GetString(name, Thread.CurrentThread.CurrentUICulture);
+        public string GetString(string name)
+        {
+            try
+            {
+                return resourceManager.GetString(name, Thread.CurrentThread.CurrentUICulture);
+            }
+            catch 
+            {
+                return resourceManager.GetString(name, cultureInfo);
+            }
+        }
     }
 }

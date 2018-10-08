@@ -76,7 +76,7 @@ namespace SmartTaskbar
             notifyIcon = new NotifyIcon
             {
                 ContextMenuStrip = contextMenuStrip,
-                Text = @"SmartTaskbar v1.1.8",
+                Text = @"SmartTaskbar v1.1.9",
                 Icon = Environment.OSVersion.Version.Major.ToString() == "10" ? Resources.logo_32 : Resources.logo_blue_32,
                 Visible = true
             };
@@ -163,7 +163,7 @@ namespace SmartTaskbar
             if (Settings.Default.TaskbarState == -1)
             {
                 //Run the software for the first time
-                Settings.Default.TaskbarState = (int) AutoModeType.Size;
+                Settings.Default.TaskbarState = (int) AutoModeType.Display;
                 Settings.Default.IconSize = GetIconSize();
             }
             else
