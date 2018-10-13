@@ -70,6 +70,7 @@ namespace SmartTaskbar
                 notifierLauncher.Stop();
                 Reset();
                 notifyIcon.Dispose();
+                SettingsForm.Instance.Dispose();
                 Application.Exit();
             };
 
