@@ -1,3 +1,5 @@
+[Currently, I am looking for a new way to implement Auto Mode. Come, help me improve it together.](https://github.com/ChanpleCai/SmartTaskbar/issues/27)
+
 SmartTaskbar  ![Logo](https://github.com/ChanpleCai/SmartTaskbar/blob/master/logo/logo_blue_24x24.png)
 =====
 [![Version](https://badge.fury.io/gh/ChanpleCai%2FSmartTaskbar.svg)](https://github.com/ChanpleCai/SmartTaskbar/releases/download/v1.1.8/SmartTaskbar_Setup.exe)
