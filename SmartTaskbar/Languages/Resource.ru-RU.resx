@@ -117,10 +117,22 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="menu_auto" xml:space="preserve">
+  <data name="about" xml:space="preserve">
+    <value>О программе</value>
+  </data>
+  <data name="animation" xml:space="preserve">
+    <value>Анимация</value>
+  </data>
+  <data name="auto_display" xml:space="preserve">
     <value>Авто</value>
   </data>
-  <data name="menu_exit" xml:space="preserve">
+  <data name="auto_size" xml:space="preserve">
+    <value>Адаптивный</value>
+  </data>
+  <data name="exit" xml:space="preserve">
     <value>Выход</value>
+  </data>
+  <data name="smallIcon" xml:space="preserve">
+    <value>Маленькие кнопки</value>
   </data>
 </root>

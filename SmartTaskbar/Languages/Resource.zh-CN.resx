@@ -117,13 +117,22 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="menu_auto" xml:space="preserve">
+  <data name="about" xml:space="preserve">
+    <value>关于</value>
+  </data>
+  <data name="animation" xml:space="preserve">
+    <value>动画</value>
+  </data>
+  <data name="auto_display" xml:space="preserve">
     <value>智能</value>
   </data>
-  <data name="menu_exit" xml:space="preserve">
+  <data name="auto_size" xml:space="preserve">
+    <value>自适应</value>
+  </data>
+  <data name="exit" xml:space="preserve">
     <value>退出</value>
   </data>
-  <data name="menu_settings" xml:space="preserve">
-    <value>设置</value>
+  <data name="smallIcon" xml:space="preserve">
+    <value>小按钮</value>
   </data>
 </root>
