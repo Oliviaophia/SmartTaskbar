@@ -109,10 +109,7 @@ namespace SmartTaskbar
                 }
             };
 
-            smallIcon.Click += (s, e) =>
-            {
-                SetIconSize(smallIcon.Checked ? BigIcon : SmallIcon);
-            };
+            smallIcon.Click += (s, e) => SetIconSize(smallIcon.Checked ? BigIcon : SmallIcon);
 
             animation.Click += (s, e) => animation.Checked = ChangeTaskbarAnimation();
 

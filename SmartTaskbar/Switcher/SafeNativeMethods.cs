@@ -95,9 +95,8 @@ namespace SmartTaskbar
             SHAppBarMessage(10, ref msgData);
             if (IsWin10)
             {
-                IntPtr taskbar = FindWindow("Shell_TrayWnd", null);
                 //see https://github.com/ChanpleCai/SmartTaskbar/issues/27
-                PostMessageW(taskbar, 0x05CB, 0, 0);
+                PostMessageW(FindWindow("Shell_TrayWnd", null), 0x05CB, 0, 0);
             }
         }
         /// <summary>
