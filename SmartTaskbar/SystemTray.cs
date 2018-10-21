@@ -138,6 +138,9 @@ namespace SmartTaskbar
 
             notifyIcon.MouseDoubleClick += (s, e) =>
             {
+                if (e.Button == MouseButtons.Right)
+                    return;
+
                 Settings.Default.TaskbarState = (int) AutoModeType.None;
                 if (IsHide())
                     Show();
