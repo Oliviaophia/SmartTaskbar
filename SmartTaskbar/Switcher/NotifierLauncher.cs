@@ -6,7 +6,7 @@ using static SmartTaskbar.SafeNativeMethods;
 
 namespace SmartTaskbar
 {
-    internal class NotifierLauncher
+    internal class NotifierLauncher : IDisposable
     {
         private readonly Process notifier = new Process();
         /// <summary>
@@ -39,6 +39,12 @@ namespace SmartTaskbar
             notifier.Start();
             AddProcess(notifier.Handle);
         }
-
+        /// <summary>
+        /// Dispose notifier
+        /// </summary>
+        public void Dispose()
+        {
+            notifier.Dispose();
+        }
     }
 }
