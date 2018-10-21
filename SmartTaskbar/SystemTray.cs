@@ -118,7 +118,7 @@ namespace SmartTaskbar
 
             exit.Click += (s, e) =>
             {
-                notifierLauncher.Stop();
+                notifierLauncher.Dispose();
                 Reset();
                 notifyIcon.Dispose();
                 Application.Exit();

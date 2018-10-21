@@ -308,7 +308,7 @@ namespace SmartTaskbar
         /// </summary>
         public static void Reset()
         {
-            if ((AutoModeType) Properties.Settings.Default.TaskbarState != AutoModeType.None)
+            if ((AutoModeType) Properties.Settings.Default.TaskbarState == AutoModeType.Display)
                 Show();
         }
     }
