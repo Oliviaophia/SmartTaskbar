@@ -1,4 +1,4 @@
-[Currently, I am looking for a new way to implement Auto Mode. Come, help me improve it together.](https://github.com/ChanpleCai/SmartTaskbar/issues/27)
+[Currently, I am looking for a new way to implement Auto Mode. Join me, if you have good ideas.](https://github.com/ChanpleCai/SmartTaskbar/issues/27)
 
 SmartTaskbar  ![Logo](https://github.com/ChanpleCai/SmartTaskbar/blob/master/logo/logo_blue_24x24.png)
 =====
@@ -65,9 +65,9 @@ Installation
 Known Issues
 ----
   
-* SmartTaskbar is designed for single-monitor users, so Auto Mode or Adaptive Mode does not work correctly when using multiple monitors.
+* SmartTaskbar is designed for single-monitor users, so Auto Mode or Adaptive Mode does not work correctly when using multiple monitors. I am currently working on a promising multi-monitor solutions.
 
-  SmartTaskbar是为单显示器用户设计的，在使用多显示屏时自动模式不能正确工作
+  SmartTaskbar是为单显示器用户设计的，在使用多显示屏时自动模式不能正确工作。目前我正在研究一种可行的方案。
   
 * Some applications are not compatible with Auto Mode and Adaptive Mode, for example:
 
