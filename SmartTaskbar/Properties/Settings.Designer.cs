@@ -34,17 +34,5 @@ namespace SmartTaskbar.Properties {
                 this["TaskbarState"] = value;
             }
         }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("0")]
-        public int IconSize {
-            get {
-                return ((int)(this["IconSize"]));
-            }
-            set {
-                this["IconSize"] = value;
-            }
-        }
     }
 }

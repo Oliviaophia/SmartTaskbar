@@ -93,19 +93,17 @@ namespace SmartTaskbar
                 switch ((AutoModeType) Settings.Default.TaskbarState)
                 {
                     case AutoModeType.Display:
-                        smallIcon.Enabled = auto_display.Checked = true;
+                        auto_display.Checked = true;
                         auto_size.Checked = false;
                         ChangeDisplayState();
-                        SetIconSize(Settings.Default.IconSize);
                         break;
                     case AutoModeType.Size:
-                        smallIcon.Enabled = auto_display.Checked = false;
+                        auto_display.Checked = false;
                         auto_size.Checked = true;
                         ChangeIconSize();
                         Show();
                         break;
                     case AutoModeType.None:
-                        smallIcon.Enabled = true;
                         auto_display.Checked = auto_size.Checked = false;
                         break;
                 }
@@ -113,8 +111,7 @@ namespace SmartTaskbar
 
             smallIcon.Click += (s, e) =>
             {
-                Settings.Default.IconSize = smallIcon.Checked ? 0 : 1;
-                SetIconSize(Settings.Default.IconSize);
+                SetIconSize(smallIcon.Checked ? BigIcon : SmallIcon);
             };
 
             animation.Click += (s, e) => animation.Checked = ChangeTaskbarAnimation();
@@ -140,16 +137,12 @@ namespace SmartTaskbar
 
                 animation.Checked = GetTaskbarAnimation();
 
-                if (!smallIcon.Enabled) return;
-
-                SetIconSize(Settings.Default.IconSize);
                 smallIcon.Checked = GetIconSize() == SmallIcon;
             };
 
             notifyIcon.MouseDoubleClick += (s, e) =>
             {
                 Settings.Default.TaskbarState = (int) AutoModeType.None;
-                SetIconSize(Settings.Default.IconSize);
                 if (IsHide())
                     Show();
                 else
@@ -164,27 +157,24 @@ namespace SmartTaskbar
             {
                 //Run the software for the first time
                 Settings.Default.TaskbarState = (int) AutoModeType.Display;
-                Settings.Default.IconSize = GetIconSize();
             }
             else
             {
                 switch ((AutoModeType) Settings.Default.TaskbarState)
                 {
                     case AutoModeType.Display:
-                        smallIcon.Enabled = auto_display.Checked = true;
+                        auto_display.Checked = true;
                         auto_size.Checked = false;
                         break;
                     case AutoModeType.Size:
-                        smallIcon.Enabled = auto_display.Checked = false;
+                        auto_display.Checked = false;
                         auto_size.Checked = true;
                         break;
                     case AutoModeType.None:
-                        smallIcon.Enabled = true;
                         auto_display.Checked = auto_size.Checked = false;
                         break;
                 }
                 Reset();
-                smallIcon.Checked = GetIconSize() == SmallIcon;
             }
 
             #endregion

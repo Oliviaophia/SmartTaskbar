@@ -278,8 +278,8 @@ namespace SmartTaskbar
         /// </summary>
         public static void Reset()
         {
-            Show();
-            SetIconSize(Properties.Settings.Default.IconSize);
+            if ((AutoModeType) Properties.Settings.Default.TaskbarState != AutoModeType.None)
+                Show();
         }
     }
 }
