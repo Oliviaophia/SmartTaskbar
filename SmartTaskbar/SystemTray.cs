@@ -77,7 +77,7 @@ namespace SmartTaskbar
             {
                 ContextMenuStrip = contextMenuStrip,
                 Text = @"SmartTaskbar v1.1.9",
-                Icon = Environment.OSVersion.Version.Major.ToString() == "10" ? Resources.logo_32 : Resources.logo_blue_32,
+                Icon = IsWin10 ? Resources.logo_32 : Resources.logo_blue_32,
                 Visible = true
             };
 

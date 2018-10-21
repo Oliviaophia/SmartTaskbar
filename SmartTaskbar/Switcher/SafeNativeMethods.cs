@@ -13,6 +13,8 @@ namespace SmartTaskbar
         public const int MSG_UNMAX = 0x502;
         public static bool IsMax { get; set; } = false;
 
+        public static bool IsWin10 { get; } = Environment.OSVersion.Version.Major.ToString() == "10";
+
         static SafeNativeMethods()
         {
             int length = Marshal.SizeOf(typeof(JOBOBJECT_EXTENDED_LIMIT_INFORMATION));
@@ -91,6 +93,12 @@ namespace SmartTaskbar
         {
             msgData.lParam = 1;
             SHAppBarMessage(10, ref msgData);
+            if (IsWin10)
+            {
+                IntPtr taskbar = FindWindow("Shell_TrayWnd", null);
+                //see https://github.com/ChanpleCai/SmartTaskbar/issues/27
+                PostMessageW(taskbar, 0x05CB, 0, 0);
+            }
         }
         /// <summary>
         /// Set AlwaysOnTop Mode
@@ -270,6 +278,29 @@ namespace SmartTaskbar
         /// Change the Taskbar buttons size
         /// </summary>
         public static void ChangeIconSize() => SetIconSize(IsMax ? SmallIcon : BigIcon);
+
+        #endregion
+
+        #region PostMessage
+
+        /// Return Type: BOOL->int
+        ///hWnd: HWND->HWND__*
+        ///Msg: UINT->unsigned int
+        ///wParam: WPARAM->UINT_PTR->unsigned int
+        ///lParam: LPARAM->LONG_PTR->int
+        [DllImport("user32.dll", EntryPoint = "PostMessageW")]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern bool PostMessageW(IntPtr hWnd, uint Msg,  uint wParam,  int lParam);
+
+        #endregion
+
+        #region FindWindow
+
+        /// Return Type: HWND->HWND__*
+        ///lpClassName: LPCWSTR->WCHAR*
+        ///lpWindowName: LPCWSTR->WCHAR*
+        [DllImport("user32.dll", CharSet = CharSet.Auto)]
+        private static extern IntPtr FindWindow(string strClassName, string strWindowName);
 
         #endregion
 
