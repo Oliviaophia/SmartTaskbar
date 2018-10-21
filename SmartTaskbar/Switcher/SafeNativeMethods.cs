@@ -304,7 +304,7 @@ namespace SmartTaskbar
         #endregion
 
         /// <summary>
-        /// Show the Taskbar and reset buttons size
+        /// Show the Taskbar
         /// </summary>
         public static void Reset()
         {
