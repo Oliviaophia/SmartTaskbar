@@ -1,9 +1,9 @@
-﻿using Microsoft.Win32;
-using System;
+﻿using System;
 using System.Runtime.InteropServices;
 using System.Security;
+using Microsoft.Win32;
 
-namespace SmartTaskbar
+namespace SmartTaskbar.Core
 {
     [SuppressUnmanagedCodeSecurity]
     internal static class SafeNativeMethods
@@ -161,7 +161,7 @@ namespace SmartTaskbar
         ///hProcess: HANDLE->IntPtr
         [DllImport("kernel32.dll", EntryPoint = "AssignProcessToJobObject")]
         [return: MarshalAs(UnmanagedType.Bool)]
-        private static extern bool AssignProcessToJobObject([In()] IntPtr hJob, [In()] IntPtr hProcess);
+        private static extern bool AssignProcessToJobObject([In] IntPtr hJob, [In] IntPtr hProcess);
 
         [StructLayout(LayoutKind.Sequential)]
         private struct JOBOBJECT_BASIC_LIMIT_INFORMATION
@@ -264,7 +264,7 @@ namespace SmartTaskbar
         public static void SetIconSize(int size)
         {
             Key.SetValue("TaskbarSmallIcons", size);
-            SendNotifyMessage((IntPtr)0xffff, 0x001a, (UIntPtr)0, "TraySettings");
+            SendNotifyMessage((IntPtr)0xffff, 0x001a, UIntPtr.Zero, "TraySettings");
         }
 
         /// <summary>
@@ -289,7 +289,8 @@ namespace SmartTaskbar
         ///lParam: LPARAM->LONG_PTR->int
         [DllImport("user32.dll", EntryPoint = "PostMessageW")]
         [return: MarshalAs(UnmanagedType.Bool)]
-        public static extern bool PostMessageW(IntPtr hWnd, uint Msg,  IntPtr wParam,  IntPtr lParam);
+        internal static extern bool PostMessageW(IntPtr hWnd, uint Msg,  IntPtr wParam,  IntPtr lParam);
+
 
         #endregion
 
@@ -299,17 +300,22 @@ namespace SmartTaskbar
         ///lpClassName: LPCWSTR->WCHAR*
         ///lpWindowName: LPCWSTR->WCHAR*
         [DllImport("user32.dll", CharSet = CharSet.Unicode)]
-        private static extern IntPtr FindWindow(string strClassName, string strWindowName);
+        internal static extern IntPtr FindWindow(string strClassName, string strWindowName);
 
         #endregion
 
-        /// <summary>
-        /// Show the Taskbar
-        /// </summary>
-        public static void Reset()
-        {
-            if ((AutoModeType) Properties.Settings.Default.TaskbarState == AutoModeType.Display)
-                Show();
-        }
+        #region PostThreadMessage
+
+        /// Return Type: BOOL->int
+        ///idThread: DWORD->unsigned int
+        ///Msg: UINT->unsigned int
+        ///wParam: WPARAM->UINT_PTR->unsigned int
+        ///lParam: LPARAM->LONG_PTR->int
+        [DllImport("user32.dll", EntryPoint = "PostThreadMessageW")]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        internal static extern bool PostThreadMessageW(int idThread, uint Msg,
+            IntPtr wParam, IntPtr lParam);
+
+        #endregion
     }
 }

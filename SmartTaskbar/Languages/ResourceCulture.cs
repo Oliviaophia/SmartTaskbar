@@ -11,7 +11,7 @@ namespace SmartTaskbar
 
         private readonly CultureInfo cultureInfo = new CultureInfo("en-US");
 
-        public ResourceCulture()
+        internal ResourceCulture()
         {
             switch (Thread.CurrentThread.CurrentUICulture.Name)
             {
@@ -26,7 +26,7 @@ namespace SmartTaskbar
             }
         }
 
-        public string GetString(string name)
+        internal string GetString(string name)
         {
             try
             {

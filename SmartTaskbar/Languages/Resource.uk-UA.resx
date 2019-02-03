@@ -123,14 +123,17 @@
   <data name="animation" xml:space="preserve">
     <value>Анімація</value>
   </data>
-  <data name="auto_display" xml:space="preserve">
+  <data name="menu_auto_display" xml:space="preserve">
     <value>Авто</value>
   </data>
-  <data name="auto_size" xml:space="preserve">
+  <data name="menu_auto_size" xml:space="preserve">
     <value>Адаптивний</value>
   </data>
-  <data name="exit" xml:space="preserve">
+  <data name="menu_exit" xml:space="preserve">
     <value>Вихід</value>
+  </data>
+  <data name="menu_settings" xml:space="preserve">
+    <value>Settings</value>
   </data>
   <data name="smallIcon" xml:space="preserve">
     <value>Маленькі кнопки</value>

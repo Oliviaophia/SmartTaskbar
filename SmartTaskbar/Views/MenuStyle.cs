@@ -2,7 +2,7 @@
 using System.Drawing.Drawing2D;
 using System.Windows.Forms;
 
-namespace SmartTaskbar
+namespace SmartTaskbar.Views
 {
     //https://stackoverflow.com/questions/32786250/windows-10-styled-contextmenustrip
     internal class Win10ColorTable : ProfessionalColorTable
