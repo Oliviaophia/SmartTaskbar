@@ -12,7 +12,7 @@ namespace SmartTaskbar
             switch (m.Msg)
             {
                 case Constant.MsgSettings:
-                    SettingsView.Instance.ShowView();
+                    SettingsView.Get.ShowView();
                     return true;
                 default:
                     return false;

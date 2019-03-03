@@ -5,9 +5,9 @@ namespace SmartTaskbar.Views
 {
     public partial class SettingsView : Form
     {
-        private static readonly Lazy<SettingsView> _instance = new Lazy<SettingsView>(() => new SettingsView());
+        private static readonly Lazy<SettingsView> Instance = new Lazy<SettingsView>(() => new SettingsView());
 
-        internal static SettingsView Instance => _instance.Value;
+        internal static SettingsView Get => Instance.Value;
 
         private SettingsView()
         {

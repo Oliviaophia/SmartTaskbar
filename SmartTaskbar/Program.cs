@@ -13,6 +13,13 @@ namespace SmartTaskbar
         [STAThread]
         private static void Main()
         {
+            while (true)
+            {
+                Thread.Sleep(500);
+                InvokeMethods.UpdateTaskbarList();
+                InvokeMethods.InvokeForeGroundMode(Control.MousePosition);
+            }
+
             // Use a mutex to ensure single instance
             using (new Mutex(true, "{959d3545-aa5c-42a8-a327-6e2c079daa94}", out bool createNew))
             {

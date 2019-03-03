@@ -1,5 +1,6 @@
 ﻿using System.Drawing;
 using System.Windows.Forms;
+using SmartTaskbar.Languages;
 using SmartTaskbar.Properties;
 
 namespace SmartTaskbar.Views
@@ -19,26 +20,25 @@ namespace SmartTaskbar.Views
         {
             #region Initialization
 
-            var resource = new ResourceCulture();
             var font = new Font("Segoe UI", 9F);
             menu_settings = new ToolStripMenuItem
             {
-                Text = resource.GetString(nameof(menu_settings)),
+                Text = ResourceCulture.Get.GetString(nameof(menu_settings)),
                 Font = font
             };
             menu_auto_display = new ToolStripMenuItem
             {
-                Text = resource.GetString(nameof(menu_auto_display)),
+                Text = ResourceCulture.Get.GetString(nameof(menu_auto_display)),
                 Font = font
             };
             menu_auto_size = new ToolStripMenuItem
             {
-                Text = resource.GetString(nameof(menu_auto_size)),
+                Text = ResourceCulture.Get.GetString(nameof(menu_auto_size)),
                 Font = font
             };
             menu_exit = new ToolStripMenuItem
             {
-                Text = resource.GetString(nameof(menu_exit)),
+                Text = ResourceCulture.Get.GetString(nameof(menu_exit)),
                 Font = font
             };
             contextMenuStrip = new ContextMenuStrip
@@ -68,7 +68,7 @@ namespace SmartTaskbar.Views
 
             #region LoadEvent
 
-            menu_settings.Click += (s, e) => SettingsView.Instance.ChangeDisplayStatus();
+            menu_settings.Click += (s, e) => SettingsView.Get.ChangeDisplayStatus();
 
             menu_exit.Click += (s, e) =>
             {

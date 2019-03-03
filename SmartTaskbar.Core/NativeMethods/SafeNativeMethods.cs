@@ -1,6 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Drawing;
 using System.Runtime.InteropServices;
 using System.Security;
+using System.Text;
 using Microsoft.Win32;
 
 namespace SmartTaskbar.Core
@@ -8,41 +11,28 @@ namespace SmartTaskbar.Core
     [SuppressUnmanagedCodeSecurity]
     internal static class SafeNativeMethods
     {
+        #region Value
 
-        public const int MSG_MAX = 0x501;
-        public const int MSG_UNMAX = 0x502;
-        public static bool IsMax { get; set; } = false;
 
-        public static bool IsWin10 { get; } = Environment.OSVersion.Version.Major.ToString() == "10";
+        internal static List<Taskbar> _taskbars = new List<Taskbar>();
 
-        static SafeNativeMethods()
-        {
-            int length = Marshal.SizeOf(typeof(JOBOBJECT_EXTENDED_LIMIT_INFORMATION));
-            IntPtr extendedInfoPtr = Marshal.AllocHGlobal(length);
-            try
-            {
-                Marshal.StructureToPtr(new JOBOBJECT_EXTENDED_LIMIT_INFORMATION
-                {
-                    BasicLimitInformation = new JOBOBJECT_BASIC_LIMIT_INFORMATION
-                    {
-                        LimitFlags = 0x2000
-                    }
-                }, extendedInfoPtr, false);
-                SetInformationJobObject(s_jobHandle, 9, extendedInfoPtr, (uint)length);
-            }
-            finally
-            {
-                Marshal.FreeHGlobal(extendedInfoPtr);
-            }
-        }
+        internal static IntPtr _foreWindow = IntPtr.Zero;
+
+        internal static StringBuilder sb = new StringBuilder(255);
+
+        internal static bool cloakedval = true;
+
+        internal static Rectangle lpRect;
+
+        #endregion
 
 
         #region Taskbar Display State
 
-        private static APPBARDATA msgData = new APPBARDATA { cbSize = (uint)Marshal.SizeOf(typeof(APPBARDATA)) }; 
+        internal static Appbardata msgData = new Appbardata { cbSize = (uint)Marshal.SizeOf(typeof(Appbardata)) };
 
         [StructLayout(LayoutKind.Sequential)]
-        private struct APPBARDATA
+        internal struct Appbardata
         {
 
             /// DWORD->unsigned int
@@ -57,47 +47,31 @@ namespace SmartTaskbar.Core
             /// UINT->unsigned int
             public uint uEdge;
 
-            /// RECT->TagRECT
-            public TagRECT rc;
+            /// RECT->Rectangle
+            public Rectangle rc;
 
             /// LPARAM->LONG_PTR->int
             public int lParam;
-        }
-
-        [StructLayout(LayoutKind.Sequential)]
-        private struct TagRECT
-        {
-
-            /// LONG->int
-            public int left;
-
-            /// LONG->int
-            public int top;
-
-            /// LONG->int
-            public int right;
-
-            /// LONG->int
-            public int bottom;
         }
 
         /// Return Type: UINT_PTR->unsigned int
         ///dwMessage: DWORD->unsigned int
         ///pData: PAPPBARDATA->_AppBarData*
         [DllImport("shell32.dll", EntryPoint = "SHAppBarMessage", CallingConvention = CallingConvention.StdCall)]
-        private static extern IntPtr SHAppBarMessage(uint dwMessage, ref APPBARDATA pData);
+        private static extern IntPtr SHAppBarMessage(uint dwMessage, ref Appbardata pData);
         /// <summary>
         /// Set Auto-Hide Mode
         /// </summary>
-        public static void Hide()
+        public static void Hide(this IntPtr handle)
         {
             msgData.lParam = 1;
+            msgData.hWnd = handle;
             SHAppBarMessage(10, ref msgData);
-            if (IsWin10)
-            {
-                //see https://github.com/ChanpleCai/SmartTaskbar/issues/27
-                PostMessageW(FindWindow("Shell_TrayWnd", null), 0x05CB, (IntPtr)0, (IntPtr)0);
-            }
+            //if (IsWin10)
+            //{
+            //    //see https://github.com/ChanpleCai/SmartTaskbar/issues/27
+            //    PostMessageW(FindWindow("Shell_TrayWnd", null), 0x05CB, (IntPtr)0, (IntPtr)0);
+            //}
         }
         /// <summary>
         /// Set AlwaysOnTop Mode
@@ -112,92 +86,7 @@ namespace SmartTaskbar.Core
         /// </summary>
         /// <returns>Return true when Auto-Hide</returns>
         public static bool IsHide() => SHAppBarMessage(4, ref msgData) == (IntPtr)1;
-        /// <summary>
-        /// Change the display status of the Taskbar
-        /// </summary>
-        public static void ChangeDisplayState()
-        {
-            if (IsMax)
-                Hide();
-            else
-                Show();
-        }
-        #endregion
 
-        #region Job Container
-
-        private static readonly IntPtr s_jobHandle = CreateJobObjectW(IntPtr.Zero, null);
-
-        /// <summary>
-        /// Add process to current Job
-        /// </summary>
-        /// <param name="handle">Process handle</param>
-        public static void AddProcess(IntPtr handle)
-        {
-            if (s_jobHandle == IntPtr.Zero)
-                return;
-            AssignProcessToJobObject(s_jobHandle, handle);
-        }
-
-
-        /// Return Type: HANDLE->IntPtr
-        ///lpJobAttributes: LPSECURITY_ATTRIBUTES->IntPtr
-        ///lpName: LPCWSTR->string
-        [DllImport("kernel32.dll", EntryPoint = "CreateJobObjectW")]
-        private static extern IntPtr CreateJobObjectW(IntPtr lpJobAttributes, [MarshalAs(UnmanagedType.LPWStr)] string lpName);
-
-        /// Return Type: BOOL->bool
-        ///hJob: HANDLE->IntPtr
-        ///JobObjectInformationClass: JOBOBJECTINFOCLASS->int
-        ///lpJobObjectInformation: LPVOID->IntPtr
-        ///cbJobObjectInformationLength: DWORD->uint
-        [DllImport("kernel32.dll", EntryPoint = "SetInformationJobObject")]
-        [return: MarshalAs(UnmanagedType.Bool)]
-        private static extern bool SetInformationJobObject(IntPtr hJob, int JobObjectInformationClass, IntPtr lpJobObjectInformation, uint cbJobObjectInformationLength);
-
-
-        /// Return Type: BOOL->bool
-        ///hJob: HANDLE->IntPtr
-        ///hProcess: HANDLE->IntPtr
-        [DllImport("kernel32.dll", EntryPoint = "AssignProcessToJobObject")]
-        [return: MarshalAs(UnmanagedType.Bool)]
-        private static extern bool AssignProcessToJobObject([In] IntPtr hJob, [In] IntPtr hProcess);
-
-        [StructLayout(LayoutKind.Sequential)]
-        private struct JOBOBJECT_BASIC_LIMIT_INFORMATION
-        {
-            public long PerProcessUserTimeLimit;
-            public long PerJobUserTimeLimit;
-            public uint LimitFlags;
-            public UIntPtr MinimumWorkingSetSize;
-            public UIntPtr MaximumWorkingSetSize;
-            public uint ActiveProcessLimit;
-            public long Affinity;
-            public uint PriorityClass;
-            public uint SchedulingClass;
-        }
-
-        [StructLayout(LayoutKind.Sequential)]
-        private struct IO_COUNTERS
-        {
-            public ulong ReadOperationCount;
-            public ulong WriteOperationCount;
-            public ulong OtherOperationCount;
-            public ulong ReadTransferCount;
-            public ulong WriteTransferCount;
-            public ulong OtherTransferCount;
-        }
-
-        [StructLayout(LayoutKind.Sequential)]
-        private struct JOBOBJECT_EXTENDED_LIMIT_INFORMATION
-        {
-            public JOBOBJECT_BASIC_LIMIT_INFORMATION BasicLimitInformation;
-            public IO_COUNTERS IoInfo;
-            public UIntPtr ProcessMemoryLimit;
-            public UIntPtr JobMemoryLimit;
-            public UIntPtr PeakProcessMemoryUsed;
-            public UIntPtr PeakJobMemoryUsed;
-        }
         #endregion
 
         #region Taskbar Animation
@@ -273,10 +162,10 @@ namespace SmartTaskbar.Core
         /// <returns>1 = small，0 = big</returns>
         public static int GetIconSize() => (int)Key.GetValue("TaskbarSmallIcons", BigIcon);
 
-        /// <summary>
-        /// Change the Taskbar buttons size
-        /// </summary>
-        public static void ChangeIconSize() => SetIconSize(IsMax ? SmallIcon : BigIcon);
+        ///// <summary>
+        ///// Change the Taskbar buttons size
+        ///// </summary>
+        //public static void ChangeIconSize() => SetIconSize(IsMax ? SmallIcon : BigIcon);
 
         #endregion
 
@@ -289,7 +178,13 @@ namespace SmartTaskbar.Core
         ///lParam: LPARAM->LONG_PTR->int
         [DllImport("user32.dll", EntryPoint = "PostMessageW")]
         [return: MarshalAs(UnmanagedType.Bool)]
-        internal static extern bool PostMessageW(IntPtr hWnd, uint Msg,  IntPtr wParam,  IntPtr lParam);
+        private static extern bool PostMessage(IntPtr hWnd, uint Msg,  IntPtr wParam,  IntPtr lParam);
+
+        internal static void PostMessageHideTaskbar() =>
+            PostMessage(FindWindow("Shell_TrayWnd", null), 0x05CB, IntPtr.Zero, IntPtr.Zero);
+
+        internal static void PostMesssageShowTaskbar(this IntPtr handle) =>
+            PostMessage(FindWindow("Shell_TrayWnd", null), 0x05CB, (IntPtr) 1, handle);
 
 
         #endregion
@@ -302,6 +197,13 @@ namespace SmartTaskbar.Core
         [DllImport("user32.dll", CharSet = CharSet.Unicode)]
         internal static extern IntPtr FindWindow(string strClassName, string strWindowName);
 
+        /// Return Type: HWND->HWND__*
+        ///hWndParent: HWND->HWND__*
+        ///hWndChildAfter: HWND->HWND__*
+        ///lpszClass: LPCWSTR->WCHAR*
+        ///lpszWindow: LPCWSTR->WCHAR*
+        [DllImport("user32.dll", CharSet = CharSet.Unicode)]
+        internal static extern IntPtr FindWindowEx(IntPtr parentHandle, IntPtr childAfter, string lclassName, string windowTitle);
         #endregion
 
         #region PostThreadMessage
@@ -315,6 +217,78 @@ namespace SmartTaskbar.Core
         [return: MarshalAs(UnmanagedType.Bool)]
         internal static extern bool PostThreadMessageW(int idThread, uint Msg,
             IntPtr wParam, IntPtr lParam);
+
+        #endregion
+
+        #region MonitorFromWindow
+
+        /// Return Type: HMONITOR->HMONITOR__*
+        ///hwnd: HWND->HWND__*
+        ///dwFlags: DWORD->unsigned int
+        [DllImport("user32.dll", EntryPoint = "MonitorFromWindow")]
+        private static extern IntPtr MonitorFromWindow(IntPtr hwnd, uint dwFlags);
+        private const int MonitorDefaulttonearest = 2;
+
+        internal static IntPtr GetMonitor(this IntPtr handle) => MonitorFromWindow(handle, MonitorDefaulttonearest);
+
+        #endregion
+
+        #region GetWindowRect
+
+        /// Return Type: BOOL->int
+        ///hWnd: HWND->HWND__*
+        ///lpRect: LPRECT->Rectangle*
+        [DllImport("user32.dll", EntryPoint = "GetWindowRect")]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        internal static extern bool GetWindowRect(IntPtr hWnd, out Rectangle lpRect);
+
+
+        #endregion
+
+        #region WindowFromPoint
+
+        /// Return Type: HWND->HWND__*
+        ///Point: POINT->tagPOINT
+        [DllImport("user32.dll", EntryPoint = "WindowFromPoint")]
+        internal static extern IntPtr WindowFromPoint(Point point);
+
+        #endregion
+
+
+        #region IsWindowVisible
+
+        /// Return Type: BOOL->int
+        ///hWnd: HWND->HWND__*
+        [DllImport("user32.dll", EntryPoint = "IsWindowVisible")]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        internal static extern bool IsWindowVisible([In] IntPtr hWnd);
+
+        #endregion
+
+
+        #region DwmGetWindowAttribute
+
+        [DllImport("dwmapi.dll")]
+        internal static extern int DwmGetWindowAttribute(IntPtr hwnd, int dwAttribute, [MarshalAs(UnmanagedType.Bool)] out bool pvAttribute, int cbAttribute);
+
+        #endregion
+
+        #region GetForegroundWindow
+
+        /// Return Type: HWND->HWND__*
+        [DllImport("user32.dll", EntryPoint = "GetForegroundWindow")]
+        internal static extern IntPtr GetForegroundWindow();
+
+        #endregion
+
+        #region GetClassName
+
+        /// Return Type: int
+        ///hWnd: HWND->HWND__*
+        ///lpClassName: LPWSTR->WCHAR*
+        ///nMaxCount: int
+        [DllImport("user32.dll", EntryPoint = "GetClassNameW")]
+        internal static extern int GetClassName(IntPtr hWnd, [MarshalAs(UnmanagedType.LPWStr)] StringBuilder lpClassName, int nMaxCount);
 
         #endregion
     }

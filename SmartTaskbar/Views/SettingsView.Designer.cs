@@ -28,15 +28,18 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SettingsView));
             this.SuspendLayout();
             // 
             // SettingsView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Icon = SmartTaskbar.Properties.Resources.logo_32;
+            this.ClientSize = new System.Drawing.Size(844, 441);
+            this.Icon = global::SmartTaskbar.Properties.Resources.logo_32;
+            this.MaximizeBox = false;
+            this.MaximumSize = new System.Drawing.Size(860, 480);
+            this.MinimizeBox = false;
+            this.MinimumSize = new System.Drawing.Size(860, 480);
             this.Name = "SettingsView";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "SmartTaskbar";
