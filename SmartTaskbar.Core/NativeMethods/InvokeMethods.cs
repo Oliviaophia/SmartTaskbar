@@ -1,6 +1,8 @@
 ﻿using System;
+using System.CodeDom.Compiler;
 using System.Drawing;
 using System.Linq;
+using System.Linq.Expressions;
 using static SmartTaskbar.Core.SafeNativeMethods;
 
 namespace SmartTaskbar.Core
@@ -77,16 +79,33 @@ namespace SmartTaskbar.Core
             string name = sb.ToString();
             sb.Clear();
 
-            if (name == "WorkerW" || name == "Progman")
+            if (name == "WorkerW" ||
+                name == "Progman" ||
+                name == "DV2ControlHost" ||
+                name == "Shell_TrayWnd" ||
+                name == "Shell_SecondaryTrayWnd" ||
+                name == "Button"
+                )
             {
                 return;
             }
 
-            GetWindowRect(_foreWindow, out lpRect);
-
-            foreach (var taskbar in _taskbars)
+            if (_foreWindow.IsMaxWindow())
             {
-                taskbar.IsIntersect = Intersect(lpRect, taskbar.Rect);
+                var monitor = _foreWindow.GetMonitor();
+
+                foreach (var taskbar in _taskbars)
+                {
+                    taskbar.IsIntersect = taskbar.Monitor == monitor;
+                }
+            }
+            else
+            {
+                GetWindowRect(_foreWindow, out lpRect);
+                foreach (var taskbar in _taskbars)
+                {
+                    taskbar.IsIntersect = Intersect(lpRect, taskbar.Rect);
+                }
             }
 
             var t = _taskbars.FirstOrDefault(_ => !_.IsIntersect);
@@ -99,13 +118,7 @@ namespace SmartTaskbar.Core
             t.Monitor.PostMesssageShowTaskbar();
         }
 
-        internal static bool Intersect(Rectangle rect1, Rectangle rect2)
-        {
-            rect1.Offset(new Point(8, 8));
-
-            return rect1.IntersectsWith(rect2);
-        }
-
+        internal static bool Intersect(Rectangle rect1, Rectangle rect2) => rect1.IntersectsWith(rect2);
         #endregion
     }
 }

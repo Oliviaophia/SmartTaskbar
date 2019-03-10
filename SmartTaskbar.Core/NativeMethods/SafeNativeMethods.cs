@@ -4,6 +4,7 @@ using System.Drawing;
 using System.Runtime.InteropServices;
 using System.Security;
 using System.Text;
+using System.Windows.Forms;
 using Microsoft.Win32;
 
 namespace SmartTaskbar.Core
@@ -13,6 +14,7 @@ namespace SmartTaskbar.Core
     {
         #region Value
 
+        internal static TagWindowplacement placement = new TagWindowplacement { length = (uint)Marshal.SizeOf(typeof(TagWindowplacement)) };
 
         internal static List<Taskbar> _taskbars = new List<Taskbar>();
 
@@ -22,7 +24,9 @@ namespace SmartTaskbar.Core
 
         internal static bool cloakedval = true;
 
-        internal static Rectangle lpRect;
+        internal static TagRect lpRect;
+
+        internal static bool animation;
 
         #endregion
 
@@ -109,7 +113,6 @@ namespace SmartTaskbar.Core
         [return: MarshalAs(UnmanagedType.Bool)]
         private static extern bool GetSystemParameters(uint uiAction, uint uiParam, out bool pvParam, uint fWinIni);
 
-        private static bool animation;
         /// <summary>
         /// Get the taskbar animation state
         /// </summary>
@@ -240,9 +243,34 @@ namespace SmartTaskbar.Core
         ///lpRect: LPRECT->Rectangle*
         [DllImport("user32.dll", EntryPoint = "GetWindowRect")]
         [return: MarshalAs(UnmanagedType.Bool)]
-        internal static extern bool GetWindowRect(IntPtr hWnd, out Rectangle lpRect);
+        internal static extern bool GetWindowRect(IntPtr hWnd, out TagRect lpRect);
 
+        [StructLayout(LayoutKind.Sequential)]
+        internal struct TagRect
+        {
 
+            /// LONG->int
+            public int left;
+
+            /// LONG->int
+            public int top;
+
+            /// LONG->int
+            public int right;
+
+            /// LONG->int
+            public int bottom;
+
+            public static implicit operator Rectangle(TagRect rect) => Rectangle.FromLTRB(rect.left, rect.top, rect.right, rect.bottom);
+
+            public static implicit operator TagRect(Rectangle rectangle) => new TagRect
+            {
+                left = rectangle.Left,
+                top = rectangle.Top,
+                right = rectangle.Right,
+                bottom = rectangle.Bottom
+            };
+        }
         #endregion
 
         #region WindowFromPoint
@@ -250,7 +278,26 @@ namespace SmartTaskbar.Core
         /// Return Type: HWND->HWND__*
         ///Point: POINT->tagPOINT
         [DllImport("user32.dll", EntryPoint = "WindowFromPoint")]
-        internal static extern IntPtr WindowFromPoint(Point point);
+        internal static extern IntPtr WindowFromPoint(TagPoint point);
+
+        [StructLayout(LayoutKind.Sequential)]
+        internal struct TagPoint
+        {
+
+            /// LONG->int
+            public int x;
+
+            /// LONG->int
+            public int y;
+
+            public static implicit operator TagPoint(Point point) => new TagPoint
+            {
+                x = point.X,
+                y = point.Y
+            };
+
+            public static implicit operator Point(TagPoint point) => new Point(point.x, point.y);
+        }
 
         #endregion
 
@@ -261,7 +308,7 @@ namespace SmartTaskbar.Core
         ///hWnd: HWND->HWND__*
         [DllImport("user32.dll", EntryPoint = "IsWindowVisible")]
         [return: MarshalAs(UnmanagedType.Bool)]
-        internal static extern bool IsWindowVisible([In] IntPtr hWnd);
+        internal static extern bool IsWindowVisible(IntPtr hWnd);
 
         #endregion
 
@@ -290,6 +337,72 @@ namespace SmartTaskbar.Core
         [DllImport("user32.dll", EntryPoint = "GetClassNameW")]
         internal static extern int GetClassName(IntPtr hWnd, [MarshalAs(UnmanagedType.LPWStr)] StringBuilder lpClassName, int nMaxCount);
 
+        #endregion
+
+        #region GetWindowPlacement
+        [StructLayout(LayoutKind.Sequential)]
+        internal struct TagWindowplacement
+        {
+
+            /// UINT->unsigned int
+            public uint length;
+
+            /// UINT->unsigned int
+            public uint flags;
+
+            /// UINT->unsigned int
+            public uint showCmd;
+
+            /// POINT->Point
+            public Point ptMinPosition;
+
+            /// POINT->Point
+            public Point ptMaxPosition;
+
+            /// RECT->TagRECT
+            public TagRect rcNormalPosition;
+        }
+
+        /// Return Type: BOOL->int
+        ///hWnd: HWND->HWND__*
+        ///lpwndpl: WINDOWPLACEMENT*
+        [DllImport("user32.dll", EntryPoint = "GetWindowPlacement")]
+        private static extern int GetWindowPlacement(IntPtr hWnd, ref TagWindowplacement lpwndpl);
+
+        internal static bool IsMaxWindow(this IntPtr handle)
+        {
+            GetWindowPlacement(handle, ref placement);
+            if (placement.showCmd == 3)
+            {
+                return true;
+            }
+
+            GetWindowRect(handle, out lpRect);
+            var monitor = Screen.FromHandle(handle);
+
+            return lpRect.top == monitor.Bounds.Top &&
+                   lpRect.bottom == monitor.Bounds.Bottom &&
+                   lpRect.left == monitor.Bounds.Left &&
+                   lpRect.right == monitor.Bounds.Right;
+        }
+
+
+        #endregion
+
+        #region EnumWindows
+
+        /// Return Type: BOOL->int
+        ///param0: HWND->HWND__*
+        ///param1: LPARAM->LONG_PTR->int
+        [UnmanagedFunctionPointer(CallingConvention.StdCall)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        internal delegate bool Wndenumproc(IntPtr param0, IntPtr param1);
+
+        /// Return Type: BOOL->int
+        ///lpEnumFunc: WNDENUMPROC
+        ///lParam: LPARAM->LONG_PTR->int
+        [DllImport("user32.dll", EntryPoint = "EnumWindows")]
+        internal static extern int EnumWindows(Wndenumproc lpEnumFunc, IntPtr lParam);
         #endregion
     }
 }
