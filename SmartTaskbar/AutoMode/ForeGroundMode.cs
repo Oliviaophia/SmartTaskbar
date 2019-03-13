@@ -13,7 +13,7 @@ namespace SmartTaskbar.AutoMode
 
         public void Run()
         {
-            InvokeForeGroundMode(Control.MousePosition);
+            InvokeForeGroundMode();
         }
     }
 }

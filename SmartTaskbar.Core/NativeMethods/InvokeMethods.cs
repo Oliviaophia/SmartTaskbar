@@ -13,8 +13,8 @@ namespace SmartTaskbar.Core
 
         public static void UpdateTaskbarList()
         {
-            _taskbars.Clear();
-            _taskbars.Add(new Taskbar(FindWindow("Shell_TrayWnd", null)));
+            taskbars.Clear();
+            taskbars.Add(new Taskbar(FindWindow("Shell_TrayWnd", null)));
 
             var nextTaskbar = IntPtr.Zero;
             while (true)
@@ -25,7 +25,7 @@ namespace SmartTaskbar.Core
                     return;
                 }
 
-                _taskbars.Add(new Taskbar(nextTaskbar));
+                taskbars.Add(new Taskbar(nextTaskbar));
             }
         }
 
@@ -40,13 +40,22 @@ namespace SmartTaskbar.Core
         #endregion
 
         #region AutoMode
-        public static bool IsMouseOverTaskbar(Point point)
-        {
-            var handle = WindowFromPoint(point);
 
-            foreach (var taskbar in _taskbars)
+        public static bool IsMouseOverTaskbar()
+        {
+            GetCursorPos(out point);
+            intPtr = GetDesktopWindow();
+            windowHandles.Clear();
+
+            windowHandles.Add(WindowFromPoint(point));
+            while (windowHandles.Last() != intPtr)
             {
-                if (handle == taskbar.Handle)
+                windowHandles.Add(windowHandles.Last().GetParentWindow());
+            }
+
+            foreach (var taskbar in taskbars)
+            {
+                if (windowHandles.Contains(taskbar.Handle))
                 {
                     return true;
                 }
@@ -57,58 +66,63 @@ namespace SmartTaskbar.Core
 
 
 
-        public static void InvokeForeGroundMode(Point point)
+        public static void InvokeForeGroundMode()
         {
-
-            _foreWindow = GetForegroundWindow();
-
-            if (IsWindowVisible(_foreWindow) == false)
+            if (IsMouseOverTaskbar())
             {
                 return;
             }
 
-            DwmGetWindowAttribute(_foreWindow, 14, out cloakedval, sizeof(int));
+            intPtr = GetForegroundWindow();
+
+            if (IsWindowVisible(intPtr) == false)
+            {
+                return;
+            }
+
+            DwmGetWindowAttribute(intPtr, 14, out cloakedval, sizeof(int));
             if (cloakedval)
             {
                 return;
             }
 
 
-            GetClassName(_foreWindow, sb, 255);
+            sb.Clear();
+            GetClassName(intPtr, sb, 255);
 
             string name = sb.ToString();
-            sb.Clear();
 
             if (name == "WorkerW" ||
                 name == "Progman" ||
                 name == "DV2ControlHost" ||
                 name == "Shell_TrayWnd" ||
                 name == "Shell_SecondaryTrayWnd" ||
-                name == "Button"
+                name == "MultitaskingViewFrame" ||
+                name == "Windows.UI.Core.CoreWindow"   // todo
                 )
             {
                 return;
             }
 
-            if (_foreWindow.IsMaxWindow())
+            if (intPtr.IsMaxWindow())
             {
-                var monitor = _foreWindow.GetMonitor();
+                var monitor = intPtr.GetMonitor();
 
-                foreach (var taskbar in _taskbars)
+                foreach (var taskbar in taskbars)
                 {
                     taskbar.IsIntersect = taskbar.Monitor == monitor;
                 }
             }
             else
             {
-                GetWindowRect(_foreWindow, out lpRect);
-                foreach (var taskbar in _taskbars)
+                GetWindowRect(intPtr, out rect);
+                foreach (var taskbar in taskbars)
                 {
-                    taskbar.IsIntersect = Intersect(lpRect, taskbar.Rect);
+                    taskbar.IsIntersect = Intersect(rect, taskbar.Rect);
                 }
             }
 
-            var t = _taskbars.FirstOrDefault(_ => !_.IsIntersect);
+            var t = taskbars.FirstOrDefault(_ => !_.IsIntersect);
             if (t is null)
             {
                 PostMessageHideTaskbar();

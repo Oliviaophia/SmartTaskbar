@@ -16,15 +16,19 @@ namespace SmartTaskbar.Core
 
         internal static TagWindowplacement placement = new TagWindowplacement { length = (uint)Marshal.SizeOf(typeof(TagWindowplacement)) };
 
-        internal static List<Taskbar> _taskbars = new List<Taskbar>();
+        internal static List<Taskbar> taskbars = new List<Taskbar>(4);
 
-        internal static IntPtr _foreWindow = IntPtr.Zero;
+        internal static List<IntPtr> windowHandles = new List<IntPtr>(16);
+
+        internal static IntPtr intPtr = IntPtr.Zero;
 
         internal static StringBuilder sb = new StringBuilder(255);
 
         internal static bool cloakedval = true;
 
-        internal static TagRect lpRect;
+        internal static TagRect rect;
+
+        internal static TagPoint point;
 
         internal static bool animation;
 
@@ -289,18 +293,40 @@ namespace SmartTaskbar.Core
 
             /// LONG->int
             public int y;
-
-            public static implicit operator TagPoint(Point point) => new TagPoint
-            {
-                x = point.X,
-                y = point.Y
-            };
-
-            public static implicit operator Point(TagPoint point) => new Point(point.x, point.y);
         }
 
         #endregion
 
+        #region GetParentWindow
+
+        /// Return Type: HWND->HWND__*
+        ///hwnd: HWND->HWND__*
+        ///gaFlags: UINT->unsigned int
+        [DllImport("user32.dll", EntryPoint = "GetAncestor")]
+        private static extern IntPtr GetAncestor(IntPtr hwnd, uint gaFlags);
+        private const uint GA_PARENT = 1;
+        internal static IntPtr GetParentWindow(this IntPtr handle) => GetAncestor(handle, GA_PARENT);
+
+        #endregion
+
+        #region GetCursorPos
+
+        /// Return Type: BOOL->int
+        ///lpPoint: LPPOINT->tagPOINT*
+        [DllImport("user32.dll", EntryPoint = "GetCursorPos")]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        internal static extern bool GetCursorPos(out TagPoint lpPoint);
+
+        #endregion
+
+        #region GetDesktopWindow
+
+
+        /// Return Type: HWND->HWND__*
+        [DllImport("user32.dll", EntryPoint = "GetDesktopWindow")]
+        internal static extern IntPtr GetDesktopWindow();
+
+        #endregion
 
         #region IsWindowVisible
 
@@ -377,13 +403,13 @@ namespace SmartTaskbar.Core
                 return true;
             }
 
-            GetWindowRect(handle, out lpRect);
+            GetWindowRect(handle, out rect);
             var monitor = Screen.FromHandle(handle);
 
-            return lpRect.top == monitor.Bounds.Top &&
-                   lpRect.bottom == monitor.Bounds.Bottom &&
-                   lpRect.left == monitor.Bounds.Left &&
-                   lpRect.right == monitor.Bounds.Right;
+            return rect.top == monitor.Bounds.Top &&
+                   rect.bottom == monitor.Bounds.Bottom &&
+                   rect.left == monitor.Bounds.Left &&
+                   rect.right == monitor.Bounds.Right;
         }
 
 

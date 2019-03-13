@@ -19,8 +19,8 @@ namespace SmartTaskbar.Core
         {
             Handle = handle;
             Monitor = handle.GetMonitor();
-            GetWindowRect(handle, out lpRect);
-            Rect = AdjustRect(lpRect);
+            GetWindowRect(handle, out rect);
+            Rect = AdjustRect(rect);
         }
 
         private Rectangle AdjustRect(TagRect lpRect)
@@ -44,7 +44,8 @@ namespace SmartTaskbar.Core
             {
                 rectangle.Offset(monitor.Bounds.Left - rectangle.Left, 0);
                 return rectangle;
-            } 
+            }
+            
             if (monitor.Bounds.Right < rectangle.Right)
             {
                 rectangle.Offset(monitor.Bounds.Right - rectangle.Right, 0);

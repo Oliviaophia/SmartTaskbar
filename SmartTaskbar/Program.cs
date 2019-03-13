@@ -17,7 +17,7 @@ namespace SmartTaskbar
             {
                 Thread.Sleep(500);
                 InvokeMethods.UpdateTaskbarList();
-                InvokeMethods.InvokeForeGroundMode(Control.MousePosition);
+                InvokeMethods.InvokeForeGroundMode();
             }
 
             // Use a mutex to ensure single instance
