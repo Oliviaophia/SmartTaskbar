@@ -14,26 +14,25 @@ namespace SmartTaskbar.Core
     {
         #region Value
 
-        internal static TagWindowplacement placement = new TagWindowplacement { length = (uint)Marshal.SizeOf(typeof(TagWindowplacement)) };
+        //internal static TagWindowplacement placement = new TagWindowplacement { length = (uint)Marshal.SizeOf(typeof(TagWindowplacement)) };
 
-        internal static List<Taskbar> taskbars = new List<Taskbar>(4);
+        //internal static IntPtr intPtr = IntPtr.Zero;
 
-        internal static List<IntPtr> windowHandles = new List<IntPtr>(16);
+        //internal static StringBuilder sb = new StringBuilder(255);
 
-        internal static IntPtr intPtr = IntPtr.Zero;
+        //internal static bool cloakedval = true;
 
-        internal static StringBuilder sb = new StringBuilder(255);
+        //internal static TagRect rect;
 
-        internal static bool cloakedval = true;
-
-        internal static TagRect rect;
-
-        internal static TagPoint point;
-
-        internal static bool animation;
+        //internal static bool animation;
 
         #endregion
 
+        #region List of Taskbars
+
+        internal static List<Taskbar> taskbars = new List<Taskbar>(4);
+
+        #endregion
 
         #region Taskbar Display State
 
@@ -393,24 +392,7 @@ namespace SmartTaskbar.Core
         ///hWnd: HWND->HWND__*
         ///lpwndpl: WINDOWPLACEMENT*
         [DllImport("user32.dll", EntryPoint = "GetWindowPlacement")]
-        private static extern int GetWindowPlacement(IntPtr hWnd, ref TagWindowplacement lpwndpl);
-
-        internal static bool IsMaxWindow(this IntPtr handle)
-        {
-            GetWindowPlacement(handle, ref placement);
-            if (placement.showCmd == 3)
-            {
-                return true;
-            }
-
-            GetWindowRect(handle, out rect);
-            var monitor = Screen.FromHandle(handle);
-
-            return rect.top == monitor.Bounds.Top &&
-                   rect.bottom == monitor.Bounds.Bottom &&
-                   rect.left == monitor.Bounds.Left &&
-                   rect.right == monitor.Bounds.Right;
-        }
+        internal static extern int GetWindowPlacement(IntPtr hWnd, ref TagWindowplacement lpwndpl);
 
 
         #endregion
