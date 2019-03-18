@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Runtime.CompilerServices;
 using System.Windows.Forms;
 using static SmartTaskbar.Core.SafeNativeMethods;
 
@@ -11,8 +12,9 @@ namespace SmartTaskbar.Core.Helpers
         private static IntPtr nextTaskbar;
         private static Rectangle rectangle;
         private static Screen monitor;
-        private static TagRect tagRect;
+        private static TAGRECT tagRect;
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         internal static IList<Taskbar> UpdateTaskbarList(this IList<Taskbar> taskbars)
         {
             taskbars.Clear();
@@ -30,6 +32,7 @@ namespace SmartTaskbar.Core.Helpers
             }
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         internal static Rectangle AdjustRect(this IntPtr handle)
         {
             // todo: have a bug here:
@@ -63,5 +66,33 @@ namespace SmartTaskbar.Core.Helpers
 
             return rectangle;
         }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        internal static IList<Taskbar> UpdateInersect(this IList<Taskbar> taskbars, Func<Taskbar, bool> func)
+        {
+            foreach (var taskbar in taskbars)
+            {
+                taskbar.IsIntersect = func(taskbar);
+            }
+
+            return taskbars;
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        internal static void ShowTaskbarbyInersect(this IList<Taskbar> taskbars)
+        {
+            foreach (var taskbar in taskbars)
+            {
+                if (taskbar.IsIntersect)
+                {
+                    continue;
+                }
+
+                taskbar.Monitor.PostMesssageShowTaskbar();
+                return;
+            }
+
+            PostMessage.PostMessageHideTaskbar();
+        } 
     }
 }

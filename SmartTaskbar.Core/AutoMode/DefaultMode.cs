@@ -1,23 +1,29 @@
 ﻿using SmartTaskbar.Core.Helpers;
 using System;
-using System.Linq;
+using System.Runtime.CompilerServices;
 using static SmartTaskbar.Core.SafeNativeMethods;
 
 namespace SmartTaskbar.Core.AutoMode
 {
     public class DefaultMode : IAutoMode
     {
-        private static readonly Lazy<DefaultMode> Instance = new Lazy<DefaultMode>(() => new DefaultMode());
-
-        internal static DefaultMode Get => Instance.Value;
-
         private static IntPtr foregroundHandle;
+        private static IntPtr monitor;
+        private static TAGRECT rect;
+        private const int offset = 8;
 
+        public DefaultMode()
+        {
+            Reset();
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void Reset()
         {
             taskbars.UpdateTaskbarList();
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void Run()
         {
             if (taskbars.IsMouseOverTaskbar())
@@ -26,7 +32,6 @@ namespace SmartTaskbar.Core.AutoMode
             }
 
             foregroundHandle = GetForegroundWindow();
-
             if (foregroundHandle.IsWindowInvisible())
             {
                 return;
@@ -41,29 +46,19 @@ namespace SmartTaskbar.Core.AutoMode
             if (foregroundHandle.IsMaximizeWindow())
             {
                 monitor = foregroundHandle.GetMonitor();
-
-                foreach (var taskbar in taskbars)
-                {
-                    taskbar.IsIntersect = taskbar.Monitor == monitor;
-                }
+                taskbars.UpdateInersect(_ => _.Monitor == monitor);
             }
             else
             {
                 GetWindowRect(foregroundHandle, out rect);
-                foreach (var taskbar in taskbars)
-                {
-                    taskbar.IsIntersect = Intersect(rect, taskbar.Rect);
-                }
+                taskbars.UpdateInersect(_ => 
+                    rect.left + offset < _.Rect.Right &&
+                    rect.right + offset > _.Rect.Left &&
+                    rect.top + offset < _.Rect.Bottom &&
+                    rect.bottom + offset > _.Rect.Top);
             }
 
-            var t = taskbars.FirstOrDefault(_ => !_.IsIntersect);
-            if (t is null)
-            {
-                PostMessageHideTaskbar();
-                return;
-            }
-
-            t.Monitor.PostMesssageShowTaskbar();
+            taskbars.ShowTaskbarbyInersect();
         }
     }
 }

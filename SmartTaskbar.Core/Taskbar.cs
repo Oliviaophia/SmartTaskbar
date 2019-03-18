@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SmartTaskbar.Core.Helpers;
+using System;
 using System.Drawing;
 
 namespace SmartTaskbar.Core
@@ -13,11 +14,6 @@ namespace SmartTaskbar.Core
 
         public bool IsIntersect { get; set; }
 
-        public Taskbar(IntPtr handle)
-        {
-            Handle = handle;
-            Monitor = handle.GetMonitor();
-            Rect = handle.AdjustRect();
-        }
+        public Taskbar(IntPtr handle) => (Handle, Monitor, Rect) = (handle, handle.GetMonitor(), handle.AdjustRect());
     }
 }

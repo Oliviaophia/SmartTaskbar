@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
 using static SmartTaskbar.Core.SafeNativeMethods;
@@ -7,11 +8,13 @@ namespace SmartTaskbar.Core.Helpers
 {
     internal static class MaximizeWindow
     {
-        private static TagWindowplacement placement = new TagWindowplacement { length = (uint)Marshal.SizeOf(typeof(TagWindowplacement)) };
+        private static TAGWINDOWPLACEMENT placement = new TAGWINDOWPLACEMENT { length = (uint)Marshal.SizeOf(typeof(TAGWINDOWPLACEMENT)) };
+
         private static Screen monitor;
-        private static TagRect tagRect;
+        private static TAGRECT tagRect;
         private const uint SW_MAXIMIZE = 3;
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         internal static bool IsMaximizeWindow(this IntPtr handle)
         {
             GetWindowPlacement(handle, ref placement);

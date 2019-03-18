@@ -8,7 +8,7 @@ namespace SmartTaskbar.Core
         #region PostThreadMessage
 
         public static void BringOutSettingsWindow(int id) =>
-            PostThreadMessageW(id, Constant.MsgSettings, IntPtr.Zero, IntPtr.Zero);
+            PostThreadMessage(id, Constant.MsgSettings, IntPtr.Zero, IntPtr.Zero);
 
         #endregion
     }

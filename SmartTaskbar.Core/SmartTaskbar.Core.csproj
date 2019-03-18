@@ -48,12 +48,21 @@
   <ItemGroup>
     <Compile Include="AutoMode\DefaultMode.cs" />
     <Compile Include="AutoMode\IAutoMode.cs" />
+    <Compile Include="AutoMode\AutoMode.cs" />
     <Compile Include="Constant.cs" />
+    <Compile Include="Helpers\Animation.cs" />
+    <Compile Include="Helpers\AutoHide.cs" />
+    <Compile Include="Helpers\ButtonSize.cs" />
     <Compile Include="Helpers\ClassName.cs" />
     <Compile Include="Helpers\MaximizeWindow.cs" />
+    <Compile Include="Helpers\Monitor.cs" />
+    <Compile Include="Helpers\ParentWindow.cs" />
+    <Compile Include="Helpers\PostMessage.cs" />
     <Compile Include="Helpers\WindowVisible.cs" />
     <Compile Include="InvokeMethods.cs" />
     <Compile Include="Helpers\MouseHover.cs" />
+    <Compile Include="Settings\AutoModeType.cs" />
+    <Compile Include="Settings\UserSettings.cs" />
     <Compile Include="Taskbar.cs" />
     <Compile Include="Helpers\TaskbarBuilder.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
