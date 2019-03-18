@@ -50,10 +50,10 @@
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
     <Reference Include="ReactiveUI, Version=9.11.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\ReactiveUI.9.11.1\lib\net461\ReactiveUI.dll</HintPath>
+      <HintPath>..\packages\ReactiveUI.9.11.3\lib\net461\ReactiveUI.dll</HintPath>
     </Reference>
     <Reference Include="ReactiveUI.Winforms, Version=9.11.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\ReactiveUI.WinForms.9.11.1\lib\net461\ReactiveUI.Winforms.dll</HintPath>
+      <HintPath>..\packages\ReactiveUI.WinForms.9.11.3\lib\net461\ReactiveUI.Winforms.dll</HintPath>
     </Reference>
     <Reference Include="Splat, Version=6.1.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Splat.6.1.7\lib\net461\Splat.dll</HintPath>
@@ -91,10 +91,6 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AutoMode\BlacklistMode.cs" />
-    <Compile Include="AutoMode\ForeGroundMode.cs" />
-    <Compile Include="AutoMode\IAutoMode.cs" />
-    <Compile Include="AutoMode\WhitelistMode.cs" />
     <Compile Include="Common.cs" />
     <Compile Include="ViewModels\SettingsViewModel.cs" />
     <Compile Include="Views\MenuStyle.cs" />

@@ -19,8 +19,8 @@ namespace SmartTaskbar.Core.AutoMode
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void Reset()
         {
-            ResetValue();
-            taskbars.UpdateTaskbarList();
+            maxWindow = IntPtr.Zero;
+            tryShowBar = true;
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -91,7 +91,7 @@ namespace SmartTaskbar.Core.AutoMode
             {
                 if (maxWindow.IsWindowInvisible())
                 {
-                    ResetValue();
+                    Reset();
                     return;
                 }
 
@@ -99,15 +99,8 @@ namespace SmartTaskbar.Core.AutoMode
                 {
                     return;
                 }
-                ResetValue();
+                Reset();
             }
-        }
-
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private static void ResetValue()
-        {
-            maxWindow = IntPtr.Zero;
-            tryShowBar = true;
         }
     }
 }

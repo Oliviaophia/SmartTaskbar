@@ -4,7 +4,7 @@ using static SmartTaskbar.Core.SafeNativeMethods;
 
 namespace SmartTaskbar.Core.Helpers
 {
-    internal static class PostMessage
+    internal static class ShowTaskbar
     {
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         internal static void PostMessageHideTaskbar() =>

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading;
 using System.Windows.Forms;
 using SmartTaskbar.Core;
+using SmartTaskbar.Core.AutoMode;
 using SmartTaskbar.Views;
 
 namespace SmartTaskbar
@@ -13,11 +14,12 @@ namespace SmartTaskbar
         [STAThread]
         private static void Main()
         {
+            InvokeMethods.UpdateTaskbarList();
+            IAutoMode autoMode = new DefaultMode();
             while (true)
             {
                 Thread.Sleep(500);
-                InvokeMethods.UpdateTaskbarList();
-                InvokeMethods.InvokeForeGroundMode();
+                autoMode.Run();
             }
 
             // Use a mutex to ensure single instance

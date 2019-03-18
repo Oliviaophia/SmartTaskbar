@@ -57,7 +57,7 @@
     <Compile Include="Helpers\MaximizeWindow.cs" />
     <Compile Include="Helpers\Monitor.cs" />
     <Compile Include="Helpers\ParentWindow.cs" />
-    <Compile Include="Helpers\PostMessage.cs" />
+    <Compile Include="Helpers\ShowTaskbar.cs" />
     <Compile Include="Helpers\WindowVisible.cs" />
     <Compile Include="InvokeMethods.cs" />
     <Compile Include="Helpers\MouseHover.cs" />

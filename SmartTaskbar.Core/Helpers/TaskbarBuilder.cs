@@ -92,7 +92,7 @@ namespace SmartTaskbar.Core.Helpers
                 return;
             }
 
-            PostMessage.PostMessageHideTaskbar();
+            ShowTaskbar.PostMessageHideTaskbar();
         } 
     }
 }

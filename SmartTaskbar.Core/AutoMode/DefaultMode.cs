@@ -20,7 +20,8 @@ namespace SmartTaskbar.Core.AutoMode
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void Reset()
         {
-            taskbars.UpdateTaskbarList();
+            AutoHide.SetAutoHide();
+            ShowTaskbar.PostMessageHideTaskbar();
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -52,10 +53,10 @@ namespace SmartTaskbar.Core.AutoMode
             {
                 GetWindowRect(foregroundHandle, out rect);
                 taskbars.UpdateInersect(_ => 
-                    rect.left + offset < _.Rect.Right &&
-                    rect.right + offset > _.Rect.Left &&
-                    rect.top + offset < _.Rect.Bottom &&
-                    rect.bottom + offset > _.Rect.Top);
+                    rect.left < _.Rect.Right &&
+                    rect.right > _.Rect.Left &&
+                    rect.top < _.Rect.Bottom &&
+                    rect.bottom > _.Rect.Top);
             }
 
             taskbars.ShowTaskbarbyInersect();

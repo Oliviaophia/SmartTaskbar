@@ -59,7 +59,7 @@ namespace SmartTaskbar.Views
             notifyIcon = new NotifyIcon
             {
                 ContextMenuStrip = contextMenuStrip,
-                Text = @"SmartTaskbar v1.2.0",
+                Text = @"SmartTaskbar v2.0.0",
                 Icon = Resources.logo_32,
                 Visible = true
             };
