@@ -2,7 +2,7 @@
 {
     public enum AutoModeType
     {
-        DefaultMode,
+        ForegroundMode,
         OldAutoMode,
         OldAdaptiveMode,
         WhitelistMode,

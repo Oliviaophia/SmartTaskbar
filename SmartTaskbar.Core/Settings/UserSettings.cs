@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace SmartTaskbar.Core.Settings
 {
@@ -15,5 +11,7 @@ namespace SmartTaskbar.Core.Settings
         internal static bool ButtonSize;
 
         internal static List<string> ApplicationList;
+
+        internal static TransparentModeType TransparentType;
     }
 }

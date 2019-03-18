@@ -5,14 +5,13 @@ using static SmartTaskbar.Core.SafeNativeMethods;
 
 namespace SmartTaskbar.Core.AutoMode
 {
-    public class DefaultMode : IAutoMode
+    public class ForegroundMode : IAutoMode
     {
         private static IntPtr foregroundHandle;
         private static IntPtr monitor;
         private static TAGRECT rect;
-        private const int offset = 8;
 
-        public DefaultMode()
+        public ForegroundMode()
         {
             Reset();
         }

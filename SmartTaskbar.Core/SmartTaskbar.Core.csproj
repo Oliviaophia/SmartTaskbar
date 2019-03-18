@@ -62,6 +62,7 @@
     <Compile Include="InvokeMethods.cs" />
     <Compile Include="Helpers\MouseHover.cs" />
     <Compile Include="Settings\AutoModeType.cs" />
+    <Compile Include="Settings\TransparentModeType.cs" />
     <Compile Include="Settings\UserSettings.cs" />
     <Compile Include="Taskbar.cs" />
     <Compile Include="Helpers\TaskbarBuilder.cs" />
