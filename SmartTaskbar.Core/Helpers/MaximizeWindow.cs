@@ -15,17 +15,14 @@ namespace SmartTaskbar.Core.Helpers
 
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        internal static bool IsMaximizeWindow(this IntPtr handle)
+        internal static bool IsNotMaximizeWindow(this IntPtr handle)
         {
             GetWindowPlacement(handle, ref _placement);
-            if (_placement.showCmd == SwMaximize) return true;
+            if (_placement.showCmd != SwMaximize) return true;
 
             GetWindowRect(handle, out Tagrect tagRect);
             var monitor = Screen.FromHandle(handle);
-            return tagRect.top == monitor.Bounds.Top &&
-                   tagRect.bottom == monitor.Bounds.Bottom &&
-                   tagRect.left == monitor.Bounds.Left &&
-                   tagRect.right == monitor.Bounds.Right;
+            return tagRect.top != monitor.Bounds.Top || tagRect.bottom != monitor.Bounds.Bottom || tagRect.left != monitor.Bounds.Left || tagRect.right != monitor.Bounds.Right;
         }
     }
 }

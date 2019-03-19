@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
 using SmartTaskbar.Core.Settings;
@@ -9,20 +10,35 @@ namespace SmartTaskbar.Core.Helpers
     internal static class ProcessName
     {
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        internal static bool InBlacklist(this IntPtr handle) => handle.InList(_ => UserSettings.blacklist.Contains(_.MainModule.ModuleName));
+        internal static bool InBlacklist(this IntPtr handle) => handle.InList(_ => UserSettings.blacklist.Contains(_));
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        internal static bool InWhitelist(this IntPtr handle) => handle.InList(_ => !UserSettings.whitelist.Contains(_.MainModule.ModuleName));
+        internal static bool NotInWhitelist(this IntPtr handle) =>
+            handle.InList(_ => !UserSettings.whitelist.Contains(_));
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private static bool InList(this IntPtr handle, Func<Process, bool> func)
+        private static bool InList(this IntPtr handle, Func<string, bool> func)
         {
+            if (cacheName.TryGetValue(handle, out string name)) return func(name);
+
             GetWindowThreadProcessId(handle, out int processId);
 
             using (var process = Process.GetProcessById(processId))
             {
-                return func(process);
+                name = process.MainModule.ModuleName;
+                cacheName.Add(handle, name);
+                return func(name);
             }
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        internal static IDictionary<IntPtr, string> UpdateCacheName(this IDictionary<IntPtr, string> cacheDictionary)
+        {
+            foreach (var key in cacheDictionary.Keys)
+                if (key.IsWindowInvisible())
+                    cacheDictionary.Remove(key);
+
+            return cacheDictionary;
         }
     }
 }

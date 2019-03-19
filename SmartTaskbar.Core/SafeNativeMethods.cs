@@ -10,12 +10,6 @@ namespace SmartTaskbar.Core
     [SuppressUnmanagedCodeSecurity]
     internal static class SafeNativeMethods
     {
-        #region List of Taskbars
-
-        internal static List<Taskbar> taskbars = new List<Taskbar>(4);
-
-        #endregion
-
         #region Taskbar Buttons Size
 
         [DllImport("user32.dll", CharSet = CharSet.Unicode)]
@@ -97,7 +91,8 @@ namespace SmartTaskbar.Core
 
         [DllImport("user32.dll", EntryPoint = "GetClassNameW")]
         internal static extern int GetClassName([In] IntPtr hWnd,
-            [MarshalAs(UnmanagedType.LPWStr)] StringBuilder lpClassName, int nMaxCount);
+            [Out] [MarshalAs(UnmanagedType.LPWStr)]
+            StringBuilder lpClassName, int nMaxCount);
 
         #endregion
 
@@ -105,6 +100,14 @@ namespace SmartTaskbar.Core
 
         [DllImport("user32.dll", EntryPoint = "GetWindowThreadProcessId")]
         internal static extern uint GetWindowThreadProcessId([In] IntPtr hWnd, out int lpdwProcessId);
+
+        #endregion
+
+        #region List of Value
+
+        internal static List<Taskbar> taskbars = new List<Taskbar>(4);
+
+        internal static Dictionary<IntPtr, string> cacheName = new Dictionary<IntPtr, string>(64);
 
         #endregion
 
@@ -236,5 +239,12 @@ namespace SmartTaskbar.Core
         internal static extern bool EnumWindows(Wndenumproc lpEnumFunc, IntPtr lParam);
 
         #endregion
+
+        //#region GetModuleBaseName
+
+        //[DllImport("kernel32.dll", EntryPoint = "GetModuleFileNameExW")]
+        //internal static extern uint GetModuleFileName([In] IntPtr hProcess, [In] IntPtr hModule, [Out] [MarshalAs(UnmanagedType.LPWStr)] StringBuilder lpFilename, uint nSize);
+
+        //#endregion
     }
 }

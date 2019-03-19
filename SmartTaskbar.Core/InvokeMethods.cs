@@ -13,9 +13,13 @@ namespace SmartTaskbar.Core
 
         #endregion
 
-        #region UpdateTaskbarList
+        #region UpdateCache
 
-        public static void UpdateTaskbarList() => taskbars.UpdateTaskbarList();
+        public static void UpdateCache()
+        {
+            taskbars.UpdateTaskbarList();
+            cacheName.UpdateCacheName();
+        }
 
         #endregion
     }

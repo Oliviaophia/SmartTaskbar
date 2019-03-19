@@ -14,7 +14,7 @@ namespace SmartTaskbar
         [STAThread]
         private static void Main()
         {
-            InvokeMethods.UpdateTaskbarList();
+            InvokeMethods.UpdateCache();
             IAutoMode autoMode = new ForegroundMode();
             while (true)
             {

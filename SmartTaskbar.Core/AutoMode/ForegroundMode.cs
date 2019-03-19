@@ -6,6 +6,7 @@ namespace SmartTaskbar.Core.AutoMode
 {
     public class ForegroundMode : IAutoMode
     {
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public ForegroundMode()
         {
             Reset();
