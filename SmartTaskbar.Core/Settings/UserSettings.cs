@@ -4,14 +4,18 @@ namespace SmartTaskbar.Core.Settings
 {
     internal static class UserSettings
     {
-        internal static AutoModeType ModeType;
+        internal static AutoModeType modeType;
 
-        internal static bool AutoHide;
+        internal static bool autoHide;
 
-        internal static bool ButtonSize;
+        internal static bool buttonSize;
 
-        internal static List<string> ApplicationList;
+        internal static HashSet<string> blacklist;
 
-        internal static TransparentModeType TransparentType;
+        internal static HashSet<string> whitelist;
+
+        internal static TransparentModeType transparentType;
+
+        internal static bool win10;
     }
 }

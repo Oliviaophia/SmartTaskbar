@@ -7,8 +7,6 @@ namespace SmartTaskbar.Views
     {
         private static readonly Lazy<SettingsView> Instance = new Lazy<SettingsView>(() => new SettingsView());
 
-        internal static SettingsView Get => Instance.Value;
-
         private SettingsView()
         {
             InitializeComponent();
@@ -20,6 +18,8 @@ namespace SmartTaskbar.Views
                 Visible = false;
             };
         }
+
+        internal static SettingsView Get => Instance.Value;
 
         internal void ShowView() => Visible = true;
 

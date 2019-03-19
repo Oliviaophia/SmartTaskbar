@@ -4,6 +4,6 @@ namespace SmartTaskbar
 {
     internal static class Common
     {
-        internal static bool Win10 = Environment.OSVersion.Version.Major.ToString() == "10";
+        internal static bool win10 = Environment.OSVersion.Version.Major.ToString() == "10";
     }
 }

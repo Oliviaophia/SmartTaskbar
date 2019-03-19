@@ -4,7 +4,6 @@
     {
         Disabled,
         Transparent,
-        Blur,
-        Segmented
+        Blur
     }
 }

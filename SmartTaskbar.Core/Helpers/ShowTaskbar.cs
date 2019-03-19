@@ -12,6 +12,6 @@ namespace SmartTaskbar.Core.Helpers
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         internal static void PostMesssageShowTaskbar(this IntPtr handle) =>
-            PostMessage(FindWindow("Shell_TrayWnd", null), Constant.TaskabrFlag, (IntPtr)1, handle);
+            PostMessage(FindWindow("Shell_TrayWnd", null), Constant.TaskabrFlag, (IntPtr) 1, handle);
     }
 }

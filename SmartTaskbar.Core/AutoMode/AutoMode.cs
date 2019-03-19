@@ -8,8 +8,8 @@ namespace SmartTaskbar.Core.AutoMode
 {
     public class AutoMode : IAutoMode
     {
-        private static IntPtr maxWindow;
-        private static bool tryShowBar;
+        private static IntPtr _maxWindow;
+        private static bool _tryShowBar;
 
         public AutoMode()
         {
@@ -19,86 +19,77 @@ namespace SmartTaskbar.Core.AutoMode
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void Reset()
         {
-            maxWindow = IntPtr.Zero;
-            tryShowBar = true;
+            _maxWindow = IntPtr.Zero;
+            _tryShowBar = true;
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void Run()
         {
-            if (maxWindow == IntPtr.Zero)
+            if (_maxWindow == IntPtr.Zero)
             {
-                if (taskbars.IsMouseOverTaskbar())
-                {
-                    return;
-                }
+                if (taskbars.IsMouseOverTaskbar()) return;
 
                 EnumWindows((handle, lp) =>
                 {
-                    if (handle.IsWindowInvisible())
-                    {
-                        return true;
-                    }
+                    if (handle.IsWindowInvisible()) return true;
 
                     if (handle.IsMaximizeWindow())
                     {
-                        if (UserSettings.ModeType == AutoModeType.BlacklistMode)
+                        if (UserSettings.modeType == AutoModeType.BlacklistMode)
                         {
-                            // todo 
+                            
                         }
 
-                        if (UserSettings.ModeType == AutoModeType.WhitelistMode)
+                        if (UserSettings.modeType == AutoModeType.WhitelistMode)
                         {
                             // todo
                         }
 
-                        maxWindow = handle;
+                        _maxWindow = handle;
                         return false;
                     }
 
                     return true;
                 }, IntPtr.Zero);
 
-                if (maxWindow == IntPtr.Zero)
+                if (_maxWindow == IntPtr.Zero)
                 {
-                    if (tryShowBar == false)
-                    {
-                        return;
-                    }
-                    tryShowBar = false;
-                    if (UserSettings.ModeType == AutoModeType.OldAutoMode)
+                    if (_tryShowBar == false) return;
+                    _tryShowBar = false;
+                    if (UserSettings.modeType == AutoModeType.ClassicAutoMode)
                     {
                         AutoHide.CancelAutoHide();
                         return;
                     }
-                    if (UserSettings.ModeType == AutoModeType.OldAdaptiveMode)
+
+                    if (UserSettings.modeType == AutoModeType.ClassicAdaptiveMode)
                     {
                         ButtonSize.SetIconSize(Constant.Iconlarge);
                     }
                     return;
                 }
-                if (UserSettings.ModeType == AutoModeType.OldAutoMode)
+
+                if (UserSettings.modeType == AutoModeType.ClassicAutoMode)
                 {
                     AutoHide.SetAutoHide();
                     return;
                 }
-                if (UserSettings.ModeType == AutoModeType.OldAdaptiveMode)
+
+                if (UserSettings.modeType == AutoModeType.ClassicAdaptiveMode)
                 {
                     ButtonSize.SetIconSize(Constant.IconSmall);
                 }
             }
             else
             {
-                if (maxWindow.IsWindowInvisible())
+                if (_maxWindow.IsWindowInvisible())
                 {
                     Reset();
                     return;
                 }
 
-                if (maxWindow.IsMaximizeWindow())
-                {
-                    return;
-                }
+                if (_maxWindow.IsMaximizeWindow()) return;
                 Reset();
             }
         }

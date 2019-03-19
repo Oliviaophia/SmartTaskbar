@@ -6,9 +6,9 @@ namespace SmartTaskbar.Core.Helpers
 {
     internal static class Monitor
     {
-        private const int MONITOR_DEFAULTTONEAREST = 2;
+        private const int MonitorDefaulttonearest = 2;
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        internal static IntPtr GetMonitor(this IntPtr handle) => MonitorFromWindow(handle, MONITOR_DEFAULTTONEAREST);
+        internal static IntPtr GetMonitor(this IntPtr handle) => MonitorFromWindow(handle, MonitorDefaulttonearest);
     }
 }

@@ -16,12 +16,103 @@ namespace SmartTaskbar.Core
 
         #endregion
 
+        #region Taskbar Buttons Size
+
+        [DllImport("user32.dll", CharSet = CharSet.Unicode)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        internal static extern bool SendNotifyMessage([In] IntPtr hWnd, uint msg, UIntPtr wParam, string lParam);
+
+        #endregion
+
+        #region PostMessage
+
+        [DllImport("user32.dll", EntryPoint = "PostMessageW")]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        internal static extern bool PostMessage([In] IntPtr hWnd, uint msg, IntPtr wParam, IntPtr lParam);
+
+        #endregion
+
+        #region PostThreadMessage
+
+        [DllImport("user32.dll", EntryPoint = "PostThreadMessageW")]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        internal static extern bool PostThreadMessage(int idThread, uint msg,
+            IntPtr wParam, IntPtr lParam);
+
+        #endregion
+
+        #region MonitorFromWindow
+
+        [DllImport("user32.dll", EntryPoint = "MonitorFromWindow")]
+        internal static extern IntPtr MonitorFromWindow([In] IntPtr hwnd, uint dwFlags);
+
+        #endregion
+
+        #region GetParentWindow
+
+        [DllImport("user32.dll", EntryPoint = "GetAncestor")]
+        internal static extern IntPtr GetAncestor([In] IntPtr hwnd, uint gaFlags);
+
+        #endregion
+
+        #region GetCursorPos
+
+        [DllImport("user32.dll", EntryPoint = "GetCursorPos")]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        internal static extern bool GetCursorPos(out Point lpPoint);
+
+        #endregion
+
+        #region GetDesktopWindow
+
+        [DllImport("user32.dll", EntryPoint = "GetDesktopWindow")]
+        internal static extern IntPtr GetDesktopWindow();
+
+        #endregion
+
+        #region IsWindowVisible
+
+        [DllImport("user32.dll", EntryPoint = "IsWindowVisible")]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        internal static extern bool IsWindowVisible([In] IntPtr hWnd);
+
+        #endregion
+
+        #region DwmGetWindowAttribute
+
+        [DllImport("dwmapi.dll")]
+        internal static extern int DwmGetWindowAttribute(IntPtr hwnd, int dwAttribute,
+            [MarshalAs(UnmanagedType.Bool)] out bool pvAttribute, int cbAttribute);
+
+        #endregion
+
+        #region GetForegroundWindow
+
+        [DllImport("user32.dll", EntryPoint = "GetForegroundWindow")]
+        internal static extern IntPtr GetForegroundWindow();
+
+        #endregion
+
+        #region GetClassName
+
+        [DllImport("user32.dll", EntryPoint = "GetClassNameW")]
+        internal static extern int GetClassName([In] IntPtr hWnd,
+            [MarshalAs(UnmanagedType.LPWStr)] StringBuilder lpClassName, int nMaxCount);
+
+        #endregion
+
+        #region GetWindowThreadProcessId
+
+        [DllImport("user32.dll", EntryPoint = "GetWindowThreadProcessId")]
+        internal static extern uint GetWindowThreadProcessId([In] IntPtr hWnd, out int lpdwProcessId);
+
+        #endregion
+
         #region Taskbar Display State
 
         [StructLayout(LayoutKind.Sequential)]
-        internal struct APPBARDATA
+        internal struct Appbardata
         {
-
             public uint cbSize;
 
             public IntPtr hWnd;
@@ -30,13 +121,13 @@ namespace SmartTaskbar.Core
 
             public uint uEdge;
 
-            public TAGRECT rc;
+            public Tagrect rc;
 
             public int lParam;
         }
 
         [DllImport("shell32.dll", EntryPoint = "SHAppBarMessage", CallingConvention = CallingConvention.StdCall)]
-        internal static extern IntPtr SHAppBarMessage(uint dwMessage, ref APPBARDATA pData);
+        internal static extern IntPtr SHAppBarMessage(uint dwMessage, ref Appbardata pData);
 
         #endregion
 
@@ -52,44 +143,15 @@ namespace SmartTaskbar.Core
 
         #endregion
 
-        #region Taskbar Buttons Size
-
-        [DllImport("user32.dll", CharSet = CharSet.Unicode)]
-        [return: MarshalAs(UnmanagedType.Bool)]
-        internal static extern bool SendNotifyMessage(IntPtr hWnd, uint Msg, UIntPtr wParam, string lParam);
-
-        #endregion
-
-        #region PostMessage
-
-        [DllImport("user32.dll", EntryPoint = "PostMessageW")]
-        [return: MarshalAs(UnmanagedType.Bool)]
-        internal static extern bool PostMessage(IntPtr hWnd, uint Msg,  IntPtr wParam,  IntPtr lParam);
-
-        #endregion
-
         #region FindWindow
 
         [DllImport("user32.dll", CharSet = CharSet.Unicode)]
-        internal static extern IntPtr FindWindow(string strClassName, string strWindowName);
+        internal static extern IntPtr FindWindow([In] string strClassName, [In] string strWindowName);
 
         [DllImport("user32.dll", CharSet = CharSet.Unicode)]
-        internal static extern IntPtr FindWindowEx(IntPtr parentHandle, IntPtr childAfter, string lclassName, string windowTitle);
-        #endregion
-
-        #region PostThreadMessage
-
-        [DllImport("user32.dll", EntryPoint = "PostThreadMessageW")]
-        [return: MarshalAs(UnmanagedType.Bool)]
-        internal static extern bool PostThreadMessage(int idThread, uint Msg,
-            IntPtr wParam, IntPtr lParam);
-
-        #endregion
-
-        #region MonitorFromWindow
-
-        [DllImport("user32.dll", EntryPoint = "MonitorFromWindow")]
-        internal static extern IntPtr MonitorFromWindow(IntPtr hwnd, uint dwFlags);
+        internal static extern IntPtr FindWindowEx([In] IntPtr parentHandle, [In] IntPtr childAfter,
+            [In] string lclassName,
+            [In] string windowTitle);
 
         #endregion
 
@@ -97,10 +159,10 @@ namespace SmartTaskbar.Core
 
         [DllImport("user32.dll", EntryPoint = "GetWindowRect")]
         [return: MarshalAs(UnmanagedType.Bool)]
-        internal static extern bool GetWindowRect(IntPtr hWnd, out TAGRECT lpRect);
+        internal static extern bool GetWindowRect([In] IntPtr hWnd, out Tagrect lpRect);
 
         [StructLayout(LayoutKind.Sequential)]
-        internal struct TAGRECT
+        internal struct Tagrect
         {
             public int left;
 
@@ -110,9 +172,10 @@ namespace SmartTaskbar.Core
 
             public int bottom;
 
-            public static implicit operator Rectangle(TAGRECT rect) => Rectangle.FromLTRB(rect.left, rect.top, rect.right, rect.bottom);
+            public static implicit operator Rectangle(Tagrect rect) =>
+                Rectangle.FromLTRB(rect.left, rect.top, rect.right, rect.bottom);
 
-            public static implicit operator TAGRECT(Rectangle rectangle) => new TAGRECT
+            public static implicit operator Tagrect(Rectangle rectangle) => new Tagrect
             {
                 left = rectangle.Left,
                 top = rectangle.Top,
@@ -120,16 +183,16 @@ namespace SmartTaskbar.Core
                 bottom = rectangle.Bottom
             };
         }
+
         #endregion
 
         #region WindowFromPoint
 
-
         [DllImport("user32.dll", EntryPoint = "WindowFromPoint")]
-        internal static extern IntPtr WindowFromPoint(POINT point);
+        internal static extern IntPtr WindowFromPoint(Point point);
 
         [StructLayout(LayoutKind.Sequential)]
-        internal struct POINT
+        internal struct Point
         {
             public int x;
 
@@ -138,80 +201,27 @@ namespace SmartTaskbar.Core
 
         #endregion
 
-        #region GetParentWindow
-
-        [DllImport("user32.dll", EntryPoint = "GetAncestor")]
-        internal static extern IntPtr GetAncestor(IntPtr hwnd, uint gaFlags);
-
-
-        #endregion
-
-        #region GetCursorPos
-
-        [DllImport("user32.dll", EntryPoint = "GetCursorPos")]
-        [return: MarshalAs(UnmanagedType.Bool)]
-        internal static extern bool GetCursorPos(out POINT lpPoint);
-
-        #endregion
-
-        #region GetDesktopWindow
-
-        [DllImport("user32.dll", EntryPoint = "GetDesktopWindow")]
-        internal static extern IntPtr GetDesktopWindow();
-
-        #endregion
-
-        #region IsWindowVisible
-
-        [DllImport("user32.dll", EntryPoint = "IsWindowVisible")]
-        [return: MarshalAs(UnmanagedType.Bool)]
-        internal static extern bool IsWindowVisible(IntPtr hWnd);
-
-        #endregion
-
-
-        #region DwmGetWindowAttribute
-
-        [DllImport("dwmapi.dll")]
-        internal static extern int DwmGetWindowAttribute(IntPtr hwnd, int dwAttribute, [MarshalAs(UnmanagedType.Bool)] out bool pvAttribute, int cbAttribute);
-
-        #endregion
-
-        #region GetForegroundWindow
-
-        [DllImport("user32.dll", EntryPoint = "GetForegroundWindow")]
-        internal static extern IntPtr GetForegroundWindow();
-
-        #endregion
-
-        #region GetClassName
-
-        [DllImport("user32.dll", EntryPoint = "GetClassNameW")]
-        internal static extern int GetClassName(IntPtr hWnd, [MarshalAs(UnmanagedType.LPWStr)] StringBuilder lpClassName, int nMaxCount);
-
-        #endregion
-
         #region GetWindowPlacement
-        [StructLayout(LayoutKind.Sequential)]
-        internal struct TAGWINDOWPLACEMENT
-        {
 
+        [StructLayout(LayoutKind.Sequential)]
+        internal struct Tagwindowplacement
+        {
             public uint length;
 
             public uint flags;
 
             public uint showCmd;
 
-            public Point ptMinPosition;
+            public System.Drawing.Point ptMinPosition;
 
-            public Point ptMaxPosition;
+            public System.Drawing.Point ptMaxPosition;
 
-            public TAGRECT rcNormalPosition;
+            public Tagrect rcNormalPosition;
         }
 
         [DllImport("user32.dll", EntryPoint = "GetWindowPlacement")]
-        internal static extern int GetWindowPlacement(IntPtr hWnd, ref TAGWINDOWPLACEMENT lpwndpl);
-
+        [return: MarshalAs(UnmanagedType.Bool)]
+        internal static extern bool GetWindowPlacement([In] IntPtr hWnd, ref Tagwindowplacement lpwndpl);
 
         #endregion
 
@@ -222,7 +232,9 @@ namespace SmartTaskbar.Core
         internal delegate bool Wndenumproc(IntPtr param0, IntPtr param1);
 
         [DllImport("user32.dll", EntryPoint = "EnumWindows")]
-        internal static extern int EnumWindows(Wndenumproc lpEnumFunc, IntPtr lParam);
+        [return: MarshalAs(UnmanagedType.Bool)]
+        internal static extern bool EnumWindows(Wndenumproc lpEnumFunc, IntPtr lParam);
+
         #endregion
     }
 }

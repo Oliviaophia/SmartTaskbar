@@ -2,7 +2,6 @@
 {
     public interface IAutoMode
     {
-
         void Run();
 
         void Reset();

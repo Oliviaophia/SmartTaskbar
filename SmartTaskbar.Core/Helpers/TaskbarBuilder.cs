@@ -9,10 +9,10 @@ namespace SmartTaskbar.Core.Helpers
 {
     internal static class TaskbarBuilder
     {
-        private static IntPtr nextTaskbar;
-        private static Rectangle rectangle;
-        private static Screen monitor;
-        private static TAGRECT tagRect;
+        private static IntPtr _nextTaskbar;
+        private static Rectangle _rectangle;
+        private static Screen _monitor;
+        private static Tagrect _tagRect;
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         internal static IList<Taskbar> UpdateTaskbarList(this IList<Taskbar> taskbars)
@@ -22,13 +22,10 @@ namespace SmartTaskbar.Core.Helpers
 
             while (true)
             {
-                nextTaskbar = FindWindowEx(IntPtr.Zero, nextTaskbar, "Shell_SecondaryTrayWnd", "");
-                if (nextTaskbar == IntPtr.Zero)
-                {
-                    return taskbars;
-                }
+                _nextTaskbar = FindWindowEx(IntPtr.Zero, _nextTaskbar, "Shell_SecondaryTrayWnd", "");
+                if (_nextTaskbar == IntPtr.Zero) return taskbars;
 
-                taskbars.Add(new Taskbar(nextTaskbar));
+                taskbars.Add(new Taskbar(_nextTaskbar));
             }
         }
 
@@ -36,44 +33,41 @@ namespace SmartTaskbar.Core.Helpers
         internal static Rectangle AdjustRect(this IntPtr handle)
         {
             // todo: have a bug here:
-            GetWindowRect(handle, out tagRect);
-            rectangle = tagRect;
+            GetWindowRect(handle, out _tagRect);
+            _rectangle = _tagRect;
 
-            monitor = Screen.FromHandle(handle);
-            if (monitor.Bounds.Bottom < rectangle.Bottom)
+            _monitor = Screen.FromHandle(handle);
+            if (_monitor.Bounds.Bottom < _rectangle.Bottom)
             {
-                rectangle.Offset(0, monitor.Bounds.Bottom - rectangle.Bottom);
-                return rectangle;
+                _rectangle.Offset(0, _monitor.Bounds.Bottom - _rectangle.Bottom);
+                return _rectangle;
             }
 
-            if (monitor.Bounds.Top > rectangle.Top)
+            if (_monitor.Bounds.Top > _rectangle.Top)
             {
-                rectangle.Offset(0, monitor.Bounds.Top - rectangle.Top);
-                return rectangle;
+                _rectangle.Offset(0, _monitor.Bounds.Top - _rectangle.Top);
+                return _rectangle;
             }
 
-            if (monitor.Bounds.Left > rectangle.Left)
+            if (_monitor.Bounds.Left > _rectangle.Left)
             {
-                rectangle.Offset(monitor.Bounds.Left - rectangle.Left, 0);
-                return rectangle;
+                _rectangle.Offset(_monitor.Bounds.Left - _rectangle.Left, 0);
+                return _rectangle;
             }
 
-            if (monitor.Bounds.Right < rectangle.Right)
+            if (_monitor.Bounds.Right < _rectangle.Right)
             {
-                rectangle.Offset(monitor.Bounds.Right - rectangle.Right, 0);
-                return rectangle;
+                _rectangle.Offset(_monitor.Bounds.Right - _rectangle.Right, 0);
+                return _rectangle;
             }
 
-            return rectangle;
+            return _rectangle;
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         internal static IList<Taskbar> UpdateInersect(this IList<Taskbar> taskbars, Func<Taskbar, bool> func)
         {
-            foreach (var taskbar in taskbars)
-            {
-                taskbar.IsIntersect = func(taskbar);
-            }
+            foreach (var taskbar in taskbars) taskbar.IsIntersect = func(taskbar);
 
             return taskbars;
         }
@@ -83,16 +77,13 @@ namespace SmartTaskbar.Core.Helpers
         {
             foreach (var taskbar in taskbars)
             {
-                if (taskbar.IsIntersect)
-                {
-                    continue;
-                }
+                if (taskbar.IsIntersect) continue;
 
                 taskbar.Monitor.PostMesssageShowTaskbar();
                 return;
             }
 
             ShowTaskbar.PostMessageHideTaskbar();
-        } 
+        }
     }
 }

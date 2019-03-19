@@ -33,15 +33,13 @@ namespace SmartTaskbar
                     // Start a tray instead of a WinForm to reduce memory usage
                     Application.Run(new SystemTray());
                 }
-                else
-                {
-                    // Show the settings window if an instance already exists
-                    var process = Process.GetProcessesByName(Application.ProductName)
-                        .FirstOrDefault(_ => _.Threads[0].Id != Process.GetCurrentProcess().Threads[0].Id);
-                    if (process is null) return;
 
-                    InvokeMethods.BringOutSettingsWindow(process.Threads[0].Id);
-                }
+                // Show the settings window if an instance already exists
+                var process = Process.GetProcessesByName(Application.ProductName)
+                    .FirstOrDefault(_ => _.Threads[0].Id != Process.GetCurrentProcess().Threads[0].Id);
+                if (process is null) return;
+
+                InvokeMethods.BringOutSettingsWindow(process.Threads[0].Id);
             }
         }
     }

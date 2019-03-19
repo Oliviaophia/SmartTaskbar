@@ -10,11 +10,10 @@ namespace SmartTaskbar.Languages
     {
         private static readonly Lazy<ResourceCulture> Instance = new Lazy<ResourceCulture>(() => new ResourceCulture());
 
-        internal static ResourceCulture Get => Instance.Value;
+        private readonly CultureInfo _cultureInfo = new CultureInfo("en-US");
 
-        private readonly ResourceManager resourceManager  = new ResourceManager("SmartTaskbar.Languages.Resource", Assembly.GetExecutingAssembly());
-
-        private readonly CultureInfo cultureInfo = new CultureInfo("en-US");
+        private readonly ResourceManager _resourceManager =
+            new ResourceManager("SmartTaskbar.Languages.Resource", Assembly.GetExecutingAssembly());
 
         private ResourceCulture()
         {
@@ -26,20 +25,22 @@ namespace SmartTaskbar.Languages
                 case "uk-UA":
                     break;
                 default:
-                    Thread.CurrentThread.CurrentUICulture = cultureInfo;
+                    Thread.CurrentThread.CurrentUICulture = _cultureInfo;
                     break;
             }
         }
+
+        internal static ResourceCulture Get => Instance.Value;
 
         internal string GetString(string name)
         {
             try
             {
-                return resourceManager.GetString(name, Thread.CurrentThread.CurrentUICulture);
+                return _resourceManager.GetString(name, Thread.CurrentThread.CurrentUICulture);
             }
-            catch 
+            catch
             {
-                return resourceManager.GetString(name, cultureInfo);
+                return _resourceManager.GetString(name, _cultureInfo);
             }
         }
     }

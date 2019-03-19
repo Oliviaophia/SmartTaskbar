@@ -1,5 +1,5 @@
-﻿using SmartTaskbar.Core.Helpers;
-using System;
+﻿using System;
+using SmartTaskbar.Core.Helpers;
 using static SmartTaskbar.Core.SafeNativeMethods;
 
 namespace SmartTaskbar.Core
