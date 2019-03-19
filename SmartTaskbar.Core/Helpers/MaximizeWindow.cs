@@ -10,17 +10,17 @@ namespace SmartTaskbar.Core.Helpers
     {
         private const uint SwMaximize = 3;
 
-        private static Tagwindowplacement _placement = new Tagwindowplacement
-            {length = (uint) Marshal.SizeOf(typeof(Tagwindowplacement))};
+        private static TagWindowPlacement _placement = new TagWindowPlacement
+            {length = (uint) Marshal.SizeOf(typeof(TagWindowPlacement))};
 
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         internal static bool IsNotMaximizeWindow(this IntPtr handle)
         {
             GetWindowPlacement(handle, ref _placement);
-            if (_placement.showCmd != SwMaximize) return true;
+            if (_placement.showCmd == SwMaximize) return false;
 
-            GetWindowRect(handle, out Tagrect tagRect);
+            GetWindowRect(handle, out TagRect tagRect);
             var monitor = Screen.FromHandle(handle);
             return tagRect.top != monitor.Bounds.Top || tagRect.bottom != monitor.Bounds.Bottom || tagRect.left != monitor.Bounds.Left || tagRect.right != monitor.Bounds.Right;
         }

@@ -114,7 +114,7 @@ namespace SmartTaskbar.Core
         #region Taskbar Display State
 
         [StructLayout(LayoutKind.Sequential)]
-        internal struct Appbardata
+        internal struct AppbarData
         {
             public uint cbSize;
 
@@ -124,13 +124,13 @@ namespace SmartTaskbar.Core
 
             public uint uEdge;
 
-            public Tagrect rc;
+            public TagRect rc;
 
             public int lParam;
         }
 
         [DllImport("shell32.dll", EntryPoint = "SHAppBarMessage", CallingConvention = CallingConvention.StdCall)]
-        internal static extern IntPtr SHAppBarMessage(uint dwMessage, ref Appbardata pData);
+        internal static extern IntPtr SHAppBarMessage(uint dwMessage, ref AppbarData pData);
 
         #endregion
 
@@ -162,10 +162,10 @@ namespace SmartTaskbar.Core
 
         [DllImport("user32.dll", EntryPoint = "GetWindowRect")]
         [return: MarshalAs(UnmanagedType.Bool)]
-        internal static extern bool GetWindowRect([In] IntPtr hWnd, out Tagrect lpRect);
+        internal static extern bool GetWindowRect([In] IntPtr hWnd, out TagRect lpRect);
 
         [StructLayout(LayoutKind.Sequential)]
-        internal struct Tagrect
+        internal struct TagRect
         {
             public int left;
 
@@ -175,10 +175,10 @@ namespace SmartTaskbar.Core
 
             public int bottom;
 
-            public static implicit operator Rectangle(Tagrect rect) =>
+            public static implicit operator Rectangle(TagRect rect) =>
                 Rectangle.FromLTRB(rect.left, rect.top, rect.right, rect.bottom);
 
-            public static implicit operator Tagrect(Rectangle rectangle) => new Tagrect
+            public static implicit operator TagRect(Rectangle rectangle) => new TagRect
             {
                 left = rectangle.Left,
                 top = rectangle.Top,
@@ -207,7 +207,7 @@ namespace SmartTaskbar.Core
         #region GetWindowPlacement
 
         [StructLayout(LayoutKind.Sequential)]
-        internal struct Tagwindowplacement
+        internal struct TagWindowPlacement
         {
             public uint length;
 
@@ -219,12 +219,12 @@ namespace SmartTaskbar.Core
 
             public System.Drawing.Point ptMaxPosition;
 
-            public Tagrect rcNormalPosition;
+            public TagRect rcNormalPosition;
         }
 
         [DllImport("user32.dll", EntryPoint = "GetWindowPlacement")]
         [return: MarshalAs(UnmanagedType.Bool)]
-        internal static extern bool GetWindowPlacement([In] IntPtr hWnd, ref Tagwindowplacement lpwndpl);
+        internal static extern bool GetWindowPlacement([In] IntPtr hWnd, ref TagWindowPlacement lpwndpl);
 
         #endregion
 
@@ -232,11 +232,11 @@ namespace SmartTaskbar.Core
 
         [UnmanagedFunctionPointer(CallingConvention.StdCall)]
         [return: MarshalAs(UnmanagedType.Bool)]
-        internal delegate bool Wndenumproc(IntPtr param0, IntPtr param1);
+        internal delegate bool WndEnumProc(IntPtr param0, IntPtr param1);
 
         [DllImport("user32.dll", EntryPoint = "EnumWindows")]
         [return: MarshalAs(UnmanagedType.Bool)]
-        internal static extern bool EnumWindows(Wndenumproc lpEnumFunc, IntPtr lParam);
+        internal static extern bool EnumWindows(WndEnumProc lpEnumFunc, IntPtr lParam);
 
         #endregion
 

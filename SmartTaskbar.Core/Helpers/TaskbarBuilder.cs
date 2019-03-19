@@ -12,7 +12,7 @@ namespace SmartTaskbar.Core.Helpers
         private static IntPtr _nextTaskbar;
         private static Rectangle _rectangle;
         private static Screen _monitor;
-        private static Tagrect _tagRect;
+        private static TagRect _tagRect;
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         internal static IList<Taskbar> UpdateTaskbarList(this IList<Taskbar> taskbars)

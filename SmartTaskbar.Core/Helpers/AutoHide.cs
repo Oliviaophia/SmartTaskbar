@@ -11,7 +11,7 @@ namespace SmartTaskbar.Core.Helpers
         private const int AbsAlwaysontop = 2;
         private const uint AbmSetstate = 10;
         private const uint AbmGetstate = 4;
-        internal static Appbardata msgData = new Appbardata {cbSize = (uint) Marshal.SizeOf(typeof(Appbardata))};
+        internal static AppbarData msgData = new AppbarData {cbSize = (uint) Marshal.SizeOf(typeof(AppbarData))};
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         internal static void SetAutoHide()

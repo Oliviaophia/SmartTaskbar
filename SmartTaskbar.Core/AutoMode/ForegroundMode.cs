@@ -37,7 +37,7 @@ namespace SmartTaskbar.Core.AutoMode
             }
             else
             {
-                GetWindowRect(foregroundHandle, out Tagrect rect);
+                GetWindowRect(foregroundHandle, out TagRect rect);
                 taskbars.UpdateInersect(_ =>
                     rect.left < _.Rect.Right &&
                     rect.right > _.Rect.Left &&

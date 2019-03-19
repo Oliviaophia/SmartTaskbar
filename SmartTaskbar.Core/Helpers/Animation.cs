@@ -6,9 +6,9 @@ namespace SmartTaskbar.Core.Helpers
 {
     internal static class Animation
     {
-        private const uint SpiGetmenuanimation = 0x1002;
+        private const uint SpiGetMenuAnimation = 0x1002;
 
-        private const uint SpiSetmenuanimation = 0x1003;
+        private const uint SpiSetMenuAnimation = 0x1003;
 
         //private const uint SPIF_UPDATEINIFILE = 1;
         //private const uint SPIF_SENDWININICHANGE = 2;
@@ -23,7 +23,7 @@ namespace SmartTaskbar.Core.Helpers
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         internal static bool GetTaskbarAnimation()
         {
-            GetSystemParameters(SpiGetmenuanimation, 0, out _animation, 0);
+            GetSystemParameters(SpiGetMenuAnimation, 0, out _animation, 0);
             return _animation;
         }
 
@@ -31,7 +31,7 @@ namespace SmartTaskbar.Core.Helpers
         internal static bool ChangeTaskbarAnimation()
         {
             _animation = !_animation;
-            SetSystemParameters(SpiSetmenuanimation, 0, _animation ? (IntPtr) 1 : IntPtr.Zero, UpdateAndSend);
+            SetSystemParameters(SpiSetMenuAnimation, 0, _animation ? (IntPtr) 1 : IntPtr.Zero, UpdateAndSend);
             return _animation;
         }
     }
