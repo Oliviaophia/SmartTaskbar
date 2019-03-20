@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Runtime.CompilerServices;
 using SmartTaskbar.Core.Helpers;
-using SmartTaskbar.Core.Settings;
+using SmartTaskbar.Core.UserConfig;
 using static SmartTaskbar.Core.SafeNativeMethods;
 
 namespace SmartTaskbar.Core.AutoMode
@@ -41,7 +41,7 @@ namespace SmartTaskbar.Core.AutoMode
 
                 if (handle.IsNotMaximizeWindow()) return true;
 
-                switch (UserSettings.modeType)
+                switch (UserSettings.Get.ModeType)
                 {
                     case AutoModeType.BlacklistMode when handle.InBlacklist():
                         return true;
@@ -57,7 +57,7 @@ namespace SmartTaskbar.Core.AutoMode
             {
                 if (_tryShowBar == false) return;
                 _tryShowBar = false;
-                switch (UserSettings.modeType)
+                switch (UserSettings.Get.ModeType)
                 {
                     case AutoModeType.ClassicAutoMode:
                         AutoHide.CancelAutoHide();
@@ -70,7 +70,7 @@ namespace SmartTaskbar.Core.AutoMode
                 }
             }
 
-            switch (UserSettings.modeType)
+            switch (UserSettings.Get.ModeType)
             {
                 case AutoModeType.ClassicAutoMode:
                     AutoHide.SetAutoHide();

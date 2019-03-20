@@ -49,14 +49,14 @@
     </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
-    <Reference Include="ReactiveUI, Version=9.11.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\ReactiveUI.9.11.3\lib\net461\ReactiveUI.dll</HintPath>
+    <Reference Include="ReactiveUI, Version=9.12.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\ReactiveUI.9.12.1\lib\net461\ReactiveUI.dll</HintPath>
     </Reference>
-    <Reference Include="ReactiveUI.Winforms, Version=9.11.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\ReactiveUI.WinForms.9.11.3\lib\net461\ReactiveUI.Winforms.dll</HintPath>
+    <Reference Include="ReactiveUI.Winforms, Version=9.12.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\ReactiveUI.WinForms.9.12.1\lib\net461\ReactiveUI.Winforms.dll</HintPath>
     </Reference>
-    <Reference Include="Splat, Version=6.1.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Splat.6.1.7\lib\net461\Splat.dll</HintPath>
+    <Reference Include="Splat, Version=7.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Splat.7.0.1\lib\net461\Splat.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />

@@ -34,6 +34,9 @@
     <LangVersion>latest</LangVersion>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.12.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
@@ -62,13 +65,17 @@
     <Compile Include="Helpers\WindowVisible.cs" />
     <Compile Include="InvokeMethods.cs" />
     <Compile Include="Helpers\MouseHover.cs" />
-    <Compile Include="Settings\AutoModeType.cs" />
-    <Compile Include="Settings\TransparentModeType.cs" />
-    <Compile Include="Settings\UserSettings.cs" />
+    <Compile Include="UserConfig\AutoModeType.cs" />
+    <Compile Include="UserConfig\SettingsHelper.cs" />
+    <Compile Include="UserConfig\TransparentModeType.cs" />
+    <Compile Include="UserConfig\UserSettings.cs" />
     <Compile Include="Taskbar.cs" />
     <Compile Include="Helpers\TaskbarBuilder.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SafeNativeMethods.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
-using SmartTaskbar.Core.Settings;
+using SmartTaskbar.Core.UserConfig;
 using static SmartTaskbar.Core.SafeNativeMethods;
 
 namespace SmartTaskbar.Core.Helpers
@@ -10,11 +10,11 @@ namespace SmartTaskbar.Core.Helpers
     internal static class ProcessName
     {
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        internal static bool InBlacklist(this IntPtr handle) => handle.InList(_ => UserSettings.blacklist.Contains(_));
+        internal static bool InBlacklist(this IntPtr handle) => handle.InList(_ => UserSettings.Get.Blacklist.Contains(_));
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         internal static bool NotInWhitelist(this IntPtr handle) =>
-            handle.InList(_ => !UserSettings.whitelist.Contains(_));
+            handle.InList(_ => !UserSettings.Get.Whitelist.Contains(_));
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private static bool InList(this IntPtr handle, Func<string, bool> func)

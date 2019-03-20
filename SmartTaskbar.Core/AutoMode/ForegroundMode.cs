@@ -30,12 +30,7 @@ namespace SmartTaskbar.Core.AutoMode
 
             if (foregroundHandle.IsClassNameInvalid()) return;
 
-            if (foregroundHandle.IsMaximizeWindow())
-            {
-                var monitor = foregroundHandle.GetMonitor();
-                taskbars.UpdateInersect(_ => _.Monitor == monitor);
-            }
-            else
+            if (foregroundHandle.IsNotMaximizeWindow())
             {
                 GetWindowRect(foregroundHandle, out TagRect rect);
                 taskbars.UpdateInersect(_ =>
@@ -43,6 +38,11 @@ namespace SmartTaskbar.Core.AutoMode
                     rect.right > _.Rect.Left &&
                     rect.top < _.Rect.Bottom &&
                     rect.bottom > _.Rect.Top);
+            }
+            else
+            {
+                var monitor = foregroundHandle.GetMonitor();
+                taskbars.UpdateInersect(_ => _.Monitor == monitor);
             }
 
             taskbars.ShowTaskbarbyInersect();

@@ -1,4 +1,4 @@
-﻿namespace SmartTaskbar.Core.Settings
+﻿namespace SmartTaskbar.Core.UserConfig
 {
     public enum TransparentModeType
     {
