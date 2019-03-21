@@ -14,12 +14,10 @@ namespace SmartTaskbar
         [STAThread]
         private static void Main()
         {
-            Core.UserConfig.SettingsHelper.ReadSettings();
-
-            InvokeMethods.UpdateCache();
             IAutoMode autoMode = new ForegroundMode();
             while (true)
             {
+                InvokeMethods.UpdateCache();
                 Thread.Sleep(500);
                 autoMode.Run();
             }

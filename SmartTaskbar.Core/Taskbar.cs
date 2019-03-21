@@ -6,7 +6,8 @@ namespace SmartTaskbar.Core
 {
     internal class Taskbar
     {
-        public Taskbar(IntPtr handle) => (Handle, Monitor, Rect) = (handle, handle.GetMonitor(), handle.AdjustRect());
+        public Taskbar(IntPtr handle) => (Handle, Monitor, Rect) = handle.SetTaskbar();
+
         public IntPtr Handle { get; }
 
         public IntPtr Monitor { get; }

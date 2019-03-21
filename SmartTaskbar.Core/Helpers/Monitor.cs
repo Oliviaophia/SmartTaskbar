@@ -10,5 +10,8 @@ namespace SmartTaskbar.Core.Helpers
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         internal static IntPtr GetMonitor(this IntPtr handle) => MonitorFromWindow(handle, MonitorDefaulttonearest);
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        internal static IntPtr GetMonitor(this TagPoint point) => MonitorFromPoint(point, MonitorDefaulttonearest);
     }
 }

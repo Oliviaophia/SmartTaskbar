@@ -53,7 +53,7 @@ namespace SmartTaskbar.Core
 
         [DllImport("user32.dll", EntryPoint = "GetCursorPos")]
         [return: MarshalAs(UnmanagedType.Bool)]
-        internal static extern bool GetCursorPos(out Point lpPoint);
+        internal static extern bool GetCursorPos(out TagPoint lpPoint);
 
         #endregion
 
@@ -192,10 +192,10 @@ namespace SmartTaskbar.Core
         #region WindowFromPoint
 
         [DllImport("user32.dll", EntryPoint = "WindowFromPoint")]
-        internal static extern IntPtr WindowFromPoint(Point point);
+        internal static extern IntPtr WindowFromPoint(TagPoint point);
 
         [StructLayout(LayoutKind.Sequential)]
-        internal struct Point
+        internal struct TagPoint
         {
             public int x;
 
@@ -246,5 +246,13 @@ namespace SmartTaskbar.Core
         //internal static extern uint GetModuleFileName([In] IntPtr hProcess, [In] IntPtr hModule, [Out] [MarshalAs(UnmanagedType.LPWStr)] StringBuilder lpFilename, uint nSize);
 
         //#endregion
+
+        #region MonitorFromPoint
+
+
+        [DllImport("user32.dll", EntryPoint = "MonitorFromPoint")]
+        internal static extern IntPtr MonitorFromPoint(TagPoint pt, uint dwFlags);
+
+        #endregion
     }
 }

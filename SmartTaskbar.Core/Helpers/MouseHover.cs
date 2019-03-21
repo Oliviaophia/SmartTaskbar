@@ -15,7 +15,7 @@ namespace SmartTaskbar.Core.Helpers
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         internal static bool IsMouseOverTaskbar(this IList<Taskbar> taskbars)
         {
-            GetCursorPos(out Point point);
+            GetCursorPos(out TagPoint point);
             _currentHandle = WindowFromPoint(point);
             if (_lastHandle == _currentHandle) return _lastResult;
 

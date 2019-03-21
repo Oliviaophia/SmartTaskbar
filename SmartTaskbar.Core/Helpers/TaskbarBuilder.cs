@@ -9,59 +9,161 @@ namespace SmartTaskbar.Core.Helpers
 {
     internal static class TaskbarBuilder
     {
-        private static IntPtr _nextTaskbar;
-        private static Rectangle _rectangle;
-        private static Screen _monitor;
-        private static TagRect _tagRect;
-
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         internal static IList<Taskbar> UpdateTaskbarList(this IList<Taskbar> taskbars)
         {
             taskbars.Clear();
             taskbars.Add(new Taskbar(FindWindow("Shell_TrayWnd", null)));
 
+            var nextTaskbar = IntPtr.Zero;
             while (true)
             {
-                _nextTaskbar = FindWindowEx(IntPtr.Zero, _nextTaskbar, "Shell_SecondaryTrayWnd", "");
-                if (_nextTaskbar == IntPtr.Zero) return taskbars;
+                nextTaskbar = FindWindowEx(IntPtr.Zero, nextTaskbar, "Shell_SecondaryTrayWnd", "");
+                if (nextTaskbar == IntPtr.Zero) return taskbars;
 
-                taskbars.Add(new Taskbar(_nextTaskbar));
+                taskbars.Add(new Taskbar(nextTaskbar));
             }
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        internal static Rectangle AdjustRect(this IntPtr handle)
+        internal static (IntPtr, IntPtr, Rectangle) SetTaskbar(this IntPtr handle)
         {
-            // todo: have a bug here:
-            GetWindowRect(handle, out _tagRect);
-            _rectangle = _tagRect;
-
-            _monitor = Screen.FromHandle(handle);
-            if (_monitor.Bounds.Bottom < _rectangle.Bottom)
+            GetWindowRect(handle, out TagRect tagRect);
+            Rectangle rectangle = tagRect;
+            var monitor = Screen.FromHandle(handle);
+            // todo: need to clean up
+            if (rectangle.Width > rectangle.Height)
             {
-                _rectangle.Offset(0, _monitor.Bounds.Bottom - _rectangle.Bottom);
-                return _rectangle;
+                // bottom
+                var heightΔ = monitor.Bounds.Bottom - rectangle.Bottom;
+                if (heightΔ != 0)
+                {
+                    if (heightΔ == -2)
+                    {
+                        rectangle.Offset(0, rectangle.Height + heightΔ);
+                        return (
+                            handle,
+                            new TagPoint {x = rectangle.Left, y = rectangle.Bottom}.GetMonitor(),
+                            rectangle
+                        );
+                    }
+
+                    if (heightΔ < 0)
+                    {
+                        rectangle.Offset(0, heightΔ);
+                        return (
+                            handle,
+                            handle.GetMonitor(),
+                            rectangle
+                        );
+                    }
+
+                    if (heightΔ == monitor.Bounds.Height - rectangle.Height + 2)
+                    {
+                        rectangle.Offset(0, 2 - rectangle.Height);
+                        return (
+                            handle,
+                            new TagPoint {x = rectangle.Left, y = rectangle.Top}.GetMonitor(),
+                            rectangle
+                        );
+                    }
+                }
+
+                // top
+                heightΔ = monitor.Bounds.Top - rectangle.Top;
+                if (heightΔ == 2)
+                {
+                    rectangle.Offset(0, heightΔ - rectangle.Height);
+                    return (
+                        handle,
+                        new TagPoint {x = rectangle.Left, y = rectangle.Top}.GetMonitor(),
+                        rectangle
+                    );
+                }
+
+                if (heightΔ == 2 + rectangle.Height - monitor.Bounds.Height)
+                {
+                    rectangle.Offset(0, rectangle.Height - 2);
+                    return (
+                        handle,
+                        new TagPoint {x = rectangle.Left, y = rectangle.Bottom}.GetMonitor(),
+                        rectangle
+                    );
+                }
+
+                if (heightΔ > 0) rectangle.Offset(0, heightΔ);
+
+                return (
+                    handle,
+                    handle.GetMonitor(),
+                    rectangle
+                );
             }
 
-            if (_monitor.Bounds.Top > _rectangle.Top)
+            // left
+            var widthΔ = monitor.Bounds.Left - rectangle.Left;
+            if (widthΔ != 0)
             {
-                _rectangle.Offset(0, _monitor.Bounds.Top - _rectangle.Top);
-                return _rectangle;
+                if (widthΔ == 2)
+                {
+                    rectangle.Offset(widthΔ - rectangle.Width, 0);
+                    return (
+                        handle,
+                        new TagPoint {x = rectangle.Left, y = rectangle.Top}.GetMonitor(),
+                        rectangle
+                    );
+                }
+
+                if (widthΔ > 0)
+                {
+                    rectangle.Offset(widthΔ, 0);
+                    return (
+                        handle,
+                        handle.GetMonitor(),
+                        rectangle
+                    );
+                }
+
+                if (widthΔ == 2 + rectangle.Width - monitor.Bounds.Width)
+                {
+                    rectangle.Offset(rectangle.Width - 2, 0);
+                    return (
+                        handle,
+                        new TagPoint {x = rectangle.Right, y = rectangle.Top}.GetMonitor(),
+                        rectangle
+                    );
+                }
             }
 
-            if (_monitor.Bounds.Left > _rectangle.Left)
+            // right
+            widthΔ = monitor.Bounds.Right - rectangle.Right;
+            if (widthΔ == -2)
             {
-                _rectangle.Offset(_monitor.Bounds.Left - _rectangle.Left, 0);
-                return _rectangle;
+                rectangle.Offset(rectangle.Width + widthΔ, 0);
+                return (
+                    handle,
+                    new TagPoint {x = rectangle.Right, y = rectangle.Top}.GetMonitor(),
+                    rectangle
+                );
             }
 
-            if (_monitor.Bounds.Right < _rectangle.Right)
+            if (widthΔ == 2 + monitor.Bounds.Width - rectangle.Width)
             {
-                _rectangle.Offset(_monitor.Bounds.Right - _rectangle.Right, 0);
-                return _rectangle;
+                rectangle.Offset(2 - rectangle.Width, 0);
+                return (
+                    handle,
+                    new TagPoint {x = rectangle.Left, y = rectangle.Top}.GetMonitor(),
+                    rectangle
+                );
             }
 
-            return _rectangle;
+            if (widthΔ < 0) rectangle.Offset(widthΔ, 0);
+
+            return (
+                handle,
+                handle.GetMonitor(),
+                rectangle
+            );
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
