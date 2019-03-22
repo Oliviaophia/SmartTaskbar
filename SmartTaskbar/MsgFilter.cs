@@ -6,7 +6,11 @@ namespace SmartTaskbar
 {
     internal class MsgFilter : IMessageFilter
     {
-        /// <inheritdoc />
+        /// <summary>
+        ///     Processing messages
+        /// </summary>
+        /// <param name="m"></param>
+        /// <returns></returns>
         public bool PreFilterMessage(ref Message m)
         {
             switch (m.Msg)
