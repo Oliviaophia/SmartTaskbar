@@ -4,7 +4,6 @@ using System.Linq;
 using System.Threading;
 using System.Windows.Forms;
 using SmartTaskbar.Core;
-using SmartTaskbar.Core.AutoMode;
 using SmartTaskbar.Views;
 
 namespace SmartTaskbar
@@ -14,14 +13,6 @@ namespace SmartTaskbar
         [STAThread]
         private static void Main()
         {
-            IAutoMode autoMode = new ForegroundMode();
-            while (true)
-            {
-                InvokeMethods.UpdateCache();
-                Thread.Sleep(500);
-                autoMode.Run();
-            }
-
             // Use a mutex to ensure single instance
             using (new Mutex(true, "{959d3545-aa5c-42a8-a327-6e2c079daa94}", out bool createNew))
             {

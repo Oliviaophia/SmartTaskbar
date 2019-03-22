@@ -8,11 +8,10 @@ namespace SmartTaskbar.Views
     internal class SystemTray : ApplicationContext
     {
         private readonly ContextMenuStrip _contextMenuStrip;
-        private readonly ToolStripMenuItem _menuAutoDisplay;
-
-        private readonly ToolStripMenuItem _menuAutoSize;
-        private readonly ToolStripMenuItem _menuExit;
-        private readonly ToolStripMenuItem _menuSettings;
+        private readonly ToolStripMenuItem _autoDisplay;
+        private readonly ToolStripMenuItem _autoSize;
+        private readonly ToolStripMenuItem _exit;
+        private readonly ToolStripMenuItem _settings;
         private readonly NotifyIcon _notifyIcon;
 
 
@@ -21,24 +20,24 @@ namespace SmartTaskbar.Views
             #region Initialization
 
             var font = new Font("Segoe UI", 9F);
-            _menuSettings = new ToolStripMenuItem
+            _settings = new ToolStripMenuItem
             {
-                Text = ResourceCulture.Get.GetString(nameof(_menuSettings)),
+                Text = ResourceCulture.Get.GetString("menu_settings"),
                 Font = font
             };
-            _menuAutoDisplay = new ToolStripMenuItem
+            _autoDisplay = new ToolStripMenuItem
             {
-                Text = ResourceCulture.Get.GetString(nameof(_menuAutoDisplay)),
+                Text = ResourceCulture.Get.GetString("menu_auto_display"),
                 Font = font
             };
-            _menuAutoSize = new ToolStripMenuItem
+            _autoSize = new ToolStripMenuItem
             {
-                Text = ResourceCulture.Get.GetString(nameof(_menuAutoSize)),
+                Text = ResourceCulture.Get.GetString("menu_auto_size"),
                 Font = font
             };
-            _menuExit = new ToolStripMenuItem
+            _exit = new ToolStripMenuItem
             {
-                Text = ResourceCulture.Get.GetString(nameof(_menuExit)),
+                Text = ResourceCulture.Get.GetString("menu_exit"),
                 Font = font
             };
             _contextMenuStrip = new ContextMenuStrip
@@ -48,12 +47,12 @@ namespace SmartTaskbar.Views
 
             _contextMenuStrip.Items.AddRange(new ToolStripItem[]
             {
-                _menuSettings,
+                _settings,
                 new ToolStripSeparator(),
-                _menuAutoDisplay,
-                _menuAutoSize,
+                _autoDisplay,
+                _autoSize,
                 new ToolStripSeparator(),
-                _menuExit
+                _exit
             });
 
             _notifyIcon = new NotifyIcon
@@ -68,9 +67,9 @@ namespace SmartTaskbar.Views
 
             #region LoadEvent
 
-            _menuSettings.Click += (s, e) => SettingsView.Get.ChangeDisplayStatus();
+            _settings.Click += (s, e) => SettingsView.Get.ChangeDisplayStatus();
 
-            _menuExit.Click += (s, e) =>
+            _exit.Click += (s, e) =>
             {
                 _notifyIcon.Dispose();
                 Application.Exit();
