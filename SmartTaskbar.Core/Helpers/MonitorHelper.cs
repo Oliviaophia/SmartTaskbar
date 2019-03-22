@@ -12,6 +12,8 @@ namespace SmartTaskbar.Core.Helpers
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         internal static IntPtr GetMonitor(this IntPtr handle) => MonitorFromWindow(handle, MonitorDefaulttonearest);
 
+
+        // MonitorFromPoint will be faster than MonitorFromRect
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         internal static IntPtr GetMonitor(this Rectangle rectangle) =>
             MonitorFromPoint(new TagPoint {x = rectangle.Left, y = rectangle.Top}, MonitorDefaulttonearest);

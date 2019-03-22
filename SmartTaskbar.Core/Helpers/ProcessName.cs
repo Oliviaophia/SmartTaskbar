@@ -10,7 +10,8 @@ namespace SmartTaskbar.Core.Helpers
     internal static class ProcessName
     {
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        internal static bool InBlacklist(this IntPtr handle) => handle.InList(_ => UserSettings.Get.Blacklist.Contains(_));
+        internal static bool InBlacklist(this IntPtr handle) =>
+            handle.InList(_ => UserSettings.Get.Blacklist.Contains(_));
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         internal static bool NotInWhitelist(this IntPtr handle) =>
@@ -19,14 +20,14 @@ namespace SmartTaskbar.Core.Helpers
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private static bool InList(this IntPtr handle, Func<string, bool> func)
         {
-            if (cacheName.TryGetValue(handle, out string name)) return func(name);
+            if (nameCache.TryGetValue(handle, out string name)) return func(name);
 
             GetWindowThreadProcessId(handle, out int processId);
 
             using (var process = Process.GetProcessById(processId))
             {
                 name = process.MainModule.ModuleName;
-                cacheName.Add(handle, name);
+                nameCache.Add(handle, name);
                 return func(name);
             }
         }

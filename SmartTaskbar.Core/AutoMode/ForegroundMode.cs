@@ -9,11 +9,11 @@ namespace SmartTaskbar.Core.AutoMode
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public ForegroundMode()
         {
-            Reset();
+            Ready();
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public void Reset()
+        public void Ready()
         {
             AutoHide.SetAutoHide();
             ShowTaskbar.PostMessageHideTaskbar();

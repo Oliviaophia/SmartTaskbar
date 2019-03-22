@@ -1,5 +1,6 @@
 ﻿using System;
 using SmartTaskbar.Core.Helpers;
+using SmartTaskbar.Core.UserConfig;
 using static SmartTaskbar.Core.SafeNativeMethods;
 
 namespace SmartTaskbar.Core
@@ -18,8 +19,20 @@ namespace SmartTaskbar.Core
         public static void UpdateCache()
         {
             taskbars.UpdateTaskbarList();
-            cacheName.UpdateCacheName();
+            nameCache.UpdateCacheName();
         }
+
+        #endregion
+
+        #region Config
+
+        private static readonly Lazy<UserSettings> Instance = new Lazy<UserSettings>(() => new UserSettings());
+
+        public static UserSettings Settings => Instance.Value;
+
+        public static void GetUserConfig() => SettingsHelper.ReadSettings();
+
+        public static void SaveUserConfig() => SettingsHelper.SaveSettings();
 
         #endregion
     }

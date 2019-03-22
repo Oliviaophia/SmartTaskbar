@@ -14,11 +14,11 @@ namespace SmartTaskbar.Core.AutoMode
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public AutoMode()
         {
-            Reset();
+            Ready();
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public void Reset()
+        public void Ready()
         {
             _maxWindow = IntPtr.Zero;
             _tryShowBar = true;
@@ -29,7 +29,7 @@ namespace SmartTaskbar.Core.AutoMode
         {
             if (_maxWindow != IntPtr.Zero)
             {
-                if (_maxWindow.IsWindowInvisible() || _maxWindow.IsNotMaximizeWindow()) Reset();
+                if (_maxWindow.IsWindowInvisible() || _maxWindow.IsNotMaximizeWindow()) Ready();
                 return;
             }
 
@@ -41,7 +41,7 @@ namespace SmartTaskbar.Core.AutoMode
 
                 if (handle.IsNotMaximizeWindow()) return true;
 
-                switch (UserSettings.Get.ModeType)
+                switch (InvokeMethods.Settings.ModeType)
                 {
                     case AutoModeType.BlacklistMode when handle.InBlacklist():
                         return true;
@@ -57,7 +57,7 @@ namespace SmartTaskbar.Core.AutoMode
             {
                 if (_tryShowBar == false) return;
                 _tryShowBar = false;
-                switch (UserSettings.Get.ModeType)
+                switch (InvokeMethods.Settings.ModeType)
                 {
                     case AutoModeType.ClassicAutoMode:
                         AutoHide.CancelAutoHide();
@@ -70,7 +70,7 @@ namespace SmartTaskbar.Core.AutoMode
                 }
             }
 
-            switch (UserSettings.Get.ModeType)
+            switch (InvokeMethods.Settings.ModeType)
             {
                 case AutoModeType.ClassicAutoMode:
                     AutoHide.SetAutoHide();

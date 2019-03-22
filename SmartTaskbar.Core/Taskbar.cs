@@ -54,7 +54,7 @@ namespace SmartTaskbar.Core
                     return;
                 }
 
-                // this taskbar is on the top of this monitor (hide)
+                // this taskbar is on the top of this monitor (hide):
                 if (heightΔ == monitor.Bounds.Height - 2)
                 {
                     rectangle.Offset(0, rectangle.Height - 2);
@@ -113,7 +113,7 @@ namespace SmartTaskbar.Core
                 return;
             }
 
-            // this taskbar is on the right of this monitor (hide)
+            // this taskbar is on the right of this monitor (hide):
             if (widthΔ == monitor.Bounds.Width - 2)
             {
                 rectangle.Offset(2 - rectangle.Width, 0);

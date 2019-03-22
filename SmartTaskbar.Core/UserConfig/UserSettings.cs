@@ -1,16 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
+using SmartTaskbar.Core.Helpers;
 
 namespace SmartTaskbar.Core.UserConfig
 {
     [Serializable]
     public class UserSettings
     {
-        private static readonly Lazy<UserSettings> Instance = new Lazy<UserSettings>(() => new UserSettings());
-
-        public static UserSettings Get => Instance.Value;
-
         public AutoModeType ModeType { get; set; }
 
         public bool AutoHide { get; set; }
@@ -38,7 +35,7 @@ namespace SmartTaskbar.Core.UserConfig
             {
                 ModeType = AutoModeType.ForegroundMode;
                 AutoHide = true;
-                SmallButton = Helpers.ButtonSize.GetIconSize() == Constant.IconSmall;
+                SmallButton = ButtonSize.GetIconSize() == Constant.IconSmall;
                 Blacklist = new HashSet<string>(16);
                 Whitelist = new HashSet<string>(16);
                 TransparentType = TransparentModeType.Disabled;

@@ -4,6 +4,6 @@
     {
         void Run();
 
-        void Reset();
+        void Ready();
     }
 }

@@ -103,11 +103,18 @@ namespace SmartTaskbar.Core
 
         #endregion
 
+        #region MonitorFromPoint
+
+        [DllImport("user32.dll", EntryPoint = "MonitorFromPoint")]
+        internal static extern IntPtr MonitorFromPoint(TagPoint pt, uint dwFlags);
+
+        #endregion
+
         #region List of Value
 
         internal static List<Taskbar> taskbars = new List<Taskbar>(4);
 
-        internal static Dictionary<IntPtr, string> cacheName = new Dictionary<IntPtr, string>(64);
+        internal static Dictionary<IntPtr, string> nameCache = new Dictionary<IntPtr, string>(64);
 
         #endregion
 
@@ -215,9 +222,9 @@ namespace SmartTaskbar.Core
 
             public uint showCmd;
 
-            public System.Drawing.Point ptMinPosition;
+            public TagPoint ptMinPosition;
 
-            public System.Drawing.Point ptMaxPosition;
+            public TagPoint ptMaxPosition;
 
             public TagRect rcNormalPosition;
         }
@@ -237,21 +244,6 @@ namespace SmartTaskbar.Core
         [DllImport("user32.dll", EntryPoint = "EnumWindows")]
         [return: MarshalAs(UnmanagedType.Bool)]
         internal static extern bool EnumWindows(WndEnumProc lpEnumFunc, IntPtr lParam);
-
-        #endregion
-
-        //#region GetModuleBaseName
-
-        //[DllImport("kernel32.dll", EntryPoint = "GetModuleFileNameExW")]
-        //internal static extern uint GetModuleFileName([In] IntPtr hProcess, [In] IntPtr hModule, [Out] [MarshalAs(UnmanagedType.LPWStr)] StringBuilder lpFilename, uint nSize);
-
-        //#endregion
-
-        #region MonitorFromPoint
-
-
-        [DllImport("user32.dll", EntryPoint = "MonitorFromPoint")]
-        internal static extern IntPtr MonitorFromPoint(TagPoint pt, uint dwFlags);
 
         #endregion
     }

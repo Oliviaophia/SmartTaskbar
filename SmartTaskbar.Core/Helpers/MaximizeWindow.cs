@@ -22,7 +22,8 @@ namespace SmartTaskbar.Core.Helpers
 
             GetWindowRect(handle, out TagRect tagRect);
             var monitor = Screen.FromHandle(handle);
-            return tagRect.top != monitor.Bounds.Top || tagRect.bottom != monitor.Bounds.Bottom || tagRect.left != monitor.Bounds.Left || tagRect.right != monitor.Bounds.Right;
+            return tagRect.top != monitor.Bounds.Top || tagRect.bottom != monitor.Bounds.Bottom ||
+                   tagRect.left != monitor.Bounds.Left || tagRect.right != monitor.Bounds.Right;
         }
     }
 }
