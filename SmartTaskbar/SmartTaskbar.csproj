@@ -38,7 +38,7 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>Resources\logo_blue_128.ico</ApplicationIcon>
+    <ApplicationIcon>Resources\logo_medium.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup>
     <ApplicationManifest>app.manifest</ApplicationManifest>
@@ -138,20 +138,19 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\logo_blue_128.ico" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\logo_32.ico" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\logo_blue_32.ico" />
-  </ItemGroup>
-  <ItemGroup />
-  <ItemGroup>
     <ProjectReference Include="..\SmartTaskbar.Core\SmartTaskbar.Core.csproj">
       <Project>{4faae443-59e2-4beb-9914-8621df6326b0}</Project>
       <Name>SmartTaskbar.Core</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\logo_small.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\logo.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\logo_medium.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -21,9 +21,9 @@ namespace SmartTaskbar.Languages
             {
                 case "en-US":
                 case "zh-CN":
-                // Temporarily removed
-                //case "ru-RU":
-                //case "uk-UA":
+                    // Temporarily removed
+                    //case "ru-RU":
+                    //case "uk-UA":
                     break;
                 default:
                     Thread.CurrentThread.CurrentUICulture = _cultureInfo;

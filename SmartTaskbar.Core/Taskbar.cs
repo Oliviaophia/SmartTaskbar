@@ -72,8 +72,10 @@ namespace SmartTaskbar.Core
                     return;
                 }
 
-                // This exception may be triggered when switching the display monitor
-                throw new NotImplementedException();
+                // This may be triggered when switching the display monitor
+                Monitor = handle.GetMonitor();
+                Rect = rectangle;
+                return;
             }
 
             // this taskbar is either on the left or right:
@@ -131,8 +133,9 @@ namespace SmartTaskbar.Core
                 return;
             }
 
-            // This exception may be triggered when switching the display monitor
-            throw new NotImplementedException();
+            // This may be triggered when switching the display monitor
+            Monitor = handle.GetMonitor();
+            Rect = rectangle;
         }
 
         public IntPtr Handle { get; }

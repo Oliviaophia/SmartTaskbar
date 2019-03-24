@@ -1,6 +1,8 @@
-﻿namespace SmartTaskbar.ViewModels
+﻿using ReactiveUI;
+
+namespace SmartTaskbar.ViewModels
 {
-    public class SettingsViewModel
+    public class SettingsViewModel : ReactiveObject
     {
     }
 }

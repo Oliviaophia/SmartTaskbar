@@ -8,11 +8,9 @@ namespace SmartTaskbar.Views
     internal class SystemTray : ApplicationContext
     {
         private readonly ContextMenuStrip _contextMenuStrip;
-        private readonly ToolStripMenuItem _autoDisplay;
-        private readonly ToolStripMenuItem _autoSize;
         private readonly ToolStripMenuItem _exit;
-        private readonly ToolStripMenuItem _settings;
         private readonly NotifyIcon _notifyIcon;
+        private readonly ToolStripMenuItem _settings;
 
 
         public SystemTray()
@@ -23,16 +21,6 @@ namespace SmartTaskbar.Views
             _settings = new ToolStripMenuItem
             {
                 Text = ResourceCulture.Get.GetString("menu_settings"),
-                Font = font
-            };
-            _autoDisplay = new ToolStripMenuItem
-            {
-                Text = ResourceCulture.Get.GetString("menu_auto_display"),
-                Font = font
-            };
-            _autoSize = new ToolStripMenuItem
-            {
-                Text = ResourceCulture.Get.GetString("menu_auto_size"),
                 Font = font
             };
             _exit = new ToolStripMenuItem
@@ -49,17 +37,14 @@ namespace SmartTaskbar.Views
             {
                 _settings,
                 new ToolStripSeparator(),
-                _autoDisplay,
-                _autoSize,
-                new ToolStripSeparator(),
                 _exit
             });
 
             _notifyIcon = new NotifyIcon
             {
                 ContextMenuStrip = _contextMenuStrip,
-                Text = @"SmartTaskbar v2.0.0",
-                Icon = Resources.logo_32,
+                Text = Application.ProductName,
+                Icon = Resources.logo_small,
                 Visible = true
             };
 

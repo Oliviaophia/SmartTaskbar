@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading;
 using System.Windows.Forms;
 using SmartTaskbar.Core;
+using SmartTaskbar.Languages;
 using SmartTaskbar.Views;
 
 namespace SmartTaskbar
@@ -13,6 +14,14 @@ namespace SmartTaskbar
         [STAThread]
         private static void Main()
         {
+            if (Environment.OSVersion.Version.Major < 10)
+            {
+                MessageBox.Show(ResourceCulture.Get.GetString("warning_notSupport"), ResourceCulture.Get.GetString(
+                        "warning_error"), MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
+                return;
+            }
+
             // Use a mutex to ensure single instance
             using (new Mutex(true, "{959d3545-aa5c-42a8-a327-6e2c079daa94}", out bool createNew))
             {

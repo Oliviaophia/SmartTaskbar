@@ -138,4 +138,10 @@
   <data name="smallIcon" xml:space="preserve">
     <value>Small Buttons</value>
   </data>
+  <data name="warning_error" xml:space="preserve">
+    <value>Error</value>
+  </data>
+  <data name="warning_notSupport" xml:space="preserve">
+    <value>SmartTaskbar only supports Windows 10 now. Please update the operating system or use the old version (v1.1.9).</value>
+  </data>
 </root>

@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Windows.Forms;
+using ReactiveUI;
+using SmartTaskbar.ViewModels;
 
 namespace SmartTaskbar.Views
 {
-    public partial class SettingsView : Form
+    public partial class SettingsView : Form, IViewFor<SettingsViewModel>
     {
         private static readonly Lazy<SettingsView> Instance = new Lazy<SettingsView>(() => new SettingsView());
 
@@ -20,6 +22,14 @@ namespace SmartTaskbar.Views
         }
 
         internal static SettingsView Get => Instance.Value;
+
+        public SettingsViewModel ViewModel { get; set; }
+
+        object IViewFor.ViewModel
+        {
+            get => ViewModel;
+            set => ViewModel = (SettingsViewModel) value;
+        }
 
         internal void ShowView() => Visible = true;
 

@@ -138,4 +138,10 @@
   <data name="smallIcon" xml:space="preserve">
     <value>小按钮</value>
   </data>
+  <data name="warning_error" xml:space="preserve">
+    <value>错误</value>
+  </data>
+  <data name="warning_notSupport" xml:space="preserve">
+    <value>SmartTaskbar当前版本仅支持Windows 10, 请更新操作系统或使用旧版本(v1.1.9)</value>
+  </data>
 </root>
