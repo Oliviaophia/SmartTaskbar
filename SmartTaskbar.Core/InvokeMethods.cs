@@ -7,6 +7,17 @@ namespace SmartTaskbar.Core
 {
     public static class InvokeMethods
     {
+        #region ctor
+
+        public static void Initialization()
+        {
+            UpdateCache();
+            GetUserConfig();
+            SaveUserConfig();
+        }
+
+        #endregion
+
         #region PostThreadMessage
 
         public static void BringOutSettingsWindow(int id) =>

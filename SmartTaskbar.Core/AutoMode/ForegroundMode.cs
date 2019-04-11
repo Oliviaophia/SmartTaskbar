@@ -15,8 +15,7 @@ namespace SmartTaskbar.Core.AutoMode
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void Ready()
         {
-            AutoHide.SetAutoHide();
-            ShowTaskbar.PostMessageHideTaskbar();
+            if (AutoHide.NotAutoHide()) AutoHide.SetAutoHide();
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]

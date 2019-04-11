@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace AutoModeTest.Properties
+namespace SmartTaskbar.UI.Properties
 {
 
 

@@ -3,9 +3,6 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading;
 using System.Windows.Forms;
-using SmartTaskbar.Core;
-using SmartTaskbar.Languages;
-using SmartTaskbar.Views;
 
 namespace SmartTaskbar
 {
@@ -14,14 +11,6 @@ namespace SmartTaskbar
         [STAThread]
         private static void Main()
         {
-            if (Environment.OSVersion.Version.Major < 10)
-            {
-                MessageBox.Show(ResourceCulture.Get.GetString("warning_notSupport"), ResourceCulture.Get.GetString(
-                        "warning_error"), MessageBoxButtons.OK,
-                    MessageBoxIcon.Error);
-                return;
-            }
-
             // Use a mutex to ensure single instance
             using (new Mutex(true, "{959d3545-aa5c-42a8-a327-6e2c079daa94}", out bool createNew))
             {
@@ -31,7 +20,7 @@ namespace SmartTaskbar
                     Application.EnableVisualStyles();
                     Application.SetCompatibleTextRenderingDefault(false);
                     // Start a tray instead of a WinForm to reduce memory usage
-                    Application.Run(new SystemTray());
+                    Application.Run(new TaskbarController());
                 }
 
                 // Show the settings window if an instance already exists
@@ -39,7 +28,7 @@ namespace SmartTaskbar
                     .FirstOrDefault(_ => _.Threads[0].Id != Process.GetCurrentProcess().Threads[0].Id);
                 if (process is null) return;
 
-                InvokeMethods.BringOutSettingsWindow(process.Threads[0].Id);
+                //InvokeMethods.BringOutSettingsWindow(process.Threads[0].Id);
             }
         }
     }

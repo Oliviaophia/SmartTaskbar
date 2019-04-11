@@ -4,11 +4,11 @@ using System.Runtime.InteropServices;
 // 有关程序集的一般信息由以下
 // 控制。更改这些特性值可修改
 // 与程序集关联的信息。
-[assembly: AssemblyTitle("SmartTaskbar.Core")]
+[assembly: AssemblyTitle("SmartTaskbar.Hook")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Chanple")]
-[assembly: AssemblyProduct("SmartTaskbar.Core")]
+[assembly: AssemblyProduct("SmartTaskbar.Hook")]
 [assembly: AssemblyCopyright("Copyright ©  2018-2019 ChanpleCai")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -19,7 +19,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // 如果此项目向 COM 公开，则下列 GUID 用于类型库的 ID
-[assembly: Guid("e363cfbd-35ba-4354-9e34-eada7ab794cb")]
+[assembly: Guid("b0836298-d5be-465f-ab66-fb966f8ad987")]
 
 // 程序集的版本信息由下列四个值组成: 
 //

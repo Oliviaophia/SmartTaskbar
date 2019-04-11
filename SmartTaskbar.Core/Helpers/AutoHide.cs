@@ -11,24 +11,24 @@ namespace SmartTaskbar.Core.Helpers
         private const int AbsAlwaysontop = 2;
         private const uint AbmSetstate = 10;
         private const uint AbmGetstate = 4;
-        internal static AppbarData msgData = new AppbarData {cbSize = (uint) Marshal.SizeOf(typeof(AppbarData))};
+        private static AppbarData _msgData = new AppbarData {cbSize = (uint) Marshal.SizeOf(typeof(AppbarData))};
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         internal static void SetAutoHide()
         {
-            msgData.lParam = AbsAutohide;
-            SHAppBarMessage(AbmSetstate, ref msgData);
+            _msgData.lParam = AbsAutohide;
+            SHAppBarMessage(AbmSetstate, ref _msgData);
             ShowTaskbar.PostMessageHideTaskbar();
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         internal static void CancelAutoHide()
         {
-            msgData.lParam = AbsAlwaysontop;
-            SHAppBarMessage(AbmSetstate, ref msgData);
+            _msgData.lParam = AbsAlwaysontop;
+            SHAppBarMessage(AbmSetstate, ref _msgData);
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        internal static bool IsAutoHide() => SHAppBarMessage(AbmGetstate, ref msgData) == (IntPtr) 1;
+        internal static bool NotAutoHide() => SHAppBarMessage(AbmGetstate, ref _msgData) == IntPtr.Zero;
     }
 }

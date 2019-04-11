@@ -10,7 +10,7 @@ namespace SmartTaskbar.Core.UserConfig
     {
         public AutoModeType ModeType { get; set; }
 
-        public bool AutoHide { get; set; }
+        public bool AutoHide => ModeType != AutoModeType.Disabled;
 
         public bool SmallButton { get; set; }
 
@@ -29,12 +29,11 @@ namespace SmartTaskbar.Core.UserConfig
         public bool DisabledOnTabletMode { get; set; }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public void UpdateSettings(UserSettings settings)
+        public void GetSettings(UserSettings settings)
         {
             if (settings is null)
             {
                 ModeType = AutoModeType.ForegroundMode;
-                AutoHide = true;
                 SmallButton = ButtonSize.GetIconSize() == Constant.IconSmall;
                 Blacklist = new HashSet<string>(16);
                 Whitelist = new HashSet<string>(16);
@@ -42,19 +41,19 @@ namespace SmartTaskbar.Core.UserConfig
                 HideTaskbarCompletely = false;
                 CenteredIcon = false;
                 DisabledOnTabletMode = false;
-                return;
             }
-
-            ModeType = settings.ModeType;
-            AutoHide = settings.AutoHide;
-            SmallButton = settings.SmallButton;
-            Blacklist = settings.Blacklist;
-            Whitelist = settings.Whitelist;
-            TransparentType = settings.TransparentType;
-            HideTaskbarCompletely = settings.HideTaskbarCompletely;
-            Language = settings.Language;
-            CenteredIcon = settings.CenteredIcon;
-            DisabledOnTabletMode = settings.DisabledOnTabletMode;
+            else
+            {
+                ModeType = settings.ModeType;
+                SmallButton = settings.SmallButton;
+                Blacklist = settings.Blacklist;
+                Whitelist = settings.Whitelist;
+                TransparentType = settings.TransparentType;
+                HideTaskbarCompletely = settings.HideTaskbarCompletely;
+                Language = settings.Language;
+                CenteredIcon = settings.CenteredIcon;
+                DisabledOnTabletMode = settings.DisabledOnTabletMode;
+            }
         }
     }
 }

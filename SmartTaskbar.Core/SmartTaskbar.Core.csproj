@@ -4,7 +4,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{4FAAE443-59E2-4BEB-9914-8621DF6326B0}</ProjectGuid>
+    <ProjectGuid>{E363CFBD-35BA-4354-9E34-EADA7AB794CB}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>SmartTaskbar.Core</RootNamespace>
@@ -21,17 +21,14 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <LangVersion>latest</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>
-    </DefineConstants>
+    <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <LangVersion>latest</LangVersion>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
@@ -49,9 +46,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AutoMode\AutoMode.cs" />
+    <Compile Include="AutoMode\DumbMode.cs" />
     <Compile Include="AutoMode\ForegroundMode.cs" />
     <Compile Include="AutoMode\IAutoMode.cs" />
-    <Compile Include="AutoMode\AutoMode.cs" />
     <Compile Include="Constant.cs" />
     <Compile Include="Helpers\Animation.cs" />
     <Compile Include="Helpers\AutoHide.cs" />
@@ -59,20 +57,20 @@
     <Compile Include="Helpers\ClassName.cs" />
     <Compile Include="Helpers\MaximizeWindow.cs" />
     <Compile Include="Helpers\MonitorHelper.cs" />
+    <Compile Include="Helpers\MouseHover.cs" />
     <Compile Include="Helpers\ParentWindow.cs" />
     <Compile Include="Helpers\ProcessName.cs" />
     <Compile Include="Helpers\ShowTaskbar.cs" />
+    <Compile Include="Helpers\TaskbarBuilder.cs" />
     <Compile Include="Helpers\WindowVisible.cs" />
     <Compile Include="InvokeMethods.cs" />
-    <Compile Include="Helpers\MouseHover.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SafeNativeMethods.cs" />
+    <Compile Include="Taskbar.cs" />
     <Compile Include="UserConfig\AutoModeType.cs" />
     <Compile Include="UserConfig\SettingsHelper.cs" />
     <Compile Include="UserConfig\TransparentModeType.cs" />
     <Compile Include="UserConfig\UserSettings.cs" />
-    <Compile Include="Taskbar.cs" />
-    <Compile Include="Helpers\TaskbarBuilder.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SafeNativeMethods.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

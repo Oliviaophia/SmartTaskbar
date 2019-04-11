@@ -36,7 +36,7 @@ namespace SmartTaskbar.Core.UserConfig
                 {
                     using (var jr = new JsonTextReader(sr))
                     {
-                        InvokeMethods.Settings.UpdateSettings(Serializer.Deserialize<UserSettings>(jr));
+                        InvokeMethods.Settings.GetSettings(Serializer.Deserialize<UserSettings>(jr));
                     }
                 }
             }
