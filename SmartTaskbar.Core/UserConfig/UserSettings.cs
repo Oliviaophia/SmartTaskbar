@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Runtime.CompilerServices;
 using SmartTaskbar.Core.Helpers;
 
 namespace SmartTaskbar.Core.UserConfig
@@ -8,52 +7,84 @@ namespace SmartTaskbar.Core.UserConfig
     [Serializable]
     public class UserSettings
     {
+        /// <summary>
+        ///     Taskbar default state
+        /// </summary>
+        public TaskbarState DefaultState { get; set; }
+
+        /// <summary>
+        ///     Taskbar Auto Mode Type
+        /// </summary>
         public AutoModeType ModeType { get; set; }
 
-        public bool AutoHide => ModeType != AutoModeType.Disabled;
+        /// <summary>
+        ///     Is Taskbar in Auto Mode
+        /// </summary>
+        public bool InAutoMode => ModeType != AutoModeType.Disabled;
 
-        public bool SmallButton { get; set; }
-
+        /// <summary>
+        ///     Application blacklist
+        /// </summary>
         public HashSet<string> Blacklist { get; set; }
 
+        /// <summary>
+        ///     Default Taskbar state in blacklist mode
+        /// </summary>
+        public TaskbarState BlistDefaultState { get; set; }
+
+        /// <summary>
+        ///     Target Taskbar state in blacklist mode
+        /// </summary>
+        public TaskbarState BlistTargetState { get; set; }
+
+        /// <summary>
+        ///     Application whitelist
+        /// </summary>
         public HashSet<string> Whitelist { get; set; }
 
+        /// <summary>
+        ///     Default Taskbar state in whitelist mode
+        /// </summary>
+        public TaskbarState WlistDefaultState { get; set; }
+
+        /// <summary>
+        ///     Target Taskbar state in whitelist mode
+        /// </summary>
+        public TaskbarState WlistTargetState { get; set; }
+
+        /// <summary>
+        ///     Taskbar Transparent Type
+        /// </summary>
         public TransparentModeType TransparentType { get; set; }
 
+        /// <summary>
+        ///     Is Taskbars in Transparent Mode
+        /// </summary>
+        public bool InTransparentMode => TransparentType != TransparentModeType.Disabled;
+
+        /// <summary>
+        ///     Is Taskbars using small Icon Button
+        /// </summary>
+        public bool IsSmallButton => ButtonSize.GetIconSize() == Constant.IconSmall;
+
+        /// <summary>
+        ///     Whether to completely hide the taskbar when hiding taskbar
+        /// </summary>
         public bool HideTaskbarCompletely { get; set; }
 
-        public string Language { get; set; }
-
+        /// <summary>
+        ///     Centered display taskbar button
+        /// </summary>
         public bool CenteredIcon { get; set; }
 
+        /// <summary>
+        ///     reset taskbar state to default in tablet mode
+        /// </summary>
         public bool DisabledOnTabletMode { get; set; }
 
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public void GetSettings(UserSettings settings)
-        {
-            if (settings is null)
-            {
-                ModeType = AutoModeType.ForegroundMode;
-                SmallButton = ButtonSize.GetIconSize() == Constant.IconSmall;
-                Blacklist = new HashSet<string>(16);
-                Whitelist = new HashSet<string>(16);
-                TransparentType = TransparentModeType.Disabled;
-                HideTaskbarCompletely = false;
-                CenteredIcon = false;
-                DisabledOnTabletMode = false;
-            }
-            else
-            {
-                ModeType = settings.ModeType;
-                SmallButton = settings.SmallButton;
-                Blacklist = settings.Blacklist;
-                Whitelist = settings.Whitelist;
-                TransparentType = settings.TransparentType;
-                HideTaskbarCompletely = settings.HideTaskbarCompletely;
-                Language = settings.Language;
-                CenteredIcon = settings.CenteredIcon;
-                DisabledOnTabletMode = settings.DisabledOnTabletMode;
-            }
-        }
+        /// <summary>
+        ///     Display Language
+        /// </summary>
+        public string Language { get; set; }
     }
 }

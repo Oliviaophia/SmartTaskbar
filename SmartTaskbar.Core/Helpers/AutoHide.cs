@@ -18,8 +18,22 @@ namespace SmartTaskbar.Core.Helpers
         {
             _msgData.lParam = AbsAutohide;
             SHAppBarMessage(AbmSetstate, ref _msgData);
-            ShowTaskbar.PostMessageHideTaskbar();
+            ShowBar.PostMessageHideBar();
         }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        internal static void SetAutoHide(bool isAutoHide)
+        {
+            if (isAutoHide)
+            {
+                SetAutoHide();
+            }
+            else
+            {
+                CancelAutoHide();
+            }
+        }
+
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         internal static void CancelAutoHide()

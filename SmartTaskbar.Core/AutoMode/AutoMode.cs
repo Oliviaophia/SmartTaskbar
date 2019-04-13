@@ -3,6 +3,7 @@ using System.Runtime.CompilerServices;
 using SmartTaskbar.Core.Helpers;
 using SmartTaskbar.Core.UserConfig;
 using static SmartTaskbar.Core.SafeNativeMethods;
+using static SmartTaskbar.Core.InvokeMethods;
 
 namespace SmartTaskbar.Core.AutoMode
 {
@@ -33,7 +34,7 @@ namespace SmartTaskbar.Core.AutoMode
                 return;
             }
 
-            if (taskbars.IsMouseOverTaskbar()) return;
+            if (Variable.taskbars.IsMouseOverTaskbar()) return;
 
             EnumWindows((handle, lp) =>
             {
@@ -41,7 +42,7 @@ namespace SmartTaskbar.Core.AutoMode
 
                 if (handle.IsNotMaximizeWindow()) return true;
 
-                switch (InvokeMethods.Settings.ModeType)
+                switch (lp)
                 {
                     case AutoModeType.BlacklistMode when handle.InBlacklist():
                         return true;
@@ -51,33 +52,45 @@ namespace SmartTaskbar.Core.AutoMode
                         _maxWindow = handle;
                         return false;
                 }
-            }, IntPtr.Zero);
+            }, Settings.ModeType);
 
             if (_maxWindow == IntPtr.Zero)
             {
                 if (_tryShowBar == false) return;
                 _tryShowBar = false;
-                switch (InvokeMethods.Settings.ModeType)
+                switch (Settings.ModeType)
                 {
                     case AutoModeType.ClassicAutoMode:
                         AutoHide.CancelAutoHide();
                         return;
                     case AutoModeType.ClassicAdaptiveMode:
-                        ButtonSize.SetIconSize(Constant.Iconlarge);
+                        ButtonSize.SetIconSize(Constant.IconLarge);
+                        return;
+                    case AutoModeType.BlacklistMode:
+                        Settings.BlistDefaultState.SetState();
+                        return;
+                    case AutoModeType.WhitelistMode:
+                        Settings.WlistDefaultState.SetState();
                         return;
                     default:
                         return;
                 }
             }
 
-            switch (InvokeMethods.Settings.ModeType)
+            switch (Settings.ModeType)
             {
                 case AutoModeType.ClassicAutoMode:
                     AutoHide.SetAutoHide();
                     return;
                 case AutoModeType.ClassicAdaptiveMode:
                     ButtonSize.SetIconSize(Constant.IconSmall);
-                    break;
+                    return;
+                case AutoModeType.BlacklistMode:
+                    Settings.BlistTargetState.SetState();
+                    return;
+                case AutoModeType.WhitelistMode:
+                    Settings.WlistTargetState.SetState();
+                    return;
             }
         }
     }

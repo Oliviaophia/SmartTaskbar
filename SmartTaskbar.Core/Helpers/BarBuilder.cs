@@ -5,7 +5,7 @@ using static SmartTaskbar.Core.SafeNativeMethods;
 
 namespace SmartTaskbar.Core.Helpers
 {
-    internal static class TaskbarBuilder
+    internal static class BarBuilder
     {
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         internal static IList<Taskbar> UpdateTaskbarList(this IList<Taskbar> taskbars)
@@ -38,11 +38,11 @@ namespace SmartTaskbar.Core.Helpers
             {
                 if (taskbar.Intersect) continue;
 
-                taskbar.Monitor.PostMesssageShowTaskbar();
+                taskbar.Monitor.PostMesssageShowBar();
                 return;
             }
 
-            ShowTaskbar.PostMessageHideTaskbar();
+            ShowBar.PostMessageHideBar();
         }
     }
 }

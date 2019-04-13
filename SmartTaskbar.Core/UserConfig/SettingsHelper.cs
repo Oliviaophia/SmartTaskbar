@@ -1,7 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Runtime.CompilerServices;
 using Newtonsoft.Json;
+using SmartTaskbar.Core.Helpers;
+using static SmartTaskbar.Core.InvokeMethods;
 
 namespace SmartTaskbar.Core.UserConfig
 {
@@ -21,7 +24,7 @@ namespace SmartTaskbar.Core.UserConfig
             {
                 using (StreamWriter sw = new StreamWriter(fs))
                 {
-                    Serializer.Serialize(sw, InvokeMethods.Settings);
+                    Serializer.Serialize(sw, Settings);
                 }
             }
         }
@@ -36,13 +39,49 @@ namespace SmartTaskbar.Core.UserConfig
                 {
                     using (var jr = new JsonTextReader(sr))
                     {
-                        InvokeMethods.Settings.GetSettings(Serializer.Deserialize<UserSettings>(jr));
+                        GetSettings(Serializer.Deserialize<UserSettings>(jr));
                     }
                 }
             }
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private static void DirectoryBuilder() => Directory.CreateDirectory(Path.GetDirectoryName(SettingPath));
+        private static void DirectoryBuilder() => Directory.CreateDirectory(Path.GetDirectoryName(SettingPath) ?? throw new InvalidOperationException());
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        private static void GetSettings(UserSettings settings)
+        {
+            if (settings is null)
+            {
+                Settings.DefaultState = BarState.GetDefault();
+                Settings.ModeType = AutoModeType.ForegroundMode;
+                Settings.Blacklist = new HashSet<string>(16);
+                Settings.BlistDefaultState = BarState.GetDefault();
+                Settings.BlistTargetState = BarState.GetDefault();
+                Settings.Whitelist = new HashSet<string>(16);
+                Settings.WlistDefaultState = BarState.GetDefault();
+                Settings.WlistTargetState = BarState.GetDefault();
+                Settings.TransparentType = TransparentModeType.Disabled;
+                Settings.HideTaskbarCompletely = false;
+                Settings.CenteredIcon = false;
+                Settings.DisabledOnTabletMode = false;
+            }
+            else
+            {
+                Settings.DefaultState = settings.DefaultState ?? BarState.GetDefault();
+                Settings.ModeType = settings.ModeType;
+                Settings.Blacklist = settings.Blacklist ?? new HashSet<string>(16);
+                Settings.BlistTargetState = settings.BlistTargetState ?? BarState.GetDefault();
+                Settings.BlistDefaultState = settings.WlistDefaultState ?? BarState.GetDefault();
+                Settings.Whitelist = settings.Whitelist ?? new HashSet<string>(16);
+                Settings.WlistDefaultState = settings.WlistDefaultState ?? BarState.GetDefault();
+                Settings.WlistTargetState = settings.WlistTargetState ?? BarState.GetDefault();
+                Settings.TransparentType = settings.TransparentType;
+                Settings.HideTaskbarCompletely = settings.HideTaskbarCompletely;
+                Settings.Language = settings.Language;
+                Settings.CenteredIcon = settings.CenteredIcon;
+                Settings.DisabledOnTabletMode = settings.DisabledOnTabletMode;
+            }
+        }
     }
 }

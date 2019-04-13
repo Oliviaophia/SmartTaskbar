@@ -19,14 +19,14 @@ namespace SmartTaskbar.Core.Helpers
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private static bool InList(this IntPtr handle, Func<string, bool> func)
         {
-            if (nameCache.TryGetValue(handle, out string name)) return func(name);
+            if (Variable.nameCache.TryGetValue(handle, out string name)) return func(name);
 
             GetWindowThreadProcessId(handle, out int processId);
 
             using (var process = Process.GetProcessById(processId))
             {
                 name = process.MainModule.ModuleName;
-                nameCache.Add(handle, name);
+                Variable.nameCache.Add(handle, name);
                 return func(name);
             }
         }

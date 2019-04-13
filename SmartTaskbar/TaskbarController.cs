@@ -1,9 +1,9 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Windows.Forms;
-using SmartTaskbar.Core;
 using SmartTaskbar.Core.AutoMode;
 using SmartTaskbar.Core.UserConfig;
+using static SmartTaskbar.Core.InvokeMethods;
 
 namespace SmartTaskbar
 {
@@ -18,10 +18,10 @@ namespace SmartTaskbar
         public TaskbarController()
         {
             // Initialize the native method.
-            InvokeMethods.Initialization();
+            Initialization();
 
             // Load AutoMode as fast as possible.
-            switch (InvokeMethods.Settings.ModeType)
+            switch (Settings.ModeType)
             {
                 case AutoModeType.Disabled:
                     _autoMode = new DumbMode();
@@ -52,7 +52,7 @@ namespace SmartTaskbar
         {
             ++_count;
             // Run AutoMode If Enable
-            if (InvokeMethods.Settings.AutoHide) _autoMode.Run();
+            if (Settings.InAutoMode) _autoMode.Run();
 
             // Reset AutoMode each 10+ second.
             if (_count % 27 == 0) _autoMode.Ready();
@@ -60,7 +60,7 @@ namespace SmartTaskbar
             // Update Taskbar each 10 minute.
             if (_count % 1600 == 0)
             {
-                InvokeMethods.UpdateCache();
+                UpdateCache();
                 _count = 0;
             }
         }

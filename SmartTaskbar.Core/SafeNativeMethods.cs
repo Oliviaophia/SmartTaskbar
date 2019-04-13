@@ -4,6 +4,7 @@ using System.Drawing;
 using System.Runtime.InteropServices;
 using System.Security;
 using System.Text;
+using SmartTaskbar.Core.UserConfig;
 
 namespace SmartTaskbar.Core
 {
@@ -107,14 +108,6 @@ namespace SmartTaskbar.Core
 
         [DllImport("user32.dll", EntryPoint = "MonitorFromPoint")]
         internal static extern IntPtr MonitorFromPoint(TagPoint pt, uint dwFlags);
-
-        #endregion
-
-        #region List of Value
-
-        internal static List<Taskbar> taskbars = new List<Taskbar>(4);
-
-        internal static Dictionary<IntPtr, string> nameCache = new Dictionary<IntPtr, string>(64);
 
         #endregion
 
@@ -239,11 +232,11 @@ namespace SmartTaskbar.Core
 
         [UnmanagedFunctionPointer(CallingConvention.StdCall)]
         [return: MarshalAs(UnmanagedType.Bool)]
-        internal delegate bool WndEnumProc(IntPtr param0, IntPtr param1);
+        internal delegate bool WndEnumProc(IntPtr param0, AutoModeType param1);
 
         [DllImport("user32.dll", EntryPoint = "EnumWindows")]
         [return: MarshalAs(UnmanagedType.Bool)]
-        internal static extern bool EnumWindows(WndEnumProc lpEnumFunc, IntPtr lParam);
+        internal static extern bool EnumWindows(WndEnumProc lpEnumFunc, AutoModeType lParam);
 
         #endregion
     }
