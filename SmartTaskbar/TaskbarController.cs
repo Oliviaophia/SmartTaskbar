@@ -1,10 +1,10 @@
 ﻿using System;
 using System.ComponentModel;
-using System.Timers;
 using System.Windows.Forms;
 using SmartTaskbar.Core.AutoMode;
 using SmartTaskbar.Core.UserConfig;
 using static SmartTaskbar.Core.InvokeMethods;
+using Timer = System.Timers.Timer;
 
 namespace SmartTaskbar
 {
