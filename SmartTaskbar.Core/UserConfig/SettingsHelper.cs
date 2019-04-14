@@ -63,7 +63,6 @@ namespace SmartTaskbar.Core.UserConfig
                 Settings.WlistTargetState = BarState.GetDefault();
                 Settings.TransparentType = TransparentModeType.Disabled;
                 Settings.HideTaskbarCompletely = false;
-                Settings.CenteredIcon = false;
                 Settings.DisabledOnTabletMode = false;
             }
             else
@@ -79,7 +78,6 @@ namespace SmartTaskbar.Core.UserConfig
                 Settings.TransparentType = settings.TransparentType;
                 Settings.HideTaskbarCompletely = settings.HideTaskbarCompletely;
                 Settings.Language = settings.Language;
-                Settings.CenteredIcon = settings.CenteredIcon;
                 Settings.DisabledOnTabletMode = settings.DisabledOnTabletMode;
             }
         }

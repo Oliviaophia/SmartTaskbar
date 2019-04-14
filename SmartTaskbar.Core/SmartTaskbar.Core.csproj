@@ -63,6 +63,7 @@
     <Compile Include="Helpers\ShowBar.cs" />
     <Compile Include="Helpers\BarBuilder.cs" />
     <Compile Include="Helpers\BarState.cs" />
+    <Compile Include="Helpers\Transparent.cs" />
     <Compile Include="Helpers\WindowVisible.cs" />
     <Compile Include="InvokeMethods.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -73,11 +73,6 @@ namespace SmartTaskbar.Core.UserConfig
         public bool HideTaskbarCompletely { get; set; }
 
         /// <summary>
-        ///     Centered display taskbar button
-        /// </summary>
-        public bool CenteredIcon { get; set; }
-
-        /// <summary>
         ///     reset taskbar state to default in tablet mode
         /// </summary>
         public bool DisabledOnTabletMode { get; set; }

@@ -239,5 +239,29 @@ namespace SmartTaskbar.Core
         internal static extern bool EnumWindows(WndEnumProc lpEnumFunc, AutoModeType lParam);
 
         #endregion
+
+        #region SetWindowCompositionAttribute
+
+        [DllImport("user32.dll")]
+        internal static extern int SetWindowCompositionAttribute(IntPtr hwnd, ref WindowCompositionAttributeData data);
+
+        [StructLayout(LayoutKind.Sequential)]
+        internal struct AccentPolicy
+        {
+            public int AccentState;
+            public int AccentFlags;
+            public int GradientColor;
+            public int AnimationId;
+        }
+
+        [StructLayout(LayoutKind.Sequential)]
+        internal struct WindowCompositionAttributeData
+        {
+            public int Attribute;
+            public IntPtr Data;
+            public int SizeOfData;
+        }
+
+        #endregion
     }
 }

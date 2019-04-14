@@ -54,6 +54,8 @@ namespace SmartTaskbar
             // Run AutoMode If Enable
             if (Settings.InAutoMode) _autoMode.Run();
 
+            if (Settings.InTransparentMode) SetTransparent();
+
             // Reset AutoMode each 10+ second.
             if (_count % 27 == 0) _autoMode.Ready();
 

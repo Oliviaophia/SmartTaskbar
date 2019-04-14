@@ -1,0 +1,72 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Runtime.CompilerServices;
+using System.Runtime.InteropServices;
+using SmartTaskbar.Core.UserConfig;
+using static SmartTaskbar.Core.InvokeMethods;
+using static SmartTaskbar.Core.SafeNativeMethods;
+
+namespace SmartTaskbar.Core.Helpers
+{
+    internal static class Transparent
+    {
+        // Broadcast to every window following a theme change event.
+        // Examples of theme change events are the activation of a theme,
+        // the deactivation of a theme, or a transition from one theme to another.
+        private const int WmThemechanged = 0x031A;
+        private static IntPtr _accentPtr;
+        private static WindowCompositionAttributeData _data;
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        internal static void TransparentBar(this List<Taskbar> taskbars)
+        {
+            if (_accentPtr == IntPtr.Zero)
+            {
+                _accentPtr = Marshal.AllocHGlobal(Marshal.SizeOf(typeof(AccentPolicy)));
+                _data = new WindowCompositionAttributeData
+                {
+                    Attribute = 19,
+                    SizeOfData = Marshal.SizeOf(typeof(AccentPolicy)),
+                    Data = _accentPtr
+                };
+            }
+
+            AccentPolicy accent;
+            switch (Settings.TransparentType)
+            {
+                case TransparentModeType.Disabled:
+                    PostMessage(IntPtr.Zero, WmThemechanged, IntPtr.Zero, IntPtr.Zero);
+                    Free();
+                    return;
+                case TransparentModeType.Transparent:
+                    accent = new AccentPolicy
+                    {
+                        AccentState = 3,
+                        AccentFlags = 0x100
+                    };
+                    break;
+                case TransparentModeType.Blur:
+                    accent = new AccentPolicy
+                    {
+                        AccentState = 2,
+                        AccentFlags = 2,
+                        GradientColor = 0
+                    };
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+
+            Marshal.StructureToPtr(accent, _accentPtr, false);
+
+            foreach (var taskbar in taskbars) SetWindowCompositionAttribute(taskbar.Handle, ref _data);
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        internal static void Free()
+        {
+            Marshal.FreeHGlobal(_accentPtr);
+            _accentPtr = IntPtr.Zero;
+        }
+    }
+}
