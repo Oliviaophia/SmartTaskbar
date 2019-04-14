@@ -2,6 +2,7 @@
 
 namespace SmartTaskbar.Core.AutoMode
 {
+#if DEBUG
     public class DumbMode : IAutoMode
     {
         public void Run()
@@ -14,4 +15,6 @@ namespace SmartTaskbar.Core.AutoMode
             throw new NotImplementedException();
         }
     }
+#endif
+
 }

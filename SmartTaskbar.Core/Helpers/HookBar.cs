@@ -29,15 +29,23 @@ namespace SmartTaskbar.Core.Helpers
             if (explorer.Id == _targetPid) return;
 
             _targetPid = explorer.Id;
+            try
+            {
+                RemoteHooking.IpcCreateServer<ServerInterface>(ref _channelName, WellKnownObjectMode.Singleton);
 
-            RemoteHooking.IpcCreateServer<ServerInterface>(ref _channelName, WellKnownObjectMode.Singleton);
+                RemoteHooking.Inject(
+                    _targetPid,
+                    InjectionLibrary,
+                    InjectionLibrary,
+                    _channelName
+                );
+            }
+            catch (Exception e)
+            {
+                // todo
+                throw;
+            }
 
-            RemoteHooking.Inject(
-                _targetPid,
-                InjectionLibrary,
-                InjectionLibrary,
-                _channelName
-            );
         }
     }
 }

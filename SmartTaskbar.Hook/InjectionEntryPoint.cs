@@ -13,16 +13,7 @@ namespace SmartTaskbar.Hook
         public InjectionEntryPoint(RemoteHooking.IContext context,
             string channelName)
         {
-            try
-            {
-                _server = RemoteHooking.IpcConnectClient<ServerInterface>(channelName);
-
-                _server.Ping();
-            }
-            catch
-            {
-                // do nothing
-            }
+            _server = RemoteHooking.IpcConnectClient<ServerInterface>(channelName);
         }
 
         public void Run(RemoteHooking.IContext context,
@@ -43,13 +34,11 @@ namespace SmartTaskbar.Hook
                     _server.Ping();
                 }
             }
-            catch
+            finally
             {
-                // do nothing;
+                _postMessageHook.Dispose();
+                LocalHook.Release();
             }
-
-            _postMessageHook.Dispose();
-            LocalHook.Release();
         }
 
         #region PostMessage

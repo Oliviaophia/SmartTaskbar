@@ -25,7 +25,9 @@ namespace SmartTaskbar
             switch (Settings.ModeType)
             {
                 case AutoModeType.Disabled:
+#if DEBUG
                     _autoMode = new DumbMode();
+#endif
                     break;
                 case AutoModeType.ForegroundMode:
                     _autoMode = new ForegroundMode();
@@ -37,7 +39,11 @@ namespace SmartTaskbar
                     _autoMode = new AutoMode();
                     break;
                 default:
+#if DEBUG
                     throw new ArgumentOutOfRangeException();
+#else
+                    Settings.ModeType = AutoModeType.Disabled;
+#endif
             }
 
             // timer is running on UI thread.

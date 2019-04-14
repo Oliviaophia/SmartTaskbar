@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Drawing;
-using System.Windows.Forms;
-using SmartTaskbar.Core.Helpers;
-using static SmartTaskbar.Core.SafeNativeMethods;
 
 namespace SmartTaskbar.Core
 {
