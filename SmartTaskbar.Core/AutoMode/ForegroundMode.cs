@@ -47,7 +47,10 @@ namespace SmartTaskbar.Core.AutoMode
                 Variable.taskbars.UpdateInersect(out _sendMessage, _ => _.Monitor == monitor);
             }
 
-            if (_sendMessage) Variable.taskbars.ShowTaskbarbyInersect();
+            if (!_sendMessage) return;
+            _sendMessage = false;
+
+            Variable.taskbars.ShowTaskbarbyInersect();
         }
     }
 }
