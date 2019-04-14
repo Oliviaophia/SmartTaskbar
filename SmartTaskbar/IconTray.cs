@@ -2,9 +2,9 @@
 using System.ComponentModel;
 using System.Drawing;
 using System.Windows.Forms;
+using SmartTaskbar.Core;
 using SmartTaskbar.Properties;
 using SmartTaskbar.Views;
-using SmartTaskbar.Core;
 
 namespace SmartTaskbar
 {
@@ -62,7 +62,6 @@ namespace SmartTaskbar
 
         private void Exit_Click(object sender, EventArgs e)
         {
-            _container.Dispose();
             InvokeMethods.SaveUserConfig();
             Application.Exit();
         }

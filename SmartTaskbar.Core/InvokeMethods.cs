@@ -14,6 +14,7 @@ namespace SmartTaskbar.Core
             UpdateCache();
             GetUserConfig();
             SaveUserConfig();
+            SetHook();
         }
 
         #endregion
@@ -46,6 +47,8 @@ namespace SmartTaskbar.Core
         public static void SaveUserConfig() => SettingsHelper.SaveSettings();
 
         public static void SetTransparent() => Variable.taskbars.TransparentBar();
+
+        public static void SetHook() => HookBar.SetHook();
 
         #endregion
     }

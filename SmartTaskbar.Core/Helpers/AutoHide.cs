@@ -25,13 +25,9 @@ namespace SmartTaskbar.Core.Helpers
         internal static void SetAutoHide(bool isAutoHide)
         {
             if (isAutoHide)
-            {
                 SetAutoHide();
-            }
             else
-            {
                 CancelAutoHide();
-            }
         }
 
 

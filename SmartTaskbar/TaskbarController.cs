@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Timers;
 using System.Windows.Forms;
 using SmartTaskbar.Core.AutoMode;
 using SmartTaskbar.Core.UserConfig;
@@ -10,10 +11,10 @@ namespace SmartTaskbar
     internal class TaskbarController : ApplicationContext
     {
         private static int _count;
+        private readonly IAutoMode _autoMode;
         private readonly Container _container = new Container();
         private readonly Timer _timer;
         private readonly IconTray _tray;
-        private readonly IAutoMode _autoMode;
 
         public TaskbarController()
         {
@@ -40,15 +41,20 @@ namespace SmartTaskbar
             }
 
             // timer is running on UI thread.
-            _timer = new Timer(_container) {Interval = 375};
+            _timer = new Timer(375);
             // if AutoMode is Enabled, then run it every 375 milliseconds.
-            _timer.Tick += Timer_Tick;
+            _timer.Elapsed += Timer_Elapsed;
             _timer.Start();
+            Application.ApplicationExit += (s, e) =>
+            {
+                _timer.Dispose();
+                _container.Dispose();
+            };
             // Start Settings Tray
             _tray = new IconTray(_container);
         }
 
-        private void Timer_Tick(object sender, EventArgs e)
+        private void Timer_Elapsed(object sender, EventArgs e)
         {
             ++_count;
             // Run AutoMode If Enable

@@ -24,9 +24,17 @@ namespace SmartTaskbar.Core.Helpers
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        internal static IList<Taskbar> UpdateInersect(this IList<Taskbar> taskbars, Func<Taskbar, bool> func)
+        internal static IList<Taskbar> UpdateInersect(this IList<Taskbar> taskbars, out bool sendMessage,
+            Func<Taskbar, bool> func)
         {
-            foreach (var taskbar in taskbars) taskbar.Intersect = func(taskbar);
+            sendMessage = false;
+            foreach (var taskbar in taskbars)
+            {
+                if (func(taskbar) == taskbar.Intersect) continue;
+
+                taskbar.Intersect = !taskbar.Intersect;
+                sendMessage = true;
+            }
 
             return taskbars;
         }

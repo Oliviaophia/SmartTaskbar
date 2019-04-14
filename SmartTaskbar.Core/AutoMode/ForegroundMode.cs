@@ -6,6 +6,8 @@ namespace SmartTaskbar.Core.AutoMode
 {
     public class ForegroundMode : IAutoMode
     {
+        private static bool _sendMessage;
+
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public ForegroundMode()
         {
@@ -15,6 +17,7 @@ namespace SmartTaskbar.Core.AutoMode
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void Ready()
         {
+            _sendMessage = true;
             if (AutoHide.NotAutoHide()) AutoHide.SetAutoHide();
         }
 
@@ -32,7 +35,7 @@ namespace SmartTaskbar.Core.AutoMode
             if (foregroundHandle.IsNotMaximizeWindow())
             {
                 GetWindowRect(foregroundHandle, out TagRect rect);
-                Variable.taskbars.UpdateInersect(_ =>
+                Variable.taskbars.UpdateInersect(out _sendMessage, _ =>
                     rect.left < _.Rect.Right &&
                     rect.right > _.Rect.Left &&
                     rect.top < _.Rect.Bottom &&
@@ -41,10 +44,10 @@ namespace SmartTaskbar.Core.AutoMode
             else
             {
                 var monitor = foregroundHandle.GetMonitor();
-                Variable.taskbars.UpdateInersect(_ => _.Monitor == monitor);
+                Variable.taskbars.UpdateInersect(out _sendMessage, _ => _.Monitor == monitor);
             }
 
-            Variable.taskbars.ShowTaskbarbyInersect();
+            if (_sendMessage) Variable.taskbars.ShowTaskbarbyInersect();
         }
     }
 }

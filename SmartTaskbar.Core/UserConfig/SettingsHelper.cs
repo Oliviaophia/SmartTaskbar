@@ -46,7 +46,8 @@ namespace SmartTaskbar.Core.UserConfig
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private static void DirectoryBuilder() => Directory.CreateDirectory(Path.GetDirectoryName(SettingPath) ?? throw new InvalidOperationException());
+        private static void DirectoryBuilder() =>
+            Directory.CreateDirectory(Path.GetDirectoryName(SettingPath) ?? throw new InvalidOperationException());
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private static void GetSettings(UserSettings settings)
