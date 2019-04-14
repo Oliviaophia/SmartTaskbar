@@ -26,12 +26,13 @@ namespace SmartTaskbar.Core
 
         #endregion
 
-        #region UpdateCache
+        #region Update
 
         public static void UpdateCache()
         {
-            Variable.taskbars.UpdateTaskbarList();
             Variable.nameCache.UpdateCacheName();
+            Variable.taskbars.ResetTaskbars();
+            SetHook();
         }
 
         #endregion

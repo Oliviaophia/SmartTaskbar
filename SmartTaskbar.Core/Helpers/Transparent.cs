@@ -22,11 +22,12 @@ namespace SmartTaskbar.Core.Helpers
         {
             if (_accentPtr == IntPtr.Zero)
             {
-                _accentPtr = Marshal.AllocHGlobal(Marshal.SizeOf(typeof(AccentPolicy)));
+                var size = Marshal.SizeOf(typeof(AccentPolicy));
+                _accentPtr = Marshal.AllocHGlobal(size);
                 _data = new WindowCompositionAttributeData
                 {
                     Attribute = 19,
-                    SizeOfData = Marshal.SizeOf(typeof(AccentPolicy)),
+                    SizeOfData = size,
                     Data = _accentPtr
                 };
             }
@@ -42,7 +43,7 @@ namespace SmartTaskbar.Core.Helpers
                     accent = new AccentPolicy
                     {
                         AccentState = 3,
-                        AccentFlags = 0x100
+                        AccentFlags = 1
                     };
                     break;
                 case TransparentModeType.Blur:

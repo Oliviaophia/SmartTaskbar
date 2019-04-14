@@ -62,15 +62,12 @@ namespace SmartTaskbar
 
             if (Settings.InTransparentMode) SetTransparent();
 
-            // Reset AutoMode each 10+ second.
-            if (_count % 27 == 0) _autoMode.Ready();
+            // Reset all each 10+ second.
+            if (_count % 27 != 0) return;
 
-            // Update Taskbar each 10 minute.
-            if (_count % 1600 == 0)
-            {
-                UpdateCache();
-                _count = 0;
-            }
+            _autoMode.Ready();
+            UpdateCache();
+            _count = 0;
         }
     }
 }
