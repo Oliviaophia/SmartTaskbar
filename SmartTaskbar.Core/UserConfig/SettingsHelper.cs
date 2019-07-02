@@ -20,9 +20,9 @@ namespace SmartTaskbar.Core.UserConfig
         internal static void SaveSettings()
         {
             DirectoryBuilder();
-            using (FileStream fs = new FileStream(SettingPath, FileMode.Create))
+            using (var fs = new FileStream(SettingPath, FileMode.Create))
             {
-                using (StreamWriter sw = new StreamWriter(fs))
+                using (var sw = new StreamWriter(fs))
                 {
                     Serializer.Serialize(sw, Settings);
                 }
@@ -46,8 +46,10 @@ namespace SmartTaskbar.Core.UserConfig
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private static void DirectoryBuilder() =>
+        private static void DirectoryBuilder()
+        {
             Directory.CreateDirectory(Path.GetDirectoryName(SettingPath) ?? throw new InvalidOperationException());
+        }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private static void GetSettings(UserSettings settings)

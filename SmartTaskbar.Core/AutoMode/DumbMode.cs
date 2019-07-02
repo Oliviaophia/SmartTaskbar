@@ -16,5 +16,4 @@ namespace SmartTaskbar.Core.AutoMode
         }
     }
 #endif
-
 }

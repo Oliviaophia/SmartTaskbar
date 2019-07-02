@@ -34,7 +34,7 @@ namespace SmartTaskbar.Core.AutoMode
 
             if (foregroundHandle.IsNotMaximizeWindow())
             {
-                GetWindowRect(foregroundHandle, out TagRect rect);
+                GetWindowRect(foregroundHandle, out var rect);
                 Variable.taskbars.UpdateInersect(out _sendMessage, _ =>
                     rect.left < _.Rect.Right &&
                     rect.right > _.Rect.Left &&

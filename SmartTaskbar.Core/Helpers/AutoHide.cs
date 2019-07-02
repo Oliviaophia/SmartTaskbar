@@ -39,6 +39,9 @@ namespace SmartTaskbar.Core.Helpers
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        internal static bool NotAutoHide() => SHAppBarMessage(AbmGetstate, ref _msgData) == IntPtr.Zero;
+        internal static bool NotAutoHide()
+        {
+            return SHAppBarMessage(AbmGetstate, ref _msgData) == IntPtr.Zero;
+        }
     }
 }

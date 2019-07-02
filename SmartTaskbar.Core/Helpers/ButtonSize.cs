@@ -22,6 +22,9 @@ namespace SmartTaskbar.Core.Helpers
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static int GetIconSize() => (int) Key.GetValue("TaskbarSmallIcons", Constant.IconLarge);
+        public static int GetIconSize()
+        {
+            return (int) Key.GetValue("TaskbarSmallIcons", Constant.IconLarge);
+        }
     }
 }

@@ -7,8 +7,8 @@ namespace SmartTaskbar.Hook
 {
     public class InjectionEntryPoint : IEntryPoint
     {
-        private LocalHook _postMessageHook;
         private readonly ServerInterface _server;
+        private LocalHook _postMessageHook;
 
         public InjectionEntryPoint(RemoteHooking.IContext context,
             string channelName)
@@ -25,7 +25,7 @@ namespace SmartTaskbar.Hook
                 _postMessageHook = LocalHook.Create(
                     LocalHook.GetProcAddress("user32.dll", "PostMessageW"),
                     new PostMessageDelegate(PostMessageHook), this);
-                _postMessageHook.ThreadACL.SetExclusiveACL(new[] {0});
+                _postMessageHook.ThreadACL.SetExclusiveACL(new[] { 0 });
                 RemoteHooking.WakeUpProcess();
 
                 while (true)

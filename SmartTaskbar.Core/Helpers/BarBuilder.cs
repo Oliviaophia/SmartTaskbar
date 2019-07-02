@@ -31,7 +31,7 @@ namespace SmartTaskbar.Core.Helpers
         private static Taskbar InitTaskbar(this IntPtr handle)
         {
             var taskbar = new Taskbar(handle);
-            GetWindowRect(handle, out TagRect tagRect);
+            GetWindowRect(handle, out var tagRect);
             Rectangle rectangle = tagRect;
             var monitor = Screen.FromHandle(handle);
 

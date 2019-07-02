@@ -21,8 +21,10 @@ namespace SmartTaskbar.Core
 
         #region PostThreadMessage
 
-        public static void BringOutSettingsWindow(int id) =>
+        public static void BringOutSettingsWindow(int id)
+        {
             PostThreadMessage(id, Constant.MsgSettings, IntPtr.Zero, IntPtr.Zero);
+        }
 
         #endregion
 
@@ -43,13 +45,25 @@ namespace SmartTaskbar.Core
 
         public static UserSettings Settings => Instance.Value;
 
-        public static void GetUserConfig() => SettingsHelper.ReadSettings();
+        public static void GetUserConfig()
+        {
+            SettingsHelper.ReadSettings();
+        }
 
-        public static void SaveUserConfig() => SettingsHelper.SaveSettings();
+        public static void SaveUserConfig()
+        {
+            SettingsHelper.SaveSettings();
+        }
 
-        public static void SetTransparent() => Variable.taskbars.TransparentBar();
+        public static void SetTransparent()
+        {
+            Variable.taskbars.TransparentBar();
+        }
 
-        public static void SetHook() => HookBar.SetHook();
+        public static void SetHook()
+        {
+            HookBar.SetHook();
+        }
 
         #endregion
     }

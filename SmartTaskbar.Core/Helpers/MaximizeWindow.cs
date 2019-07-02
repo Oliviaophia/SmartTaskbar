@@ -20,7 +20,7 @@ namespace SmartTaskbar.Core.Helpers
             GetWindowPlacement(handle, ref _placement);
             if (_placement.showCmd == SwMaximize) return false;
 
-            GetWindowRect(handle, out TagRect tagRect);
+            GetWindowRect(handle, out var tagRect);
             var monitor = Screen.FromHandle(handle);
             return tagRect.top != monitor.Bounds.Top || tagRect.bottom != monitor.Bounds.Bottom ||
                    tagRect.left != monitor.Bounds.Left || tagRect.right != monitor.Bounds.Right;

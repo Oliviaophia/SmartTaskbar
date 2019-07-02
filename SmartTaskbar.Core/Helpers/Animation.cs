@@ -31,7 +31,7 @@ namespace SmartTaskbar.Core.Helpers
         internal static bool ChangeTaskbarAnimation()
         {
             _animation = !_animation;
-            SetSystemParameters(SpiSetMenuAnimation, 0, _animation ? (IntPtr) 1 : IntPtr.Zero, UpdateAndSend);
+            SetSystemParameters(SpiSetMenuAnimation, 0, _animation ? (IntPtr)1 : IntPtr.Zero, UpdateAndSend);
             return _animation;
         }
     }

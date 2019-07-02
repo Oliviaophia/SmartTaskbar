@@ -174,16 +174,21 @@ namespace SmartTaskbar.Core
 
             public int bottom;
 
-            public static implicit operator Rectangle(TagRect rect) =>
-                Rectangle.FromLTRB(rect.left, rect.top, rect.right, rect.bottom);
-
-            public static implicit operator TagRect(Rectangle rectangle) => new TagRect
+            public static implicit operator Rectangle(TagRect rect)
             {
-                left = rectangle.Left,
-                top = rectangle.Top,
-                right = rectangle.Right,
-                bottom = rectangle.Bottom
-            };
+                return Rectangle.FromLTRB(rect.left, rect.top, rect.right, rect.bottom);
+            }
+
+            public static implicit operator TagRect(Rectangle rectangle)
+            {
+                return new TagRect
+                {
+                    left = rectangle.Left,
+                    top = rectangle.Top,
+                    right = rectangle.Right,
+                    bottom = rectangle.Bottom
+                };
+            }
         }
 
         #endregion

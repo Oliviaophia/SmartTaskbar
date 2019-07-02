@@ -13,11 +13,13 @@ namespace SmartTaskbar.Core.Helpers
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static TaskbarState GetDefault() =>
-            new TaskbarState
+        public static TaskbarState GetDefault()
+        {
+            return new TaskbarState
             {
                 IsAutoHide = !AutoHide.NotAutoHide(),
                 IconSize = ButtonSize.GetIconSize()
             };
+        }
     }
 }
