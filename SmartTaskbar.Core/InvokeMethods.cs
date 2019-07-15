@@ -1,6 +1,6 @@
 ﻿using System;
 using SmartTaskbar.Core.Helpers;
-using SmartTaskbar.Core.UserConfig;
+using SmartTaskbar.Core.Settings;
 using static SmartTaskbar.Core.SafeNativeMethods;
 
 namespace SmartTaskbar.Core
@@ -32,8 +32,8 @@ namespace SmartTaskbar.Core
 
         public static void UpdateCache()
         {
-            Variable.nameCache.UpdateCacheName();
-            Variable.taskbars.ResetTaskbars();
+            Variable.NameCache.UpdateCacheName();
+            Variable.Taskbars.ResetTaskbars();
             SetHook();
         }
 
@@ -43,27 +43,17 @@ namespace SmartTaskbar.Core
 
         private static readonly Lazy<UserSettings> Instance = new Lazy<UserSettings>(() => new UserSettings());
 
-        public static UserSettings Settings => Instance.Value;
+        public static UserSettings UserConfig => Instance.Value;
 
-        public static void GetUserConfig()
-        {
-            SettingsHelper.ReadSettings();
-        }
+        public static void GetUserConfig() => SettingsHelper.ReadSettings();
 
-        public static void SaveUserConfig()
-        {
-            SettingsHelper.SaveSettings();
-        }
+        public static void SaveUserConfig() => SettingsHelper.SaveSettings();
 
-        public static void SetTransparent()
-        {
-            Variable.taskbars.TransparentBar();
-        }
+        public static void SetTransparent() => Variable.Taskbars.TransparentBar();
 
-        public static void SetHook()
-        {
-            HookBar.SetHook();
-        }
+        public static void SetHook() => HookBar.SetHook();
+
+        public static bool IsLightTheme() => LightTheme.IsSystemUsesLightTheme();
 
         #endregion
     }

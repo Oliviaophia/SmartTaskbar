@@ -9,7 +9,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Chanple")]
 [assembly: AssemblyProduct("SmartTaskbar")]
-[assembly: AssemblyCopyright("Copyright ©  2018-2019 ChanpleCai")]
+[assembly: AssemblyCopyright("Copyright ©  2018-2019 Chanple Cai")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -19,7 +19,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // 如果此项目向 COM 公开，则下列 GUID 用于类型库的 ID
-[assembly: Guid("db85f720-0f99-476d-8198-e0ce0235971d")]
+[assembly: Guid("16b5a53d-eee4-4b21-bf76-92a4531e8c01")]
 
 // 程序集的版本信息由下列四个值组成: 
 //

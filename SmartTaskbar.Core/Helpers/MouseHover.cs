@@ -20,7 +20,7 @@ namespace SmartTaskbar.Core.Helpers
             if (_lastHandle == _currentHandle) return _lastResult;
 
             var monitor = _currentHandle.GetMonitor();
-            var taskbar = taskbars.Where(_ => _.Monitor == monitor).Select(_ => _.Handle).FirstOrDefault();
+            var taskbar = taskbars.FirstOrDefault(_ => _.Monitor == monitor)?.Handle;
             if (taskbar == IntPtr.Zero) return _lastResult = false;
 
             _lastHandle = _currentHandle;

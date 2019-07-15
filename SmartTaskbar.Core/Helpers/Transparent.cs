@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
-using SmartTaskbar.Core.UserConfig;
+using SmartTaskbar.Core.Settings;
 using static SmartTaskbar.Core.InvokeMethods;
 using static SmartTaskbar.Core.SafeNativeMethods;
 
@@ -33,7 +33,7 @@ namespace SmartTaskbar.Core.Helpers
             }
 
             AccentPolicy accent;
-            switch (Settings.TransparentType)
+            switch (UserConfig.TransparentType)
             {
                 case TransparentModeType.Disabled:
                     PostMessage(IntPtr.Zero, WmThemechanged, IntPtr.Zero, IntPtr.Zero);

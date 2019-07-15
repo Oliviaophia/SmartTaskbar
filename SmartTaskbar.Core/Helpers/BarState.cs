@@ -1,5 +1,5 @@
 ﻿using System.Runtime.CompilerServices;
-using SmartTaskbar.Core.UserConfig;
+using SmartTaskbar.Core.Settings;
 
 namespace SmartTaskbar.Core.Helpers
 {
@@ -13,13 +13,11 @@ namespace SmartTaskbar.Core.Helpers
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static TaskbarState GetDefault()
-        {
-            return new TaskbarState
+        public static TaskbarState GetDefault() =>
+            new TaskbarState
             {
                 IsAutoHide = !AutoHide.NotAutoHide(),
                 IconSize = ButtonSize.GetIconSize()
             };
-        }
     }
 }

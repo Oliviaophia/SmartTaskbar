@@ -9,9 +9,6 @@ namespace SmartTaskbar.Core.Helpers
         private const uint GaParent = 1;
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        internal static IntPtr GetParentWindow(this IntPtr handle)
-        {
-            return GetAncestor(handle, GaParent);
-        }
+        internal static IntPtr GetParentWindow(this IntPtr handle) => GetAncestor(handle, GaParent);
     }
 }

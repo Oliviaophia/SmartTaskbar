@@ -28,6 +28,7 @@ namespace SmartTaskbar.Core.Helpers
             }
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private static Taskbar InitTaskbar(this IntPtr handle)
         {
             var taskbar = new Taskbar(handle);

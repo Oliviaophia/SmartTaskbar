@@ -25,7 +25,6 @@ namespace SmartTaskbar.Core.Helpers
                 case "Shell_TrayWnd":
                 case "Shell_SecondaryTrayWnd":
                 case "MultitaskingViewFrame":
-                // todo: have a bug here:
                 case "Windows.UI.Core.CoreWindow":
                     return true;
                 default:

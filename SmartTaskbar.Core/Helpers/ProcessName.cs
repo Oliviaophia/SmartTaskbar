@@ -11,26 +11,29 @@ namespace SmartTaskbar.Core.Helpers
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         internal static bool InBlacklist(this IntPtr handle)
         {
-            return handle.InList(_ => InvokeMethods.Settings.Blacklist.Contains(_));
+            return handle.InList(_ => InvokeMethods.UserConfig.Blacklist.Contains(_));
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         internal static bool NotInWhitelist(this IntPtr handle)
         {
-            return handle.InList(_ => !InvokeMethods.Settings.Whitelist.Contains(_));
+            return handle.InList(_ => !InvokeMethods.UserConfig.Whitelist.Contains(_));
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private static bool InList(this IntPtr handle, Func<string, bool> func)
         {
-            if (Variable.nameCache.TryGetValue(handle, out var name)) return func(name);
+            if (Variable.NameCache.TryGetValue(handle, out var name)) return func(name);
 
             GetWindowThreadProcessId(handle, out var processId);
 
             using (var process = Process.GetProcessById(processId))
             {
+                if (process.MainModule == null)
+                    return func(null);
+
                 name = process.MainModule.ModuleName;
-                Variable.nameCache.Add(handle, name);
+                Variable.NameCache.Add(handle, name);
                 return func(name);
             }
         }

@@ -3,7 +3,7 @@ using System.Drawing;
 using System.Runtime.InteropServices;
 using System.Security;
 using System.Text;
-using SmartTaskbar.Core.UserConfig;
+using SmartTaskbar.Core.Settings;
 
 namespace SmartTaskbar.Core
 {

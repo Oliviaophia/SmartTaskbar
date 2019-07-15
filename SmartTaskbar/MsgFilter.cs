@@ -1,4 +1,5 @@
 ﻿using System.Windows.Forms;
+using SmartTaskbar.Core;
 
 namespace SmartTaskbar
 {
@@ -8,6 +9,8 @@ namespace SmartTaskbar
         {
             switch (m.Msg)
             {
+                case Constant.MsgSettings:
+
                 default:
                     return false;
             }

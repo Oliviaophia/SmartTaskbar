@@ -63,9 +63,9 @@ namespace SmartTaskbar.Properties {
         /// <summary>
         ///   查找类似于 (图标) 的 System.Drawing.Icon 类型的本地化资源。
         /// </summary>
-        internal static System.Drawing.Icon logo_medium {
+        internal static System.Drawing.Icon Logo_Black {
             get {
-                object obj = ResourceManager.GetObject("logo_medium", resourceCulture);
+                object obj = ResourceManager.GetObject("Logo_Black", resourceCulture);
                 return ((System.Drawing.Icon)(obj));
             }
         }
@@ -73,9 +73,29 @@ namespace SmartTaskbar.Properties {
         /// <summary>
         ///   查找类似于 (图标) 的 System.Drawing.Icon 类型的本地化资源。
         /// </summary>
-        internal static System.Drawing.Icon logo_small {
+        internal static System.Drawing.Icon Logo_Blue {
             get {
-                object obj = ResourceManager.GetObject("logo_small", resourceCulture);
+                object obj = ResourceManager.GetObject("Logo_Blue", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似于 (图标) 的 System.Drawing.Icon 类型的本地化资源。
+        /// </summary>
+        internal static System.Drawing.Icon Logo_Pink {
+            get {
+                object obj = ResourceManager.GetObject("Logo_Pink", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似于 (图标) 的 System.Drawing.Icon 类型的本地化资源。
+        /// </summary>
+        internal static System.Drawing.Icon Logo_White {
+            get {
+                object obj = ResourceManager.GetObject("Logo_White", resourceCulture);
                 return ((System.Drawing.Icon)(obj));
             }
         }

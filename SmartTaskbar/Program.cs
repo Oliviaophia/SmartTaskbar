@@ -3,6 +3,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading;
 using System.Windows.Forms;
+using SmartTaskbar.Core;
 
 namespace SmartTaskbar
 {
@@ -20,7 +21,7 @@ namespace SmartTaskbar
                     Application.EnableVisualStyles();
                     Application.SetCompatibleTextRenderingDefault(false);
                     // Start a tray instead of a WinForm to reduce memory usage
-                    Application.Run(new TaskbarController());
+                    Application.Run(new MainController());
                 }
 
                 // Show the settings window if an instance already exists
@@ -28,7 +29,7 @@ namespace SmartTaskbar
                     .FirstOrDefault(_ => _.Threads[0].Id != Process.GetCurrentProcess().Threads[0].Id);
                 if (process is null) return;
 
-                //InvokeMethods.BringOutSettingsWindow(process.Threads[0].Id);
+                InvokeMethods.BringOutSettingsWindow(process.Threads[0].Id);
             }
         }
     }
