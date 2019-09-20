@@ -6,12 +6,19 @@ namespace SmartTaskbar
 {
     internal class MsgFilter : IMessageFilter
     {
+        private readonly MainController _mainController;
+
+        public MsgFilter(MainController mainController)
+        {
+            _mainController = mainController;
+        }
+
         public bool PreFilterMessage(ref Message m)
         {
             switch (m.Msg)
             {
                 case Constant.MsgSettings:
-                    SettingForm.Instance.Show();
+                    _mainController.ShowSettingForm();
                     return true;
                 default:
                     return false;

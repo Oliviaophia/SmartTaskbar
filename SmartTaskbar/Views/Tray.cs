@@ -7,51 +7,54 @@ using ReactiveUI;
 using SmartTaskbar.Core;
 using SmartTaskbar.Core.Settings;
 using SmartTaskbar.Properties;
+using SmartTaskbar.ViewModels;
 
 namespace SmartTaskbar.Views
 {
-    internal class Tray : Form, IViewFor<AppViewModel>
+    internal class Tray : Form, IViewFor<TrayViewModel>
     {
-        private readonly Container _container;
-        private readonly ToolStripMenuItem _settings;
+        private static SettingForm _settingForm;
+        private readonly AutoModeController _autoAutoModeController;
         private readonly ToolStripMenuItem _exit;
-        private readonly ContextMenuStrip _contextMenuStrip;
         private readonly NotifyIcon _notifyIcon;
+        private readonly ToolStripMenuItem _settings;
 
-        public Tray(Container container)
+        public Tray(IContainer container, AutoModeController autoAutoModeController)
         {
+            _autoAutoModeController = autoAutoModeController;
+
             #region Initialization
 
-            _container = container;
+            ViewModel = new TrayViewModel(autoAutoModeController);
             var font = new Font("Segoe UI", 9F);
 
             _settings = new ToolStripMenuItem
             {
-                Text = ViewModel.TraySettings,
+                Text = ViewModel.TraySettingsText,
                 Font = font
             };
 
             _exit = new ToolStripMenuItem
             {
-                Text = ViewModel.TrayExit,
+                Text = ViewModel.TrayExitText,
                 Font = font
             };
 
-            _contextMenuStrip = new ContextMenuStrip(_container)
+            var contextMenuStrip = new ContextMenuStrip(container)
             {
                 Renderer = new TrayRenderer()
             };
 
-            _contextMenuStrip.Items.AddRange(new ToolStripItem[]
+            contextMenuStrip.Items.AddRange(new ToolStripItem[]
             {
                 _settings,
                 new ToolStripSeparator(),
                 _exit
             });
 
-            _notifyIcon = new NotifyIcon(_container)
+            _notifyIcon = new NotifyIcon(container)
             {
-                ContextMenuStrip = _contextMenuStrip,
+                ContextMenuStrip = contextMenuStrip,
                 Text = Application.ProductName,
                 Icon = GetIcon(),
                 Visible = true
@@ -72,17 +75,25 @@ namespace SmartTaskbar.Views
                         vmToViewConverterOverride: new IconStyleIconConverter())
                     .DisposeWith(disposables);
 
-                this.OneWayBind(ViewModel, model => model.TraySettings,
+                this.OneWayBind(ViewModel, model => model.TraySettingsText,
                         view => view._settings.Text)
                     .DisposeWith(disposables);
 
-                this.OneWayBind(ViewModel, model => model.TrayExit,
+                this.OneWayBind(ViewModel, model => model.TrayExitText,
                         view => view._exit.Text)
                     .DisposeWith(disposables);
             });
 
             #endregion
         }
+
+        object IViewFor.ViewModel
+        {
+            get => ViewModel;
+            set => ViewModel = (TrayViewModel) value;
+        }
+
+        public TrayViewModel ViewModel { get; set; }
 
         private void NotifyIcon_MouseDoubleClick(object sender, MouseEventArgs e)
         {
@@ -94,18 +105,18 @@ namespace SmartTaskbar.Views
             Application.Exit();
         }
 
-        private static void Settings_Click(object sender, EventArgs e)
+        private void Settings_Click(object sender, EventArgs e)
         {
-            SettingForm.Instance.Visible = !SettingForm.Instance.Visible;
+            ShowSettingForm();
         }
 
-        object IViewFor.ViewModel
+        public void ShowSettingForm()
         {
-            get => ViewModel;
-            set => ViewModel = (AppViewModel)value;
-        }
+            if (_settingForm == null || _settingForm.IsDisposed)
+                _settingForm = new SettingForm(_autoAutoModeController);
 
-        public AppViewModel ViewModel { get; set; } = AppViewModel.Instance;
+            _settingForm.Show();
+        }
 
         private Icon GetIcon()
         {
@@ -124,8 +135,7 @@ namespace SmartTaskbar.Views
                         ? Resources.Logo_Black
                         : Resources.Logo_White;
                 default:
-                    ViewModel.IconStyle = IconStyle.Blue;
-                    return Resources.Logo_Blue;
+                    throw new ArgumentOutOfRangeException();
             }
         }
     }

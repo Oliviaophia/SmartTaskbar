@@ -117,25 +117,25 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="SettingBlacklistMode" xml:space="preserve">
+  <data name="SettingBlacklistModeText" xml:space="preserve">
     <value>Blacklist</value>
   </data>
-  <data name="SettingDisable" xml:space="preserve">
+  <data name="SettingDisableText" xml:space="preserve">
     <value>Disable</value>
   </data>
-  <data name="SettingForegroundMode" xml:space="preserve">
+  <data name="SettingForegroundModeText" xml:space="preserve">
     <value>Auto</value>
   </data>
-  <data name="SettingMode" xml:space="preserve">
+  <data name="SettingModeText" xml:space="preserve">
     <value>Mode</value>
   </data>
-  <data name="SettingWhitelistMode" xml:space="preserve">
+  <data name="SettingWhitelistModeText" xml:space="preserve">
     <value>Whitelist</value>
   </data>
-  <data name="TrayExit" xml:space="preserve">
+  <data name="TrayExitText" xml:space="preserve">
     <value>Exit</value>
   </data>
-  <data name="TraySettings" xml:space="preserve">
+  <data name="TraySettingsText" xml:space="preserve">
     <value>Settings</value>
   </data>
 </root>

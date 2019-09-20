@@ -17,11 +17,12 @@ namespace SmartTaskbar
             {
                 if (createNew)
                 {
-                    Application.AddMessageFilter(new MsgFilter());
+                    // Start a tray instead of a WinForm to reduce memory usage
                     Application.EnableVisualStyles();
                     Application.SetCompatibleTextRenderingDefault(false);
-                    // Start a tray instead of a WinForm to reduce memory usage
-                    Application.Run(new MainController());
+                    var main = new MainController();
+                    Application.AddMessageFilter(new MsgFilter(main));
+                    Application.Run(main);
                 }
 
                 // Show the settings window if an instance already exists

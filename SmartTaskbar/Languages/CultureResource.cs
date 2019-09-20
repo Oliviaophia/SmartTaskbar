@@ -1,4 +1,5 @@
-﻿using System.Globalization;
+﻿using System;
+using System.Globalization;
 using System.Reflection;
 using System.Resources;
 using System.Threading;
@@ -11,25 +12,31 @@ namespace SmartTaskbar.Languages
         private readonly ResourceManager _resourceManager =
             new ResourceManager("SmartTaskbar.Languages.Resource", Assembly.GetExecutingAssembly());
 
-        public CultureResource()
-        {
-            void SetThreadCulture()
-            {
-                switch (Thread.CurrentThread.CurrentUICulture.Name)
-                {
-                    case "zh-CN":
-                    case "en-US":
-                        break;
-                    default:
-                        Thread.CurrentThread.CurrentUICulture = new CultureInfo("en-US");
-                        break;
-                }
-            }
+        private static readonly Lazy<CultureResource> LazyInstance =
+            new Lazy<CultureResource>(() => new CultureResource(), LazyThreadSafetyMode.ExecutionAndPublication);
 
+        public static CultureResource Instance => LazyInstance.Value;
+
+        private CultureResource()
+        {
+            LanguageChange();
+        }
+
+        public static void LanguageChange()
+        {
             switch (InvokeMethods.UserConfig.Language)
             {
                 case Core.Settings.Language.Auto:
-                    SetThreadCulture();
+                    switch (Thread.CurrentThread.CurrentUICulture.Name)
+                    {
+                        case "zh-CN":
+                        case "en-US":
+                            break;
+                        default:
+                            Thread.CurrentThread.CurrentUICulture = new CultureInfo("en-US");
+                            break;
+                    }
+
                     break;
                 case Core.Settings.Language.EnUs:
                     Thread.CurrentThread.CurrentUICulture = new CultureInfo("en-US");
@@ -38,12 +45,10 @@ namespace SmartTaskbar.Languages
                     Thread.CurrentThread.CurrentUICulture = new CultureInfo("zh-CN");
                     break;
                 default:
-                    InvokeMethods.UserConfig.Language = Core.Settings.Language.Auto;
-                    SetThreadCulture();
-                    break;
+                    throw new ArgumentOutOfRangeException();
             }
         }
 
-        public string GetString(string name) => _resourceManager.GetString(name, Thread.CurrentThread.CurrentUICulture);
+        public string GetText(string name) => _resourceManager.GetString(name, Thread.CurrentThread.CurrentUICulture);
     }
 }

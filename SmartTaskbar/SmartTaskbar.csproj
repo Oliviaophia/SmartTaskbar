@@ -92,7 +92,8 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Languages\Languages.cs" />
+    <Compile Include="AutoModeController.cs" />
+    <Compile Include="ViewModels\TrayViewModel.cs" />
     <Compile Include="Views\IconStyleIconConverter.cs" />
     <Compile Include="Views\SettingForm.cs">
       <SubType>Form</SubType>
@@ -110,7 +111,7 @@
     <Compile Include="Languages\CultureResource.cs" />
     <Compile Include="Views\TrayColorTable.cs" />
     <Compile Include="Views\TrayRenderer.cs" />
-    <Compile Include="Views\AppViewModel.cs" />
+    <Compile Include="ViewModels\SettingFormViewModel.cs" />
     <EmbeddedResource Include="Languages\Resource.en-US.resx" />
     <EmbeddedResource Include="Languages\Resource.zh-CN.resx" />
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -159,6 +160,7 @@
   <ItemGroup>
     <None Include="Resources\Logo-White.ico" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\Fody.6.0.0\build\Fody.targets" Condition="Exists('..\packages\Fody.6.0.0\build\Fody.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

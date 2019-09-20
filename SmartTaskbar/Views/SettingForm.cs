@@ -1,79 +1,84 @@
-﻿using System;
-using System.Reactive.Disposables;
-using System.Reactive.Linq;
-using System.Threading;
+﻿using System.Reactive.Disposables;
 using System.Windows.Forms;
 using ReactiveUI;
-using SmartTaskbar.Core;
-using SmartTaskbar.Core.Settings;
+using SmartTaskbar.ViewModels;
 
 namespace SmartTaskbar.Views
 {
-    public partial class SettingForm : Form, IViewFor<AppViewModel>
+    public partial class SettingForm : Form, IViewFor<SettingFormViewModel>
     {
-        private static readonly Lazy<SettingForm> LazyInstance =
-            new Lazy<SettingForm>(() => new SettingForm(), LazyThreadSafetyMode.ExecutionAndPublication);
-
-        public static SettingForm Instance = LazyInstance.Value;
-
-        private SettingForm()
+        public SettingForm(AutoModeController autoModeController)
         {
             InitializeComponent();
-            FormClosing += (sender, args) =>
-            {
-                if (args.CloseReason != CloseReason.UserClosing) return;
-
-                args.Cancel = true;
-                Hide();
-            };
 
             #region Reactive Binding
 
-            ViewModel = AppViewModel.Instance;
+            ViewModel = new SettingFormViewModel(autoModeController);
 
             this.WhenActivated(disposables =>
             {
+                #region Icon
+
                 this.OneWayBind(ViewModel,
-                        viewModel => viewModel.IconStyle,
-                        view => view.Icon,
+                        m => m.IconStyle,
+                        v => v.Icon,
                         vmToViewConverterOverride: new IconStyleIconConverter())
                     .DisposeWith(disposables);
 
-                this.OneWayBind(ViewModel, model => model.SettingMode,
-                        view => view.groupBox_AutoMode.Text)
+                #endregion
+
+                #region Text
+
+                #region AutoModeGroupBox
+
+                this.OneWayBind(ViewModel, 
+                        m => m.SettingModeText,
+                        v => v.groupBox_AutoMode.Text)
                     .DisposeWith(disposables);
 
-                this.OneWayBind(ViewModel, model => model.SettingDisable,
-                        view => view.radioButtonDisableMode.Text)
+                this.OneWayBind(ViewModel, 
+                        m => m.SettingDisableText,
+                        v => v.radioButtonDisableMode.Text)
                     .DisposeWith(disposables);
 
-                this.OneWayBind(ViewModel, model => model.SettingForegroundMode,
-                        view => view.radioButtonForegroundMode.Text)
+                this.OneWayBind(ViewModel, 
+                        m => m.SettingForegroundModeText,
+                        v => v.radioButtonForegroundMode.Text)
                     .DisposeWith(disposables);
 
-                this.OneWayBind(ViewModel, model => model.SettingBlacklistMode,
-                        view => view.radioButtonBlacklistMode.Text)
+                this.OneWayBind(ViewModel, 
+                        m => m.SettingBlacklistModeText,
+                        v => v.radioButtonBlacklistMode.Text)
                     .DisposeWith(disposables);
 
-                this.OneWayBind(ViewModel, model => model.SettingWhitelistMode,
-                        view => view.radioButtonWhitelistMode.Text)
+                this.OneWayBind(ViewModel, 
+                        m => m.SettingWhitelistModeText,
+                        v => v.radioButtonWhitelistMode.Text)
                     .DisposeWith(disposables);
 
-                this.WhenAnyValue(x => x.radioButtonDisableMode.Checked)
-                    .Where(x => x)
-                    .Subscribe(_ => InvokeMethods.AutoModeSet(AutoModeType.Disable));
+                #endregion
+                
+                #endregion
 
-                this.WhenAnyValue(x => x.radioButtonForegroundMode.Checked)
-                    .Where(x => x)
-                    .Subscribe(_ => InvokeMethods.AutoModeSet(AutoModeType.ForegroundMode));
+                #region AutoModeGroupBox
 
-                this.WhenAnyValue(x => x.radioButtonBlacklistMode.Checked)
-                    .Where(x => x)
-                    .Subscribe(_ => InvokeMethods.AutoModeSet(AutoModeType.BlacklistMode));
+                this.Bind(ViewModel,
+                    m => m.IsSettingDisable,
+                    v => v.radioButtonDisableMode.Checked);
 
-                this.WhenAnyValue(x => x.radioButtonWhitelistMode.Checked)
-                    .Where(x => x)
-                    .Subscribe(_ => InvokeMethods.AutoModeSet(AutoModeType.WhitelistMode));
+                this.Bind(ViewModel,
+                    m => m.IsSettingForegroundMode,
+                    v => v.radioButtonForegroundMode.Checked);
+
+                this.Bind(ViewModel,
+                    m => m.IsSettingBlacklistMode,
+                    v => v.radioButtonBlacklistMode.Checked);
+
+                this.Bind(ViewModel,
+                    m => m.IsSettingWhitelistMode,
+                    v => v.radioButtonWhitelistMode.Checked);
+
+                #endregion
             });
 
             #endregion
@@ -82,9 +87,9 @@ namespace SmartTaskbar.Views
         object IViewFor.ViewModel
         {
             get => ViewModel;
-            set => ViewModel = (AppViewModel)value;
+            set => ViewModel = (SettingFormViewModel) value;
         }
 
-        public AppViewModel ViewModel { get; set; }
+        public SettingFormViewModel ViewModel { get; set; }
     }
 }
