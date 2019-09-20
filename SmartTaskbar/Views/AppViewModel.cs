@@ -22,10 +22,31 @@ namespace SmartTaskbar.Views
         {
             GetUserConfig();
             GetCultureResource();
-            //ChangeAutoMode = ReactiveCommand.Create<AutoModeType, Unit>(autotype => {; });
+
+            #region Command
+
+            SetAutoMode = ReactiveCommand.Create<AutoModeType, Unit>(autoModeType =>
+            {
+                InvokeMethods.AutoModeSet(autoModeType);
+                return Unit.Default;
+            });
+
+            #endregion
+
         }
 
+        #region UserConfig
+
         [Reactive] public IconStyle IconStyle { get; set; }
+
+
+
+        private void GetUserConfig()
+        {
+            IconStyle = InvokeMethods.UserConfig.IconStyle;
+        }
+
+        #endregion
 
         #region Language
 
@@ -42,18 +63,6 @@ namespace SmartTaskbar.Views
         [Reactive] public string SettingBlacklistMode { get; set; }
 
         [Reactive] public string SettingWhitelistMode { get; set; }
-        #endregion
-
-        #region Command
-
-        //public ReactiveCommand<AutoModeType, Unit> ChangeAutoMode { get; }
-
-        #endregion
-
-        private void GetUserConfig()
-        {
-            IconStyle = InvokeMethods.UserConfig.IconStyle;
-        }
 
         private void GetCultureResource()
         {
@@ -65,5 +74,14 @@ namespace SmartTaskbar.Views
             SettingBlacklistMode = Resource.GetString(nameof(SettingBlacklistMode));
             SettingWhitelistMode = Resource.GetString(nameof(SettingWhitelistMode));
         }
+
+        #endregion
+
+        #region Command
+
+        public ReactiveCommand<AutoModeType, Unit> SetAutoMode { get; }
+
+        #endregion
+
     }
 }

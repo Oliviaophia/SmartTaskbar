@@ -51,6 +51,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AutoMode\AutoMode.cs" />
+    <Compile Include="AutoMode\AutoModeController.cs" />
     <Compile Include="AutoMode\ForegroundMode.cs" />
     <Compile Include="AutoMode\IAutoMode.cs" />
     <Compile Include="Constant.cs" />

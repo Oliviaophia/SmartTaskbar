@@ -1,4 +1,5 @@
 ﻿using System;
+using SmartTaskbar.Core.AutoMode;
 using SmartTaskbar.Core.Helpers;
 using SmartTaskbar.Core.Settings;
 using static SmartTaskbar.Core.SafeNativeMethods;
@@ -54,6 +55,16 @@ namespace SmartTaskbar.Core
         public static void SetHook() => HookBar.SetHook();
 
         public static bool IsLightTheme() => LightTheme.IsSystemUsesLightTheme();
+
+        #endregion
+
+        #region AutoMode
+
+        public static void AutoModeRun() => AutoModeController.Run();
+
+        public static void AutoModeReady() => AutoModeController.Ready();
+
+        public static void AutoModeSet(AutoModeType modeType) => AutoModeController.SetMode(modeType);
 
         #endregion
     }

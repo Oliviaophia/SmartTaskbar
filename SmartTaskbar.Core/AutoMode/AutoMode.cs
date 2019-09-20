@@ -79,6 +79,8 @@ namespace SmartTaskbar.Core.AutoMode
                 case AutoModeType.WhitelistMode:
                     UserConfig.WlistTargetState.SetState();
                     return;
+                default:
+                    return;
             }
         }
     }

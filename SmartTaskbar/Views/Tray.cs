@@ -10,7 +10,7 @@ using SmartTaskbar.Properties;
 
 namespace SmartTaskbar.Views
 {
-    internal class Tray : ApplicationContext, IViewFor<AppViewModel>, ISupportsActivation
+    internal class Tray : Form, IViewFor<AppViewModel>
     {
         private readonly Container _container;
         private readonly ToolStripMenuItem _settings;
@@ -106,8 +106,6 @@ namespace SmartTaskbar.Views
         }
 
         public AppViewModel ViewModel { get; set; } = AppViewModel.Instance;
-
-        public ViewModelActivator Activator { get; } = new ViewModelActivator();
 
         private Icon GetIcon()
         {

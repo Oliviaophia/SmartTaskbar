@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Reactive.Disposables;
+using System.Reactive.Linq;
 using System.Threading;
 using System.Windows.Forms;
 using ReactiveUI;
+using SmartTaskbar.Core;
+using SmartTaskbar.Core.Settings;
 
 namespace SmartTaskbar.Views
 {
@@ -55,6 +58,22 @@ namespace SmartTaskbar.Views
                 this.OneWayBind(ViewModel, model => model.SettingWhitelistMode,
                         view => view.radioButtonWhitelistMode.Text)
                     .DisposeWith(disposables);
+
+                this.WhenAnyValue(x => x.radioButtonDisableMode.Checked)
+                    .Where(x => x)
+                    .Subscribe(_ => InvokeMethods.AutoModeSet(AutoModeType.Disable));
+
+                this.WhenAnyValue(x => x.radioButtonForegroundMode.Checked)
+                    .Where(x => x)
+                    .Subscribe(_ => InvokeMethods.AutoModeSet(AutoModeType.ForegroundMode));
+
+                this.WhenAnyValue(x => x.radioButtonBlacklistMode.Checked)
+                    .Where(x => x)
+                    .Subscribe(_ => InvokeMethods.AutoModeSet(AutoModeType.BlacklistMode));
+
+                this.WhenAnyValue(x => x.radioButtonWhitelistMode.Checked)
+                    .Where(x => x)
+                    .Subscribe(_ => InvokeMethods.AutoModeSet(AutoModeType.WhitelistMode));
             });
 
             #endregion
