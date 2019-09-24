@@ -10,7 +10,7 @@ namespace SmartTaskbar.Core
     {
         #region ctor
 
-        public static void Initialization()
+        static InvokeMethods()
         {
             UpdateCache();
             GetUserConfig();

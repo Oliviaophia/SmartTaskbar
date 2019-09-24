@@ -25,9 +25,9 @@ namespace SmartTaskbar
         {
             if (disposing)
             {
+                _tray?.Dispose();
                 _container?.Dispose();
                 _autoModeController?.Dispose();
-                _tray?.Dispose();
             }
 
             base.Dispose(disposing);

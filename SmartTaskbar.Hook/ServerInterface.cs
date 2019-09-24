@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 
 namespace SmartTaskbar.Hook
 {
@@ -6,6 +7,12 @@ namespace SmartTaskbar.Hook
     {
         public void Ping()
         {
+            Debug.WriteLine("ping");
+        }
+
+        public void ReportMessage(string message)
+        {
+            Debug.WriteLine(message);
         }
     }
 }

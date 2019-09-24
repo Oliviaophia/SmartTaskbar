@@ -59,8 +59,10 @@ namespace SmartTaskbar.Hook
         {
             try
             {
-                return (hWnd != FindWindow("Shell_TrayWnd", null) || msg != 0x05CB) &&
-                       PostMessage(hWnd, msg, wParam, lParam);
+                if (hWnd == FindWindow("Shell_TrayWnd", null) && msg == 0x05D1)
+                    return false;
+
+                return PostMessage(hWnd, msg, wParam, lParam);
             }
             catch
             {

@@ -25,7 +25,9 @@ namespace SmartTaskbar
 
         public void AutoModeSet(AutoModeType autoModeType)
         {
-            
+            _timer.Stop();
+            InvokeMethods.AutoModeSet(autoModeType);
+            _timer.Start();
         }
     }
 }

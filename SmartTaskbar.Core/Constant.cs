@@ -7,6 +7,6 @@
         public const int IconSmall = 1;
         public const int IconLarge = 0;
 
-        internal const uint BarFlag = 0x05CB;
+        internal const uint BarFlag = 0x05D1;
     }
 }
