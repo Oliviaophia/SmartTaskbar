@@ -3,30 +3,29 @@ using System.Globalization;
 using System.Reflection;
 using System.Resources;
 using System.Threading;
-using SmartTaskbar.Core;
+using SmartTaskbar.Core.Settings;
+using SmartTaskbar.Model;
 
 namespace SmartTaskbar.Languages
 {
     internal class CultureResource
     {
+        private readonly CoreInvoker _coreInvoker;
+
         private readonly ResourceManager _resourceManager =
             new ResourceManager("SmartTaskbar.Languages.Resource", Assembly.GetExecutingAssembly());
 
-        private static readonly Lazy<CultureResource> LazyInstance =
-            new Lazy<CultureResource>(() => new CultureResource(), LazyThreadSafetyMode.ExecutionAndPublication);
-
-        public static CultureResource Instance => LazyInstance.Value;
-
-        private CultureResource()
+        public CultureResource(CoreInvoker coreInvoker)
         {
+            _coreInvoker = coreInvoker;
             LanguageChange();
         }
 
-        public static void LanguageChange()
+        public void LanguageChange()
         {
-            switch (InvokeMethods.UserConfig.Language)
+            switch (_coreInvoker.UserSettings.Language)
             {
-                case Core.Settings.Language.Auto:
+                case Language.Auto:
                     switch (Thread.CurrentThread.CurrentUICulture.Name)
                     {
                         case "zh-CN":
@@ -38,10 +37,10 @@ namespace SmartTaskbar.Languages
                     }
 
                     break;
-                case Core.Settings.Language.EnUs:
+                case Language.EnUs:
                     Thread.CurrentThread.CurrentUICulture = new CultureInfo("en-US");
                     break;
-                case Core.Settings.Language.ZhCn:
+                case Language.ZhCn:
                     Thread.CurrentThread.CurrentUICulture = new CultureInfo("zh-CN");
                     break;
                 default:

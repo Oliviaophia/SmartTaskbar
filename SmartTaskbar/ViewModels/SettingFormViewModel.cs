@@ -3,21 +3,22 @@ using System.Reactive.Linq;
 using System.Runtime.CompilerServices;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
-using SmartTaskbar.Core;
 using SmartTaskbar.Core.Settings;
-using SmartTaskbar.Languages;
+using SmartTaskbar.Model;
 
 namespace SmartTaskbar.ViewModels
 {
     public class SettingFormViewModel : ReactiveObject
     {
-        public SettingFormViewModel(AutoModeController autoModeController)
+        private readonly CoreInvoker _coreInvoker;
+
+        public SettingFormViewModel(CoreInvoker coreInvoker)
         {
-            GetUserConfig();
+            _coreInvoker = coreInvoker;
+            GetUserSettings();
             GetCultureResource();
 
             #region Command
-
 
             #endregion
 
@@ -25,19 +26,19 @@ namespace SmartTaskbar.ViewModels
 
             this.WhenAnyValue(p => p.IsSettingDisable)
                 .Where(p => p)
-                .Subscribe(_ => autoModeController.AutoModeSet(AutoModeType.Disable));
+                .Subscribe(_ => coreInvoker.ModeSwitch.SetAutoMode(AutoModeType.Disable));
 
             this.WhenAnyValue(p => p.IsSettingForegroundMode)
                 .Where(p => p)
-                .Subscribe(_ => autoModeController.AutoModeSet(AutoModeType.ForegroundMode));
+                .Subscribe(_ => coreInvoker.ModeSwitch.SetAutoMode(AutoModeType.ForegroundMode));
 
             this.WhenAnyValue(p => p.IsSettingBlacklistMode)
                 .Where(p => p)
-                .Subscribe(_ => autoModeController.AutoModeSet(AutoModeType.BlacklistMode));
+                .Subscribe(_ => coreInvoker.ModeSwitch.SetAutoMode(AutoModeType.BlacklistMode));
 
             this.WhenAnyValue(p => p.IsSettingWhitelistMode)
                 .Where(p => p)
-                .Subscribe(_ => autoModeController.AutoModeSet(AutoModeType.WhitelistMode));
+                .Subscribe(_ => coreInvoker.ModeSwitch.SetAutoMode(AutoModeType.WhitelistMode));
 
             #endregion
         }
@@ -47,10 +48,10 @@ namespace SmartTaskbar.ViewModels
         [Reactive] public IconStyle IconStyle { get; set; }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private void GetUserConfig()
+        private void GetUserSettings()
         {
-            IconStyle = InvokeMethods.UserConfig.IconStyle;
-            switch (InvokeMethods.UserConfig.ModeType)
+            IconStyle = _coreInvoker.UserSettings.IconStyle;
+            switch (_coreInvoker.UserSettings.ModeType)
             {
                 case AutoModeType.Disable:
                     IsSettingDisable = true;
@@ -85,7 +86,7 @@ namespace SmartTaskbar.ViewModels
 
         #region Language
 
-        #region AutoModeGrupBox
+        #region AutoModeGroupBox
 
         [Reactive] public string SettingModeText { get; set; }
 
@@ -102,17 +103,16 @@ namespace SmartTaskbar.ViewModels
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private void GetCultureResource()
         {
-            SettingModeText = CultureResource.Instance.GetText(nameof(SettingModeText));
-            SettingDisableText = CultureResource.Instance.GetText(nameof(SettingDisableText));
-            SettingForegroundModeText = CultureResource.Instance.GetText(nameof(SettingForegroundModeText));
-            SettingBlacklistModeText = CultureResource.Instance.GetText(nameof(SettingBlacklistModeText));
-            SettingWhitelistModeText = CultureResource.Instance.GetText(nameof(SettingWhitelistModeText));
+            SettingModeText = _coreInvoker.GetText(nameof(SettingModeText));
+            SettingDisableText = _coreInvoker.GetText(nameof(SettingDisableText));
+            SettingForegroundModeText = _coreInvoker.GetText(nameof(SettingForegroundModeText));
+            SettingBlacklistModeText = _coreInvoker.GetText(nameof(SettingBlacklistModeText));
+            SettingWhitelistModeText = _coreInvoker.GetText(nameof(SettingWhitelistModeText));
         }
 
         #endregion
 
         #region Command
-
 
         #endregion
     }

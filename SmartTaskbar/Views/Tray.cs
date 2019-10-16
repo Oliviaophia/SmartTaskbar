@@ -6,6 +6,7 @@ using System.Windows.Forms;
 using ReactiveUI;
 using SmartTaskbar.Core;
 using SmartTaskbar.Core.Settings;
+using SmartTaskbar.Model;
 using SmartTaskbar.Properties;
 using SmartTaskbar.ViewModels;
 
@@ -14,18 +15,18 @@ namespace SmartTaskbar.Views
     internal class Tray : Form, IViewFor<TrayViewModel>
     {
         private static SettingForm _settingForm;
-        private readonly AutoModeController _autoAutoModeController;
+        private readonly CoreInvoker _autotaskbarController;
         private readonly ToolStripMenuItem _exit;
         private readonly NotifyIcon _notifyIcon;
         private readonly ToolStripMenuItem _settings;
 
-        public Tray(IContainer container, AutoModeController autoAutoModeController)
+        public Tray(IContainer container, CoreInvoker autotaskbarController)
         {
-            _autoAutoModeController = autoAutoModeController;
+            _autotaskbarController = autotaskbarController;
 
             #region Initialization
 
-            ViewModel = new TrayViewModel(autoAutoModeController);
+            ViewModel = new TrayViewModel(autotaskbarController);
             var font = new Font("Segoe UI", 9F);
 
             _settings = new ToolStripMenuItem
@@ -90,7 +91,7 @@ namespace SmartTaskbar.Views
         object IViewFor.ViewModel
         {
             get => ViewModel;
-            set => ViewModel = (TrayViewModel) value;
+            set => ViewModel = (TrayViewModel)value;
         }
 
         public TrayViewModel ViewModel { get; set; }
@@ -113,7 +114,7 @@ namespace SmartTaskbar.Views
         public void ShowSettingForm()
         {
             if (_settingForm == null || _settingForm.IsDisposed)
-                _settingForm = new SettingForm(_autoAutoModeController);
+                _settingForm = new SettingForm(_autotaskbarController);
 
             _settingForm.Show();
         }

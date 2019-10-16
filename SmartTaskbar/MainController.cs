@@ -1,6 +1,6 @@
-﻿using System;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.Windows.Forms;
+using SmartTaskbar.Model;
 using SmartTaskbar.Views;
 
 namespace SmartTaskbar
@@ -8,12 +8,12 @@ namespace SmartTaskbar
     internal class MainController : ApplicationContext
     {
         private readonly Container _container = new Container();
-        private readonly AutoModeController _autoModeController = new AutoModeController();
+        private readonly CoreInvoker _coreInvoker = new CoreInvoker();
         private readonly Tray _tray;
 
         public MainController()
         {
-            _tray = new Tray(_container, _autoModeController);
+            _tray = new Tray(_container, _coreInvoker);
         }
 
         public void ShowSettingForm()
@@ -27,7 +27,7 @@ namespace SmartTaskbar
             {
                 _tray?.Dispose();
                 _container?.Dispose();
-                _autoModeController?.Dispose();
+                _coreInvoker?.Dispose();
             }
 
             base.Dispose(disposing);

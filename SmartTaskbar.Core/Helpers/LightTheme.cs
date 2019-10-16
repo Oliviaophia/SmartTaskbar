@@ -10,6 +10,6 @@ namespace SmartTaskbar.Core.Helpers
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         internal static bool IsSystemUsesLightTheme() =>
-            (int)Key.GetValue("SystemUsesLightTheme", 0) == 1;
+            (int) Key.GetValue("SystemUsesLightTheme", 0) == 1;
     }
 }

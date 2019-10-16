@@ -1,19 +1,20 @@
 ﻿using System.Reactive.Disposables;
 using System.Windows.Forms;
 using ReactiveUI;
+using SmartTaskbar.Model;
 using SmartTaskbar.ViewModels;
 
 namespace SmartTaskbar.Views
 {
     public partial class SettingForm : Form, IViewFor<SettingFormViewModel>
     {
-        public SettingForm(AutoModeController autoModeController)
+        public SettingForm(CoreInvoker taskbarController)
         {
             InitializeComponent();
 
             #region Reactive Binding
 
-            ViewModel = new SettingFormViewModel(autoModeController);
+            ViewModel = new SettingFormViewModel(taskbarController);
 
             this.WhenActivated(disposables =>
             {
@@ -31,33 +32,33 @@ namespace SmartTaskbar.Views
 
                 #region AutoModeGroupBox
 
-                this.OneWayBind(ViewModel, 
+                this.OneWayBind(ViewModel,
                         m => m.SettingModeText,
                         v => v.groupBox_AutoMode.Text)
                     .DisposeWith(disposables);
 
-                this.OneWayBind(ViewModel, 
+                this.OneWayBind(ViewModel,
                         m => m.SettingDisableText,
                         v => v.radioButtonDisableMode.Text)
                     .DisposeWith(disposables);
 
-                this.OneWayBind(ViewModel, 
+                this.OneWayBind(ViewModel,
                         m => m.SettingForegroundModeText,
                         v => v.radioButtonForegroundMode.Text)
                     .DisposeWith(disposables);
 
-                this.OneWayBind(ViewModel, 
+                this.OneWayBind(ViewModel,
                         m => m.SettingBlacklistModeText,
                         v => v.radioButtonBlacklistMode.Text)
                     .DisposeWith(disposables);
 
-                this.OneWayBind(ViewModel, 
+                this.OneWayBind(ViewModel,
                         m => m.SettingWhitelistModeText,
                         v => v.radioButtonWhitelistMode.Text)
                     .DisposeWith(disposables);
 
                 #endregion
-                
+
                 #endregion
 
                 #region AutoModeGroupBox
@@ -87,7 +88,7 @@ namespace SmartTaskbar.Views
         object IViewFor.ViewModel
         {
             get => ViewModel;
-            set => ViewModel = (SettingFormViewModel) value;
+            set => ViewModel = (SettingFormViewModel)value;
         }
 
         public SettingFormViewModel ViewModel { get; set; }

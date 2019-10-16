@@ -1,6 +1,5 @@
 ﻿using System.Windows.Forms;
 using SmartTaskbar.Core;
-using SmartTaskbar.Views;
 
 namespace SmartTaskbar
 {

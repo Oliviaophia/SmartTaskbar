@@ -5,6 +5,6 @@
         Disable,
         ForegroundMode,
         BlacklistMode,
-        WhitelistMode,
+        WhitelistMode
     }
 }

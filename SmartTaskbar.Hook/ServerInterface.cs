@@ -9,10 +9,5 @@ namespace SmartTaskbar.Hook
         {
             Debug.WriteLine("ping");
         }
-
-        public void ReportMessage(string message)
-        {
-            Debug.WriteLine(message);
-        }
     }
 }

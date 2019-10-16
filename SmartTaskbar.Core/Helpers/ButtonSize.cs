@@ -18,10 +18,10 @@ namespace SmartTaskbar.Core.Helpers
         {
             Key.SetValue("TaskbarSmallIcons", size);
             // https://github.com/cprcrack/AdaptiveTaskbar/blob/4a1ce94044ae3de47ba63877558794dd698ad9e5/Program.cs#L165
-            SendNotifyMessage((IntPtr)HwndBroadcast, WmSettingChange, UIntPtr.Zero, "TraySettings");
+            SendNotifyMessage((IntPtr) HwndBroadcast, WmSettingChange, UIntPtr.Zero, "TraySettings");
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static int GetIconSize() => (int)Key.GetValue("TaskbarSmallIcons", Constant.IconLarge);
+        public static int GetIconSize() => (int) Key.GetValue("TaskbarSmallIcons", Constant.IconLarge);
     }
 }

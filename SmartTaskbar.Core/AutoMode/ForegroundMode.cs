@@ -6,6 +6,8 @@ namespace SmartTaskbar.Core.AutoMode
 {
     public class ForegroundMode : IAutoMode
     {
+        // Do not use Higher order function or Lambda here; Advanced syntax is not used here for performance reasons;
+
         private static bool _sendMessage;
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -17,7 +19,6 @@ namespace SmartTaskbar.Core.AutoMode
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void Ready()
         {
-            _sendMessage = true;
             if (AutoHide.NotAutoHide()) AutoHide.SetAutoHide();
         }
 
@@ -32,25 +33,45 @@ namespace SmartTaskbar.Core.AutoMode
 
             if (foregroundHandle.IsClassNameInvalid()) return;
 
+            _sendMessage = false;
             if (foregroundHandle.IsNotMaximizeWindow())
             {
-                GetWindowRect(foregroundHandle, out var rect);
-                Variable.Taskbars.UpdateInersect(out _sendMessage, _ =>
-                    rect.left < _.Rect.Right &&
-                    rect.right > _.Rect.Left &&
-                    rect.top < _.Rect.Bottom &&
-                    rect.bottom > _.Rect.Top);
+                GetWindowRect(foregroundHandle, out TagRect rect);
+                foreach (var taskbar in Variable.Taskbars)
+                {
+                    if ((rect.left < taskbar.Rect.Right &&
+                         rect.right > taskbar.Rect.Left &&
+                         rect.top < taskbar.Rect.Bottom &&
+                         rect.bottom > taskbar.Rect.Top) == taskbar.Intersect) continue;
+
+                    taskbar.Intersect = !taskbar.Intersect;
+                    _sendMessage = true;
+                }
             }
             else
             {
                 var monitor = foregroundHandle.GetMonitor();
-                Variable.Taskbars.UpdateInersect(out _sendMessage, _ => _.Monitor == monitor);
+                foreach (var taskbar in Variable.Taskbars)
+                {
+                    if (taskbar.Monitor == monitor == taskbar.Intersect) continue;
+
+                    taskbar.Intersect = !taskbar.Intersect;
+                    _sendMessage = true;
+                }
             }
 
             if (!_sendMessage) return;
-            _sendMessage = false;
 
-            Variable.Taskbars.ShowTaskbarbyInersect();
+
+            foreach (var taskbar in Variable.Taskbars)
+            {
+                if (taskbar.Intersect) continue;
+
+                taskbar.Monitor.PostMesssageShowBar();
+                return;
+            }
+
+            ShowBar.PostMessageHideBar();
         }
     }
 }

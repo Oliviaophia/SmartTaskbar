@@ -1,19 +1,18 @@
 ﻿using System.Runtime.CompilerServices;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
-using SmartTaskbar.Core;
 using SmartTaskbar.Core.Settings;
-using SmartTaskbar.Languages;
+using SmartTaskbar.Model;
 
 namespace SmartTaskbar.ViewModels
 {
     public class TrayViewModel : ReactiveObject
     {
-        private readonly AutoModeController _auoAutoModeController;
+        private readonly CoreInvoker _coreInvoker;
 
-        public TrayViewModel(AutoModeController auoAutoModeController)
+        public TrayViewModel(CoreInvoker coreInvoker)
         {
-            _auoAutoModeController = auoAutoModeController;
+            _coreInvoker = coreInvoker;
             GetUserConfig();
             GetCultureResource();
         }
@@ -25,7 +24,7 @@ namespace SmartTaskbar.ViewModels
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private void GetUserConfig()
         {
-            IconStyle = InvokeMethods.UserConfig.IconStyle;
+            IconStyle = _coreInvoker.UserSettings.IconStyle;
         }
 
         #endregion
@@ -39,8 +38,9 @@ namespace SmartTaskbar.ViewModels
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private void GetCultureResource()
         {
-            TraySettingsText = CultureResource.Instance.GetText(nameof(TraySettingsText));
-            TrayExitText = CultureResource.Instance.GetText(nameof(TrayExitText)); }
+            TraySettingsText = _coreInvoker.GetText(nameof(TraySettingsText));
+            TrayExitText = _coreInvoker.GetText(nameof(TrayExitText));
+        }
 
         #endregion
     }

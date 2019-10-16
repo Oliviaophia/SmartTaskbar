@@ -9,12 +9,11 @@ namespace SmartTaskbar.Core.Helpers
 {
     internal static class BarBuilder
     {
-        private static int _screenNum;
+        // Do not use Higher order function or Lambda here; Advanced syntax is not used here for performance reasons;
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         internal static List<Taskbar> ResetTaskbars(this List<Taskbar> taskbars)
         {
-            _screenNum = Screen.AllScreens.Length;
             taskbars.Clear();
             taskbars.Add(FindWindow("Shell_TrayWnd", null).InitTaskbar());
 
@@ -158,36 +157,6 @@ namespace SmartTaskbar.Core.Helpers
             taskbar.Monitor = handle.GetMonitor();
             taskbar.Rect = rectangle;
             return taskbar;
-        }
-
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        internal static List<Taskbar> UpdateInersect(this List<Taskbar> taskbars, out bool sendMessage,
-            Func<Taskbar, bool> func)
-        {
-            sendMessage = false;
-            foreach (var taskbar in taskbars)
-            {
-                if (func(taskbar) == taskbar.Intersect) continue;
-
-                taskbar.Intersect = !taskbar.Intersect;
-                sendMessage = true;
-            }
-
-            return taskbars;
-        }
-
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        internal static void ShowTaskbarbyInersect(this IList<Taskbar> taskbars)
-        {
-            foreach (var taskbar in taskbars)
-            {
-                if (taskbar.Intersect) continue;
-
-                taskbar.Monitor.PostMesssageShowBar();
-                return;
-            }
-
-            ShowBar.PostMessageHideBar();
         }
     }
 }
