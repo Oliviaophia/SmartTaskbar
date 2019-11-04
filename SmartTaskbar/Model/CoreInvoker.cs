@@ -9,15 +9,19 @@ namespace SmartTaskbar.Model
     {
         private readonly CultureResource _cultureResource;
 
-        public UserSettings UserSettings { get; set; } = InvokeMethods.GetUserSettings();
-
-        public AutoModeSwitcher ModeSwitch { get; }
-
         public CoreInvoker()
         {
             ModeSwitch = new AutoModeSwitcher(this);
             _cultureResource = new CultureResource(this);
         }
+
+        public UserSettings UserSettings { get; set; } = InvokeMethods.GetUserSettings();
+
+        public AutoModeSwitcher ModeSwitch { get; }
+
+        public void Dispose() => ModeSwitch?.Dispose();
+
+        public void ReloadSetting() => UserSettings = InvokeMethods.GetUserSettings();
 
         public void SaveUserSettings()
         {
@@ -26,10 +30,5 @@ namespace SmartTaskbar.Model
         }
 
         public string GetText(string name) => _cultureResource.GetText(name);
-
-        public void Dispose()
-        {
-            ModeSwitch?.Dispose();
-        }
     }
 }

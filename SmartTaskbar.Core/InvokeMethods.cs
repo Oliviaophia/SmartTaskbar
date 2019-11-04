@@ -9,20 +9,8 @@ namespace SmartTaskbar.Core
     {
         #region PostThreadMessage
 
-        public static void BringOutSettingsWindow(int id)
-        {
+        public static void BringOutSettingsWindow(int id) =>
             PostThreadMessage(id, Constant.MsgSettings, IntPtr.Zero, IntPtr.Zero);
-        }
-
-        #endregion
-
-        #region Update
-
-        public static void UpdateCache()
-        {
-            Variable.NameCache.UpdateCacheName();
-            Variable.Taskbars.ResetTaskbars();
-        }
 
         #endregion
 
@@ -34,8 +22,6 @@ namespace SmartTaskbar.Core
 
         public static void SetTransparent(TransparentModeType modeType, bool stateChange) =>
             Variable.Taskbars.TransparentBar(modeType, stateChange);
-
-        public static void SetHook() => HookBar.SetHook();
 
         public static bool IsLightTheme() => LightTheme.IsSystemUsesLightTheme();
 

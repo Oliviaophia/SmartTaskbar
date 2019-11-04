@@ -17,19 +17,17 @@ namespace SmartTaskbar.Core.Helpers
 
             GetClassName(handle, StringBuilder, Capacity);
 
-            switch (StringBuilder.ToString())
+            return StringBuilder.ToString() switch
             {
-                case "WorkerW":
-                case "Progman":
-                case "DV2ControlHost":
-                case "Shell_TrayWnd":
-                case "Shell_SecondaryTrayWnd":
-                case "MultitaskingViewFrame":
-                case "Windows.UI.Core.CoreWindow":
-                    return true;
-                default:
-                    return false;
-            }
+                "WorkerW" => true,
+                "Progman" => true,
+                "DV2ControlHost" => true,
+                "Shell_TrayWnd" => true,
+                "Shell_SecondaryTrayWnd" => true,
+                "MultitaskingViewFrame" => true,
+                "Windows.UI.Core.CoreWindow" => true,
+                _ => false
+            };
         }
     }
 }

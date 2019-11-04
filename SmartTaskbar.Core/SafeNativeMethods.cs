@@ -236,11 +236,11 @@ namespace SmartTaskbar.Core
 
         [UnmanagedFunctionPointer(CallingConvention.StdCall)]
         [return: MarshalAs(UnmanagedType.Bool)]
-        internal delegate bool WndEnumProc(IntPtr param0, UserSettings param1);
+        internal delegate bool WndEnumProc(IntPtr param0, AutoModeType param1);
 
         [DllImport("user32.dll", EntryPoint = "EnumWindows")]
         [return: MarshalAs(UnmanagedType.Bool)]
-        internal static extern bool EnumWindows(WndEnumProc lpEnumFunc, in UserSettings lParam);
+        internal static extern bool EnumWindows(WndEnumProc lpEnumFunc, in AutoModeType lParam);
 
         #endregion
 

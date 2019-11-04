@@ -91,7 +91,7 @@ namespace SmartTaskbar.Views
         object IViewFor.ViewModel
         {
             get => ViewModel;
-            set => ViewModel = (TrayViewModel)value;
+            set => ViewModel = (TrayViewModel) value;
         }
 
         public TrayViewModel ViewModel { get; set; }

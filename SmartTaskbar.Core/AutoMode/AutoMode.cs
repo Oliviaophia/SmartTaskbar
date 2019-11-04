@@ -8,9 +8,9 @@ namespace SmartTaskbar.Core.AutoMode
 {
     public class AutoMode : IAutoMode
     {
-        private readonly UserSettings _userSettings;
         private static IntPtr _maxWindow;
         private static bool _tryShowBar;
+        private readonly UserSettings _userSettings;
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public AutoMode(UserSettings userSettings)
@@ -26,6 +26,13 @@ namespace SmartTaskbar.Core.AutoMode
             _tryShowBar = true;
         }
 
+        public void Reset()
+        {
+            Ready();
+            Variable.NameCache.UpdateCacheName();
+            Variable.Taskbars.ResetTaskbars();
+        }
+
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void Run()
         {
@@ -37,22 +44,22 @@ namespace SmartTaskbar.Core.AutoMode
 
             if (Variable.Taskbars.IsMouseOverTaskbar()) return;
 
-            // todo may have a bug here
+            _maxWindow = IntPtr.Zero;
             EnumWindows((handle, lp) =>
             {
                 if (handle.IsWindowInvisible()) return true;
 
                 if (handle.IsNotMaximizeWindow()) return true;
 
-                if (lp.ModeType == AutoModeType.BlacklistMode && handle.InBlacklist(lp))
+                if (lp == AutoModeType.BlacklistMode && handle.InBlacklist(_userSettings))
                     return true;
 
-                if (lp.ModeType == AutoModeType.WhitelistMode && handle.NotInWhitelist(lp))
+                if (lp == AutoModeType.WhitelistMode && handle.NotInWhitelist(_userSettings))
                     return true;
 
                 _maxWindow = handle;
                 return false;
-            }, in _userSettings);
+            }, _userSettings.ModeType);
 
             if (_maxWindow == IntPtr.Zero)
             {

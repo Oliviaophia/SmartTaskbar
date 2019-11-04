@@ -7,6 +7,6 @@ namespace SmartTaskbar.Core
     {
         internal static List<Taskbar> Taskbars = new List<Taskbar>(4);
 
-        internal static Dictionary<IntPtr, string> NameCache = new Dictionary<IntPtr, string>(64);
+        internal static Dictionary<IntPtr, string> NameCache = new Dictionary<IntPtr, string>(16);
     }
 }

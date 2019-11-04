@@ -5,5 +5,7 @@
         void Run();
 
         void Ready();
+
+        void Reset();
     }
 }

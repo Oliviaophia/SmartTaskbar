@@ -10,17 +10,12 @@ namespace SmartTaskbar.Core.Helpers
         private const int MonitorDefaulttonearest = 2;
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        internal static IntPtr GetMonitor(this IntPtr handle)
-        {
-            return MonitorFromWindow(handle, MonitorDefaulttonearest);
-        }
+        internal static IntPtr GetMonitor(this IntPtr handle) => MonitorFromWindow(handle, MonitorDefaulttonearest);
 
 
         // MonitorFromPoint will be faster than MonitorFromRect
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        internal static IntPtr GetMonitor(this Rectangle rectangle)
-        {
-            return MonitorFromPoint(new TagPoint {x = rectangle.Left, y = rectangle.Top}, MonitorDefaulttonearest);
-        }
+        internal static IntPtr GetMonitor(this Rectangle rectangle) =>
+            MonitorFromPoint(new TagPoint {x = rectangle.Left, y = rectangle.Top}, MonitorDefaulttonearest);
     }
 }

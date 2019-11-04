@@ -9,8 +9,10 @@ namespace SmartTaskbar.Views
 {
     internal class IconStyleIconConverter : IBindingTypeConverter
     {
-        public int GetAffinityForObjects(Type fromType, Type toType) =>
-            fromType != typeof(IconStyle) || toType != typeof(Icon) ? 0 : 10;
+        public int GetAffinityForObjects(Type fromType, Type toType)
+        {
+            return fromType != typeof(IconStyle) || toType != typeof(Icon) ? 0 : 10;
+        }
 
         public bool TryConvert(object from, Type toType, object conversionHint, out object result)
         {

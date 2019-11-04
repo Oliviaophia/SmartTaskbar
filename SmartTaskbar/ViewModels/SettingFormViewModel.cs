@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Reactive;
 using System.Reactive.Linq;
 using System.Runtime.CompilerServices;
+using DynamicData.Binding;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
 using SmartTaskbar.Core.Settings;
@@ -39,6 +41,8 @@ namespace SmartTaskbar.ViewModels
             this.WhenAnyValue(p => p.IsSettingWhitelistMode)
                 .Where(p => p)
                 .Subscribe(_ => coreInvoker.ModeSwitch.SetAutoMode(AutoModeType.WhitelistMode));
+
+            // todo    
 
             #endregion
         }
@@ -113,6 +117,8 @@ namespace SmartTaskbar.ViewModels
         #endregion
 
         #region Command
+
+        
 
         #endregion
     }

@@ -5,9 +5,6 @@ namespace SmartTaskbar.Hook
 {
     public class ServerInterface : MarshalByRefObject
     {
-        public void Ping()
-        {
-            Debug.WriteLine("ping");
-        }
+        public void Ping() => Debug.WriteLine("ping");
     }
 }
