@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Runtime.CompilerServices;
 using Microsoft.Win32;
 using static SmartTaskbar.Core.SafeNativeMethods;
 
@@ -13,7 +12,6 @@ namespace SmartTaskbar.Core.Helpers
         private static readonly RegistryKey Key =
             Registry.CurrentUser.OpenSubKey(@"Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced", true);
 
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static void SetIconSize(int size)
         {
             Key.SetValue("TaskbarSmallIcons", size);
@@ -21,7 +19,6 @@ namespace SmartTaskbar.Core.Helpers
             SendNotifyMessage((IntPtr) HwndBroadcast, WmSettingChange, UIntPtr.Zero, "TraySettings");
         }
 
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static int GetIconSize() => (int) Key.GetValue("TaskbarSmallIcons", Constant.IconLarge);
     }
 }

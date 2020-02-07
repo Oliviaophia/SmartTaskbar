@@ -9,17 +9,15 @@ namespace SmartTaskbar
     {
         private readonly Container _container = new Container();
         private readonly CoreInvoker _coreInvoker = new CoreInvoker();
-        private readonly Tray _tray;
+        private readonly MainNotifyIcon _tray;
 
         public MainController()
         {
-            _tray = new Tray(_container, _coreInvoker);
+            _tray = new MainNotifyIcon(_container, _coreInvoker);
         }
 
-        public void ShowSettingForm()
-        {
-            _tray.ShowSettingForm();
-        }
+        public void ShowSettingForm() =>
+            _tray.MainContextMenuInstance.MainSettingFormInstance.Show();
 
         protected override void Dispose(bool disposing)
         {

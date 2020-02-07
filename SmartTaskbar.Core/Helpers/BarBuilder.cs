@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
-using System.Runtime.CompilerServices;
 using System.Windows.Forms;
 using static SmartTaskbar.Core.SafeNativeMethods;
 
@@ -11,7 +10,6 @@ namespace SmartTaskbar.Core.Helpers
     {
         // Do not use Higher order function or Lambda here; Advanced syntax is not used here for performance reasons;
 
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         internal static List<Taskbar> ResetTaskbars(this List<Taskbar> taskbars)
         {
             taskbars.Clear();
@@ -27,7 +25,6 @@ namespace SmartTaskbar.Core.Helpers
             }
         }
 
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private static Taskbar InitTaskbar(this IntPtr handle)
         {
             var taskbar = new Taskbar(handle);

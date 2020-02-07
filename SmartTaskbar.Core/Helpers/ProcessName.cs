@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
-using System.Runtime.CompilerServices;
 using SmartTaskbar.Core.Settings;
 using static SmartTaskbar.Core.SafeNativeMethods;
 
@@ -10,7 +9,6 @@ namespace SmartTaskbar.Core.Helpers
 {
     internal static class ProcessName
     {
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         internal static bool InBlacklist(this IntPtr handle, in UserSettings userSettings)
         {
             if (Variable.NameCache.TryGetValue(handle, out var name)) return userSettings.Blacklist.Contains(name);
@@ -27,7 +25,6 @@ namespace SmartTaskbar.Core.Helpers
             return userSettings.Blacklist.Contains(name);
         }
 
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         internal static bool NotInWhitelist(this IntPtr handle, in UserSettings userSettings)
         {
             if (Variable.NameCache.TryGetValue(handle, out var name)) return !userSettings.Whitelist.Contains(name);
@@ -44,7 +41,6 @@ namespace SmartTaskbar.Core.Helpers
             return !userSettings.Whitelist.Contains(name);
         }
 
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         internal static Dictionary<IntPtr, string> UpdateCacheName(this Dictionary<IntPtr, string> cacheDictionary)
         {
             foreach (var key in cacheDictionary.Keys.Where(key => key.IsWindowInvisible()))

@@ -1,18 +1,15 @@
-﻿using System.Runtime.CompilerServices;
-using SmartTaskbar.Core.Settings;
+﻿using SmartTaskbar.Core.Settings;
 
 namespace SmartTaskbar.Core.Helpers
 {
     internal static class BarState
     {
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static void SetState(this TaskbarState state)
         {
             AutoHide.SetAutoHide(state.IsAutoHide);
             ButtonSize.SetIconSize(state.IconSize);
         }
 
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static TaskbarState GetDefault() =>
             new TaskbarState
             {

@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Runtime.CompilerServices;
 using SmartTaskbar.Core.Helpers;
 using SmartTaskbar.Core.Settings;
 using static SmartTaskbar.Core.SafeNativeMethods;
@@ -12,14 +11,12 @@ namespace SmartTaskbar.Core.AutoMode
         private static bool _tryShowBar;
         private readonly UserSettings _userSettings;
 
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public AutoMode(UserSettings userSettings)
         {
             _userSettings = userSettings;
             Ready();
         }
 
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void Ready()
         {
             _maxWindow = IntPtr.Zero;
@@ -33,7 +30,6 @@ namespace SmartTaskbar.Core.AutoMode
             Variable.Taskbars.ResetTaskbars();
         }
 
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void Run()
         {
             if (_maxWindow != IntPtr.Zero)

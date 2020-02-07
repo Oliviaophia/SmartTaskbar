@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Runtime.CompilerServices;
 using System.Text;
 using static SmartTaskbar.Core.SafeNativeMethods;
 
@@ -10,7 +9,6 @@ namespace SmartTaskbar.Core.Helpers
         private const int Capacity = 256;
         private static readonly StringBuilder StringBuilder = new StringBuilder(Capacity);
 
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         internal static bool IsClassNameInvalid(this IntPtr handle)
         {
             StringBuilder.Clear();

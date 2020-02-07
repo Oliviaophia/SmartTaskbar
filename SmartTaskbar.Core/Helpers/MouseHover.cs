@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.CompilerServices;
 using static SmartTaskbar.Core.SafeNativeMethods;
 
 namespace SmartTaskbar.Core.Helpers
@@ -12,7 +11,6 @@ namespace SmartTaskbar.Core.Helpers
         private static IntPtr _currentHandle;
         private static bool _lastResult;
 
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         internal static bool IsMouseOverTaskbar(this IList<Taskbar> taskbars)
         {
             GetCursorPos(out var point);

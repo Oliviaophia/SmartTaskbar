@@ -117,25 +117,22 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="SettingBlacklistModeText" xml:space="preserve">
+  <data name="TrayBlacklistMode" xml:space="preserve">
     <value>黑名单</value>
   </data>
-  <data name="SettingDisableText" xml:space="preserve">
+  <data name="TrayDisable" xml:space="preserve">
     <value>禁用</value>
   </data>
-  <data name="SettingForegroundModeText" xml:space="preserve">
-    <value>智能</value>
-  </data>
-  <data name="SettingModeText" xml:space="preserve">
-    <value>模式</value>
-  </data>
-  <data name="SettingWhitelistModeText" xml:space="preserve">
-    <value>白名单</value>
-  </data>
-  <data name="TrayExitText" xml:space="preserve">
+  <data name="TrayExit" xml:space="preserve">
     <value>退出</value>
   </data>
-  <data name="TraySettingsText" xml:space="preserve">
+  <data name="TrayForegroundMode" xml:space="preserve">
+    <value>智能</value>
+  </data>
+  <data name="TraySettings" xml:space="preserve">
     <value>设置</value>
+  </data>
+  <data name="TrayWhitelistMode" xml:space="preserve">
+    <value>白名单</value>
   </data>
 </root>

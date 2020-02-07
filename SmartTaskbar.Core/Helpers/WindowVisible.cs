@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Runtime.CompilerServices;
 using static SmartTaskbar.Core.SafeNativeMethods;
 
 namespace SmartTaskbar.Core.Helpers
@@ -9,7 +8,6 @@ namespace SmartTaskbar.Core.Helpers
         private const int DwmwaCloaked = 14;
         private static bool _cloaked;
 
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         internal static bool IsWindowInvisible(this IntPtr handle)
         {
             if (IsWindowVisible(handle) == false) return true;

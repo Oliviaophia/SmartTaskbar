@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using SmartTaskbar.Core.Settings;
 using static SmartTaskbar.Core.SafeNativeMethods;
@@ -16,7 +15,6 @@ namespace SmartTaskbar.Core.Helpers
         private static IntPtr _accentPtr;
         private static WindowCompositionAttributeData _data;
 
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         internal static void TransparentBar(this List<Taskbar> taskbars, TransparentModeType modeType, bool stateChange)
         {
             if (_accentPtr == IntPtr.Zero)
@@ -65,7 +63,6 @@ namespace SmartTaskbar.Core.Helpers
             foreach (var taskbar in taskbars) SetWindowCompositionAttribute(taskbar.Handle, ref _data);
         }
 
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         internal static void Free()
         {
             Marshal.FreeHGlobal(_accentPtr);

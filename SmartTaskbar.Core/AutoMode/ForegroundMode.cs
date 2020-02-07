@@ -1,5 +1,4 @@
 ﻿using System.Linq;
-using System.Runtime.CompilerServices;
 using SmartTaskbar.Core.Helpers;
 using static SmartTaskbar.Core.SafeNativeMethods;
 
@@ -9,10 +8,8 @@ namespace SmartTaskbar.Core.AutoMode
     {
         private static bool _sendMessage;
 
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public ForegroundMode() => Ready();
 
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void Ready()
         {
             if (AutoHide.NotAutoHide()) AutoHide.SetAutoHide();
@@ -21,12 +18,10 @@ namespace SmartTaskbar.Core.AutoMode
         public void Reset()
         {
             Ready();
-            Variable.NameCache.UpdateCacheName();
             Variable.Taskbars.ResetTaskbars();
             HookBar.SetHook();
         }
 
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void Run()
         {
             if (Variable.Taskbars.IsMouseOverTaskbar()) return;

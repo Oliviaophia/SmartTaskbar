@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Runtime.CompilerServices;
 using static SmartTaskbar.Core.SafeNativeMethods;
 
 namespace SmartTaskbar.Core.Helpers
@@ -17,14 +16,12 @@ namespace SmartTaskbar.Core.Helpers
 
         static Animation() => GetTaskbarAnimation();
 
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         internal static bool GetTaskbarAnimation()
         {
             GetSystemParameters(SpiGetMenuAnimation, 0, out _animation, 0);
             return _animation;
         }
 
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         internal static bool ChangeTaskbarAnimation()
         {
             _animation = !_animation;

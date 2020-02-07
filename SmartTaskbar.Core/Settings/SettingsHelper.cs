@@ -1,6 +1,5 @@
 ﻿using System;
 using System.IO;
-using System.Runtime.CompilerServices;
 using Newtonsoft.Json;
 
 namespace SmartTaskbar.Core.Settings
@@ -13,7 +12,6 @@ namespace SmartTaskbar.Core.Settings
 
         private static readonly JsonSerializer Serializer = new JsonSerializer();
 
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         internal static void SaveSettings(in UserSettings userSettings)
         {
             DirectoryBuilder();
@@ -22,7 +20,6 @@ namespace SmartTaskbar.Core.Settings
             Serializer.Serialize(sw, userSettings);
         }
 
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         internal static UserSettings ReadSettings()
         {
             DirectoryBuilder();
@@ -32,7 +29,6 @@ namespace SmartTaskbar.Core.Settings
             return Serializer.Deserialize<UserSettings>(jr);
         }
 
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private static void DirectoryBuilder() =>
             Directory.CreateDirectory(Path.GetDirectoryName(SettingPath) ?? throw new InvalidOperationException());
     }

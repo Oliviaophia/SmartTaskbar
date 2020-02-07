@@ -61,6 +61,26 @@ namespace SmartTaskbar.Properties {
         }
         
         /// <summary>
+        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
+        /// </summary>
+        internal static System.Drawing.Bitmap BlackBall {
+            get {
+                object obj = ResourceManager.GetObject("BlackBall", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
+        /// </summary>
+        internal static System.Drawing.Bitmap Empty {
+            get {
+                object obj = ResourceManager.GetObject("Empty", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
         ///   查找类似于 (图标) 的 System.Drawing.Icon 类型的本地化资源。
         /// </summary>
         internal static System.Drawing.Icon Logo_Black {
@@ -97,6 +117,16 @@ namespace SmartTaskbar.Properties {
             get {
                 object obj = ResourceManager.GetObject("Logo_White", resourceCulture);
                 return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
+        /// </summary>
+        internal static System.Drawing.Bitmap WhiteBall {
+            get {
+                object obj = ResourceManager.GetObject("WhiteBall", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
     }

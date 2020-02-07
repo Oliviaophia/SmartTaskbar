@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
 using static SmartTaskbar.Core.SafeNativeMethods;
@@ -14,7 +13,6 @@ namespace SmartTaskbar.Core.Helpers
             {length = (uint) Marshal.SizeOf(typeof(TagWindowPlacement))};
 
 
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         internal static bool IsNotMaximizeWindow(this IntPtr handle)
         {
             GetWindowPlacement(handle, ref _placement);

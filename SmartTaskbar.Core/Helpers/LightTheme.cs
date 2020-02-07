@@ -1,5 +1,4 @@
-﻿using System.Runtime.CompilerServices;
-using Microsoft.Win32;
+﻿using Microsoft.Win32;
 
 namespace SmartTaskbar.Core.Helpers
 {
@@ -8,7 +7,6 @@ namespace SmartTaskbar.Core.Helpers
         private static readonly RegistryKey Key =
             Registry.CurrentUser.OpenSubKey(@"Software\Microsoft\Windows\CurrentVersion\Themes\Personalize", false);
 
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         internal static bool IsSystemUsesLightTheme() => (int) Key.GetValue("SystemUsesLightTheme", 0) == 1;
     }
 }

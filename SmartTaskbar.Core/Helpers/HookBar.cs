@@ -3,7 +3,6 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Reflection;
-using System.Runtime.CompilerServices;
 using System.Runtime.Remoting;
 using EasyHook;
 using SmartTaskbar.Hook;
@@ -20,7 +19,6 @@ namespace SmartTaskbar.Core.Helpers
                 Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) ??
                 throw new InvalidOperationException(), "SmartTaskbar.Hook.dll");
 
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         internal static void SetHook()
         {
             var explorer = Process.GetProcessesByName("explorer").FirstOrDefault();
