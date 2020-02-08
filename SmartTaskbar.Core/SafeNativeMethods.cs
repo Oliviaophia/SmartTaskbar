@@ -242,6 +242,10 @@ namespace SmartTaskbar.Core
         [return: MarshalAs(UnmanagedType.Bool)]
         internal static extern bool EnumWindows(WndEnumProc lpEnumFunc, in AutoModeType lParam);
 
+        [DllImport("user32.dll", EntryPoint = "EnumWindows")]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        internal static extern bool EnumWindows(WndEnumProc lpEnumFunc, in IntPtr lParam);
+
         #endregion
 
         #region SetWindowCompositionAttribute

@@ -42,7 +42,15 @@ namespace SmartTaskbar.Views
 
             disableButton.Text = coreInvoker.GetText("TrayDisable");
             disableButton.Image = Properties.Resources.Empty;
-            
+
+            autoButton.Text = coreInvoker.GetText("TrayForegroundMode");
+            autoButton.Image = Properties.Resources.Empty;
+
+            WhitelistButton.Text = coreInvoker.GetText("TrayWhitelistMode");
+            WhitelistButton.Image = Properties.Resources.Empty;
+
+            BlacklistButton.Text = coreInvoker.GetText("TrayBlacklistMode");
+            BlacklistButton.Image = Properties.Resources.Empty;
 
             #endregion
         }

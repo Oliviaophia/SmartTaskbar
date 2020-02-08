@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using Newtonsoft.Json;
+using SmartTaskbar.Core.Helpers;
 
 namespace SmartTaskbar.Core.Settings
 {
@@ -26,10 +28,44 @@ namespace SmartTaskbar.Core.Settings
             using var fs = new FileStream(SettingPath, FileMode.OpenOrCreate);
             using var sr = new StreamReader(fs);
             using var jr = new JsonTextReader(sr);
-            return Serializer.Deserialize<UserSettings>(jr);
+            return Serializer.Deserialize<UserSettings>(jr).UpdateSettings();
         }
 
         private static void DirectoryBuilder() =>
             Directory.CreateDirectory(Path.GetDirectoryName(SettingPath) ?? throw new InvalidOperationException());
+
+        private static UserSettings UpdateSettings(this UserSettings settings)
+            => new UserSettings
+            {
+                IconStyle = settings?.IconStyle ?? IconStyle.Auto,
+                ModeType = settings?.ModeType ?? AutoModeType.AutoHideApiMode,
+                ResetState = settings?.ResetState ?? new TaskbarState
+                {
+                    HideTaskbarCompletely = false,
+                    IsAutoHide = !AutoHide.NotAutoHide(),
+                    IconSize = ButtonSize.GetIconSize(),
+                    TransparentMode = TransparentModeType.Disabled
+                },
+                ReadyState = settings?.ReadyState ?? new TaskbarState
+                {
+                    HideTaskbarCompletely = false,
+                    IsAutoHide = false,
+                    IconSize = Constant.IconLarge,
+                    TransparentMode = TransparentModeType.Disabled
+                },
+                TargetState = settings?.TargetState ?? new TaskbarState
+                {
+                    HideTaskbarCompletely = false,
+                    IsAutoHide = true,
+                    IconSize = Constant.IconLarge,
+                    TransparentMode = TransparentModeType.Disabled
+                },
+                Blacklist = settings?.Blacklist ?? new HashSet<string>(),
+                Whitelist = settings?.Whitelist ?? new HashSet<string>(),
+                DisabledOnTabletMode = settings?.DisabledOnTabletMode ?? true,
+                IconCentered = settings?.IconCentered ?? false,
+                TaskbarAnimation = settings?.TaskbarAnimation ?? Animation.GetTaskbarAnimation(),
+                Language = settings?.Language ?? Language.Auto
+            };
     }
 }

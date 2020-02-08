@@ -55,6 +55,7 @@ namespace SmartTaskbar.Model
             _autoMode = modeType switch
             {
                 AutoModeType.Disable => (IAutoMode) null,
+                AutoModeType.AutoHideApiMode => (IAutoMode)null,
                 AutoModeType.ForegroundMode => new ForegroundMode(),
                 AutoModeType.BlacklistMode => new AutoMode(_coreInvoker.UserSettings),
                 AutoModeType.WhitelistMode => new AutoMode(_coreInvoker.UserSettings),

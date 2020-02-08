@@ -53,6 +53,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AutoMode\AutoHideApiMode.cs" />
     <Compile Include="AutoMode\AutoMode.cs" />
     <Compile Include="AutoMode\ForegroundMode.cs" />
     <Compile Include="AutoMode\IAutoMode.cs" />
@@ -70,7 +71,6 @@
     <Compile Include="Helpers\ProcessName.cs" />
     <Compile Include="Helpers\ShowBar.cs" />
     <Compile Include="Helpers\BarBuilder.cs" />
-    <Compile Include="Helpers\BarState.cs" />
     <Compile Include="Helpers\Transparent.cs" />
     <Compile Include="Helpers\WindowVisible.cs" />
     <Compile Include="InvokeMethods.cs" />
@@ -78,9 +78,9 @@
     <Compile Include="SafeNativeMethods.cs" />
     <Compile Include="Settings\IconStyle.cs" />
     <Compile Include="Settings\Language.cs" />
+    <Compile Include="Settings\TaskbarState.cs" />
     <Compile Include="Taskbar.cs" />
     <Compile Include="Settings\AutoModeType.cs" />
-    <Compile Include="Settings\TaskbarState.cs" />
     <Compile Include="Settings\SettingsHelper.cs" />
     <Compile Include="Settings\TransparentModeType.cs" />
     <Compile Include="Settings\UserSettings.cs" />
@@ -115,5 +115,6 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

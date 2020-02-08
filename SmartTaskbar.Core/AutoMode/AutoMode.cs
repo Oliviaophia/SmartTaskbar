@@ -62,28 +62,28 @@ namespace SmartTaskbar.Core.AutoMode
                 if (_tryShowBar == false) return;
                 _tryShowBar = false;
 
-                if (_userSettings.ModeType == AutoModeType.BlacklistMode)
-                {
-                    _userSettings.BlistDefaultState.SetState();
-                    return;
-                }
+                //if (_userSettings.ModeType == AutoModeType.BlacklistMode)
+                //{
+                //    _userSettings.BlistDefaultState.SetState();
+                //    return;
+                //}
 
-                if (_userSettings.ModeType == AutoModeType.WhitelistMode)
-                {
-                    _userSettings.WlistDefaultState.SetState();
-                    return;
-                }
+                //if (_userSettings.ModeType == AutoModeType.WhitelistMode)
+                //{
+                //    _userSettings.WlistDefaultState.SetState();
+                //    return;
+                //}
 
                 return;
             }
 
-            if (_userSettings.ModeType == AutoModeType.BlacklistMode)
-            {
-                _userSettings.BlistTargetState.SetState();
-                return;
-            }
+            //if (_userSettings.ModeType == AutoModeType.BlacklistMode)
+            //{
+            //    _userSettings.BlistTargetState.SetState();
+            //    return;
+            //}
 
-            if (_userSettings.ModeType == AutoModeType.WhitelistMode) _userSettings.WlistTargetState.SetState();
+            //if (_userSettings.ModeType == AutoModeType.WhitelistMode) _userSettings.WlistTargetState.SetState();
         }
     }
 }

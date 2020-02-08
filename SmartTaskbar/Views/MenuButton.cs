@@ -10,9 +10,10 @@ namespace SmartTaskbar.Views
         {
             FlatStyle = FlatStyle.Flat;
             BackColor = Color.Transparent;
-            Size = new Size(230, 40);
+            Size = new Size(230, 36);
             Margin = Padding.Empty;
             FlatAppearance.BorderSize = 0;
+            Font = new Font("Segoe UI", 9F);
             TextAlign = ContentAlignment.MiddleLeft;
             TextImageRelation = TextImageRelation.ImageBeforeText;
             ImageAlign = ContentAlignment.MiddleLeft;

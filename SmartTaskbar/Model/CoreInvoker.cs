@@ -11,11 +11,13 @@ namespace SmartTaskbar.Model
 
         public CoreInvoker()
         {
+            ReloadSetting();
             ModeSwitch = new AutoModeSwitcher(this);
             _cultureResource = new CultureResource(this);
+            SaveUserSettings();
         }
 
-        public UserSettings UserSettings { get; set; } = InvokeMethods.GetUserSettings();
+        public UserSettings UserSettings { get; set; }
 
         public AutoModeSwitcher ModeSwitch { get; }
 
@@ -23,11 +25,7 @@ namespace SmartTaskbar.Model
 
         public void ReloadSetting() => UserSettings = InvokeMethods.GetUserSettings();
 
-        public void SaveUserSettings()
-        {
-            InvokeMethods.SaveUserSettings(UserSettings);
-            _cultureResource.LanguageChange();
-        }
+        public void SaveUserSettings() => InvokeMethods.SaveUserSettings(UserSettings);
 
         public string GetText(string name) => _cultureResource.GetText(name);
     }
