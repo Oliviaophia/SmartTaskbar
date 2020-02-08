@@ -28,56 +28,164 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.autoButton = new SmartTaskbar.Views.MenuButton();
-            this.disableButton = new SmartTaskbar.Views.MenuButton();
+            this.aboutButton = new SmartTaskbar.Views.MenuButton();
+            this.settingsButton = new SmartTaskbar.Views.MenuButton();
+            this.menuDelimiter2 = new SmartTaskbar.Views.MenuDelimiter();
+            this.apiButton = new SmartTaskbar.Views.MenuButton();
+            this.BlacklistButton = new SmartTaskbar.Views.MenuButton();
+            this.WhitelistButton = new SmartTaskbar.Views.MenuButton();
+            this.foreButton = new SmartTaskbar.Views.MenuButton();
+            this.stopButton = new SmartTaskbar.Views.MenuButton();
             this.menuDelimiter1 = new SmartTaskbar.Views.MenuDelimiter();
             this.exitMenuButton = new SmartTaskbar.Views.MenuButton();
-            this.WhitelistButton = new SmartTaskbar.Views.MenuButton();
-            this.BlacklistButton = new SmartTaskbar.Views.MenuButton();
             this.SuspendLayout();
             // 
-            // autoButton
+            // aboutButton
             // 
-            this.autoButton.BackColor = System.Drawing.Color.Transparent;
-            this.autoButton.FlatAppearance.BorderSize = 0;
-            this.autoButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White;
-            this.autoButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.White;
-            this.autoButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.autoButton.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.autoButton.ForeColor = System.Drawing.Color.Black;
-            this.autoButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.autoButton.Location = new System.Drawing.Point(5, 350);
-            this.autoButton.Margin = new System.Windows.Forms.Padding(0);
-            this.autoButton.Name = "autoButton";
-            this.autoButton.Size = new System.Drawing.Size(230, 36);
-            this.autoButton.TabIndex = 3;
-            this.autoButton.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.autoButton.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.autoButton.UseVisualStyleBackColor = false;
+            this.aboutButton.BackColor = System.Drawing.Color.Transparent;
+            this.aboutButton.FlatAppearance.BorderSize = 0;
+            this.aboutButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White;
+            this.aboutButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.White;
+            this.aboutButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.aboutButton.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.aboutButton.ForeColor = System.Drawing.Color.Black;
+            this.aboutButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.aboutButton.Location = new System.Drawing.Point(5, 10);
+            this.aboutButton.Margin = new System.Windows.Forms.Padding(0);
+            this.aboutButton.Name = "aboutButton";
+            this.aboutButton.Size = new System.Drawing.Size(230, 36);
+            this.aboutButton.TabIndex = 9;
+            this.aboutButton.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.aboutButton.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.aboutButton.UseVisualStyleBackColor = false;
             // 
-            // disableButton
+            // settingsButton
             // 
-            this.disableButton.BackColor = System.Drawing.Color.Transparent;
-            this.disableButton.FlatAppearance.BorderSize = 0;
-            this.disableButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White;
-            this.disableButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.White;
-            this.disableButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.disableButton.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.disableButton.ForeColor = System.Drawing.Color.Black;
-            this.disableButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.disableButton.Location = new System.Drawing.Point(5, 386);
-            this.disableButton.Margin = new System.Windows.Forms.Padding(0);
-            this.disableButton.Name = "disableButton";
-            this.disableButton.Size = new System.Drawing.Size(230, 36);
-            this.disableButton.TabIndex = 2;
-            this.disableButton.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.disableButton.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.disableButton.UseVisualStyleBackColor = false;
+            this.settingsButton.BackColor = System.Drawing.Color.Transparent;
+            this.settingsButton.FlatAppearance.BorderSize = 0;
+            this.settingsButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White;
+            this.settingsButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.White;
+            this.settingsButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.settingsButton.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.settingsButton.ForeColor = System.Drawing.Color.Black;
+            this.settingsButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.settingsButton.Location = new System.Drawing.Point(5, 46);
+            this.settingsButton.Margin = new System.Windows.Forms.Padding(0);
+            this.settingsButton.Name = "settingsButton";
+            this.settingsButton.Size = new System.Drawing.Size(230, 36);
+            this.settingsButton.TabIndex = 8;
+            this.settingsButton.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.settingsButton.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.settingsButton.UseVisualStyleBackColor = false;
+            // 
+            // menuDelimiter2
+            // 
+            this.menuDelimiter2.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.menuDelimiter2.Location = new System.Drawing.Point(10, 87);
+            this.menuDelimiter2.Margin = new System.Windows.Forms.Padding(5);
+            this.menuDelimiter2.Name = "menuDelimiter2";
+            this.menuDelimiter2.Size = new System.Drawing.Size(220, 2);
+            this.menuDelimiter2.TabIndex = 7;
+            // 
+            // apiButton
+            // 
+            this.apiButton.BackColor = System.Drawing.Color.Transparent;
+            this.apiButton.FlatAppearance.BorderSize = 0;
+            this.apiButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White;
+            this.apiButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.White;
+            this.apiButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.apiButton.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.apiButton.ForeColor = System.Drawing.Color.Black;
+            this.apiButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.apiButton.Location = new System.Drawing.Point(5, 94);
+            this.apiButton.Margin = new System.Windows.Forms.Padding(0);
+            this.apiButton.Name = "apiButton";
+            this.apiButton.Size = new System.Drawing.Size(230, 36);
+            this.apiButton.TabIndex = 6;
+            this.apiButton.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.apiButton.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.apiButton.UseVisualStyleBackColor = false;
+            // 
+            // BlacklistButton
+            // 
+            this.BlacklistButton.BackColor = System.Drawing.Color.Transparent;
+            this.BlacklistButton.FlatAppearance.BorderSize = 0;
+            this.BlacklistButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White;
+            this.BlacklistButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.White;
+            this.BlacklistButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BlacklistButton.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.BlacklistButton.ForeColor = System.Drawing.Color.Black;
+            this.BlacklistButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.BlacklistButton.Location = new System.Drawing.Point(5, 166);
+            this.BlacklistButton.Margin = new System.Windows.Forms.Padding(0);
+            this.BlacklistButton.Name = "BlacklistButton";
+            this.BlacklistButton.Size = new System.Drawing.Size(230, 36);
+            this.BlacklistButton.TabIndex = 5;
+            this.BlacklistButton.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.BlacklistButton.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.BlacklistButton.UseVisualStyleBackColor = false;
+            // 
+            // WhitelistButton
+            // 
+            this.WhitelistButton.BackColor = System.Drawing.Color.Transparent;
+            this.WhitelistButton.FlatAppearance.BorderSize = 0;
+            this.WhitelistButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White;
+            this.WhitelistButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.White;
+            this.WhitelistButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.WhitelistButton.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.WhitelistButton.ForeColor = System.Drawing.Color.Black;
+            this.WhitelistButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.WhitelistButton.Location = new System.Drawing.Point(5, 202);
+            this.WhitelistButton.Margin = new System.Windows.Forms.Padding(0);
+            this.WhitelistButton.Name = "WhitelistButton";
+            this.WhitelistButton.Size = new System.Drawing.Size(230, 36);
+            this.WhitelistButton.TabIndex = 4;
+            this.WhitelistButton.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.WhitelistButton.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.WhitelistButton.UseVisualStyleBackColor = false;
+            // 
+            // foreButton
+            // 
+            this.foreButton.BackColor = System.Drawing.Color.Transparent;
+            this.foreButton.FlatAppearance.BorderSize = 0;
+            this.foreButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White;
+            this.foreButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.White;
+            this.foreButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.foreButton.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.foreButton.ForeColor = System.Drawing.Color.Black;
+            this.foreButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.foreButton.Location = new System.Drawing.Point(5, 130);
+            this.foreButton.Margin = new System.Windows.Forms.Padding(0);
+            this.foreButton.Name = "foreButton";
+            this.foreButton.Size = new System.Drawing.Size(230, 36);
+            this.foreButton.TabIndex = 3;
+            this.foreButton.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.foreButton.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.foreButton.UseVisualStyleBackColor = false;
+            // 
+            // stopButton
+            // 
+            this.stopButton.BackColor = System.Drawing.Color.Transparent;
+            this.stopButton.FlatAppearance.BorderSize = 0;
+            this.stopButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White;
+            this.stopButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.White;
+            this.stopButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.stopButton.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.stopButton.ForeColor = System.Drawing.Color.Black;
+            this.stopButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.stopButton.Location = new System.Drawing.Point(5, 238);
+            this.stopButton.Margin = new System.Windows.Forms.Padding(0);
+            this.stopButton.Name = "stopButton";
+            this.stopButton.Size = new System.Drawing.Size(230, 36);
+            this.stopButton.TabIndex = 2;
+            this.stopButton.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.stopButton.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.stopButton.UseVisualStyleBackColor = false;
             // 
             // menuDelimiter1
             // 
             this.menuDelimiter1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.menuDelimiter1.Location = new System.Drawing.Point(10, 427);
+            this.menuDelimiter1.Location = new System.Drawing.Point(10, 279);
             this.menuDelimiter1.Margin = new System.Windows.Forms.Padding(5);
             this.menuDelimiter1.Name = "menuDelimiter1";
             this.menuDelimiter1.Size = new System.Drawing.Size(220, 2);
@@ -94,7 +202,7 @@
             this.exitMenuButton.ForeColor = System.Drawing.Color.Black;
             this.exitMenuButton.Image = global::SmartTaskbar.Properties.Resources.Empty;
             this.exitMenuButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.exitMenuButton.Location = new System.Drawing.Point(5, 434);
+            this.exitMenuButton.Location = new System.Drawing.Point(5, 286);
             this.exitMenuButton.Margin = new System.Windows.Forms.Padding(0);
             this.exitMenuButton.Name = "exitMenuButton";
             this.exitMenuButton.Size = new System.Drawing.Size(230, 36);
@@ -103,61 +211,27 @@
             this.exitMenuButton.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.exitMenuButton.UseVisualStyleBackColor = false;
             // 
-            // WhitelistButton
-            // 
-            this.WhitelistButton.BackColor = System.Drawing.Color.Transparent;
-            this.WhitelistButton.FlatAppearance.BorderSize = 0;
-            this.WhitelistButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White;
-            this.WhitelistButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.White;
-            this.WhitelistButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.WhitelistButton.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.WhitelistButton.ForeColor = System.Drawing.Color.Black;
-            this.WhitelistButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.WhitelistButton.Location = new System.Drawing.Point(5, 314);
-            this.WhitelistButton.Margin = new System.Windows.Forms.Padding(0);
-            this.WhitelistButton.Name = "WhitelistButton";
-            this.WhitelistButton.Size = new System.Drawing.Size(230, 36);
-            this.WhitelistButton.TabIndex = 4;
-            this.WhitelistButton.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.WhitelistButton.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.WhitelistButton.UseVisualStyleBackColor = false;
-            // 
-            // BlacklistButton
-            // 
-            this.BlacklistButton.BackColor = System.Drawing.Color.Transparent;
-            this.BlacklistButton.FlatAppearance.BorderSize = 0;
-            this.BlacklistButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White;
-            this.BlacklistButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.White;
-            this.BlacklistButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.BlacklistButton.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.BlacklistButton.ForeColor = System.Drawing.Color.Black;
-            this.BlacklistButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.BlacklistButton.Location = new System.Drawing.Point(5, 278);
-            this.BlacklistButton.Margin = new System.Windows.Forms.Padding(0);
-            this.BlacklistButton.Name = "BlacklistButton";
-            this.BlacklistButton.Size = new System.Drawing.Size(230, 36);
-            this.BlacklistButton.TabIndex = 5;
-            this.BlacklistButton.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.BlacklistButton.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.BlacklistButton.UseVisualStyleBackColor = false;
-            // 
             // MainContextMenu
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(240, 480);
+            this.ClientSize = new System.Drawing.Size(240, 340);
+            this.Controls.Add(this.aboutButton);
+            this.Controls.Add(this.settingsButton);
+            this.Controls.Add(this.menuDelimiter2);
+            this.Controls.Add(this.apiButton);
             this.Controls.Add(this.BlacklistButton);
             this.Controls.Add(this.WhitelistButton);
-            this.Controls.Add(this.autoButton);
-            this.Controls.Add(this.disableButton);
+            this.Controls.Add(this.foreButton);
+            this.Controls.Add(this.stopButton);
             this.Controls.Add(this.menuDelimiter1);
             this.Controls.Add(this.exitMenuButton);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.ImeMode = System.Windows.Forms.ImeMode.Off;
             this.MaximizeBox = false;
-            this.MaximumSize = new System.Drawing.Size(240, 480);
+            this.MaximumSize = new System.Drawing.Size(240, 340);
             this.MinimizeBox = false;
-            this.MinimumSize = new System.Drawing.Size(240, 480);
+            this.MinimumSize = new System.Drawing.Size(240, 340);
             this.Name = "MainContextMenu";
             this.Padding = new System.Windows.Forms.Padding(5, 10, 5, 10);
             this.ShowIcon = false;
@@ -172,9 +246,13 @@
 
         private MenuButton exitMenuButton;
         private MenuDelimiter menuDelimiter1;
-        private MenuButton disableButton;
-        private MenuButton autoButton;
+        private MenuButton stopButton;
+        private MenuButton foreButton;
         private MenuButton WhitelistButton;
         private MenuButton BlacklistButton;
+        private MenuButton apiButton;
+        private MenuDelimiter menuDelimiter2;
+        private MenuButton settingsButton;
+        private MenuButton aboutButton;
     }
 }

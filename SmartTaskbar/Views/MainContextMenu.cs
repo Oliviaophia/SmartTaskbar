@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel;
+using System.Diagnostics;
 using System.Drawing;
 using System.Windows.Forms;
 using SmartTaskbar.Core;
@@ -40,17 +41,27 @@ namespace SmartTaskbar.Views
             exitMenuButton.Image = Properties.Resources.Empty;
             exitMenuButton.Click += (s, e) => Application.Exit();
 
-            disableButton.Text = coreInvoker.GetText("TrayDisable");
-            disableButton.Image = Properties.Resources.Empty;
-
-            autoButton.Text = coreInvoker.GetText("TrayForegroundMode");
-            autoButton.Image = Properties.Resources.Empty;
+            stopButton.Text = coreInvoker.GetText("TrayStop");
+            stopButton.Image = Properties.Resources.Empty;
 
             WhitelistButton.Text = coreInvoker.GetText("TrayWhitelistMode");
             WhitelistButton.Image = Properties.Resources.Empty;
 
             BlacklistButton.Text = coreInvoker.GetText("TrayBlacklistMode");
             BlacklistButton.Image = Properties.Resources.Empty;
+
+            foreButton.Text = coreInvoker.GetText("TrayAutoMode2");
+            foreButton.Image = Properties.Resources.Empty;
+
+            apiButton.Text = coreInvoker.GetText("TrayAutoMode1");
+            apiButton.Image = Properties.Resources.Empty;
+
+            settingsButton.Text = coreInvoker.GetText("TraySettings");
+            settingsButton.Image = Properties.Resources.Empty;
+
+            aboutButton.Text = coreInvoker.GetText("TrayAbout");
+            aboutButton.Image = Properties.Resources.Empty;
+            aboutButton.Click += (s, e) => Process.Start("https://github.com/ChanpleCai/SmartTaskbar/releases");
 
             #endregion
         }

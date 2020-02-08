@@ -2,10 +2,10 @@
 {
     public enum AutoModeType
     {
-        Disable,
-        AutoHideApiMode,
-        ForegroundMode,
-        BlacklistMode,
-        WhitelistMode
+        Disable = 0,
+        AutoHideApiMode = 1,
+        ForegroundMode = 2,
+        BlacklistMode = 3,
+        WhitelistMode = 4
     }
 }

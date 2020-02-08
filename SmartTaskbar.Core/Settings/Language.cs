@@ -2,8 +2,8 @@
 {
     public enum Language
     {
-        Auto,
-        EnUs,
-        ZhCn
+        Auto = 0,
+        EnUs = 1,
+        ZhCn = 2
     }
 }

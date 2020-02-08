@@ -2,8 +2,8 @@
 {
     public enum TransparentModeType
     {
-        Disabled,
-        Transparent,
-        Blur
+        Disabled = 0,
+        Transparent = 1,
+        Blur = 2
     }
 }
