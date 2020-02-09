@@ -30,7 +30,8 @@ namespace SmartTaskbar.Views
             base.OnPaint(pevent);
             var isLight = InvokeMethods.IsLightTheme();
             ForeColor = ForeColor = isLight ? Color.Black : Color.White;
-            FlatAppearance.MouseOverBackColor = FlatAppearance.MouseDownBackColor = isLight ? Color.White : Color.FromArgb(65, 65, 65);
+            FlatAppearance.MouseOverBackColor =
+                FlatAppearance.MouseDownBackColor = isLight ? Color.White : Color.FromArgb(65, 65, 65);
         }
     }
 }

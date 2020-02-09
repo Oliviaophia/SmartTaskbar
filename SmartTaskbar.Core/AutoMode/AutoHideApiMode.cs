@@ -14,7 +14,7 @@ namespace SmartTaskbar.Core.AutoMode
         public AutoHideApiMode(UserSettings userSettings)
         {
             _userSettings = userSettings;
-            Ready();
+            Reset();
         }
 
         public void Run()

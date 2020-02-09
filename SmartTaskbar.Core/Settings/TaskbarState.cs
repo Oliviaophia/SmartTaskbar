@@ -1,6 +1,4 @@
-﻿using SmartTaskbar.Core.Helpers;
-
-namespace SmartTaskbar.Core.Settings
+﻿namespace SmartTaskbar.Core.Settings
 {
     public class TaskbarState
     {

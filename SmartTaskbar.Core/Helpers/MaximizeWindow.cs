@@ -15,11 +15,12 @@ namespace SmartTaskbar.Core.Helpers
 
         internal static bool IsNotMaximizeWindow(this IntPtr handle)
         {
-            if (handle.IsClassNameInvalid()) return true;
-
             GetWindowPlacement(handle, ref _placement);
-            if (_placement.showCmd == SwMaximize) return false;
+            return _placement.showCmd != SwMaximize;
+        }
 
+        internal static bool IsNotFullScreenWindow(this IntPtr handle)
+        {
             GetWindowRect(handle, out var tagRect);
             var monitor = Screen.FromHandle(handle);
             return tagRect.top != monitor.Bounds.Top || tagRect.bottom != monitor.Bounds.Bottom ||

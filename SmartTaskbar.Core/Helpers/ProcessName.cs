@@ -20,6 +20,7 @@ namespace SmartTaskbar.Core.Helpers
                 return false;
 
             name = process.MainModule.ModuleName;
+            Debug.WriteLine(name);
             Variable.NameCache.Add(handle, name);
 
             return userSettings.Blacklist.Contains(name);
@@ -36,6 +37,7 @@ namespace SmartTaskbar.Core.Helpers
                 return false;
 
             name = process.MainModule.ModuleName;
+            Debug.WriteLine(name);
             Variable.NameCache.Add(handle, name);
 
             return !userSettings.Whitelist.Contains(name);
@@ -47,6 +49,13 @@ namespace SmartTaskbar.Core.Helpers
                 cacheDictionary.Remove(key);
 
             return cacheDictionary;
+        }
+
+        internal static string GetProcessNamebyHandle(this IntPtr handle)
+        {
+            GetWindowThreadProcessId(handle, out var processId);
+            using var process = Process.GetProcessById(processId);
+            return process.MainModule == null ? string.Empty : process.MainModule.ModuleName;
         }
     }
 }

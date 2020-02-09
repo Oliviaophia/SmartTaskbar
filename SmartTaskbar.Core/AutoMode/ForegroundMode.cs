@@ -13,7 +13,7 @@ namespace SmartTaskbar.Core.AutoMode
         public ForegroundMode(UserSettings userSettings)
         {
             _userSettings = userSettings;
-            Ready();
+            Reset();
         }
 
         public void Ready()
@@ -39,7 +39,7 @@ namespace SmartTaskbar.Core.AutoMode
             if (foregroundHandle.IsClassNameInvalid()) return;
 
             _sendMessage = false;
-            if (foregroundHandle.IsNotMaximizeWindow())
+            if (foregroundHandle.IsNotMaximizeWindow() || foregroundHandle.IsNotFullScreenWindow())
             {
                 GetWindowRect(foregroundHandle, out var rect);
                 foreach (var taskbar in Variable.Taskbars.Where(taskbar => (rect.left < taskbar.Rect.Right &&

@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Diagnostics;
 using System.Timers;
 using SmartTaskbar.Core.AutoMode;
 using SmartTaskbar.Core.Settings;
