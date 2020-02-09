@@ -17,8 +17,8 @@ namespace SmartTaskbar.Core.Helpers
 
             return StringBuilder.ToString() switch
             {
-                "WorkerW" => true,
                 "Progman" => true,
+                "WorkerW" => true,
                 "DV2ControlHost" => true,
                 "Shell_TrayWnd" => true,
                 "Shell_SecondaryTrayWnd" => true,

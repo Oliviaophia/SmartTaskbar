@@ -55,8 +55,10 @@
   <ItemGroup>
     <Compile Include="AutoMode\AutoHideApiMode.cs" />
     <Compile Include="AutoMode\AutoMode.cs" />
+    <Compile Include="AutoMode\BlacklistMode.cs" />
     <Compile Include="AutoMode\ForegroundMode.cs" />
     <Compile Include="AutoMode\IAutoMode.cs" />
+    <Compile Include="AutoMode\WhitelistMode.cs" />
     <Compile Include="Constant.cs" />
     <Compile Include="Helpers\Animation.cs" />
     <Compile Include="Helpers\AutoHide.cs" />

@@ -1,14 +1,20 @@
 ﻿using System.Linq;
 using SmartTaskbar.Core.Helpers;
+using SmartTaskbar.Core.Settings;
 using static SmartTaskbar.Core.SafeNativeMethods;
 
 namespace SmartTaskbar.Core.AutoMode
 {
     public class ForegroundMode : IAutoMode
     {
+        private readonly UserSettings _userSettings;
         private static bool _sendMessage;
 
-        public ForegroundMode() => Ready();
+        public ForegroundMode(UserSettings userSettings)
+        {
+            _userSettings = userSettings;
+            Ready();
+        }
 
         public void Ready()
         {

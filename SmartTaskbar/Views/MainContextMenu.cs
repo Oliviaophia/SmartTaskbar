@@ -1,9 +1,12 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Drawing;
 using System.Windows.Forms;
 using SmartTaskbar.Core;
+using SmartTaskbar.Core.Settings;
 using SmartTaskbar.Model;
+using SmartTaskbar.Properties;
 
 namespace SmartTaskbar.Views
 {
@@ -28,6 +31,9 @@ namespace SmartTaskbar.Views
         {
             InitializeComponent();
 
+            _container = container;
+            _coreInvoker = coreInvoker;
+
             Activated += (s, e) =>
             {
                 ChangeTheme();
@@ -38,29 +44,59 @@ namespace SmartTaskbar.Views
             #region Initialization
 
             exitMenuButton.Text = coreInvoker.GetText("TrayExit");
-            exitMenuButton.Image = Properties.Resources.Empty;
+            exitMenuButton.Image = Resources.Empty;
             exitMenuButton.Click += (s, e) => Application.Exit();
 
             stopButton.Text = coreInvoker.GetText("TrayStop");
-            stopButton.Image = Properties.Resources.Empty;
+            stopButton.Click += (s, e) =>
+            {
+                _coreInvoker.UserSettings.ModeType = AutoModeType.Disable;
+                _coreInvoker.ModeSwitch.LoadSetting();
+                SetAutoModeTypeIcon();
+                _coreInvoker.SaveUserSettings();
+            };
 
             WhitelistButton.Text = coreInvoker.GetText("TrayWhitelistMode");
-            WhitelistButton.Image = Properties.Resources.Empty;
+            WhitelistButton.Click += (s, e) =>
+            {
+                _coreInvoker.UserSettings.ModeType = AutoModeType.WhitelistMode;
+                _coreInvoker.ModeSwitch.LoadSetting();
+                SetAutoModeTypeIcon();
+                _coreInvoker.SaveUserSettings();
+            };
 
             BlacklistButton.Text = coreInvoker.GetText("TrayBlacklistMode");
-            BlacklistButton.Image = Properties.Resources.Empty;
+            BlacklistButton.Click += (s, e) =>
+            {
+                _coreInvoker.UserSettings.ModeType = AutoModeType.BlacklistMode;
+                _coreInvoker.ModeSwitch.LoadSetting();
+                SetAutoModeTypeIcon();
+                _coreInvoker.SaveUserSettings();
+            };
 
             foreButton.Text = coreInvoker.GetText("TrayAutoMode2");
-            foreButton.Image = Properties.Resources.Empty;
+            foreButton.Click += (s, e) =>
+            {
+                _coreInvoker.UserSettings.ModeType = AutoModeType.ForegroundMode;
+                _coreInvoker.ModeSwitch.LoadSetting();
+                SetAutoModeTypeIcon();
+                _coreInvoker.SaveUserSettings();
+            };
 
             apiButton.Text = coreInvoker.GetText("TrayAutoMode1");
-            apiButton.Image = Properties.Resources.Empty;
+            apiButton.Click += (s, e) =>
+            {
+                _coreInvoker.UserSettings.ModeType = AutoModeType.AutoHideApiMode;
+                _coreInvoker.ModeSwitch.LoadSetting();
+                SetAutoModeTypeIcon();
+                _coreInvoker.SaveUserSettings();
+            };
 
             settingsButton.Text = coreInvoker.GetText("TraySettings");
-            settingsButton.Image = Properties.Resources.Empty;
+            settingsButton.Click += (s, e) => MainSettingFormInstance.Show();
 
             aboutButton.Text = coreInvoker.GetText("TrayAbout");
-            aboutButton.Image = Properties.Resources.Empty;
+            aboutButton.Image = Resources.Empty;
             aboutButton.Click += (s, e) => Process.Start("https://github.com/ChanpleCai/SmartTaskbar/releases");
 
             #endregion
@@ -72,8 +108,62 @@ namespace SmartTaskbar.Views
         {
             var islight = InvokeMethods.IsLightTheme();
 
-            BackColor = islight ? Color.FromArgb(238,238,238) : Color.FromArgb(43, 43, 43);
+            BackColor = islight ? Color.FromArgb(238, 238, 238) : Color.FromArgb(43, 43, 43);
             ForeColor = islight ? Color.Black : Color.White;
+
+            settingsButton.Image = islight ? Resources.Setting_Black : Resources.Setting_White;
+
+            SetAutoModeTypeIcon();
+        }
+
+        private void SetAutoModeTypeIcon()
+        {
+            var islight = InvokeMethods.IsLightTheme();
+            switch (_coreInvoker.UserSettings.ModeType)
+            {
+                case AutoModeType.Disable:
+                    stopButton.Image = islight ? Resources.Pause_Black : Resources.Pause_White;
+                    WhitelistButton.Image =
+                        BlacklistButton.Image =
+                            foreButton.Image =
+                                apiButton.Image =
+                                    Resources.Empty;
+                    break;
+                case AutoModeType.AutoHideApiMode:
+                    apiButton.Image = islight ? Resources.Run_Black : Resources.Run_White;
+                    WhitelistButton.Image =
+                        BlacklistButton.Image =
+                            foreButton.Image =
+                                stopButton.Image =
+                                    Resources.Empty;
+                    break;
+                case AutoModeType.ForegroundMode:
+                    foreButton.Image = islight ? Resources.Run_Black : Resources.Run_White;
+                    WhitelistButton.Image =
+                        BlacklistButton.Image =
+                            apiButton.Image =
+                                stopButton.Image =
+                                    Resources.Empty;
+                    break;
+                case AutoModeType.BlacklistMode:
+                    BlacklistButton.Image = islight ? Resources.Run_Black : Resources.Run_White;
+                    WhitelistButton.Image =
+                        apiButton.Image =
+                            foreButton.Image =
+                                stopButton.Image =
+                                    Resources.Empty;
+                    break;
+                case AutoModeType.WhitelistMode:
+                    WhitelistButton.Image = islight ? Resources.Run_Black : Resources.Run_White;
+                    apiButton.Image =
+                        BlacklistButton.Image =
+                            foreButton.Image =
+                                stopButton.Image =
+                                    Resources.Empty;
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
         }
 
         private const int Offset = 5;

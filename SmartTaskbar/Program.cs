@@ -19,7 +19,7 @@ namespace SmartTaskbar
                 {
                     // Start a tray instead of a WinForm to reduce memory usage
                     Application.EnableVisualStyles();
-                    Application.SetCompatibleTextRenderingDefault(false);
+                    //Application.SetCompatibleTextRenderingDefault(false);
                     var main = new MainController();
                     Application.AddMessageFilter(new MsgFilter(main));
                     Application.Run(main);

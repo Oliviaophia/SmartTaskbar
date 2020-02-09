@@ -1,16 +1,19 @@
 ﻿using System;
 using SmartTaskbar.Core.Helpers;
+using SmartTaskbar.Core.Settings;
 using static SmartTaskbar.Core.SafeNativeMethods;
 
 namespace SmartTaskbar.Core.AutoMode
 {
     public class AutoHideApiMode : IAutoMode
     {
+        private readonly UserSettings _userSettings;
         private static IntPtr _maxWindow;
         private static bool _tryShowBar;
 
-        public AutoHideApiMode()
+        public AutoHideApiMode(UserSettings userSettings)
         {
+            _userSettings = userSettings;
             Ready();
         }
 
@@ -40,11 +43,13 @@ namespace SmartTaskbar.Core.AutoMode
                 if (_tryShowBar == false) return;
                 _tryShowBar = false;
 
-                // todo 
+                ButtonSize.SetIconSize(_userSettings.ReadyState.IconSize);
+                AutoHide.SetAutoHide(_userSettings.ReadyState.IsAutoHide);
                 return;
             }
 
-            // todo 
+            ButtonSize.SetIconSize(_userSettings.TargetState.IconSize);
+            AutoHide.SetAutoHide(_userSettings.TargetState.IsAutoHide);
         }
 
         public void Ready()

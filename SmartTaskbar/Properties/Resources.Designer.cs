@@ -63,16 +63,6 @@ namespace SmartTaskbar.Properties {
         /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
-        internal static System.Drawing.Bitmap BlackBall {
-            get {
-                object obj = ResourceManager.GetObject("BlackBall", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
-        /// </summary>
         internal static System.Drawing.Bitmap Empty {
             get {
                 object obj = ResourceManager.GetObject("Empty", resourceCulture);
@@ -123,9 +113,59 @@ namespace SmartTaskbar.Properties {
         /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
-        internal static System.Drawing.Bitmap WhiteBall {
+        internal static System.Drawing.Bitmap Pause_Black {
             get {
-                object obj = ResourceManager.GetObject("WhiteBall", resourceCulture);
+                object obj = ResourceManager.GetObject("Pause_Black", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
+        /// </summary>
+        internal static System.Drawing.Bitmap Pause_White {
+            get {
+                object obj = ResourceManager.GetObject("Pause_White", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
+        /// </summary>
+        internal static System.Drawing.Bitmap Run_Black {
+            get {
+                object obj = ResourceManager.GetObject("Run_Black", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
+        /// </summary>
+        internal static System.Drawing.Bitmap Run_White {
+            get {
+                object obj = ResourceManager.GetObject("Run_White", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
+        /// </summary>
+        internal static System.Drawing.Bitmap Setting_Black {
+            get {
+                object obj = ResourceManager.GetObject("Setting_Black", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
+        /// </summary>
+        internal static System.Drawing.Bitmap Setting_White {
+            get {
+                object obj = ResourceManager.GetObject("Setting_White", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

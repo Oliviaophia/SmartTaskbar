@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Timers;
 using SmartTaskbar.Core.AutoMode;
 using SmartTaskbar.Core.Settings;
@@ -23,7 +24,7 @@ namespace SmartTaskbar.Model
 
         public void Dispose() => _timer?.Dispose();
 
-        private void AutoModeTimer_Elapsed(object sender, ElapsedEventArgs e)
+        private static void AutoModeTimer_Elapsed(object sender, ElapsedEventArgs e)
         {
             if (_counter % 32 != 0)
             {
@@ -40,7 +41,7 @@ namespace SmartTaskbar.Model
                 {
                     Reset();
                     Run();
-                    _counter = 1;
+                    _counter = 0;
                 }
             }
 
@@ -49,25 +50,25 @@ namespace SmartTaskbar.Model
 
         public void LoadSetting() => SetAutoMode(_coreInvoker.UserSettings.ModeType);
 
-        public void SetAutoMode(AutoModeType modeType)
+        private void SetAutoMode(AutoModeType modeType)
         {
             _timer.Stop();
             _autoMode = modeType switch
             {
                 AutoModeType.Disable => (IAutoMode) null,
-                AutoModeType.AutoHideApiMode => (IAutoMode)null,
-                AutoModeType.ForegroundMode => new ForegroundMode(),
-                AutoModeType.BlacklistMode => new AutoMode(_coreInvoker.UserSettings),
-                AutoModeType.WhitelistMode => new AutoMode(_coreInvoker.UserSettings),
+                AutoModeType.AutoHideApiMode => new AutoHideApiMode(_coreInvoker.UserSettings),
+                AutoModeType.ForegroundMode => new ForegroundMode(_coreInvoker.UserSettings),
+                AutoModeType.BlacklistMode => new BlacklistMode(_coreInvoker.UserSettings),
+                AutoModeType.WhitelistMode => new WhitelistMode(_coreInvoker.UserSettings),
                 _ => throw new ArgumentOutOfRangeException(nameof(modeType), modeType, null)
             };
             _timer.Start();
         }
 
-        public void Run() => _autoMode?.Run();
+        private static void Run() => _autoMode?.Run();
 
-        public void Ready() => _autoMode?.Ready();
+        private static void Ready() => _autoMode?.Ready();
 
-        public void Reset() => _autoMode?.Reset();
+        private static void Reset() => _autoMode?.Reset();
     }
 }

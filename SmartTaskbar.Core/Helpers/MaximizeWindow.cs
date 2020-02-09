@@ -15,6 +15,8 @@ namespace SmartTaskbar.Core.Helpers
 
         internal static bool IsNotMaximizeWindow(this IntPtr handle)
         {
+            if (handle.IsClassNameInvalid()) return true;
+
             GetWindowPlacement(handle, ref _placement);
             if (_placement.showCmd == SwMaximize) return false;
 
