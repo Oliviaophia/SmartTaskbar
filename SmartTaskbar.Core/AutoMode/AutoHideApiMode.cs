@@ -10,6 +10,7 @@ namespace SmartTaskbar.Core.AutoMode
         private readonly UserSettings _userSettings;
         private static IntPtr _maxWindow;
         private static bool _tryShowBar;
+        private static int _counter;
 
         public AutoHideApiMode(UserSettings userSettings)
         {
@@ -21,9 +22,17 @@ namespace SmartTaskbar.Core.AutoMode
         {
             if (_maxWindow != IntPtr.Zero)
             {
+                Variable.Taskbars.MaintainBarState(_userSettings.TargetState);
+
+                if (++_counter % Constant.MaxCount != 0) return;
+
                 if (_maxWindow.IsWindowInvisible() || _maxWindow.IsNotMaximizeWindow()) Ready();
                 return;
             }
+
+            Variable.Taskbars.MaintainBarState(_userSettings.ReadyState);
+
+            if (++_counter % Constant.MaxCount != 0) return;
 
             if (Variable.Taskbars.IsMouseOverTaskbar()) return;
 
@@ -43,19 +52,18 @@ namespace SmartTaskbar.Core.AutoMode
                 if (_tryShowBar == false) return;
                 _tryShowBar = false;
 
-                ButtonSize.SetIconSize(_userSettings.ReadyState.IconSize);
-                AutoHide.SetAutoHide(_userSettings.ReadyState.IsAutoHide);
+                Variable.Taskbars.SetBarState(_userSettings.ReadyState);
                 return;
             }
 
-            ButtonSize.SetIconSize(_userSettings.TargetState.IconSize);
-            AutoHide.SetAutoHide(_userSettings.TargetState.IsAutoHide);
+            Variable.Taskbars.SetBarState(_userSettings.TargetState);
         }
 
         public void Ready()
         {
             _maxWindow = IntPtr.Zero;
             _tryShowBar = true;
+            _counter = 0;
         }
 
         public void Reset()

@@ -267,5 +267,12 @@ namespace SmartTaskbar.Core
         }
 
         #endregion
+
+        #region ShowWindows
+
+        [DllImport("user32.dll")]
+        public static extern int ShowWindow(IntPtr hwnd, int command);
+
+        #endregion
     }
 }

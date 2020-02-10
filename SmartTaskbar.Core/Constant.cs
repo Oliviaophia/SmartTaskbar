@@ -7,6 +7,9 @@
         public const int IconSmall = 1;
         public const int IconLarge = 0;
 
-        internal const uint BarFlag = 0x05D1;
+        public const string MainTaskbar = "Shell_TrayWnd";
+        public const string SubTaskbar = "Shell_SecondaryTrayWnd";
+
+        public const int MaxCount = 3;
     }
 }

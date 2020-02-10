@@ -22,7 +22,7 @@ namespace SmartTaskbar.Core.Helpers
         internal static void SetHook()
         {
             var explorer = Process.GetProcessesByName("explorer").FirstOrDefault();
-            if (explorer is null) return;
+            if (explorer == null) return;
 
             if (explorer.Id == _targetPid) return;
 

@@ -20,10 +20,10 @@ namespace SmartTaskbar.Core
 
         public static void SaveUserSettings(in UserSettings userSettings) => SettingsHelper.SaveSettings(userSettings);
 
-        public static void SetTransparent(TransparentModeType modeType, bool stateChange) =>
-            Variable.Taskbars.TransparentBar(modeType, stateChange);
-
         public static bool IsLightTheme() => LightTheme.IsSystemUsesLightTheme();
+
+        public static void ResetAutoModeState(in UserSettings userSettings) =>
+            Variable.Taskbars.SetBarState(userSettings.ResetState);
 
         #endregion
     }

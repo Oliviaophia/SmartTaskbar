@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Timers;
+using SmartTaskbar.Core;
 using SmartTaskbar.Core.AutoMode;
 using SmartTaskbar.Core.Settings;
 
@@ -10,48 +12,52 @@ namespace SmartTaskbar.Model
         private static IAutoMode _autoMode;
         private static int _counter;
         private readonly CoreInvoker _coreInvoker;
-        private readonly Timer _timer = new Timer(375);
+        private readonly Timer _autoModeTimer = new Timer(125);
 
         public AutoModeSwitcher(CoreInvoker coreInvoker)
         {
             _coreInvoker = coreInvoker;
 
-            _timer.Elapsed += AutoModeTimer_Elapsed;
+            _autoModeTimer.Elapsed += AutoModeTimer_Elapsed;
 
             LoadSetting();
         }
 
-        public void Dispose() => _timer?.Dispose();
-
-        private static void AutoModeTimer_Elapsed(object sender, ElapsedEventArgs e)
+        public void Dispose()
         {
-            if (_counter % 32 != 0)
+            _autoModeTimer?.Dispose();
+            ResetState();
+        }
+
+        private void AutoModeTimer_Elapsed(object sender, ElapsedEventArgs e)
+        {
+            _autoModeTimer.Stop();
+
+            if (_counter % 97 == 0)
             {
-                Run();
+                Ready();
+                Debug.WriteLine("Ready");
             }
-            else
+
+            if (_counter % 193 == 0)
             {
-                if (_counter % 64 != 0)
-                {
-                    Ready();
-                    Run();
-                }
-                else
-                {
-                    Reset();
-                    Run();
-                    _counter = 0;
-                }
+                Reset();
+                _counter = 0;
+                Debug.WriteLine("Reset");
             }
+
+            Run();
 
             ++_counter;
+
+            _autoModeTimer.Start();
         }
 
         public void LoadSetting() => SetAutoMode(_coreInvoker.UserSettings.ModeType);
 
         private void SetAutoMode(AutoModeType modeType)
         {
-            _timer.Stop();
+            _autoModeTimer.Stop();
             _autoMode = modeType switch
             {
                 AutoModeType.Disable => (IAutoMode) null,
@@ -61,8 +67,14 @@ namespace SmartTaskbar.Model
                 AutoModeType.WhitelistMode => new WhitelistMode(_coreInvoker.UserSettings),
                 _ => throw new ArgumentOutOfRangeException(nameof(modeType), modeType, null)
             };
-            _timer.Start();
+
+            if (_autoMode != null)
+                _autoModeTimer.Start();
+            else
+                ResetState();
         }
+
+        private void ResetState() => InvokeMethods.ResetAutoModeState(_coreInvoker.UserSettings);
 
         private static void Run() => _autoMode?.Run();
 

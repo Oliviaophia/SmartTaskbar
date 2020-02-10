@@ -13,12 +13,12 @@ namespace SmartTaskbar.Core.Helpers
         internal static List<Taskbar> ResetTaskbars(this List<Taskbar> taskbars)
         {
             taskbars.Clear();
-            taskbars.Add(FindWindow("Shell_TrayWnd", null).InitTaskbar());
+            taskbars.Add(FindWindow(Constant.MainTaskbar, null).InitTaskbar());
 
             var nextTaskbar = IntPtr.Zero;
             while (true)
             {
-                nextTaskbar = FindWindowEx(IntPtr.Zero, nextTaskbar, "Shell_SecondaryTrayWnd", "");
+                nextTaskbar = FindWindowEx(IntPtr.Zero, nextTaskbar, Constant.SubTaskbar, "");
                 if (nextTaskbar == IntPtr.Zero) return taskbars;
 
                 taskbars.Add(nextTaskbar.InitTaskbar());

@@ -20,8 +20,8 @@ namespace SmartTaskbar.Core.Helpers
                 "Progman" => true,
                 "WorkerW" => true,
                 "DV2ControlHost" => true,
-                "Shell_TrayWnd" => true,
-                "Shell_SecondaryTrayWnd" => true,
+                Constant.MainTaskbar => true,
+                Constant.SubTaskbar => true,
                 "MultitaskingViewFrame" => true,
                 "Windows.UI.Core.CoreWindow" => true,
                 _ => false

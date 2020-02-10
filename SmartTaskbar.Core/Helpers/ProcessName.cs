@@ -2,16 +2,15 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
-using SmartTaskbar.Core.Settings;
 using static SmartTaskbar.Core.SafeNativeMethods;
 
 namespace SmartTaskbar.Core.Helpers
 {
     internal static class ProcessName
     {
-        internal static bool InBlacklist(this IntPtr handle, in UserSettings userSettings)
+        internal static bool InBlacklist(this IntPtr handle, HashSet<string> blacklist)
         {
-            if (Variable.NameCache.TryGetValue(handle, out var name)) return userSettings.Blacklist.Contains(name);
+            if (Variable.NameCache.TryGetValue(handle, out var name)) return blacklist.Contains(name);
 
             GetWindowThreadProcessId(handle, out var processId);
 
@@ -20,15 +19,14 @@ namespace SmartTaskbar.Core.Helpers
                 return false;
 
             name = process.MainModule.ModuleName;
-            Debug.WriteLine(name);
             Variable.NameCache.Add(handle, name);
 
-            return userSettings.Blacklist.Contains(name);
+            return blacklist.Contains(name);
         }
 
-        internal static bool NotInWhitelist(this IntPtr handle, in UserSettings userSettings)
+        internal static bool NotInWhitelist(this IntPtr handle, HashSet<string> whitelist)
         {
-            if (Variable.NameCache.TryGetValue(handle, out var name)) return !userSettings.Whitelist.Contains(name);
+            if (Variable.NameCache.TryGetValue(handle, out var name)) return !whitelist.Contains(name);
 
             GetWindowThreadProcessId(handle, out var processId);
 
@@ -37,10 +35,9 @@ namespace SmartTaskbar.Core.Helpers
                 return false;
 
             name = process.MainModule.ModuleName;
-            Debug.WriteLine(name);
             Variable.NameCache.Add(handle, name);
 
-            return !userSettings.Whitelist.Contains(name);
+            return !whitelist.Contains(name);
         }
 
         internal static Dictionary<IntPtr, string> UpdateCacheName(this Dictionary<IntPtr, string> cacheDictionary)
@@ -49,13 +46,6 @@ namespace SmartTaskbar.Core.Helpers
                 cacheDictionary.Remove(key);
 
             return cacheDictionary;
-        }
-
-        internal static string GetProcessNamebyHandle(this IntPtr handle)
-        {
-            GetWindowThreadProcessId(handle, out var processId);
-            using var process = Process.GetProcessById(processId);
-            return process.MainModule == null ? string.Empty : process.MainModule.ModuleName;
         }
     }
 }

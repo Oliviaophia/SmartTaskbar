@@ -28,7 +28,7 @@ namespace SmartTaskbar
                 // Show the settings window if an instance already exists
                 var process = Process.GetProcessesByName(Application.ProductName)
                     .FirstOrDefault(_ => _.Threads[0].Id != Process.GetCurrentProcess().Threads[0].Id);
-                if (process is null) return;
+                if (process == null) return;
 
                 InvokeMethods.BringOutSettingsWindow(process.Threads[0].Id);
             }

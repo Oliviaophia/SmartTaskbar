@@ -5,10 +5,13 @@ namespace SmartTaskbar.Core.Helpers
 {
     internal static class ShowBar
     {
-        internal static void PostMessageHideBar() => PostMessage(FindWindow("Shell_TrayWnd", null), Constant.BarFlag,
+        private const uint BarFlag = 0x05D1;
+
+        internal static void PostMessageHideBar() => PostMessage(FindWindow(Constant.MainTaskbar, null), BarFlag,
             IntPtr.Zero, IntPtr.Zero);
 
-        internal static void PostMesssageShowBar(this IntPtr handle) => PostMessage(FindWindow("Shell_TrayWnd", null),
-            Constant.BarFlag, (IntPtr) 1, handle);
+        internal static void PostMesssageShowBar(this IntPtr handle) => PostMessage(
+            FindWindow(Constant.MainTaskbar, null),
+            BarFlag, (IntPtr) 1, handle);
     }
 }
