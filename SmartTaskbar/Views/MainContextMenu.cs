@@ -34,6 +34,10 @@ namespace SmartTaskbar.Views
             _container = container;
             _coreInvoker = coreInvoker;
 
+            VisibleChanged += (s, e) =>
+            {
+                if (Visible) Activate();
+            };
             Activated += (s, e) =>
             {
                 ChangeTheme();

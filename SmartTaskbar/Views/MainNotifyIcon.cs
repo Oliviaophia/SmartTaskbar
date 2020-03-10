@@ -1,11 +1,6 @@
-﻿using System;
-using System.ComponentModel;
-using System.Drawing;
+﻿using System.ComponentModel;
 using System.Windows.Forms;
-using SmartTaskbar.Core;
-using SmartTaskbar.Core.Settings;
 using SmartTaskbar.Model;
-using SmartTaskbar.Properties;
 
 namespace SmartTaskbar.Views
 {
@@ -39,33 +34,19 @@ namespace SmartTaskbar.Views
             _notifyIcon = new NotifyIcon(container)
             {
                 Text = Application.ProductName,
-                Icon = GetIcon(),
+                Icon = coreInvoker.GetIcon(),
                 Visible = true
             };
 
             _notifyIcon.MouseClick += (s, e) =>
             {
+                _notifyIcon.Icon = coreInvoker.GetIcon();
                 if (e.Button != MouseButtons.Right)
                     return;
 
                 MainContextMenuInstance.Show();
-                MainContextMenuInstance.Activate();
             };
-
             #endregion
         }
-
-        private Icon GetIcon() =>
-            _coreInvoker.UserSettings.IconStyle switch
-            {
-                IconStyle.Black => Resources.Logo_Black,
-                IconStyle.Blue => Resources.Logo_Blue,
-                IconStyle.Pink => Resources.Logo_Pink,
-                IconStyle.White => Resources.Logo_White,
-                IconStyle.Auto => InvokeMethods.IsLightTheme()
-                    ? Resources.Logo_Black
-                    : Resources.Logo_White,
-                _ => throw new ArgumentOutOfRangeException()
-            };
     }
 }

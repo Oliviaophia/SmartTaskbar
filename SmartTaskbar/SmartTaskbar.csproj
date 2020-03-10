@@ -107,6 +107,9 @@
     <EmbeddedResource Include="Views\MainContextMenu.resx">
       <DependentUpon>MainContextMenu.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Views\MainSettingForm.resx">
+      <DependentUpon>MainSettingForm.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="app.manifest" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
