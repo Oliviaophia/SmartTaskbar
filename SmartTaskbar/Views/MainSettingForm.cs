@@ -35,7 +35,7 @@ namespace SmartTaskbar.Views
             BackColor = islight ? Color.FromArgb(238, 238, 238) : Color.FromArgb(43, 43, 43);
             ForeColor = islight ? Color.Black : Color.White;
 
-
+            // todo 
 
         }
     }
