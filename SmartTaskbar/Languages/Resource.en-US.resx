@@ -118,13 +118,13 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="SettHideTaskbar" xml:space="preserve">
-    <value>Hide Taskbar Completely</value>
+    <value>Hide the taskbar completely</value>
   </data>
   <data name="SettIconSize" xml:space="preserve">
-    <value>Use the small taskbar icon</value>
+    <value>Use small taskbar buttons</value>
   </data>
   <data name="SettIsAutoHide" xml:space="preserve">
-    <value>Auto Hide Taskbar</value>
+    <value>Automatically hide the taskbar</value>
   </data>
   <data name="SettTaskbarState0" xml:space="preserve">
     <value>Taskbar State 0</value>
@@ -157,7 +157,7 @@
     <value>Settings</value>
   </data>
   <data name="TrayStop" xml:space="preserve">
-    <value>Stop switching</value>
+    <value>Stop</value>
   </data>
   <data name="TrayWhitelistMode" xml:space="preserve">
     <value>Whitelist Mode</value>
