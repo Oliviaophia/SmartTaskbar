@@ -44,25 +44,25 @@ namespace SmartTaskbar.Core.Settings
                     HideTaskbarCompletely = false,
                     IsAutoHide = !AutoHide.NotAutoHide(),
                     IconSize = ButtonSize.GetIconSize(),
-                    TransparentMode = TransparentModeType.Disabled
+                    TransparentMode = TransparentModeType.Disable
                 },
                 ReadyState = settings?.ReadyState ?? new TaskbarState
                 {
                     HideTaskbarCompletely = false,
                     IsAutoHide = false,
                     IconSize = Constant.IconLarge,
-                    TransparentMode = TransparentModeType.Disabled
+                    TransparentMode = TransparentModeType.Disable
                 },
                 TargetState = settings?.TargetState ?? new TaskbarState
                 {
                     HideTaskbarCompletely = false,
                     IsAutoHide = true,
                     IconSize = Constant.IconLarge,
-                    TransparentMode = TransparentModeType.Disabled
+                    TransparentMode = TransparentModeType.Disable
                 },
                 Blacklist = settings?.Blacklist ?? new HashSet<string>(),
                 Whitelist = settings?.Whitelist ?? new HashSet<string>(),
-                DisabledOnTabletMode = settings?.DisabledOnTabletMode ?? true,
+                DisableOnTabletMode = settings?.DisableOnTabletMode ?? true,
                 IconCentered = settings?.IconCentered ?? false,
                 TaskbarAnimation = settings?.TaskbarAnimation ?? Animation.GetTaskbarAnimation(),
                 Language = settings?.Language ?? Language.Auto

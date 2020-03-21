@@ -44,7 +44,7 @@ namespace SmartTaskbar.Core.Settings
         /// <summary>
         ///     reset taskbar state to default in tablet mode
         /// </summary>
-        public bool DisabledOnTabletMode { get; set; }
+        public bool DisableOnTabletMode { get; set; }
 
         /// <summary>
         ///     Center all icons in the Taskbar

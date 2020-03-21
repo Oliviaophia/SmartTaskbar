@@ -23,6 +23,34 @@ namespace SmartTaskbar.Views
             };
             Activated += (s, e) => ChangeTheme();
             Deactivate += (s, e) => Hide();
+
+            #region Initialization
+
+            groupBoxState0.Text = coreInvoker.GetText("SettTaskbarState0");
+            groupBoxState1.Text = coreInvoker.GetText("SettTaskbarState1");
+            groupBoxState2.Text = coreInvoker.GetText("SettTaskbarState2");
+
+            groupBoxTransparentMode0.Text =
+                groupBoxTransparentMode1.Text =
+                    groupBoxTransparentMode2.Text =
+                        coreInvoker.GetText("SettTransparentMode");
+
+            checkBoxIsAutoHide0.Text =
+                checkBoxIsAutoHide1.Text =
+                    checkBoxIsAutoHide2.Text =
+                        coreInvoker.GetText("SettIsAutoHide");
+
+            checkBoxHideTaskbar0.Text =
+                checkBoxHideTaskbar1.Text =
+                    checkBoxHideTaskbar2.Text = 
+                        coreInvoker.GetText("SettHideTaskbar");
+
+            checkBoxIconSize0.Text =
+                checkBoxIconSize1.Text =
+                    checkBoxIconSize2.Text =
+                        coreInvoker.GetText("SettIconSize");
+
+            #endregion
         }
 
 

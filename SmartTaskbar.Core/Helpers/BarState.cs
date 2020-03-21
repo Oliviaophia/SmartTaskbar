@@ -29,7 +29,7 @@ namespace SmartTaskbar.Core.Helpers
             }
             else
             {
-                if (taskbarState.TransparentMode == TransparentModeType.Disabled)
+                if (taskbarState.TransparentMode == TransparentModeType.Disable)
                 {
                     ButtonSize.SetIconSize(taskbarState.IconSize);
                     AutoHide.SetAutoHide(taskbarState.IsAutoHide);
@@ -100,7 +100,7 @@ namespace SmartTaskbar.Core.Helpers
             }
             else
             {
-                if (taskbarState.TransparentMode == TransparentModeType.Disabled) return;
+                if (taskbarState.TransparentMode == TransparentModeType.Disable) return;
 
                 foreach (var taskbar in taskbars) SetWindowCompositionAttribute(taskbar.Handle, ref _data);
             }
