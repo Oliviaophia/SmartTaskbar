@@ -50,6 +50,21 @@ namespace SmartTaskbar.Views
                     checkBoxIconSize2.Text =
                         coreInvoker.GetText("SettIconSize");
 
+            radioButtonDisable0.Text =
+                radioButtonDisable1.Text =
+                    radioButtonDisable2.Text =
+                        coreInvoker.GetText("SettDisable");
+
+            radioButtonTransparent0.Text =
+                radioButtonTransparent1.Text =
+                    radioButtonTransparent2.Text =
+                        coreInvoker.GetText("SettTransparent");
+
+            radioButtonBlur0.Text =
+                radioButtonBlur1.Text =
+                    radioButtonBlur2.Text =
+                        coreInvoker.GetText("SettBlur");
+
             #endregion
         }
 
