@@ -60,7 +60,7 @@ namespace SmartTaskbar.Model
             _autoModeTimer.Stop();
             _autoMode = modeType switch
             {
-                AutoModeType.Disable => (IAutoMode) null,
+                AutoModeType.Disable => new DisableMode(_coreInvoker.UserSettings),
                 AutoModeType.AutoHideApiMode => new AutoHideApiMode(_coreInvoker.UserSettings),
                 AutoModeType.ForegroundMode => new ForegroundMode(_coreInvoker.UserSettings),
                 AutoModeType.BlacklistMode => new BlacklistMode(_coreInvoker.UserSettings),

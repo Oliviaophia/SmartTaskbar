@@ -28,48 +28,7 @@ namespace SmartTaskbar.Views
 
             #region Initialization
 
-            #region Text
-
-            groupBoxState0.Text = coreInvoker.GetText("SettTaskbarState0");
-            groupBoxState1.Text = coreInvoker.GetText("SettTaskbarState1");
-            groupBoxState2.Text = coreInvoker.GetText("SettTaskbarState2");
-
-            groupBoxTransparentMode0.Text =
-                groupBoxTransparentMode1.Text =
-                    groupBoxTransparentMode2.Text =
-                        coreInvoker.GetText("SettTransparentMode");
-
-            checkBoxIsAutoHide0.Text =
-                checkBoxIsAutoHide1.Text =
-                    checkBoxIsAutoHide2.Text =
-                        coreInvoker.GetText("SettIsAutoHide");
-
-            checkBoxHideTaskbar0.Text =
-                checkBoxHideTaskbar1.Text =
-                    checkBoxHideTaskbar2.Text =
-                        coreInvoker.GetText("SettHideTaskbar");
-
-            checkBoxIconSize0.Text =
-                checkBoxIconSize1.Text =
-                    checkBoxIconSize2.Text =
-                        coreInvoker.GetText("SettIconSize");
-
-            radioButtonDisable0.Text =
-                radioButtonDisable1.Text =
-                    radioButtonDisable2.Text =
-                        coreInvoker.GetText("SettDisable");
-
-            radioButtonTransparent0.Text =
-                radioButtonTransparent1.Text =
-                    radioButtonTransparent2.Text =
-                        coreInvoker.GetText("SettTransparent");
-
-            radioButtonBlur0.Text =
-                radioButtonBlur1.Text =
-                    radioButtonBlur2.Text =
-                        coreInvoker.GetText("SettBlur");
-
-            #endregion
+            LoadText();
 
             #region Event
 
@@ -111,19 +70,22 @@ namespace SmartTaskbar.Views
 
             checkBoxIconSize0.CheckedChanged += (s, e) =>
             {
-                _coreInvoker.UserSettings.ResetState.IconSize = checkBoxIconSize0.Checked ? Constant.IconSmall : Constant.IconLarge;
+                _coreInvoker.UserSettings.ResetState.IconSize =
+                    checkBoxIconSize0.Checked ? Constant.IconSmall : Constant.IconLarge;
                 _coreInvoker.SaveUserSettings();
             };
 
             checkBoxIconSize1.CheckedChanged += (s, e) =>
             {
-                _coreInvoker.UserSettings.ReadyState.IconSize = checkBoxIconSize1.Checked ? Constant.IconSmall : Constant.IconLarge;
+                _coreInvoker.UserSettings.ReadyState.IconSize =
+                    checkBoxIconSize1.Checked ? Constant.IconSmall : Constant.IconLarge;
                 _coreInvoker.SaveUserSettings();
             };
 
             checkBoxIconSize2.CheckedChanged += (s, e) =>
             {
-                _coreInvoker.UserSettings.TargetState.IconSize = checkBoxIconSize2.Checked ? Constant.IconSmall : Constant.IconLarge;
+                _coreInvoker.UserSettings.TargetState.IconSize =
+                    checkBoxIconSize2.Checked ? Constant.IconSmall : Constant.IconLarge;
                 _coreInvoker.SaveUserSettings();
             };
 
@@ -206,6 +168,48 @@ namespace SmartTaskbar.Views
             #endregion
         }
 
+        private void LoadText()
+        {
+            groupBoxState0.Text = _coreInvoker.GetText("SettTaskbarState0");
+            groupBoxState1.Text = _coreInvoker.GetText("SettTaskbarState1");
+            groupBoxState2.Text = _coreInvoker.GetText("SettTaskbarState2");
+
+            groupBoxTransparentMode0.Text =
+                groupBoxTransparentMode1.Text =
+                    groupBoxTransparentMode2.Text =
+                        _coreInvoker.GetText("SettTransparentMode");
+
+            checkBoxIsAutoHide0.Text =
+                checkBoxIsAutoHide1.Text =
+                    checkBoxIsAutoHide2.Text =
+                        _coreInvoker.GetText("SettIsAutoHide");
+
+            checkBoxHideTaskbar0.Text =
+                checkBoxHideTaskbar1.Text =
+                    checkBoxHideTaskbar2.Text =
+                        _coreInvoker.GetText("SettHideTaskbar");
+
+            checkBoxIconSize0.Text =
+                checkBoxIconSize1.Text =
+                    checkBoxIconSize2.Text =
+                        _coreInvoker.GetText("SettIconSize");
+
+            radioButtonDisable0.Text =
+                radioButtonDisable1.Text =
+                    radioButtonDisable2.Text =
+                        _coreInvoker.GetText("SettDisable");
+
+            radioButtonTransparent0.Text =
+                radioButtonTransparent1.Text =
+                    radioButtonTransparent2.Text =
+                        _coreInvoker.GetText("SettTransparent");
+
+            radioButtonBlur0.Text =
+                radioButtonBlur1.Text =
+                    radioButtonBlur2.Text =
+                        _coreInvoker.GetText("SettBlur");
+        }
+
         private void LoadSettings()
         {
             checkBoxIsAutoHide0.Checked = _coreInvoker.UserSettings.ResetState.IsAutoHide;
@@ -267,7 +271,6 @@ namespace SmartTaskbar.Views
             }
         }
 
-
         private void ChangeTheme()
         {
             Icon = _coreInvoker.GetIcon();
@@ -278,7 +281,6 @@ namespace SmartTaskbar.Views
             ForeColor = islight ? Color.Black : Color.White;
 
             // todo 
-
         }
     }
 }
