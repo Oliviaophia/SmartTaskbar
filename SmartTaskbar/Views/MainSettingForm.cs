@@ -24,7 +24,6 @@ namespace SmartTaskbar.Views
                 if (Visible) Activate();
             };
             Activated += (s, e) => ChangeTheme();
-            Deactivate += (s, e) => Hide();
 
             #region Initialization
 
@@ -33,15 +32,39 @@ namespace SmartTaskbar.Views
             LoadSettings();
 
             LoadEvent();
-            
+
             #endregion
+        }
+
+        public void ChangeVisible()
+        {
+            if (Visible)
+            {
+                Hide();
+            }
+            else
+            {
+                Show();
+            }
+        }
+
+        public void ShowAndActivate()
+        {
+            if (Visible)
+            {
+                Activate();
+            }
+            else
+            {
+                Show();
+            }
         }
 
         private void LoadEvent()
         {
             checkBoxIsAutoHide0.CheckedChanged += (s, e) =>
             {
-                if (_coreInvoker.UserSettings.ResetState.IsAutoHide == checkBoxHideTaskbar0.Checked) return;
+                if (_coreInvoker.UserSettings.ResetState.IsAutoHide == checkBoxIsAutoHide0.Checked) return;
 
                 _coreInvoker.UserSettings.ResetState.IsAutoHide = checkBoxIsAutoHide0.Checked;
                 _coreInvoker.SaveUserSettings();
@@ -50,7 +73,7 @@ namespace SmartTaskbar.Views
 
             checkBoxIsAutoHide1.CheckedChanged += (s, e) =>
             {
-                if (_coreInvoker.UserSettings.ReadyState.IsAutoHide == checkBoxHideTaskbar1.Checked) return;
+                if (_coreInvoker.UserSettings.ReadyState.IsAutoHide == checkBoxIsAutoHide1.Checked) return;
 
                 _coreInvoker.UserSettings.ReadyState.IsAutoHide = checkBoxIsAutoHide1.Checked;
                 _coreInvoker.SaveUserSettings();
@@ -95,7 +118,8 @@ namespace SmartTaskbar.Views
 
             checkBoxIconSize0.CheckedChanged += (s, e) =>
             {
-                if ((_coreInvoker.UserSettings.ResetState.IconSize == Constant.IconSmall) == checkBoxIconSize0.Checked) return;
+                if (_coreInvoker.UserSettings.ResetState.IconSize == Constant.IconSmall ==
+                    checkBoxIconSize0.Checked) return;
 
                 _coreInvoker.UserSettings.ResetState.IconSize =
                     checkBoxIconSize0.Checked ? Constant.IconSmall : Constant.IconLarge;
@@ -105,7 +129,8 @@ namespace SmartTaskbar.Views
 
             checkBoxIconSize1.CheckedChanged += (s, e) =>
             {
-                if ((_coreInvoker.UserSettings.ReadyState.IconSize == Constant.IconSmall) == checkBoxIconSize1.Checked) return;
+                if (_coreInvoker.UserSettings.ReadyState.IconSize == Constant.IconSmall ==
+                    checkBoxIconSize1.Checked) return;
 
                 _coreInvoker.UserSettings.ReadyState.IconSize =
                     checkBoxIconSize1.Checked ? Constant.IconSmall : Constant.IconLarge;
@@ -115,7 +140,8 @@ namespace SmartTaskbar.Views
 
             checkBoxIconSize2.CheckedChanged += (s, e) =>
             {
-                if ((_coreInvoker.UserSettings.TargetState.IconSize == Constant.IconSmall) == checkBoxIconSize2.Checked) return;
+                if (_coreInvoker.UserSettings.TargetState.IconSize == Constant.IconSmall ==
+                    checkBoxIconSize2.Checked) return;
 
                 _coreInvoker.UserSettings.TargetState.IconSize =
                     checkBoxIconSize2.Checked ? Constant.IconSmall : Constant.IconLarge;

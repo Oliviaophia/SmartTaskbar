@@ -97,7 +97,7 @@ namespace SmartTaskbar.Views
             };
 
             settingsButton.Text = coreInvoker.GetText("TraySettings");
-            settingsButton.Click += (s, e) => MainSettingFormInstance.Show();
+            settingsButton.Click += (s, e) => MainSettingFormInstance.ChangeVisible();
 
             aboutButton.Text = coreInvoker.GetText("TrayAbout");
             aboutButton.Image = Resources.Empty;

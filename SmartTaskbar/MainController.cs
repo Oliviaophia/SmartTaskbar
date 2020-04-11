@@ -17,7 +17,7 @@ namespace SmartTaskbar
         }
 
         public void ShowSettingForm() =>
-            _tray.MainContextMenuInstance.MainSettingFormInstance.Show();
+            _tray.MainContextMenuInstance.MainSettingFormInstance.ShowAndActivate();
 
         protected override void Dispose(bool disposing)
         {
