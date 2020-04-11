@@ -36,36 +36,42 @@ namespace SmartTaskbar.Views
             {
                 _coreInvoker.UserSettings.ResetState.IsAutoHide = checkBoxIsAutoHide0.Checked;
                 _coreInvoker.SaveUserSettings();
+                _coreInvoker.ModeSwitch.LoadSetting();
             };
 
             checkBoxIsAutoHide1.CheckedChanged += (s, e) =>
             {
                 _coreInvoker.UserSettings.ReadyState.IsAutoHide = checkBoxIsAutoHide1.Checked;
                 _coreInvoker.SaveUserSettings();
+                _coreInvoker.ModeSwitch.LoadSetting();
             };
 
             checkBoxIsAutoHide2.CheckedChanged += (s, e) =>
             {
                 _coreInvoker.UserSettings.TargetState.IsAutoHide = checkBoxIsAutoHide2.Checked;
                 _coreInvoker.SaveUserSettings();
+                _coreInvoker.ModeSwitch.LoadSetting();
             };
 
             checkBoxHideTaskbar0.CheckedChanged += (s, e) =>
             {
                 _coreInvoker.UserSettings.ResetState.HideTaskbarCompletely = checkBoxHideTaskbar0.Checked;
                 _coreInvoker.SaveUserSettings();
+                _coreInvoker.ModeSwitch.LoadSetting();
             };
 
             checkBoxHideTaskbar1.CheckedChanged += (s, e) =>
             {
                 _coreInvoker.UserSettings.ReadyState.HideTaskbarCompletely = checkBoxHideTaskbar1.Checked;
                 _coreInvoker.SaveUserSettings();
+                _coreInvoker.ModeSwitch.LoadSetting();
             };
 
             checkBoxHideTaskbar2.CheckedChanged += (s, e) =>
             {
                 _coreInvoker.UserSettings.TargetState.HideTaskbarCompletely = checkBoxHideTaskbar2.Checked;
                 _coreInvoker.SaveUserSettings();
+                _coreInvoker.ModeSwitch.LoadSetting();
             };
 
             checkBoxIconSize0.CheckedChanged += (s, e) =>
@@ -73,6 +79,7 @@ namespace SmartTaskbar.Views
                 _coreInvoker.UserSettings.ResetState.IconSize =
                     checkBoxIconSize0.Checked ? Constant.IconSmall : Constant.IconLarge;
                 _coreInvoker.SaveUserSettings();
+                _coreInvoker.ModeSwitch.LoadSetting();
             };
 
             checkBoxIconSize1.CheckedChanged += (s, e) =>
@@ -80,6 +87,7 @@ namespace SmartTaskbar.Views
                 _coreInvoker.UserSettings.ReadyState.IconSize =
                     checkBoxIconSize1.Checked ? Constant.IconSmall : Constant.IconLarge;
                 _coreInvoker.SaveUserSettings();
+                _coreInvoker.ModeSwitch.LoadSetting();
             };
 
             checkBoxIconSize2.CheckedChanged += (s, e) =>
@@ -87,6 +95,7 @@ namespace SmartTaskbar.Views
                 _coreInvoker.UserSettings.TargetState.IconSize =
                     checkBoxIconSize2.Checked ? Constant.IconSmall : Constant.IconLarge;
                 _coreInvoker.SaveUserSettings();
+                _coreInvoker.ModeSwitch.LoadSetting();
             };
 
             radioButtonDisable0.CheckedChanged += (s, e) =>
@@ -95,6 +104,7 @@ namespace SmartTaskbar.Views
 
                 _coreInvoker.UserSettings.ResetState.TransparentMode = TransparentModeType.Disable;
                 _coreInvoker.SaveUserSettings();
+                _coreInvoker.ModeSwitch.LoadSetting();
             };
 
             radioButtonDisable1.CheckedChanged += (s, e) =>
@@ -103,6 +113,7 @@ namespace SmartTaskbar.Views
 
                 _coreInvoker.UserSettings.ReadyState.TransparentMode = TransparentModeType.Disable;
                 _coreInvoker.SaveUserSettings();
+                _coreInvoker.ModeSwitch.LoadSetting();
             };
 
             radioButtonDisable2.CheckedChanged += (s, e) =>
@@ -111,6 +122,7 @@ namespace SmartTaskbar.Views
 
                 _coreInvoker.UserSettings.TargetState.TransparentMode = TransparentModeType.Disable;
                 _coreInvoker.SaveUserSettings();
+                _coreInvoker.ModeSwitch.LoadSetting();
             };
 
             radioButtonTransparent0.CheckedChanged += (s, e) =>
@@ -119,6 +131,7 @@ namespace SmartTaskbar.Views
 
                 _coreInvoker.UserSettings.ResetState.TransparentMode = TransparentModeType.Transparent;
                 _coreInvoker.SaveUserSettings();
+                _coreInvoker.ModeSwitch.LoadSetting();
             };
 
             radioButtonTransparent1.CheckedChanged += (s, e) =>
@@ -127,6 +140,7 @@ namespace SmartTaskbar.Views
 
                 _coreInvoker.UserSettings.ReadyState.TransparentMode = TransparentModeType.Transparent;
                 _coreInvoker.SaveUserSettings();
+                _coreInvoker.ModeSwitch.LoadSetting();
             };
 
             radioButtonTransparent2.CheckedChanged += (s, e) =>
@@ -135,6 +149,7 @@ namespace SmartTaskbar.Views
 
                 _coreInvoker.UserSettings.TargetState.TransparentMode = TransparentModeType.Transparent;
                 _coreInvoker.SaveUserSettings();
+                _coreInvoker.ModeSwitch.LoadSetting();
             };
 
             radioButtonBlur0.CheckedChanged += (s, e) =>
@@ -143,6 +158,7 @@ namespace SmartTaskbar.Views
 
                 _coreInvoker.UserSettings.ResetState.TransparentMode = TransparentModeType.Blur;
                 _coreInvoker.SaveUserSettings();
+                _coreInvoker.ModeSwitch.LoadSetting();
             };
 
             radioButtonBlur1.CheckedChanged += (s, e) =>
@@ -151,6 +167,7 @@ namespace SmartTaskbar.Views
 
                 _coreInvoker.UserSettings.ReadyState.TransparentMode = TransparentModeType.Blur;
                 _coreInvoker.SaveUserSettings();
+                _coreInvoker.ModeSwitch.LoadSetting();
             };
 
             radioButtonBlur2.CheckedChanged += (s, e) =>
@@ -159,6 +176,7 @@ namespace SmartTaskbar.Views
 
                 _coreInvoker.UserSettings.TargetState.TransparentMode = TransparentModeType.Blur;
                 _coreInvoker.SaveUserSettings();
+                _coreInvoker.ModeSwitch.LoadSetting();
             };
 
             #endregion
