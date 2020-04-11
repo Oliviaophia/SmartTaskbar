@@ -25,6 +25,10 @@ namespace SmartTaskbar.Core
         public static void ResetAutoModeState(in UserSettings userSettings) =>
             Variable.Taskbars.SetBarState(userSettings.ResetState);
 
+        public static bool GetTaskbarAnimation() => Animation.GetTaskbarAnimation();
+
+        public static void ChangeTaskbarAnimation() => Animation.ChangeTaskbarAnimation();
+
         #endregion
     }
 }

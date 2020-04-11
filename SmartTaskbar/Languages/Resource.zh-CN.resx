@@ -132,6 +132,12 @@
   <data name="SettIsAutoHide" xml:space="preserve">
     <value>自动隐藏任务栏</value>
   </data>
+  <data name="SettOther" xml:space="preserve">
+    <value>其他设置</value>
+  </data>
+  <data name="SettTaskbarAnimation" xml:space="preserve">
+    <value>启用任务栏动画</value>
+  </data>
   <data name="SettTaskbarState0" xml:space="preserve">
     <value>任务栏状态 0</value>
   </data>

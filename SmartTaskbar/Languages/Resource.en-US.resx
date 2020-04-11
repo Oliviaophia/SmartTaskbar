@@ -132,6 +132,12 @@
   <data name="SettIsAutoHide" xml:space="preserve">
     <value>Automatically hide the taskbar</value>
   </data>
+  <data name="SettOther" xml:space="preserve">
+    <value>Other settings</value>
+  </data>
+  <data name="SettTaskbarAnimation" xml:space="preserve">
+    <value>Enable taskbar animation</value>
+  </data>
   <data name="SettTaskbarState0" xml:space="preserve">
     <value>Taskbar State 0</value>
   </data>

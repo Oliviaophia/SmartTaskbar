@@ -64,7 +64,6 @@ namespace SmartTaskbar.Core.Settings
                 Whitelist = settings?.Whitelist ?? new HashSet<string>(),
                 DisableOnTabletMode = settings?.DisableOnTabletMode ?? true,
                 IconCentered = settings?.IconCentered ?? false,
-                TaskbarAnimation = settings?.TaskbarAnimation ?? Animation.GetTaskbarAnimation(),
                 Language = settings?.Language ?? Language.Auto
             };
     }

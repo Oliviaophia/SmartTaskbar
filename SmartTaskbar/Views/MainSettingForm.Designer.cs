@@ -62,6 +62,13 @@
             this.checkBoxIsAutoHide2 = new System.Windows.Forms.CheckBox();
             this.checkBoxHideTaskbar2 = new System.Windows.Forms.CheckBox();
             this.checkBoxIconSize2 = new System.Windows.Forms.CheckBox();
+            this.groupBoxOther = new System.Windows.Forms.GroupBox();
+            this.tableLayoutPanel11 = new System.Windows.Forms.TableLayoutPanel();
+            this.checkBoxTaskbarAnimation = new System.Windows.Forms.CheckBox();
+            this.checkBoxIconCentered = new System.Windows.Forms.CheckBox();
+            this.checkBoxDisableOnTabletMode = new System.Windows.Forms.CheckBox();
+            this.listBoxLanguage = new System.Windows.Forms.ListBox();
+            this.listBoxIconStyle = new System.Windows.Forms.ListBox();
             this.tableLayoutPanel1.SuspendLayout();
             this.groupBoxState0.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
@@ -78,6 +85,8 @@
             this.groupBoxTransparentMode2.SuspendLayout();
             this.tableLayoutPanel10.SuspendLayout();
             this.tableLayoutPanel9.SuspendLayout();
+            this.groupBoxOther.SuspendLayout();
+            this.tableLayoutPanel11.SuspendLayout();
             this.SuspendLayout();
             // 
             // tableLayoutPanel1
@@ -89,6 +98,7 @@
             this.tableLayoutPanel1.Controls.Add(this.groupBoxState0, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.groupBoxState1, 1, 0);
             this.tableLayoutPanel1.Controls.Add(this.groupBoxState2, 2, 0);
+            this.tableLayoutPanel1.Controls.Add(this.groupBoxOther, 2, 1);
             this.tableLayoutPanel1.Location = new System.Drawing.Point(12, 12);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 2;
@@ -460,6 +470,81 @@
             this.checkBoxIconSize2.TabIndex = 2;
             this.checkBoxIconSize2.UseVisualStyleBackColor = true;
             // 
+            // groupBoxOther
+            // 
+            this.groupBoxOther.Controls.Add(this.tableLayoutPanel11);
+            this.groupBoxOther.Location = new System.Drawing.Point(519, 233);
+            this.groupBoxOther.Name = "groupBoxOther";
+            this.groupBoxOther.Size = new System.Drawing.Size(254, 190);
+            this.groupBoxOther.TabIndex = 3;
+            this.groupBoxOther.TabStop = false;
+            // 
+            // tableLayoutPanel11
+            // 
+            this.tableLayoutPanel11.ColumnCount = 1;
+            this.tableLayoutPanel11.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel11.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel11.Controls.Add(this.checkBoxTaskbarAnimation, 0, 0);
+            this.tableLayoutPanel11.Controls.Add(this.checkBoxIconCentered, 0, 1);
+            this.tableLayoutPanel11.Controls.Add(this.checkBoxDisableOnTabletMode, 0, 2);
+            this.tableLayoutPanel11.Controls.Add(this.listBoxLanguage, 0, 3);
+            this.tableLayoutPanel11.Controls.Add(this.listBoxIconStyle, 0, 4);
+            this.tableLayoutPanel11.Location = new System.Drawing.Point(6, 20);
+            this.tableLayoutPanel11.Name = "tableLayoutPanel11";
+            this.tableLayoutPanel11.RowCount = 5;
+            this.tableLayoutPanel11.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20F));
+            this.tableLayoutPanel11.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20F));
+            this.tableLayoutPanel11.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20F));
+            this.tableLayoutPanel11.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20F));
+            this.tableLayoutPanel11.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20F));
+            this.tableLayoutPanel11.Size = new System.Drawing.Size(246, 164);
+            this.tableLayoutPanel11.TabIndex = 0;
+            // 
+            // checkBoxTaskbarAnimation
+            // 
+            this.checkBoxTaskbarAnimation.AutoSize = true;
+            this.checkBoxTaskbarAnimation.Location = new System.Drawing.Point(3, 3);
+            this.checkBoxTaskbarAnimation.Name = "checkBoxTaskbarAnimation";
+            this.checkBoxTaskbarAnimation.Size = new System.Drawing.Size(15, 14);
+            this.checkBoxTaskbarAnimation.TabIndex = 0;
+            this.checkBoxTaskbarAnimation.UseVisualStyleBackColor = true;
+            // 
+            // checkBoxIconCentered
+            // 
+            this.checkBoxIconCentered.AutoSize = true;
+            this.checkBoxIconCentered.Location = new System.Drawing.Point(3, 35);
+            this.checkBoxIconCentered.Name = "checkBoxIconCentered";
+            this.checkBoxIconCentered.Size = new System.Drawing.Size(15, 14);
+            this.checkBoxIconCentered.TabIndex = 1;
+            this.checkBoxIconCentered.UseVisualStyleBackColor = true;
+            // 
+            // checkBoxDisableOnTabletMode
+            // 
+            this.checkBoxDisableOnTabletMode.AutoSize = true;
+            this.checkBoxDisableOnTabletMode.Location = new System.Drawing.Point(3, 67);
+            this.checkBoxDisableOnTabletMode.Name = "checkBoxDisableOnTabletMode";
+            this.checkBoxDisableOnTabletMode.Size = new System.Drawing.Size(15, 14);
+            this.checkBoxDisableOnTabletMode.TabIndex = 2;
+            this.checkBoxDisableOnTabletMode.UseVisualStyleBackColor = true;
+            // 
+            // listBoxLanguage
+            // 
+            this.listBoxLanguage.FormattingEnabled = true;
+            this.listBoxLanguage.ItemHeight = 12;
+            this.listBoxLanguage.Location = new System.Drawing.Point(3, 99);
+            this.listBoxLanguage.Name = "listBoxLanguage";
+            this.listBoxLanguage.Size = new System.Drawing.Size(120, 16);
+            this.listBoxLanguage.TabIndex = 3;
+            // 
+            // listBoxIconStyle
+            // 
+            this.listBoxIconStyle.FormattingEnabled = true;
+            this.listBoxIconStyle.ItemHeight = 12;
+            this.listBoxIconStyle.Location = new System.Drawing.Point(3, 131);
+            this.listBoxIconStyle.Name = "listBoxIconStyle";
+            this.listBoxIconStyle.Size = new System.Drawing.Size(120, 16);
+            this.listBoxIconStyle.TabIndex = 4;
+            // 
             // MainSettingForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -495,6 +580,9 @@
             this.tableLayoutPanel10.PerformLayout();
             this.tableLayoutPanel9.ResumeLayout(false);
             this.tableLayoutPanel9.PerformLayout();
+            this.groupBoxOther.ResumeLayout(false);
+            this.tableLayoutPanel11.ResumeLayout(false);
+            this.tableLayoutPanel11.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -535,5 +623,12 @@
         private System.Windows.Forms.CheckBox checkBoxIsAutoHide2;
         private System.Windows.Forms.CheckBox checkBoxHideTaskbar2;
         private System.Windows.Forms.CheckBox checkBoxIconSize2;
+        private System.Windows.Forms.GroupBox groupBoxOther;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel11;
+        private System.Windows.Forms.CheckBox checkBoxTaskbarAnimation;
+        private System.Windows.Forms.CheckBox checkBoxIconCentered;
+        private System.Windows.Forms.CheckBox checkBoxDisableOnTabletMode;
+        private System.Windows.Forms.ListBox listBoxLanguage;
+        private System.Windows.Forms.ListBox listBoxIconStyle;
     }
 }

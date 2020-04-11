@@ -52,11 +52,6 @@ namespace SmartTaskbar.Core.Settings
         public bool IconCentered { get; set; }
 
         /// <summary>
-        ///     Enable Taskbar animation
-        /// </summary>
-        public bool TaskbarAnimation { get; set; }
-
-        /// <summary>
         ///     Display Language
         /// </summary>
         public Language Language { get; set; }
