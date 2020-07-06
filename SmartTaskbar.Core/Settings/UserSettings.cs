@@ -41,10 +41,10 @@ namespace SmartTaskbar.Core.Settings
         /// </summary>
         public HashSet<string> Whitelist { get; set; }
 
-        /// <summary>
-        ///     reset taskbar state to default in tablet mode
-        /// </summary>
-        public bool DisableOnTabletMode { get; set; }
+        ///// <summary>
+        /////     reset taskbar state to default in tablet mode [only work on UWP API]
+        ///// </summary>
+        //public bool DisableOnTabletMode { get; set; }
 
         /// <summary>
         ///     Center all icons in the Taskbar

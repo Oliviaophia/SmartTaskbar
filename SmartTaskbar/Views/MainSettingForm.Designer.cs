@@ -66,7 +66,6 @@
             this.tableLayoutPanel11 = new System.Windows.Forms.TableLayoutPanel();
             this.checkBoxTaskbarAnimation = new System.Windows.Forms.CheckBox();
             this.checkBoxIconCentered = new System.Windows.Forms.CheckBox();
-            this.checkBoxDisableOnTabletMode = new System.Windows.Forms.CheckBox();
             this.listBoxLanguage = new System.Windows.Forms.ListBox();
             this.listBoxIconStyle = new System.Windows.Forms.ListBox();
             this.tableLayoutPanel1.SuspendLayout();
@@ -483,20 +482,18 @@
             // 
             this.tableLayoutPanel11.ColumnCount = 1;
             this.tableLayoutPanel11.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel11.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tableLayoutPanel11.Controls.Add(this.checkBoxTaskbarAnimation, 0, 0);
             this.tableLayoutPanel11.Controls.Add(this.checkBoxIconCentered, 0, 1);
-            this.tableLayoutPanel11.Controls.Add(this.checkBoxDisableOnTabletMode, 0, 2);
-            this.tableLayoutPanel11.Controls.Add(this.listBoxLanguage, 0, 3);
-            this.tableLayoutPanel11.Controls.Add(this.listBoxIconStyle, 0, 4);
+            this.tableLayoutPanel11.Controls.Add(this.listBoxLanguage, 0, 2);
+            this.tableLayoutPanel11.Controls.Add(this.listBoxIconStyle, 0, 3);
             this.tableLayoutPanel11.Location = new System.Drawing.Point(6, 20);
             this.tableLayoutPanel11.Name = "tableLayoutPanel11";
-            this.tableLayoutPanel11.RowCount = 5;
-            this.tableLayoutPanel11.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20F));
-            this.tableLayoutPanel11.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20F));
-            this.tableLayoutPanel11.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20F));
-            this.tableLayoutPanel11.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20F));
-            this.tableLayoutPanel11.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20F));
+            this.tableLayoutPanel11.RowCount = 4;
+            this.tableLayoutPanel11.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.tableLayoutPanel11.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.tableLayoutPanel11.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.tableLayoutPanel11.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.tableLayoutPanel11.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tableLayoutPanel11.Size = new System.Drawing.Size(246, 164);
             this.tableLayoutPanel11.TabIndex = 0;
             // 
@@ -512,26 +509,17 @@
             // checkBoxIconCentered
             // 
             this.checkBoxIconCentered.AutoSize = true;
-            this.checkBoxIconCentered.Location = new System.Drawing.Point(3, 35);
+            this.checkBoxIconCentered.Location = new System.Drawing.Point(3, 44);
             this.checkBoxIconCentered.Name = "checkBoxIconCentered";
             this.checkBoxIconCentered.Size = new System.Drawing.Size(15, 14);
             this.checkBoxIconCentered.TabIndex = 1;
             this.checkBoxIconCentered.UseVisualStyleBackColor = true;
             // 
-            // checkBoxDisableOnTabletMode
-            // 
-            this.checkBoxDisableOnTabletMode.AutoSize = true;
-            this.checkBoxDisableOnTabletMode.Location = new System.Drawing.Point(3, 67);
-            this.checkBoxDisableOnTabletMode.Name = "checkBoxDisableOnTabletMode";
-            this.checkBoxDisableOnTabletMode.Size = new System.Drawing.Size(15, 14);
-            this.checkBoxDisableOnTabletMode.TabIndex = 2;
-            this.checkBoxDisableOnTabletMode.UseVisualStyleBackColor = true;
-            // 
             // listBoxLanguage
             // 
             this.listBoxLanguage.FormattingEnabled = true;
             this.listBoxLanguage.ItemHeight = 12;
-            this.listBoxLanguage.Location = new System.Drawing.Point(3, 99);
+            this.listBoxLanguage.Location = new System.Drawing.Point(3, 85);
             this.listBoxLanguage.Name = "listBoxLanguage";
             this.listBoxLanguage.Size = new System.Drawing.Size(120, 16);
             this.listBoxLanguage.TabIndex = 3;
@@ -540,7 +528,7 @@
             // 
             this.listBoxIconStyle.FormattingEnabled = true;
             this.listBoxIconStyle.ItemHeight = 12;
-            this.listBoxIconStyle.Location = new System.Drawing.Point(3, 131);
+            this.listBoxIconStyle.Location = new System.Drawing.Point(3, 126);
             this.listBoxIconStyle.Name = "listBoxIconStyle";
             this.listBoxIconStyle.Size = new System.Drawing.Size(120, 16);
             this.listBoxIconStyle.TabIndex = 4;
@@ -627,7 +615,6 @@
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel11;
         private System.Windows.Forms.CheckBox checkBoxTaskbarAnimation;
         private System.Windows.Forms.CheckBox checkBoxIconCentered;
-        private System.Windows.Forms.CheckBox checkBoxDisableOnTabletMode;
         private System.Windows.Forms.ListBox listBoxLanguage;
         private System.Windows.Forms.ListBox listBoxIconStyle;
     }

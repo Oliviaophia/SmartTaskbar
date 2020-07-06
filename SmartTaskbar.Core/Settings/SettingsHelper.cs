@@ -62,7 +62,7 @@ namespace SmartTaskbar.Core.Settings
                 },
                 Blacklist = settings?.Blacklist ?? new HashSet<string>(),
                 Whitelist = settings?.Whitelist ?? new HashSet<string>(),
-                DisableOnTabletMode = settings?.DisableOnTabletMode ?? true,
+                //DisableOnTabletMode = settings?.DisableOnTabletMode ?? true,
                 IconCentered = settings?.IconCentered ?? false,
                 Language = settings?.Language ?? Language.Auto
             };
