@@ -112,7 +112,7 @@ namespace SmartTaskbar.Views
         {
             var islight = InvokeMethods.IsLightTheme();
 
-            BackColor = islight ? Color.FromArgb(238, 238, 238) : Color.FromArgb(43, 43, 43);
+            BackColor = islight ? ViewColor.DarkBackColor : ViewColor.LightBackColor;
             ForeColor = islight ? Color.Black : Color.White;
 
             settingsButton.Image = islight ? Resources.Setting_Black : Resources.Setting_White;

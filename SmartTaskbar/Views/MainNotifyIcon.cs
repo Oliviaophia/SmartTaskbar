@@ -46,6 +46,7 @@ namespace SmartTaskbar.Views
 
                 MainContextMenuInstance.Show();
             };
+
             #endregion
         }
     }

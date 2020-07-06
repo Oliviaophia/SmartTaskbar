@@ -66,6 +66,7 @@
     <Reference Include="WindowsFormsIntegration" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Views\ViewColor.cs" />
     <Compile Include="MainController.cs" />
     <Compile Include="Model\AutoModeSwitcher.cs" />
     <Compile Include="Model\CoreInvoker.cs" />

@@ -39,25 +39,17 @@ namespace SmartTaskbar.Views
         public void ChangeVisible()
         {
             if (Visible)
-            {
                 Hide();
-            }
             else
-            {
                 Show();
-            }
         }
 
         public void ShowAndActivate()
         {
             if (Visible)
-            {
                 Activate();
-            }
             else
-            {
                 Show();
-            }
         }
 
         private void LoadEvent()
@@ -372,8 +364,16 @@ namespace SmartTaskbar.Views
 
             var islight = InvokeMethods.IsLightTheme();
 
-            BackColor = islight ? Color.FromArgb(238, 238, 238) : Color.FromArgb(43, 43, 43);
+            BackColor = islight ? ViewColor.DarkBackColor : ViewColor.LightBackColor;
             ForeColor = islight ? Color.Black : Color.White;
+
+            groupBoxState0.ForeColor =
+                groupBoxState1.ForeColor =
+                    groupBoxState2.ForeColor =
+                        groupBoxTransparentMode0.ForeColor =
+                            groupBoxTransparentMode1.ForeColor =
+                                groupBoxTransparentMode2.ForeColor =
+                                    groupBoxOther.ForeColor = ForeColor;
 
             // todo 
         }
