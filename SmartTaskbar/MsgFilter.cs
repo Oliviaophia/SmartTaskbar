@@ -17,7 +17,7 @@ namespace SmartTaskbar
             switch (m.Msg)
             {
                 case Constant.MsgSettings:
-                    _mainController.ShowSettingForm();
+                    _mainController.ShowSettingWindow();
                     return true;
                 default:
                     return false;

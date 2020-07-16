@@ -52,6 +52,9 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml" />
+    <Reference Include="UIAutomationClient" />
+    <Reference Include="UIAutomationTypes" />
+    <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AutoMode\AutoHideApiMode.cs" />
@@ -64,6 +67,7 @@
     <Compile Include="Helpers\Animation.cs" />
     <Compile Include="Helpers\AutoHide.cs" />
     <Compile Include="Helpers\ButtonSize.cs" />
+    <Compile Include="Helpers\CenterTaskbar.cs" />
     <Compile Include="Helpers\ClassName.cs" />
     <Compile Include="Helpers\HookBar.cs" />
     <Compile Include="Helpers\LightTheme.cs" />

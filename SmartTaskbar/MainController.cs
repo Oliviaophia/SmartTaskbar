@@ -16,8 +16,10 @@ namespace SmartTaskbar
             _tray = new MainNotifyIcon(_container, _coreInvoker);
         }
 
-        public void ShowSettingForm() =>
-            _tray.MainContextMenuInstance.MainSettingFormInstance.ShowAndActivate();
+        public void ShowSettingWindow()
+        {
+            // todo
+        }
 
         protected override void Dispose(bool disposing)
         {

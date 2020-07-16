@@ -12,20 +12,8 @@ namespace SmartTaskbar.Views
 {
     public partial class MainContextMenu : Form
     {
-        private static MainSettingForm _mainSettingForm;
         private readonly CoreInvoker _coreInvoker;
         private readonly IContainer _container;
-
-        public MainSettingForm MainSettingFormInstance
-        {
-            get
-            {
-                if (_mainSettingForm == null || _mainSettingForm.IsDisposed)
-                    _mainSettingForm = new MainSettingForm(_container, _coreInvoker);
-
-                return _mainSettingForm;
-            }
-        }
 
         public MainContextMenu(IContainer container, CoreInvoker coreInvoker)
         {
@@ -97,7 +85,6 @@ namespace SmartTaskbar.Views
             };
 
             settingsButton.Text = coreInvoker.GetText("TraySettings");
-            settingsButton.Click += (s, e) => MainSettingFormInstance.ChangeVisible();
 
             aboutButton.Text = coreInvoker.GetText("TrayAbout");
             aboutButton.Image = Resources.Empty;

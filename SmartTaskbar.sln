@@ -12,6 +12,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartTaskbar.Hook", "SmartT
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartTaskbar", "SmartTaskbar\SmartTaskbar.csproj", "{16B5A53D-EEE4-4B21-BF76-92A4531E8C01}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartTaskbar.UI", "SmartTaskbar.UI\SmartTaskbar.UI.csproj", "{80AAC323-9B07-40FF-9140-3C2C5A92EE0D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -86,6 +88,26 @@ Global
 		{16B5A53D-EEE4-4B21-BF76-92A4531E8C01}.Release|x64.Build.0 = Release|Any CPU
 		{16B5A53D-EEE4-4B21-BF76-92A4531E8C01}.Release|x86.ActiveCfg = Release|Any CPU
 		{16B5A53D-EEE4-4B21-BF76-92A4531E8C01}.Release|x86.Build.0 = Release|Any CPU
+		{80AAC323-9B07-40FF-9140-3C2C5A92EE0D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{80AAC323-9B07-40FF-9140-3C2C5A92EE0D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{80AAC323-9B07-40FF-9140-3C2C5A92EE0D}.Debug|ARM.ActiveCfg = Debug|Any CPU
+		{80AAC323-9B07-40FF-9140-3C2C5A92EE0D}.Debug|ARM.Build.0 = Debug|Any CPU
+		{80AAC323-9B07-40FF-9140-3C2C5A92EE0D}.Debug|ARM64.ActiveCfg = Debug|Any CPU
+		{80AAC323-9B07-40FF-9140-3C2C5A92EE0D}.Debug|ARM64.Build.0 = Debug|Any CPU
+		{80AAC323-9B07-40FF-9140-3C2C5A92EE0D}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{80AAC323-9B07-40FF-9140-3C2C5A92EE0D}.Debug|x64.Build.0 = Debug|Any CPU
+		{80AAC323-9B07-40FF-9140-3C2C5A92EE0D}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{80AAC323-9B07-40FF-9140-3C2C5A92EE0D}.Debug|x86.Build.0 = Debug|Any CPU
+		{80AAC323-9B07-40FF-9140-3C2C5A92EE0D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{80AAC323-9B07-40FF-9140-3C2C5A92EE0D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{80AAC323-9B07-40FF-9140-3C2C5A92EE0D}.Release|ARM.ActiveCfg = Release|Any CPU
+		{80AAC323-9B07-40FF-9140-3C2C5A92EE0D}.Release|ARM.Build.0 = Release|Any CPU
+		{80AAC323-9B07-40FF-9140-3C2C5A92EE0D}.Release|ARM64.ActiveCfg = Release|Any CPU
+		{80AAC323-9B07-40FF-9140-3C2C5A92EE0D}.Release|ARM64.Build.0 = Release|Any CPU
+		{80AAC323-9B07-40FF-9140-3C2C5A92EE0D}.Release|x64.ActiveCfg = Release|Any CPU
+		{80AAC323-9B07-40FF-9140-3C2C5A92EE0D}.Release|x64.Build.0 = Release|Any CPU
+		{80AAC323-9B07-40FF-9140-3C2C5A92EE0D}.Release|x86.ActiveCfg = Release|Any CPU
+		{80AAC323-9B07-40FF-9140-3C2C5A92EE0D}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
