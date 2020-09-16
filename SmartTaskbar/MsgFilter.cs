@@ -6,7 +6,7 @@ namespace SmartTaskbar
     internal class MsgFilter : IMessageFilter
     {
         private readonly MainController _mainController;
-
+        
         public MsgFilter(MainController mainController)
         {
             _mainController = mainController;

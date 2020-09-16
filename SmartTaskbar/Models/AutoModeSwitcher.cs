@@ -5,7 +5,7 @@ using SmartTaskbar.Core;
 using SmartTaskbar.Core.AutoMode;
 using SmartTaskbar.Core.Settings;
 
-namespace SmartTaskbar.Model
+namespace SmartTaskbar.Models
 {
     public class AutoModeSwitcher : IDisposable
     {

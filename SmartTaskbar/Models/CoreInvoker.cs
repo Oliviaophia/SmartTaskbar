@@ -5,7 +5,7 @@ using SmartTaskbar.Core.Settings;
 using SmartTaskbar.Languages;
 using SmartTaskbar.Properties;
 
-namespace SmartTaskbar.Model
+namespace SmartTaskbar.Models
 {
     public class CoreInvoker : IDisposable
     {
@@ -25,7 +25,8 @@ namespace SmartTaskbar.Model
 
         public void Dispose() => ModeSwitch?.Dispose();
 
-        public void ReloadSetting() => UserSettings = InvokeMethods.GetUserSettings();
+        public async void ReloadSetting()
+            => UserSettings = await InvokeMethods.GetUserSettings();
 
         public void SaveUserSettings() => InvokeMethods.SaveUserSettings(UserSettings);
 

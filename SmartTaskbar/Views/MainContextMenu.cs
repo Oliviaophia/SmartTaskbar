@@ -5,7 +5,7 @@ using System.Drawing;
 using System.Windows.Forms;
 using SmartTaskbar.Core;
 using SmartTaskbar.Core.Settings;
-using SmartTaskbar.Model;
+using SmartTaskbar.Models;
 using SmartTaskbar.Properties;
 
 namespace SmartTaskbar.Views

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using SmartTaskbar.Core.Helpers;
 using SmartTaskbar.Core.Settings;
 using static SmartTaskbar.Core.SafeNativeMethods;
@@ -16,9 +17,11 @@ namespace SmartTaskbar.Core
 
         #region Config
 
-        public static UserSettings GetUserSettings() => SettingsHelper.ReadSettings();
+        public static async Task<UserSettings> GetUserSettings()
+            => await SettingsHelper.ReadSettingsAsync();
 
-        public static void SaveUserSettings(in UserSettings userSettings) => SettingsHelper.SaveSettings(userSettings);
+        public static async void SaveUserSettings(UserSettings userSettings)
+            => await SettingsHelper.SaveSettingsAsync(userSettings);
 
         public static bool IsLightTheme() => LightTheme.IsSystemUsesLightTheme();
 

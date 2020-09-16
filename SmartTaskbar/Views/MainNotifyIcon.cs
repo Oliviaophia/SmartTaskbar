@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel;
 using System.Windows.Forms;
-using SmartTaskbar.Model;
+using SmartTaskbar.Models;
 
 namespace SmartTaskbar.Views
 {

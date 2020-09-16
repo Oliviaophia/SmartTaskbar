@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using Newtonsoft.Json;
+using System.Text.Json;
+using System.Threading.Tasks;
 using SmartTaskbar.Core.Helpers;
 
 namespace SmartTaskbar.Core.Settings
@@ -12,23 +13,27 @@ namespace SmartTaskbar.Core.Settings
             Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "SmartTaskbar",
                 "SmartTaskbar.json");
 
-        private static readonly JsonSerializer Serializer = new JsonSerializer();
-
-        internal static void SaveSettings(in UserSettings userSettings)
+        internal static async Task SaveSettingsAsync(UserSettings userSettings)
         {
             DirectoryBuilder();
-            using var fs = new FileStream(SettingPath, FileMode.Create);
-            using var sw = new StreamWriter(fs);
-            Serializer.Serialize(sw, userSettings);
+            var options = new JsonSerializerOptions
+            {
+                WriteIndented = true
+            };
+
+            using var stream = new FileStream(SettingPath, FileMode.OpenOrCreate);
+
+            await JsonSerializer.SerializeAsync(stream, userSettings, options);
         }
 
-        internal static UserSettings ReadSettings()
+        internal static async Task<UserSettings> ReadSettingsAsync()
         {
             DirectoryBuilder();
             using var fs = new FileStream(SettingPath, FileMode.OpenOrCreate);
-            using var sr = new StreamReader(fs);
-            using var jr = new JsonTextReader(sr);
-            return Serializer.Deserialize<UserSettings>(jr).UpdateSettings();
+
+            var settings = await JsonSerializer.DeserializeAsync<UserSettings>(fs);
+
+            return settings.UpdateSettings();
         }
 
         private static void DirectoryBuilder() =>

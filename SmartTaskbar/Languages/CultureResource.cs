@@ -4,7 +4,7 @@ using System.Reflection;
 using System.Resources;
 using System.Threading;
 using SmartTaskbar.Core.Settings;
-using SmartTaskbar.Model;
+using SmartTaskbar.Models;
 
 namespace SmartTaskbar.Languages
 {

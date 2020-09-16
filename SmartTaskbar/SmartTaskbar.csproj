@@ -68,8 +68,8 @@
   <ItemGroup>
     <Compile Include="Views\ViewColor.cs" />
     <Compile Include="MainController.cs" />
-    <Compile Include="Model\AutoModeSwitcher.cs" />
-    <Compile Include="Model\CoreInvoker.cs" />
+    <Compile Include="Models\AutoModeSwitcher.cs" />
+    <Compile Include="Models\CoreInvoker.cs" />
     <Compile Include="MsgFilter.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -122,10 +122,6 @@
     <ProjectReference Include="..\SmartTaskbar.Core\SmartTaskbar.Core.csproj">
       <Project>{E363CFBD-35BA-4354-9E34-EADA7AB794CB}</Project>
       <Name>SmartTaskbar.Core</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\SmartTaskbar.UI\SmartTaskbar.UI.csproj">
-      <Project>{80aac323-9b07-40ff-9140-3c2c5a92ee0d}</Project>
-      <Name>SmartTaskbar.UI</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
