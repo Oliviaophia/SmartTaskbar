@@ -1,4 +1,4 @@
-﻿namespace SmartTaskbar.Views
+﻿namespace SmartTaskbar.Forms
 {
     partial class MainContextMenu
     {
@@ -28,16 +28,16 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.aboutButton = new SmartTaskbar.Views.MenuButton();
-            this.settingsButton = new SmartTaskbar.Views.MenuButton();
-            this.menuDelimiter2 = new SmartTaskbar.Views.MenuDelimiter();
-            this.apiButton = new SmartTaskbar.Views.MenuButton();
-            this.BlacklistButton = new SmartTaskbar.Views.MenuButton();
-            this.WhitelistButton = new SmartTaskbar.Views.MenuButton();
-            this.foreButton = new SmartTaskbar.Views.MenuButton();
-            this.stopButton = new SmartTaskbar.Views.MenuButton();
-            this.menuDelimiter1 = new SmartTaskbar.Views.MenuDelimiter();
-            this.exitMenuButton = new SmartTaskbar.Views.MenuButton();
+            this.aboutButton = new SmartTaskbar.Forms.MenuButton();
+            this.settingsButton = new SmartTaskbar.Forms.MenuButton();
+            this.menuDelimiter2 = new SmartTaskbar.Forms.MenuDelimiter();
+            this.apiButton = new SmartTaskbar.Forms.MenuButton();
+            this.BlacklistButton = new SmartTaskbar.Forms.MenuButton();
+            this.WhitelistButton = new SmartTaskbar.Forms.MenuButton();
+            this.foreButton = new SmartTaskbar.Forms.MenuButton();
+            this.stopButton = new SmartTaskbar.Forms.MenuButton();
+            this.menuDelimiter1 = new SmartTaskbar.Forms.MenuDelimiter();
+            this.exitMenuButton = new SmartTaskbar.Forms.MenuButton();
             this.SuspendLayout();
             // 
             // aboutButton
