@@ -21,6 +21,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\SmartTaskbar.Engines\SmartTaskbar.Engines.csproj" />
+    <ProjectReference Include="..\SmartTaskbar.Models\SmartTaskbar.Models.csproj" />
+    <ProjectReference Include="..\SmartTaskbar.PlatformInvoke\SmartTaskbar.PlatformInvoke.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Compile Update="IconResource.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>

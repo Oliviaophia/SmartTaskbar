@@ -1,4 +1,4 @@
-﻿namespace SmartTaskbar.Domain.Models
+﻿namespace SmartTaskbar.Models
 {
     public enum IconStyle
     {

@@ -1,10 +1,12 @@
 using Microsoft.Extensions.DependencyInjection;
+using SmartTaskbar.Application;
+using SmartTaskbar.Engines;
+using SmartTaskbar.Engines.Interfaces;
+using SmartTaskbar.PlatformInvoke.FileSystem;
 using SmartTaskbar.Tray.Languages;
 using System;
-using System.Collections.Generic;
-using System.Linq;
+using System.ComponentModel;
 using System.Threading;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace SmartTaskbar.Tray
@@ -47,8 +49,12 @@ namespace SmartTaskbar.Tray
         private static void ConfigureServices(ServiceCollection serivceCollection)
         {
             // todo add Services;
+            serivceCollection.AddSingleton<IContainer, Container>();
             serivceCollection.AddSingleton<MainNotifyIcon>();
             serivceCollection.AddSingleton<CultureResource>();
+            serivceCollection.AddSingleton<IUserConfigService,UserConfigService>();
+            serivceCollection.AddSingleton<UserConfigEngine>();
+
         }
     }
 }

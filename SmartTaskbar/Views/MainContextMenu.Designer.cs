@@ -1,4 +1,4 @@
-﻿namespace SmartTaskbar.Forms
+﻿namespace SmartTaskbar.Views
 {
     partial class MainContextMenu
     {

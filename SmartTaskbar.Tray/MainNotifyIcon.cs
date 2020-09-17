@@ -1,12 +1,31 @@
-﻿using System.Windows.Forms;
+﻿using SmartTaskbar.Engines;
+using SmartTaskbar.Models;
+using System.ComponentModel;
+using System.Windows.Forms;
 
 namespace SmartTaskbar.Tray
 {
     public partial class MainNotifyIcon : ApplicationContext
     {
-        public MainNotifyIcon()
+        private readonly NotifyIcon _notifyIcon;
+        private readonly IContainer _container;
+        private readonly UserConfigEngine _userConfigEngine;
+
+        public MainNotifyIcon(IContainer container, UserConfigEngine usercConfigEngine)
         {
+            _container = container;
+            _userConfigEngine = usercConfigEngine;
             
+
+            #region Initialization
+
+            _notifyIcon = new NotifyIcon(container)
+            {
+                Text = Constants.ApplicationName,
+                Icon = // todo
+            }
+
+            #endregion
         }
 
     }
