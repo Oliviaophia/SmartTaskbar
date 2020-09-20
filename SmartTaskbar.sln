@@ -14,15 +14,13 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartTaskbar", "SmartTaskba
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "OldFramework", "OldFramework", "{5B4257C2-90BC-4462-87B9-EFF3A2234481}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartTaskbar.UI", "SmartTaskbar.UI\SmartTaskbar.UI.csproj", "{948B969D-DAB7-4F99-9CB5-856EF8F20E65}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SmartTaskbar.Tray", "SmartTaskbar.Tray\SmartTaskbar.Tray.csproj", "{937433CC-AC44-40E7-A971-1BB5D9A9CB79}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SmartTaskbar.PlatformInvoke", "SmartTaskbar.PlatformInvoke\SmartTaskbar.PlatformInvoke.csproj", "{A5D03345-039C-4572-B8BF-FC822F52062C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartTaskbar.Models", "SmartTaskbar.Models\SmartTaskbar.Models.csproj", "{8807FE9F-7BEF-4999-872F-A937000EAFBE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SmartTaskbar.Models", "SmartTaskbar.Models\SmartTaskbar.Models.csproj", "{8807FE9F-7BEF-4999-872F-A937000EAFBE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartTaskbar.Engines", "SmartTaskbar.Engines\SmartTaskbar.Engines.csproj", "{4B888E31-E8FB-4BEE-A23D-3740EBED3276}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SmartTaskbar.Engines", "SmartTaskbar.Engines\SmartTaskbar.Engines.csproj", "{4B888E31-E8FB-4BEE-A23D-3740EBED3276}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -98,32 +96,6 @@ Global
 		{16B5A53D-EEE4-4B21-BF76-92A4531E8C01}.Release|x64.Build.0 = Release|Any CPU
 		{16B5A53D-EEE4-4B21-BF76-92A4531E8C01}.Release|x86.ActiveCfg = Release|Any CPU
 		{16B5A53D-EEE4-4B21-BF76-92A4531E8C01}.Release|x86.Build.0 = Release|Any CPU
-		{948B969D-DAB7-4F99-9CB5-856EF8F20E65}.Debug|Any CPU.ActiveCfg = Debug|x86
-		{948B969D-DAB7-4F99-9CB5-856EF8F20E65}.Debug|ARM.ActiveCfg = Debug|ARM
-		{948B969D-DAB7-4F99-9CB5-856EF8F20E65}.Debug|ARM.Build.0 = Debug|ARM
-		{948B969D-DAB7-4F99-9CB5-856EF8F20E65}.Debug|ARM.Deploy.0 = Debug|ARM
-		{948B969D-DAB7-4F99-9CB5-856EF8F20E65}.Debug|ARM64.ActiveCfg = Debug|ARM64
-		{948B969D-DAB7-4F99-9CB5-856EF8F20E65}.Debug|ARM64.Build.0 = Debug|ARM64
-		{948B969D-DAB7-4F99-9CB5-856EF8F20E65}.Debug|ARM64.Deploy.0 = Debug|ARM64
-		{948B969D-DAB7-4F99-9CB5-856EF8F20E65}.Debug|x64.ActiveCfg = Debug|x64
-		{948B969D-DAB7-4F99-9CB5-856EF8F20E65}.Debug|x64.Build.0 = Debug|x64
-		{948B969D-DAB7-4F99-9CB5-856EF8F20E65}.Debug|x64.Deploy.0 = Debug|x64
-		{948B969D-DAB7-4F99-9CB5-856EF8F20E65}.Debug|x86.ActiveCfg = Debug|x86
-		{948B969D-DAB7-4F99-9CB5-856EF8F20E65}.Debug|x86.Build.0 = Debug|x86
-		{948B969D-DAB7-4F99-9CB5-856EF8F20E65}.Debug|x86.Deploy.0 = Debug|x86
-		{948B969D-DAB7-4F99-9CB5-856EF8F20E65}.Release|Any CPU.ActiveCfg = Release|x86
-		{948B969D-DAB7-4F99-9CB5-856EF8F20E65}.Release|ARM.ActiveCfg = Release|ARM
-		{948B969D-DAB7-4F99-9CB5-856EF8F20E65}.Release|ARM.Build.0 = Release|ARM
-		{948B969D-DAB7-4F99-9CB5-856EF8F20E65}.Release|ARM.Deploy.0 = Release|ARM
-		{948B969D-DAB7-4F99-9CB5-856EF8F20E65}.Release|ARM64.ActiveCfg = Release|ARM64
-		{948B969D-DAB7-4F99-9CB5-856EF8F20E65}.Release|ARM64.Build.0 = Release|ARM64
-		{948B969D-DAB7-4F99-9CB5-856EF8F20E65}.Release|ARM64.Deploy.0 = Release|ARM64
-		{948B969D-DAB7-4F99-9CB5-856EF8F20E65}.Release|x64.ActiveCfg = Release|x64
-		{948B969D-DAB7-4F99-9CB5-856EF8F20E65}.Release|x64.Build.0 = Release|x64
-		{948B969D-DAB7-4F99-9CB5-856EF8F20E65}.Release|x64.Deploy.0 = Release|x64
-		{948B969D-DAB7-4F99-9CB5-856EF8F20E65}.Release|x86.ActiveCfg = Release|x86
-		{948B969D-DAB7-4F99-9CB5-856EF8F20E65}.Release|x86.Build.0 = Release|x86
-		{948B969D-DAB7-4F99-9CB5-856EF8F20E65}.Release|x86.Deploy.0 = Release|x86
 		{937433CC-AC44-40E7-A971-1BB5D9A9CB79}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{937433CC-AC44-40E7-A971-1BB5D9A9CB79}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{937433CC-AC44-40E7-A971-1BB5D9A9CB79}.Debug|ARM.ActiveCfg = Debug|Any CPU

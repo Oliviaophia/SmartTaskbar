@@ -15,16 +15,16 @@ namespace SmartTaskbar.Tray
         {
             _container = container;
             _userConfigEngine = usercConfigEngine;
-            
+
 
             #region Initialization
 
             _notifyIcon = new NotifyIcon(container)
             {
                 Text = Constants.ApplicationName,
-                Icon = // todo
-            }
-
+                Icon = IconResource.Logo_Blue,
+                Visible = true
+            };
             #endregion
         }
 

@@ -1,5 +1,4 @@
 using Microsoft.Extensions.DependencyInjection;
-using SmartTaskbar.Application;
 using SmartTaskbar.Engines;
 using SmartTaskbar.Engines.Interfaces;
 using SmartTaskbar.PlatformInvoke.FileSystem;
