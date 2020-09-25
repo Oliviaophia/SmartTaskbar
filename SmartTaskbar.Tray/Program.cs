@@ -1,12 +1,12 @@
+using System;
+using System.ComponentModel;
+using System.Threading;
+using System.Windows.Forms;
 using Microsoft.Extensions.DependencyInjection;
 using SmartTaskbar.Engines;
 using SmartTaskbar.Engines.Interfaces;
 using SmartTaskbar.PlatformInvoke.FileSystem;
 using SmartTaskbar.Tray.Languages;
-using System;
-using System.ComponentModel;
-using System.Threading;
-using System.Windows.Forms;
 
 namespace SmartTaskbar.Tray
 {
@@ -32,28 +32,27 @@ namespace SmartTaskbar.Tray
 
                     DependencyInjection();
 
-                    Application.Run(_serviceProvider.GetService<MainNotifyIcon>());
+                    Application.Run(_serviceProvider.GetService<MainNotifyIcon>()!);
                 }
             }
         }
 
         private static void DependencyInjection()
         {
-            var serivceCollection = new ServiceCollection();
-            ConfigureServices(serivceCollection);
+            var serviceCollection = new ServiceCollection();
+            ConfigureServices(serviceCollection);
 
-            _serviceProvider = serivceCollection.BuildServiceProvider();
+            _serviceProvider = serviceCollection.BuildServiceProvider();
         }
 
-        private static void ConfigureServices(ServiceCollection serivceCollection)
+        private static void ConfigureServices(ServiceCollection serviceCollection)
         {
             // todo add Services;
-            serivceCollection.AddSingleton<IContainer, Container>();
-            serivceCollection.AddSingleton<MainNotifyIcon>();
-            serivceCollection.AddSingleton<CultureResource>();
-            serivceCollection.AddSingleton<IUserConfigService,UserConfigService>();
-            serivceCollection.AddSingleton<UserConfigEngine>();
-
+            serviceCollection.AddSingleton<IContainer, Container>();
+            serviceCollection.AddSingleton<MainNotifyIcon>();
+            serviceCollection.AddSingleton<CultureResource>();
+            serviceCollection.AddSingleton<IUserConfigService, UserConfigService>();
+            serviceCollection.AddSingleton<UserConfigEngine>();
         }
     }
 }
