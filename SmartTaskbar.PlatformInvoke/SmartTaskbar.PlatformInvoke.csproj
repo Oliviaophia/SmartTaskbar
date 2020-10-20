@@ -1,22 +1,17 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net5.0-windows</TargetFramework>
+    <TargetFramework>net5.0-windows10.0.19041</TargetFramework>
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.Win32.Registry" Version="5.0.0-rc.2.20475.5" />
     <PackageReference Include="System.Text.Json" Version="5.0.0-rc.2.20475.5" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\SmartTaskbar.Engines\SmartTaskbar.Engines.csproj" />
     <ProjectReference Include="..\SmartTaskbar.Models\SmartTaskbar.Models.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Reference Include="Microsoft.Win32.Registry">
-      <HintPath>..\..\..\..\..\..\..\Program Files\dotnet\packs\Microsoft.WindowsDesktop.App.Ref\5.0.0-rc.2.20475.6\ref\net5.0\Microsoft.Win32.Registry.dll</HintPath>
-    </Reference>
   </ItemGroup>
 
 </Project>

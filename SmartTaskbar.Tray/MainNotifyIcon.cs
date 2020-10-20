@@ -28,8 +28,20 @@ namespace SmartTaskbar.Tray
                 Visible = true
             };
 
+            _notifyIcon.MouseClick += (s, e) =>
+            {
+                // todo
+                UpdateTheme();
+
+                if (e.Button == MouseButtons.Right)
+                {
+                    // show Menu
+                }
+            };
+
             #endregion
         }
 
+        private void UpdateTheme() { _notifyIcon.Icon = _mainNotifyIconViewModel.Icon; }
     }
 }

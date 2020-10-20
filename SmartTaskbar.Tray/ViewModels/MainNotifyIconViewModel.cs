@@ -8,12 +8,10 @@ namespace SmartTaskbar.Tray.ViewModels
 {
     public class MainNotifyIconViewModel : IUserConfiguration
     {
-        public IconStyle IconStyle { get; set; }
-
         public Icon Icon
             => IconStyle switch
             {
-                IconStyle.Auto => LightTheme.IsSystemUsesLightTheme()
+                IconStyle.Auto => UIInfo.IsSystemUsesLightTheme()
                     ? IconResource.Logo_Black
                     : IconResource.Logo_White,
                 IconStyle.Black => IconResource.Logo_Black,
@@ -22,5 +20,7 @@ namespace SmartTaskbar.Tray.ViewModels
                 IconStyle.White => IconResource.Logo_White,
                 _               => throw new NotImplementedException()
             };
+
+        public IconStyle IconStyle { get; set; }
     }
 }
