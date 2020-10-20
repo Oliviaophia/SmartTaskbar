@@ -1,6 +1,7 @@
 using System;
 using System.ComponentModel;
 using System.Threading;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 using Microsoft.Extensions.DependencyInjection;
 using SmartTaskbar.Engines;
@@ -15,10 +16,10 @@ namespace SmartTaskbar.Tray
         private static ServiceProvider _serviceProvider;
 
         /// <summary>
-        ///  The main entry point for the application.
+        ///     The main entry point for the application.
         /// </summary>
         [STAThread]
-        static void Main()
+        private static async Task Main()
         {
             // Use a mutex to ensure single instance
             using (new Mutex(true, "{959d3545-aa5c-42a8-a327-6e2c079daa94}", out var createNew))
@@ -30,22 +31,24 @@ namespace SmartTaskbar.Tray
                     Application.EnableVisualStyles();
                     Application.SetCompatibleTextRenderingDefault(false);
 
-                    DependencyInjection();
+                    await DependencyInjection();
 
                     Application.Run(_serviceProvider.GetService<MainNotifyIcon>()!);
                 }
             }
         }
 
-        private static void DependencyInjection()
+        private static async Task DependencyInjection()
         {
             var serviceCollection = new ServiceCollection();
             ConfigureServices(serviceCollection);
 
             _serviceProvider = serviceCollection.BuildServiceProvider();
+
+            await _serviceProvider.GetService<UserConfigEngine>()!.Initializer();
         }
 
-        private static void ConfigureServices(ServiceCollection serviceCollection)
+        private static void ConfigureServices(IServiceCollection serviceCollection)
         {
             // todo add Services;
             serviceCollection.AddSingleton<IContainer, Container>();

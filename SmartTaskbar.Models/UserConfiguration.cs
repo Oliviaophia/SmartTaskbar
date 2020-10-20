@@ -4,6 +4,6 @@ namespace SmartTaskbar.Models
 {
     public class UserConfiguration : IUserConfiguration
     {
-        public IconStyle IconStyle { get; set; }
+        public IconStyle IconStyle { get; set; } = IconStyle.Auto;
     }
 }

@@ -1,6 +1,6 @@
-﻿using SmartTaskbar.Engines.Interfaces;
+﻿using System.Threading.Tasks;
+using SmartTaskbar.Engines.Interfaces;
 using SmartTaskbar.Models;
-using System.Threading.Tasks;
 
 namespace SmartTaskbar.Engines
 {
@@ -10,19 +10,20 @@ namespace SmartTaskbar.Engines
 
         public UserConfiguration UserConfiguration { get; set; }
 
-        public UserConfigEngine(IUserConfigService userconfigServices)
+        public UserConfigEngine(IUserConfigService userConfigServices)
+            => _userConfigService = userConfigServices;
+
+        public async Task Initializer()
         {
-            _userConfigService = userconfigServices;
-            UserConfiguration = GetUserConfigurationAsync().GetAwaiter().GetResult();
+            UserConfiguration = await GetUserConfigurationAsync();
+            // save User Configuration at first time.
+            _ = SaveUserConfigurationAsync();
         }
 
         public async Task<UserConfiguration> GetUserConfigurationAsync()
-        {
-            UserConfiguration = await _userConfigService.ReadSettingsAsync();
+            => UserConfiguration = await _userConfigService.ReadSettingsAsync();
 
-            return UserConfiguration;
-        }
-
-        public Task SaveUserConfigurationAsync() => _userConfigService.SaveSettingsAsync(UserConfiguration);
+        public Task SaveUserConfigurationAsync()
+            => _userConfigService.SaveSettingsAsync(UserConfiguration);
     }
 }

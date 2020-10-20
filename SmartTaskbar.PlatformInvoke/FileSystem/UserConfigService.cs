@@ -1,10 +1,10 @@
-﻿using SmartTaskbar.Engines.Interfaces;
-using SmartTaskbar.Models;
-using System;
+﻿using System;
 using System.IO;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
+using SmartTaskbar.Engines.Interfaces;
+using SmartTaskbar.Models;
 
 namespace SmartTaskbar.PlatformInvoke.FileSystem
 {
@@ -27,20 +27,20 @@ namespace SmartTaskbar.PlatformInvoke.FileSystem
 
         public async Task<UserConfiguration> ReadSettingsAsync()
         {
-            Directory.CreateDirectory(Path.GetDirectoryName(_userConfigPath));
+            Directory.CreateDirectory(Path.GetDirectoryName(_userConfigPath)!);
 
-            using var fs = new FileStream(_userConfigPath, FileMode.OpenOrCreate);
+            await using var fs = new FileStream(_userConfigPath, FileMode.OpenOrCreate);
 
-            var settings = await JsonSerializer.DeserializeAsync<UserConfiguration>(fs, _options);
+            if (fs.Length == 0) return new UserConfiguration();
 
-            return settings;
+            return await JsonSerializer.DeserializeAsync<UserConfiguration>(fs, _options);
         }
 
         public async Task SaveSettingsAsync(UserConfiguration configuration)
         {
-            Directory.CreateDirectory(Path.GetDirectoryName(_userConfigPath));
+            Directory.CreateDirectory(Path.GetDirectoryName(_userConfigPath)!);
 
-            using var fs = new FileStream(_userConfigPath, FileMode.OpenOrCreate);
+            await using var fs = new FileStream(_userConfigPath, FileMode.OpenOrCreate);
 
             await JsonSerializer.SerializeAsync(fs, configuration, _options);
         }
