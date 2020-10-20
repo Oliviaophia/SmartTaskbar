@@ -13,4 +13,10 @@
     <ProjectReference Include="..\SmartTaskbar.Models\SmartTaskbar.Models.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Reference Include="Microsoft.Win32.Registry">
+      <HintPath>..\..\..\..\..\..\..\Program Files\dotnet\packs\Microsoft.WindowsDesktop.App.Ref\5.0.0-rc.2.20475.6\ref\net5.0\Microsoft.Win32.Registry.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
 </Project>

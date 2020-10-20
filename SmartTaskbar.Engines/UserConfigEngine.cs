@@ -1,6 +1,7 @@
 ﻿using System.Threading.Tasks;
 using SmartTaskbar.Engines.Interfaces;
 using SmartTaskbar.Models;
+using SmartTaskbar.Models.Interfaces;
 
 namespace SmartTaskbar.Engines
 {
@@ -20,10 +21,18 @@ namespace SmartTaskbar.Engines
             _ = SaveUserConfigurationAsync();
         }
 
-        public async Task<UserConfiguration> GetUserConfigurationAsync()
+        private async Task<UserConfiguration> GetUserConfigurationAsync()
             => UserConfiguration = await _userConfigService.ReadSettingsAsync();
 
-        public Task SaveUserConfigurationAsync()
+        private Task SaveUserConfigurationAsync()
             => _userConfigService.SaveSettingsAsync(UserConfiguration);
+
+        public TViewModel InitViewModel<TViewModel>() where TViewModel : IUserConfiguration, new()
+        {
+            var viewModel = new TViewModel {IconStyle = UserConfiguration.IconStyle};
+
+
+            return viewModel;
+        }
     }
 }

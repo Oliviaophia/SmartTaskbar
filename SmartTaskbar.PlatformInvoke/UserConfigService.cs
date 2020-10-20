@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using SmartTaskbar.Engines.Interfaces;
 using SmartTaskbar.Models;
 
-namespace SmartTaskbar.PlatformInvoke.FileSystem
+namespace SmartTaskbar.PlatformInvoke
 {
     public class UserConfigService : IUserConfigService
     {

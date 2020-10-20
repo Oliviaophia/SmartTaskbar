@@ -6,7 +6,7 @@ using System.Windows.Forms;
 using Microsoft.Extensions.DependencyInjection;
 using SmartTaskbar.Engines;
 using SmartTaskbar.Engines.Interfaces;
-using SmartTaskbar.PlatformInvoke.FileSystem;
+using SmartTaskbar.PlatformInvoke;
 using SmartTaskbar.Tray.Languages;
 
 namespace SmartTaskbar.Tray
