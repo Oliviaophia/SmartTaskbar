@@ -1,20 +1,20 @@
-﻿using SmartTaskbar.Engines;
-using SmartTaskbar.Models;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.Windows.Forms;
+using SmartTaskbar.Engines;
+using SmartTaskbar.Models;
 
 namespace SmartTaskbar.Tray
 {
-    public partial class MainNotifyIcon : ApplicationContext
+    public class MainNotifyIcon : ApplicationContext
     {
         private readonly NotifyIcon _notifyIcon;
         private readonly IContainer _container;
         private readonly UserConfigEngine _userConfigEngine;
 
-        public MainNotifyIcon(IContainer container, UserConfigEngine usercConfigEngine)
+        public MainNotifyIcon(IContainer container, UserConfigEngine userConfigEngine)
         {
             _container = container;
-            _userConfigEngine = usercConfigEngine;
+            _userConfigEngine = userConfigEngine;
 
 
             #region Initialization

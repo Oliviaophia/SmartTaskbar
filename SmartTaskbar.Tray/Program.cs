@@ -11,7 +11,7 @@ using SmartTaskbar.Tray.Languages;
 
 namespace SmartTaskbar.Tray
 {
-    static class Program
+    internal static class Program
     {
         private static ServiceProvider _serviceProvider;
 
