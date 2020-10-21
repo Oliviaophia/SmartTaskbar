@@ -27,17 +27,32 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Update="IconResource.Designer.cs">
+    <Compile Update="IconResources.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
-      <DependentUpon>IconResource.resx</DependentUpon>
+      <DependentUpon>IconResources.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Views\MainContextMenu.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Views\MainContextMenu.Designer.cs">
+      <DependentUpon>MainContextMenu.cs</DependentUpon>
+    </Compile>
+    <Compile Update="Views\MenuButton.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Update="Views\MenuDelimiter.cs">
+      <SubType>Component</SubType>
     </Compile>
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Update="IconResource.resx">
+    <EmbeddedResource Update="IconResources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>IconResource.Designer.cs</LastGenOutput>
+      <LastGenOutput>IconResources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\MainContextMenu.resx">
+      <DependentUpon>MainContextMenu.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
 

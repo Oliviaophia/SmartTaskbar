@@ -1,23 +1,34 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
+using System.Threading;
 using System.Windows.Forms;
 using SmartTaskbar.Engines;
 using SmartTaskbar.Models;
+using SmartTaskbar.Tray.Languages;
 using SmartTaskbar.Tray.ViewModels;
 
-namespace SmartTaskbar.Tray
+namespace SmartTaskbar.Tray.Views
 {
     public class MainNotifyIcon : ApplicationContext
     {
         private readonly NotifyIcon _notifyIcon;
         private readonly IContainer _container;
         private readonly UserConfigEngine _userConfigEngine;
+        private readonly CultureResource _cultureResource;
         private readonly MainNotifyIconViewModel _mainNotifyIconViewModel;
 
-        public MainNotifyIcon(IContainer container, UserConfigEngine userConfigEngine)
+        private readonly Lazy<MainContextMenu> _contextMenuLazy;
+
+        public MainNotifyIcon(IContainer container, UserConfigEngine userConfigEngine, CultureResource cultureResource)
         {
             _container = container;
             _userConfigEngine = userConfigEngine;
+            _cultureResource = cultureResource;
             _mainNotifyIconViewModel = userConfigEngine.InitViewModel<MainNotifyIconViewModel>();
+
+            _contextMenuLazy = new Lazy<MainContextMenu>(
+                () => new MainContextMenu(container, userConfigEngine, cultureResource),
+                LazyThreadSafetyMode.ExecutionAndPublication);
 
             #region Initialization
 
@@ -34,9 +45,8 @@ namespace SmartTaskbar.Tray
                 UpdateTheme();
 
                 if (e.Button == MouseButtons.Right)
-                {
                     // show Menu
-                }
+                    _contextMenuLazy.Value.Show();
             };
 
             #endregion

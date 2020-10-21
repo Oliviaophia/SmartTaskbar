@@ -1,7 +1,7 @@
-﻿
-using Windows.UI;
+﻿using Windows.UI;
 using Windows.UI.ViewManagement;
 using Microsoft.Win32;
+using DrawingColor = System.Drawing.Color;
 
 namespace SmartTaskbar.PlatformInvoke
 {
@@ -13,35 +13,38 @@ namespace SmartTaskbar.PlatformInvoke
         private static readonly RegistryKey Key =
             Registry.CurrentUser.OpenSubKey(@"Software\Microsoft\Windows\CurrentVersion\Themes\Personalize", false);
 
-        public static bool IsSystemUsesLightTheme()
+        public static bool IsLightTheme()
             => (int) Key.GetValue("SystemUsesLightTheme", 0)! == 1;
 
         // https://stackoverflow.com/questions/51334674/how-to-detect-windows-10-light-dark-mode-in-win32-application
-        public static Color ForeGround
-            => Settings.GetColorValue(UIColorType.Foreground);
+        public static DrawingColor ForeGround
+            => Settings.GetColorValue(UIColorType.Foreground).ToColor();
 
-        public static Color Background
-            => Settings.GetColorValue(UIColorType.Background);
+        public static DrawingColor Background
+            => Settings.GetColorValue(UIColorType.Background).ToColor();
 
-        public static Color Accent
-            => Settings.GetColorValue(UIColorType.Accent);
+        public static DrawingColor Accent
+            => Settings.GetColorValue(UIColorType.Accent).ToColor();
 
-        public static Color AccentDark1
-            => Settings.GetColorValue(UIColorType.AccentDark1);
+        public static DrawingColor AccentDark1
+            => Settings.GetColorValue(UIColorType.AccentDark1).ToColor();
 
-        public static Color AccentDark2
-            => Settings.GetColorValue(UIColorType.AccentDark2);
+        public static DrawingColor AccentDark2
+            => Settings.GetColorValue(UIColorType.AccentDark2).ToColor();
 
-        public static Color AccentDark3
-            => Settings.GetColorValue(UIColorType.AccentDark3);
+        public static DrawingColor AccentDark3
+            => Settings.GetColorValue(UIColorType.AccentDark3).ToColor();
 
-        public static Color AccentLight1
-            => Settings.GetColorValue(UIColorType.AccentLight1);
+        public static DrawingColor AccentLight1
+            => Settings.GetColorValue(UIColorType.AccentLight1).ToColor();
 
-        public static Color AccentLight2
-            => Settings.GetColorValue(UIColorType.AccentLight2);
+        public static DrawingColor AccentLight2
+            => Settings.GetColorValue(UIColorType.AccentLight2).ToColor();
 
-        public static Color AccentLight3
-            => Settings.GetColorValue(UIColorType.AccentLight3);
+        public static DrawingColor AccentLight3
+            => Settings.GetColorValue(UIColorType.AccentLight3).ToColor();
+
+        private static DrawingColor ToColor(this Color color)
+            => DrawingColor.FromArgb(color.A, color.R, color.G, color.B);
     }
 }

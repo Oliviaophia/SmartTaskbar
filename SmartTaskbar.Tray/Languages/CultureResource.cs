@@ -1,12 +1,11 @@
-﻿using System;
-using System.Globalization;
+﻿using System.Globalization;
 using System.Reflection;
 using System.Resources;
 using System.Threading;
 
 namespace SmartTaskbar.Tray.Languages
 {
-    internal class CultureResource
+    public class CultureResource
     {
         private readonly ResourceManager _resourceManager =
             new ResourceManager("SmartTaskbar.Tray.Languages.Resource", Assembly.GetExecutingAssembly());

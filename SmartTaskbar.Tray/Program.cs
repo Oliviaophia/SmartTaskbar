@@ -8,6 +8,7 @@ using SmartTaskbar.Engines;
 using SmartTaskbar.Engines.Interfaces;
 using SmartTaskbar.PlatformInvoke;
 using SmartTaskbar.Tray.Languages;
+using SmartTaskbar.Tray.Views;
 
 namespace SmartTaskbar.Tray
 {

@@ -11,14 +11,14 @@ namespace SmartTaskbar.Tray.ViewModels
         public Icon Icon
             => IconStyle switch
             {
-                IconStyle.Auto => UIInfo.IsSystemUsesLightTheme()
-                    ? IconResource.Logo_Black
-                    : IconResource.Logo_White,
-                IconStyle.Black => IconResource.Logo_Black,
-                IconStyle.Blue  => IconResource.Logo_Blue,
-                IconStyle.Pink  => IconResource.Logo_Pink,
-                IconStyle.White => IconResource.Logo_White,
-                _               => throw new NotImplementedException()
+                IconStyle.Auto => UIInfo.IsLightTheme()
+                    ? IconResources.Logo_Black
+                    : IconResources.Logo_White,
+                IconStyle.Black => IconResources.Logo_Black,
+                IconStyle.Blue  => IconResources.Logo_Blue,
+                IconStyle.Pink  => IconResources.Logo_Pink,
+                IconStyle.White => IconResources.Logo_White,
+                _               => throw new ArgumentOutOfRangeException()
             };
 
         public IconStyle IconStyle { get; set; }
