@@ -30,6 +30,7 @@ namespace SmartTaskbar.Languages
                     {
                         case "zh-CN":
                         case "en-US":
+                        case "de-DE":
                             break;
                         default:
                             Thread.CurrentThread.CurrentUICulture = new CultureInfo("en-US");
@@ -39,6 +40,9 @@ namespace SmartTaskbar.Languages
                     break;
                 case Language.EnUs:
                     Thread.CurrentThread.CurrentUICulture = new CultureInfo("en-US");
+                    break;
+                case Language.DeDe:
+                    Thread.CurrentThread.CurrentUICulture = new CultureInfo("de-DE");
                     break;
                 case Language.ZhCn:
                     Thread.CurrentThread.CurrentUICulture = new CultureInfo("zh-CN");
