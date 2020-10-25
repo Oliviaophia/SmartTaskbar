@@ -83,7 +83,7 @@ Known Issues
 
 Build
 -----
-* Install Visual Studio 2019.
+* Install Visual Studio 2019 preview.
 
 
 
