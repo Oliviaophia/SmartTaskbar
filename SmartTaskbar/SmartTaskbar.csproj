@@ -94,6 +94,7 @@
     <Compile Include="Views\MenuDelimiter.cs">
       <SubType>Component</SubType>
     </Compile>
+    <EmbeddedResource Include="Languages\Resource.de-DE.resx" />
     <EmbeddedResource Include="Languages\Resource.en-US.resx" />
     <EmbeddedResource Include="Languages\Resource.zh-CN.resx" />
     <EmbeddedResource Include="Properties\Resources.resx">
