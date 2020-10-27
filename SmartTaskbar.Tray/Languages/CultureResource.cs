@@ -21,6 +21,7 @@ namespace SmartTaskbar.Tray.Languages
             {
                 case "zh-CN":
                 case "en-US":
+                case "de-DE":
                     break;
                 default:
                     Thread.CurrentThread.CurrentUICulture = new CultureInfo("en-US");
