@@ -7,7 +7,6 @@ namespace SmartTaskbar.PlatformInvoke
 {
     public static class UIInfo
     {
-        private static readonly Color White = Color.FromArgb(255, 255, 255, 255);
         private static readonly UISettings Settings = new UISettings();
 
         private static readonly RegistryKey Key =

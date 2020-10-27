@@ -16,7 +16,7 @@ namespace SmartTaskbar.Tray.Views
             Font = new Font("Segoe UI", 9F);
             TextAlign = ContentAlignment.MiddleLeft;
             TextImageRelation = TextImageRelation.ImageBeforeText;
-            ImageAlign = ContentAlignment.MiddleLeft;
+            ImageAlign = ContentAlignment.MiddleCenter;
         }
 
         protected override void OnControlAdded(ControlEventArgs e)

@@ -33,7 +33,12 @@ namespace SmartTaskbar.PlatformInvoke
 
             if (fs.Length == 0) return new UserConfiguration();
 
-            return await JsonSerializer.DeserializeAsync<UserConfiguration>(fs, _options);
+            try { return await JsonSerializer.DeserializeAsync<UserConfiguration>(fs, _options); }
+            catch
+            {
+                // return default setting if Deserialization process failed.
+                return new UserConfiguration();
+            }
         }
 
         public async Task SaveSettingsAsync(UserConfiguration configuration)
