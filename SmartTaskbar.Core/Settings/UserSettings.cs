@@ -32,14 +32,14 @@ namespace SmartTaskbar.Core.Settings
         public TaskbarState TargetState { get; set; }
 
         /// <summary>
-        ///     Application blacklist
+        ///     Application denylist
         /// </summary>
-        public HashSet<string> Blacklist { get; set; }
+        public HashSet<string> Denylist { get; set; }
 
         /// <summary>
-        ///     Application whitelist
+        ///     Application allowlist
         /// </summary>
-        public HashSet<string> Whitelist { get; set; }
+        public HashSet<string> Allowlist { get; set; }
 
         ///// <summary>
         /////     reset taskbar state to default in tablet mode [only work on UWP API]

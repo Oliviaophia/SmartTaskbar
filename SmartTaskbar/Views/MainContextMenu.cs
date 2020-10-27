@@ -48,19 +48,19 @@ namespace SmartTaskbar.Views
                 _coreInvoker.SaveUserSettings();
             };
 
-            WhitelistButton.Text = coreInvoker.GetText("TrayWhitelistMode");
-            WhitelistButton.Click += (s, e) =>
+            AllowlistButton.Text = coreInvoker.GetText("TrayAllowlistMode");
+            AllowlistButton.Click += (s, e) =>
             {
-                _coreInvoker.UserSettings.ModeType = AutoModeType.WhitelistMode;
+                _coreInvoker.UserSettings.ModeType = AutoModeType.AllowlistMode;
                 _coreInvoker.ModeSwitch.LoadSetting();
                 SetAutoModeTypeIcon();
                 _coreInvoker.SaveUserSettings();
             };
 
-            BlacklistButton.Text = coreInvoker.GetText("TrayBlacklistMode");
-            BlacklistButton.Click += (s, e) =>
+            DenylistButton.Text = coreInvoker.GetText("TrayDenylistMode");
+            DenylistButton.Click += (s, e) =>
             {
-                _coreInvoker.UserSettings.ModeType = AutoModeType.BlacklistMode;
+                _coreInvoker.UserSettings.ModeType = AutoModeType.DenylistMode;
                 _coreInvoker.ModeSwitch.LoadSetting();
                 SetAutoModeTypeIcon();
                 _coreInvoker.SaveUserSettings();
@@ -114,40 +114,40 @@ namespace SmartTaskbar.Views
             {
                 case AutoModeType.Disable:
                     stopButton.Image = islight ? Resources.Pause_Black : Resources.Pause_White;
-                    WhitelistButton.Image =
-                        BlacklistButton.Image =
+                    AllowlistButton.Image =
+                        DenylistButton.Image =
                             foreButton.Image =
                                 apiButton.Image =
                                     Resources.Empty;
                     break;
                 case AutoModeType.AutoHideApiMode:
                     apiButton.Image = islight ? Resources.Run_Black : Resources.Run_White;
-                    WhitelistButton.Image =
-                        BlacklistButton.Image =
+                    AllowlistButton.Image =
+                        DenylistButton.Image =
                             foreButton.Image =
                                 stopButton.Image =
                                     Resources.Empty;
                     break;
                 case AutoModeType.ForegroundMode:
                     foreButton.Image = islight ? Resources.Run_Black : Resources.Run_White;
-                    WhitelistButton.Image =
-                        BlacklistButton.Image =
+                    AllowlistButton.Image =
+                        DenylistButton.Image =
                             apiButton.Image =
                                 stopButton.Image =
                                     Resources.Empty;
                     break;
-                case AutoModeType.BlacklistMode:
-                    BlacklistButton.Image = islight ? Resources.Run_Black : Resources.Run_White;
-                    WhitelistButton.Image =
+                case AutoModeType.DenylistMode:
+                    DenylistButton.Image = islight ? Resources.Run_Black : Resources.Run_White;
+                    AllowlistButton.Image =
                         apiButton.Image =
                             foreButton.Image =
                                 stopButton.Image =
                                     Resources.Empty;
                     break;
-                case AutoModeType.WhitelistMode:
-                    WhitelistButton.Image = islight ? Resources.Run_Black : Resources.Run_White;
+                case AutoModeType.AllowlistMode:
+                    AllowlistButton.Image = islight ? Resources.Run_Black : Resources.Run_White;
                     apiButton.Image =
-                        BlacklistButton.Image =
+                        DenylistButton.Image =
                             foreButton.Image =
                                 stopButton.Image =
                                     Resources.Empty;

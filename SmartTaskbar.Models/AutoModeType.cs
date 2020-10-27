@@ -5,7 +5,7 @@
         Disable,
         AutoHideApiMode,
         ForegroundMode,
-        BlacklistMode,
-        WhitelistMode
+        DenylistMode,
+        AllowlistMode
     }
 }

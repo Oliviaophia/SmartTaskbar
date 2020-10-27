@@ -162,7 +162,7 @@
   <data name="TrayAutoMode2" xml:space="preserve">
     <value>自动模式 2</value>
   </data>
-  <data name="TrayBlacklistMode" xml:space="preserve">
+  <data name="TrayDenylistMode" xml:space="preserve">
     <value>黑名单模式</value>
   </data>
   <data name="TrayExit" xml:space="preserve">
@@ -174,7 +174,7 @@
   <data name="TrayStop" xml:space="preserve">
     <value>停止切换</value>
   </data>
-  <data name="TrayWhitelistMode" xml:space="preserve">
+  <data name="TrayAllowlistMode" xml:space="preserve">
     <value>白名单模式</value>
   </data>
 </root>

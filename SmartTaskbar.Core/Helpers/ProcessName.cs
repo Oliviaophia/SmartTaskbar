@@ -8,9 +8,9 @@ namespace SmartTaskbar.Core.Helpers
 {
     internal static class ProcessName
     {
-        internal static bool InBlacklist(this IntPtr handle, HashSet<string> blacklist)
+        internal static bool InDenylist(this IntPtr handle, HashSet<string> denylist)
         {
-            if (Variable.NameCache.TryGetValue(handle, out var name)) return blacklist.Contains(name);
+            if (Variable.NameCache.TryGetValue(handle, out var name)) return denylist.Contains(name);
 
             GetWindowThreadProcessId(handle, out var processId);
 
@@ -21,12 +21,12 @@ namespace SmartTaskbar.Core.Helpers
             name = process.MainModule.ModuleName;
             Variable.NameCache.Add(handle, name);
 
-            return blacklist.Contains(name);
+            return denylist.Contains(name);
         }
 
-        internal static bool NotInWhitelist(this IntPtr handle, HashSet<string> whitelist)
+        internal static bool NotInAllowlist(this IntPtr handle, HashSet<string> allowlist)
         {
-            if (Variable.NameCache.TryGetValue(handle, out var name)) return !whitelist.Contains(name);
+            if (Variable.NameCache.TryGetValue(handle, out var name)) return !allowlist.Contains(name);
 
             GetWindowThreadProcessId(handle, out var processId);
 
@@ -37,7 +37,7 @@ namespace SmartTaskbar.Core.Helpers
             name = process.MainModule.ModuleName;
             Variable.NameCache.Add(handle, name);
 
-            return !whitelist.Contains(name);
+            return !allowlist.Contains(name);
         }
 
         internal static Dictionary<IntPtr, string> UpdateCacheName(this Dictionary<IntPtr, string> cacheDictionary)

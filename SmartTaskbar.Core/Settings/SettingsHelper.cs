@@ -44,29 +44,32 @@ namespace SmartTaskbar.Core.Settings
             {
                 IconStyle = settings?.IconStyle ?? IconStyle.Auto,
                 ModeType = settings?.ModeType ?? AutoModeType.AutoHideApiMode,
-                ResetState = settings?.ResetState ?? new TaskbarState
-                {
-                    HideTaskbarCompletely = false,
-                    IsAutoHide = !AutoHide.NotAutoHide(),
-                    IconSize = ButtonSize.GetIconSize(),
-                    TransparentMode = TransparentModeType.Disable
-                },
-                ReadyState = settings?.ReadyState ?? new TaskbarState
-                {
-                    HideTaskbarCompletely = false,
-                    IsAutoHide = false,
-                    IconSize = Constant.IconLarge,
-                    TransparentMode = TransparentModeType.Disable
-                },
-                TargetState = settings?.TargetState ?? new TaskbarState
-                {
-                    HideTaskbarCompletely = false,
-                    IsAutoHide = true,
-                    IconSize = Constant.IconLarge,
-                    TransparentMode = TransparentModeType.Disable
-                },
-                Blacklist = settings?.Blacklist ?? new HashSet<string>(),
-                Whitelist = settings?.Whitelist ?? new HashSet<string>(),
+                ResetState = settings?.ResetState
+                             ?? new TaskbarState
+                             {
+                                 HideTaskbarCompletely = false,
+                                 IsAutoHide = !AutoHide.NotAutoHide(),
+                                 IconSize = ButtonSize.GetIconSize(),
+                                 TransparentMode = TransparentModeType.Disable
+                             },
+                ReadyState = settings?.ReadyState
+                             ?? new TaskbarState
+                             {
+                                 HideTaskbarCompletely = false,
+                                 IsAutoHide = false,
+                                 IconSize = Constant.IconLarge,
+                                 TransparentMode = TransparentModeType.Disable
+                             },
+                TargetState = settings?.TargetState
+                              ?? new TaskbarState
+                              {
+                                  HideTaskbarCompletely = false,
+                                  IsAutoHide = true,
+                                  IconSize = Constant.IconLarge,
+                                  TransparentMode = TransparentModeType.Disable
+                              },
+                Denylist = settings?.Denylist ?? new HashSet<string>(),
+                Allowlist = settings?.Allowlist ?? new HashSet<string>(),
                 //DisableOnTabletMode = settings?.DisableOnTabletMode ?? true,
                 IconCentered = settings?.IconCentered ?? false,
                 Language = settings?.Language ?? Language.Auto

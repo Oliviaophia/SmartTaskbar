@@ -162,7 +162,7 @@
   <data name="TrayAutoMode2" xml:space="preserve">
     <value>Automatischer Modus 2</value>
   </data>
-  <data name="TrayBlacklistMode" xml:space="preserve">
+  <data name="TrayDenylistMode" xml:space="preserve">
     <value>Sperrlisten-Modus</value>
   </data>
   <data name="TrayExit" xml:space="preserve">
@@ -174,7 +174,7 @@
   <data name="TrayStop" xml:space="preserve">
     <value>Wechseln anhalten</value>
   </data>
-  <data name="TrayWhitelistMode" xml:space="preserve">
+  <data name="TrayAllowlistMode" xml:space="preserve">
     <value>Ausnahme-Modus</value>
   </data>
 </root>

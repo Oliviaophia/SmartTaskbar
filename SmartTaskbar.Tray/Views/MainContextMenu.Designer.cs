@@ -32,8 +32,8 @@
             this.settingsButton = new MenuButton();
             this.menuDelimiter2 = new MenuDelimiter();
             this.apiButton = new MenuButton();
-            this.BlacklistButton = new MenuButton();
-            this.WhitelistButton = new MenuButton();
+            this.DenylistButton = new MenuButton();
+            this.AllowlistButton = new MenuButton();
             this.foreButton = new MenuButton();
             this.stopButton = new MenuButton();
             this.menuDelimiter1 = new MenuDelimiter();
@@ -106,43 +106,43 @@
             this.apiButton.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.apiButton.UseVisualStyleBackColor = false;
             // 
-            // BlacklistButton
+            // DenylistButton
             // 
-            this.BlacklistButton.BackColor = System.Drawing.Color.Transparent;
-            this.BlacklistButton.FlatAppearance.BorderSize = 0;
-            this.BlacklistButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White;
-            this.BlacklistButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.White;
-            this.BlacklistButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.BlacklistButton.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.BlacklistButton.ForeColor = System.Drawing.Color.Black;
-            this.BlacklistButton.ImageAlign = System.Drawing.ContentAlignment.TopLeft;
-            this.BlacklistButton.Location = new System.Drawing.Point(5, 150);
-            this.BlacklistButton.Margin = new System.Windows.Forms.Padding(0);
-            this.BlacklistButton.Name = "BlacklistButton";
-            this.BlacklistButton.Size = new System.Drawing.Size(230, 32);
-            this.BlacklistButton.TabIndex = 5;
-            this.BlacklistButton.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.BlacklistButton.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.BlacklistButton.UseVisualStyleBackColor = false;
+            this.DenylistButton.BackColor = System.Drawing.Color.Transparent;
+            this.DenylistButton.FlatAppearance.BorderSize = 0;
+            this.DenylistButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White;
+            this.DenylistButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.White;
+            this.DenylistButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.DenylistButton.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.DenylistButton.ForeColor = System.Drawing.Color.Black;
+            this.DenylistButton.ImageAlign = System.Drawing.ContentAlignment.TopLeft;
+            this.DenylistButton.Location = new System.Drawing.Point(5, 150);
+            this.DenylistButton.Margin = new System.Windows.Forms.Padding(0);
+            this.DenylistButton.Name = "DenylistButton";
+            this.DenylistButton.Size = new System.Drawing.Size(230, 32);
+            this.DenylistButton.TabIndex = 5;
+            this.DenylistButton.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.DenylistButton.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.DenylistButton.UseVisualStyleBackColor = false;
             // 
-            // WhitelistButton
+            // AllowlistButton
             // 
-            this.WhitelistButton.BackColor = System.Drawing.Color.Transparent;
-            this.WhitelistButton.FlatAppearance.BorderSize = 0;
-            this.WhitelistButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White;
-            this.WhitelistButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.White;
-            this.WhitelistButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.WhitelistButton.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.WhitelistButton.ForeColor = System.Drawing.Color.Black;
-            this.WhitelistButton.ImageAlign = System.Drawing.ContentAlignment.TopLeft;
-            this.WhitelistButton.Location = new System.Drawing.Point(5, 182);
-            this.WhitelistButton.Margin = new System.Windows.Forms.Padding(0);
-            this.WhitelistButton.Name = "WhitelistButton";
-            this.WhitelistButton.Size = new System.Drawing.Size(230, 32);
-            this.WhitelistButton.TabIndex = 4;
-            this.WhitelistButton.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.WhitelistButton.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.WhitelistButton.UseVisualStyleBackColor = false;
+            this.AllowlistButton.BackColor = System.Drawing.Color.Transparent;
+            this.AllowlistButton.FlatAppearance.BorderSize = 0;
+            this.AllowlistButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White;
+            this.AllowlistButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.White;
+            this.AllowlistButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.AllowlistButton.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.AllowlistButton.ForeColor = System.Drawing.Color.Black;
+            this.AllowlistButton.ImageAlign = System.Drawing.ContentAlignment.TopLeft;
+            this.AllowlistButton.Location = new System.Drawing.Point(5, 182);
+            this.AllowlistButton.Margin = new System.Windows.Forms.Padding(0);
+            this.AllowlistButton.Name = "AllowlistButton";
+            this.AllowlistButton.Size = new System.Drawing.Size(230, 32);
+            this.AllowlistButton.TabIndex = 4;
+            this.AllowlistButton.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.AllowlistButton.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.AllowlistButton.UseVisualStyleBackColor = false;
             // 
             // foreButton
             // 
@@ -219,8 +219,8 @@
             this.Controls.Add(this.settingsButton);
             this.Controls.Add(this.menuDelimiter2);
             this.Controls.Add(this.apiButton);
-            this.Controls.Add(this.BlacklistButton);
-            this.Controls.Add(this.WhitelistButton);
+            this.Controls.Add(this.DenylistButton);
+            this.Controls.Add(this.AllowlistButton);
             this.Controls.Add(this.foreButton);
             this.Controls.Add(this.stopButton);
             this.Controls.Add(this.menuDelimiter1);
@@ -246,8 +246,8 @@
         private MenuDelimiter menuDelimiter1;
         private MenuButton stopButton;
         private MenuButton foreButton;
-        private MenuButton WhitelistButton;
-        private MenuButton BlacklistButton;
+        private MenuButton AllowlistButton;
+        private MenuButton DenylistButton;
         private MenuButton apiButton;
         private MenuDelimiter menuDelimiter2;
         private MenuButton settingsButton;

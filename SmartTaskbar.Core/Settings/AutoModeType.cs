@@ -5,7 +5,7 @@
         Disable = 0,
         AutoHideApiMode = 1,
         ForegroundMode = 2,
-        BlacklistMode = 3,
-        WhitelistMode = 4
+        DenylistMode = 3,
+        AllowlistMode = 4
     }
 }
