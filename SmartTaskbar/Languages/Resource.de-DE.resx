@@ -162,7 +162,7 @@
   <data name="TrayAutoMode2" xml:space="preserve">
     <value>Automatischer Modus 2</value>
   </data>
-  <data name="TrayDenylistMode" xml:space="preserve">
+  <data name="TrayBlockListMode" xml:space="preserve">
     <value>Sperrlisten-Modus</value>
   </data>
   <data name="TrayExit" xml:space="preserve">

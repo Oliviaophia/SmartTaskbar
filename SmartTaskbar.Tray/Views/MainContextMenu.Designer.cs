@@ -32,7 +32,7 @@
             this.settingsButton = new SmartTaskbar.Tray.Views.MenuButton();
             this.menuDelimiter2 = new SmartTaskbar.Tray.Views.MenuDelimiter();
             this.apiButton = new SmartTaskbar.Tray.Views.MenuButton();
-            this.DenylistButton = new SmartTaskbar.Tray.Views.MenuButton();
+            this.BlockListButton = new SmartTaskbar.Tray.Views.MenuButton();
             this.AllowlistButton = new SmartTaskbar.Tray.Views.MenuButton();
             this.foreButton = new SmartTaskbar.Tray.Views.MenuButton();
             this.stopButton = new SmartTaskbar.Tray.Views.MenuButton();
@@ -107,24 +107,24 @@
             this.apiButton.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.apiButton.UseVisualStyleBackColor = false;
             // 
-            // DenylistButton
+            // BlockListButton
             // 
-            this.DenylistButton.BackColor = System.Drawing.Color.Transparent;
-            this.DenylistButton.FlatAppearance.BorderSize = 0;
-            this.DenylistButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(173)))), ((int)(((byte)(69)))), ((int)(((byte)(226)))));
-            this.DenylistButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(173)))), ((int)(((byte)(69)))), ((int)(((byte)(226)))));
-            this.DenylistButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.DenylistButton.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.DenylistButton.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.DenylistButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.DenylistButton.Location = new System.Drawing.Point(8, 250);
-            this.DenylistButton.Margin = new System.Windows.Forms.Padding(0);
-            this.DenylistButton.Name = "DenylistButton";
-            this.DenylistButton.Size = new System.Drawing.Size(345, 53);
-            this.DenylistButton.TabIndex = 5;
-            this.DenylistButton.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.DenylistButton.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.DenylistButton.UseVisualStyleBackColor = false;
+            this.BlockListButton.BackColor = System.Drawing.Color.Transparent;
+            this.BlockListButton.FlatAppearance.BorderSize = 0;
+            this.BlockListButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(173)))), ((int)(((byte)(69)))), ((int)(((byte)(226)))));
+            this.BlockListButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(173)))), ((int)(((byte)(69)))), ((int)(((byte)(226)))));
+            this.BlockListButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BlockListButton.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.BlockListButton.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.BlockListButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.BlockListButton.Location = new System.Drawing.Point(8, 250);
+            this.BlockListButton.Margin = new System.Windows.Forms.Padding(0);
+            this.BlockListButton.Name = "BlockListButton";
+            this.BlockListButton.Size = new System.Drawing.Size(345, 53);
+            this.BlockListButton.TabIndex = 5;
+            this.BlockListButton.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.BlockListButton.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.BlockListButton.UseVisualStyleBackColor = false;
             // 
             // AllowlistButton
             // 
@@ -221,7 +221,7 @@
             this.Controls.Add(this.settingsButton);
             this.Controls.Add(this.menuDelimiter2);
             this.Controls.Add(this.apiButton);
-            this.Controls.Add(this.DenylistButton);
+            this.Controls.Add(this.BlockListButton);
             this.Controls.Add(this.AllowlistButton);
             this.Controls.Add(this.foreButton);
             this.Controls.Add(this.stopButton);
@@ -250,7 +250,7 @@
         private MenuButton stopButton;
         private MenuButton foreButton;
         private MenuButton AllowlistButton;
-        private MenuButton DenylistButton;
+        private MenuButton BlockListButton;
         private MenuButton apiButton;
         private MenuDelimiter menuDelimiter2;
         private MenuButton settingsButton;

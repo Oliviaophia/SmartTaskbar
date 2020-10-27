@@ -31,8 +31,6 @@ namespace SmartTaskbar.PlatformInvoke
 
             await using var fs = new FileStream(_userConfigPath, FileMode.OpenOrCreate);
 
-            if (fs.Length == 0) return new UserConfiguration();
-
             try { return await JsonSerializer.DeserializeAsync<UserConfiguration>(fs, _options); }
             catch
             {

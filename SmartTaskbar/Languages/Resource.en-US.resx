@@ -162,8 +162,8 @@
   <data name="TrayAutoMode2" xml:space="preserve">
     <value>Auto Mode 2</value>
   </data>
-  <data name="TrayDenylistMode" xml:space="preserve">
-    <value>Denylist Mode</value>
+  <data name="TrayBlockListMode" xml:space="preserve">
+    <value>BlockList Mode</value>
   </data>
   <data name="TrayExit" xml:space="preserve">
     <value>Exit</value>

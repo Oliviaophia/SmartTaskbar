@@ -46,8 +46,8 @@ namespace SmartTaskbar.Tray.Views
             AllowlistButton.Text = cultureResource.GetText("TrayAllowlistMode");
             AllowlistButton.Click += (s, e) => { SetAutoModeTypeIcon(AutoModeType.AllowlistMode); };
 
-            DenylistButton.Text = cultureResource.GetText("TrayDenylistMode");
-            DenylistButton.Click += (s, e) => { SetAutoModeTypeIcon(AutoModeType.DenylistMode); };
+            BlockListButton.Text = cultureResource.GetText("TrayBlockListMode");
+            BlockListButton.Click += (s, e) => { SetAutoModeTypeIcon(AutoModeType.BlockListMode); };
 
             foreButton.Text = cultureResource.GetText("TrayAutoMode2");
             foreButton.Click += (s, e) => { SetAutoModeTypeIcon(AutoModeType.ForegroundMode); };
@@ -85,7 +85,7 @@ namespace SmartTaskbar.Tray.Views
                 case AutoModeType.Disable:
                     stopButton.Image = UIInfo.IsLightTheme() ? IconResources.Pause_White : IconResources.Pause_Black;
                     AllowlistButton.Image =
-                        DenylistButton.Image =
+                        BlockListButton.Image =
                             foreButton.Image =
                                 apiButton.Image =
                                     IconResources.Empty;
@@ -93,7 +93,7 @@ namespace SmartTaskbar.Tray.Views
                 case AutoModeType.AutoHideApiMode:
                     apiButton.Image = UIInfo.IsLightTheme() ? IconResources.Run_White : IconResources.Run_Black;
                     AllowlistButton.Image =
-                        DenylistButton.Image =
+                        BlockListButton.Image =
                             foreButton.Image =
                                 stopButton.Image =
                                     IconResources.Empty;
@@ -101,13 +101,13 @@ namespace SmartTaskbar.Tray.Views
                 case AutoModeType.ForegroundMode:
                     foreButton.Image = UIInfo.IsLightTheme() ? IconResources.Run_White : IconResources.Run_Black;
                     AllowlistButton.Image =
-                        DenylistButton.Image =
+                        BlockListButton.Image =
                             apiButton.Image =
                                 stopButton.Image =
                                     IconResources.Empty;
                     break;
-                case AutoModeType.DenylistMode:
-                    DenylistButton.Image = UIInfo.IsLightTheme() ? IconResources.Run_White : IconResources.Run_Black;
+                case AutoModeType.BlockListMode:
+                    BlockListButton.Image = UIInfo.IsLightTheme() ? IconResources.Run_White : IconResources.Run_Black;
                     AllowlistButton.Image =
                         apiButton.Image =
                             foreButton.Image =
@@ -117,7 +117,7 @@ namespace SmartTaskbar.Tray.Views
                 case AutoModeType.AllowlistMode:
                     AllowlistButton.Image = UIInfo.IsLightTheme() ? IconResources.Run_White : IconResources.Run_Black;
                     apiButton.Image =
-                        DenylistButton.Image =
+                        BlockListButton.Image =
                             foreButton.Image =
                                 stopButton.Image =
                                     IconResources.Empty;

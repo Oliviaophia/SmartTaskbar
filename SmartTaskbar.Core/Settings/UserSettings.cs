@@ -32,9 +32,9 @@ namespace SmartTaskbar.Core.Settings
         public TaskbarState TargetState { get; set; }
 
         /// <summary>
-        ///     Application denylist
+        ///     Application blockList
         /// </summary>
-        public HashSet<string> Denylist { get; set; }
+        public HashSet<string> BlockList { get; set; }
 
         /// <summary>
         ///     Application allowlist

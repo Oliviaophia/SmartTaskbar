@@ -57,10 +57,10 @@ namespace SmartTaskbar.Views
                 _coreInvoker.SaveUserSettings();
             };
 
-            DenylistButton.Text = coreInvoker.GetText("TrayDenylistMode");
-            DenylistButton.Click += (s, e) =>
+            BlockListButton.Text = coreInvoker.GetText("TrayBlockListMode");
+            BlockListButton.Click += (s, e) =>
             {
-                _coreInvoker.UserSettings.ModeType = AutoModeType.DenylistMode;
+                _coreInvoker.UserSettings.ModeType = AutoModeType.BlockListMode;
                 _coreInvoker.ModeSwitch.LoadSetting();
                 SetAutoModeTypeIcon();
                 _coreInvoker.SaveUserSettings();
@@ -115,7 +115,7 @@ namespace SmartTaskbar.Views
                 case AutoModeType.Disable:
                     stopButton.Image = islight ? Resources.Pause_Black : Resources.Pause_White;
                     AllowlistButton.Image =
-                        DenylistButton.Image =
+                        BlockListButton.Image =
                             foreButton.Image =
                                 apiButton.Image =
                                     Resources.Empty;
@@ -123,7 +123,7 @@ namespace SmartTaskbar.Views
                 case AutoModeType.AutoHideApiMode:
                     apiButton.Image = islight ? Resources.Run_Black : Resources.Run_White;
                     AllowlistButton.Image =
-                        DenylistButton.Image =
+                        BlockListButton.Image =
                             foreButton.Image =
                                 stopButton.Image =
                                     Resources.Empty;
@@ -131,13 +131,13 @@ namespace SmartTaskbar.Views
                 case AutoModeType.ForegroundMode:
                     foreButton.Image = islight ? Resources.Run_Black : Resources.Run_White;
                     AllowlistButton.Image =
-                        DenylistButton.Image =
+                        BlockListButton.Image =
                             apiButton.Image =
                                 stopButton.Image =
                                     Resources.Empty;
                     break;
-                case AutoModeType.DenylistMode:
-                    DenylistButton.Image = islight ? Resources.Run_Black : Resources.Run_White;
+                case AutoModeType.BlockListMode:
+                    BlockListButton.Image = islight ? Resources.Run_Black : Resources.Run_White;
                     AllowlistButton.Image =
                         apiButton.Image =
                             foreButton.Image =
@@ -147,7 +147,7 @@ namespace SmartTaskbar.Views
                 case AutoModeType.AllowlistMode:
                     AllowlistButton.Image = islight ? Resources.Run_Black : Resources.Run_White;
                     apiButton.Image =
-                        DenylistButton.Image =
+                        BlockListButton.Image =
                             foreButton.Image =
                                 stopButton.Image =
                                     Resources.Empty;

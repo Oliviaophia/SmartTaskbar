@@ -5,14 +5,14 @@ using static SmartTaskbar.Core.SafeNativeMethods;
 
 namespace SmartTaskbar.Core.AutoMode
 {
-    public class DenylistMode : IAutoMode
+    public class BlockListMode : IAutoMode
     {
         private readonly UserSettings _userSettings;
         private static IntPtr _maxWindow;
         private static bool _tryShowBar;
         private static int _counter;
 
-        public DenylistMode(UserSettings userSettings)
+        public BlockListMode(UserSettings userSettings)
         {
             _userSettings = userSettings;
             Reset();
@@ -43,7 +43,7 @@ namespace SmartTaskbar.Core.AutoMode
 
                 if (handle.IsNotMaximizeWindow()) return true;
 
-                if (handle.InDenylist(_userSettings.Denylist)) return true;
+                if (handle.InBlockList(_userSettings.BlockList)) return true;
 
                 _maxWindow = handle;
                 return false;

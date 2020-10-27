@@ -68,7 +68,7 @@ namespace SmartTaskbar.Core.Settings
                                   IconSize = Constant.IconLarge,
                                   TransparentMode = TransparentModeType.Disable
                               },
-                Denylist = settings?.Denylist ?? new HashSet<string>(),
+                BlockList = settings?.BlockList ?? new HashSet<string>(),
                 Allowlist = settings?.Allowlist ?? new HashSet<string>(),
                 //DisableOnTabletMode = settings?.DisableOnTabletMode ?? true,
                 IconCentered = settings?.IconCentered ?? false,
