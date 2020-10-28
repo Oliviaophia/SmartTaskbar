@@ -44,19 +44,19 @@ namespace SmartTaskbar.Tray.Views
             exitMenuButton.Click += (s, e) => Application.Exit();
 
             stopButton.Text = cultureResource.GetText("TrayStop");
-            stopButton.Click += (s, e) => { SetAutoModeTypeIcon(AutoModeType.Disable); };
+            stopButton.Click += (s, e) => { SetAutoModeType(AutoModeType.Disable); };
 
             AllowlistButton.Text = cultureResource.GetText("TrayAllowlistMode");
-            AllowlistButton.Click += (s, e) => { SetAutoModeTypeIcon(AutoModeType.AllowlistMode); };
+            AllowlistButton.Click += (s, e) => { SetAutoModeType(AutoModeType.AllowlistMode); };
 
             BlockListButton.Text = cultureResource.GetText("TrayBlockListMode");
-            BlockListButton.Click += (s, e) => { SetAutoModeTypeIcon(AutoModeType.BlockListMode); };
+            BlockListButton.Click += (s, e) => { SetAutoModeType(AutoModeType.BlockListMode); };
 
             foreButton.Text = cultureResource.GetText("TrayAutoMode2");
-            foreButton.Click += (s, e) => { SetAutoModeTypeIcon(AutoModeType.ForegroundMode); };
+            foreButton.Click += (s, e) => { SetAutoModeType(AutoModeType.ForegroundMode); };
 
             apiButton.Text = cultureResource.GetText("TrayAutoMode1");
-            apiButton.Click += (s, e) => { SetAutoModeTypeIcon(AutoModeType.AutoHideApiMode); };
+            apiButton.Click += (s, e) => { SetAutoModeType(AutoModeType.AutoHideApiMode); };
 
             settingsButton.Text = cultureResource.GetText("TraySettings");
 
@@ -82,7 +82,7 @@ namespace SmartTaskbar.Tray.Views
             LoadAutoModeTypeIcon(_mainContextMenuViewModel.AutoModeType);
         }
 
-        private void SetAutoModeTypeIcon(AutoModeType type)
+        private void SetAutoModeType(AutoModeType type)
         {
             _userConfigEngine.Update(x => x.AutoModeType = type);
 
