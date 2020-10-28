@@ -22,5 +22,6 @@ namespace SmartTaskbar.Tray.ViewModels
             };
 
         public IconStyle IconStyle { get; set; }
+        public AutoModeType AutoModeType { get; set; }
     }
 }

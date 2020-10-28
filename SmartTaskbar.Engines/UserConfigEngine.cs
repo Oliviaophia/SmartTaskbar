@@ -1,4 +1,6 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 using SmartTaskbar.Engines.Interfaces;
 using SmartTaskbar.Models;
 using SmartTaskbar.Models.Interfaces;
@@ -7,12 +9,13 @@ namespace SmartTaskbar.Engines
 {
     public class UserConfigEngine
     {
+        private static readonly List<IUserConfiguration> _viewModelList = new List<IUserConfiguration>();
         private readonly IUserConfigService _userConfigService;
-
-        public UserConfiguration UserConfiguration { get; set; }
 
         public UserConfigEngine(IUserConfigService userConfigServices)
             => _userConfigService = userConfigServices;
+
+        public UserConfiguration UserConfiguration { get; set; }
 
         public async Task Initializer()
         {
@@ -29,10 +32,27 @@ namespace SmartTaskbar.Engines
 
         public TViewModel InitViewModel<TViewModel>() where TViewModel : IUserConfiguration, new()
         {
-            var viewModel = new TViewModel {IconStyle = UserConfiguration.IconStyle};
+            var viewModel = new TViewModel
+            {
+                IconStyle = UserConfiguration.IconStyle,
+                AutoModeType = UserConfiguration.AutoModeType
+            };
 
+            _viewModelList.Add(viewModel);
 
             return viewModel;
         }
+
+        public Task Update(Action<IUserConfiguration> action)
+        {
+            _viewModelList.ForEach(action);
+
+            action(UserConfiguration);
+
+            return SaveUserConfigurationAsync();
+        }
+
+        public bool Remove(IUserConfiguration userConfiguration)
+            => _viewModelList.Remove(userConfiguration);
     }
 }

@@ -1,11 +1,12 @@
 ﻿using System;
 using System.ComponentModel;
-using System.Diagnostics;
 using System.Windows.Forms;
+using Windows.System;
 using SmartTaskbar.Engines;
 using SmartTaskbar.Models;
 using SmartTaskbar.PlatformInvoke;
 using SmartTaskbar.Tray.Languages;
+using SmartTaskbar.Tray.ViewModels;
 
 namespace SmartTaskbar.Tray.Views
 {
@@ -14,6 +15,7 @@ namespace SmartTaskbar.Tray.Views
         private readonly IContainer _container;
         private readonly CultureResource _cultureResource;
         private readonly UserConfigEngine _userConfigEngine;
+        private readonly MainContextMenuViewModel _mainContextMenuViewModel;
 
         public MainContextMenu(IContainer container, UserConfigEngine userConfigEngine, CultureResource cultureResource)
         {
@@ -21,6 +23,7 @@ namespace SmartTaskbar.Tray.Views
 
             _container = container;
             _userConfigEngine = userConfigEngine;
+            _mainContextMenuViewModel = userConfigEngine.InitViewModel<MainContextMenuViewModel>();
             _cultureResource = cultureResource;
 
             VisibleChanged += (s, e) =>
@@ -59,7 +62,8 @@ namespace SmartTaskbar.Tray.Views
 
             aboutButton.Text = cultureResource.GetText("TrayAbout");
             aboutButton.Image = IconResources.Empty;
-            aboutButton.Click += (s, e) => Process.Start("https://github.com/ChanpleCai/SmartTaskbar/releases");
+            aboutButton.Click += (s, e)
+                => _ = Launcher.LaunchUriAsync(new Uri("https://github.com/ChanpleCai/SmartTaskbar/releases"));
 
             #endregion
         }
@@ -75,10 +79,17 @@ namespace SmartTaskbar.Tray.Views
 
             //todo
 
-            //SetAutoModeTypeIcon();
+            LoadAutoModeTypeIcon(_mainContextMenuViewModel.AutoModeType);
         }
 
         private void SetAutoModeTypeIcon(AutoModeType type)
+        {
+            _userConfigEngine.Update(x => x.AutoModeType = type);
+
+            LoadAutoModeTypeIcon(type);
+        }
+
+        private void LoadAutoModeTypeIcon(AutoModeType type)
         {
             switch (type)
             {

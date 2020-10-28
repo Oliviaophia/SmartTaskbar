@@ -29,11 +29,13 @@ namespace SmartTaskbar.PlatformInvoke
         {
             Directory.CreateDirectory(Path.GetDirectoryName(_userConfigPath)!);
 
-            await using var fs = new FileStream(_userConfigPath, FileMode.OpenOrCreate);
 
+            await using var fs = new FileStream(_userConfigPath, FileMode.OpenOrCreate);
             try { return await JsonSerializer.DeserializeAsync<UserConfiguration>(fs, _options); }
             catch
             {
+                // clear the contents of the file without creating a new file.
+                fs.SetLength(0);
                 // return default setting if Deserialization process failed.
                 return new UserConfiguration();
             }
@@ -44,6 +46,9 @@ namespace SmartTaskbar.PlatformInvoke
             Directory.CreateDirectory(Path.GetDirectoryName(_userConfigPath)!);
 
             await using var fs = new FileStream(_userConfigPath, FileMode.OpenOrCreate);
+
+            // clear the contents of the file without creating a new file.
+            fs.SetLength(0);
 
             await JsonSerializer.SerializeAsync(fs, configuration, _options);
         }
