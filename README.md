@@ -1,3 +1,6 @@
+> 近期我会抽空更新SmartTaskbar，敬请期待~ 
+>> 催更Q群：825453031
+
 SmartTaskbar  <img src="https://github.com/ChanpleCai/SmartTaskbar/blob/master/logo/logo_blue.png" width="24">
 =====
 [![Version](https://badge.fury.io/gh/ChanpleCai%2FSmartTaskbar.svg)](https://github.com/ChanpleCai/SmartTaskbar/releases/download/v1.1.9/SmartTaskbar_Setup.exe)
