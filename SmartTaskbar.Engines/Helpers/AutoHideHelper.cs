@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Runtime.InteropServices;
-using static SmartTaskbar.Core.SafeNativeMethods;
+using static SmartTaskbar.PlatformInvoke.SafeNativeMethods;
 
-namespace SmartTaskbar.Core.Helpers
+namespace SmartTaskbar.Engines.Helpers
 {
-    internal static class AutoHide
+    internal static class AutoHideHelper
     {
         private const int AbsAutohide = 1;
         private const int AbsAlwaysontop = 2;
@@ -16,7 +16,7 @@ namespace SmartTaskbar.Core.Helpers
         {
             _msgData.lParam = AbsAutohide;
             SHAppBarMessage(AbmSetstate, ref _msgData);
-            ShowBar.PostMessageHideBar();
+            PostMessageHelper.HideTaskbar();
         }
 
         internal static void SetAutoHide(bool isAutoHide)

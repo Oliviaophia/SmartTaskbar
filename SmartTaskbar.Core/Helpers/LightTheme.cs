@@ -7,6 +7,7 @@ namespace SmartTaskbar.Core.Helpers
         private static readonly RegistryKey Key =
             Registry.CurrentUser.OpenSubKey(@"Software\Microsoft\Windows\CurrentVersion\Themes\Personalize", false);
 
-        internal static bool IsSystemUsesLightTheme() => (int) Key.GetValue("SystemUsesLightTheme", 0) == 1;
+        internal static bool IsSystemUsesLightTheme()
+            => (int) Key.GetValue("SystemUsesLightTheme", 0) == 1;
     }
 }

@@ -11,8 +11,8 @@ namespace SmartTaskbar.Models
     {
         private static IAutoMode _autoMode;
         private static int _counter;
-        private readonly CoreInvoker _coreInvoker;
         private readonly Timer _autoModeTimer = new Timer(125);
+        private readonly CoreInvoker _coreInvoker;
 
         public AutoModeSwitcher(CoreInvoker coreInvoker)
         {
@@ -53,7 +53,8 @@ namespace SmartTaskbar.Models
             _autoModeTimer.Start();
         }
 
-        public void LoadSetting() => SetAutoMode(_coreInvoker.UserSettings.ModeType);
+        public void LoadSetting()
+            => SetAutoMode(_coreInvoker.UserSettings.ModeType);
 
         private void SetAutoMode(AutoModeType modeType)
         {
@@ -74,12 +75,16 @@ namespace SmartTaskbar.Models
                 ResetState();
         }
 
-        private void ResetState() => InvokeMethods.ResetAutoModeState(_coreInvoker.UserSettings);
+        private void ResetState()
+            => InvokeMethods.ResetAutoModeState(_coreInvoker.UserSettings);
 
-        private static void Run() => _autoMode?.Run();
+        private static void Run()
+            => _autoMode?.Run();
 
-        private static void Ready() => _autoMode?.Ready();
+        private static void Ready()
+            => _autoMode?.Ready();
 
-        private static void Reset() => _autoMode?.Reset();
+        private static void Reset()
+            => _autoMode?.Reset();
     }
 }

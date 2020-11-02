@@ -12,8 +12,8 @@ namespace SmartTaskbar.Views
 {
     public partial class MainContextMenu : Form
     {
-        private readonly CoreInvoker _coreInvoker;
         private readonly IContainer _container;
+        private readonly CoreInvoker _coreInvoker;
 
         public MainContextMenu(IContainer container, CoreInvoker coreInvoker)
         {
@@ -170,9 +170,9 @@ namespace SmartTaskbar.Views
 
             // todo For some reason the taskbar will cover other windows
             Left = mouse.X + Width < workArea.Right ? mouse.X :
-                mouse.X < workArea.Right ? mouse.X - Width : workArea.Right - Width - Offset;
+                mouse.X < workArea.Right            ? mouse.X - Width : workArea.Right - Width - Offset;
             Top = mouse.Y + Height < workArea.Bottom ? mouse.Y :
-                mouse.Y < workArea.Bottom ? mouse.Y - Height : workArea.Bottom - Height - Offset;
+                mouse.Y < workArea.Bottom            ? mouse.Y - Height : workArea.Bottom - Height - Offset;
         }
 
         /// <summary>

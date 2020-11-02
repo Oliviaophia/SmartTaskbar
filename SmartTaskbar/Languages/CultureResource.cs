@@ -52,6 +52,7 @@ namespace SmartTaskbar.Languages
             }
         }
 
-        public string GetText(string name) => _resourceManager.GetString(name, Thread.CurrentThread.CurrentUICulture);
+        public string GetText(string name)
+            => _resourceManager.GetString(name, Thread.CurrentThread.CurrentUICulture);
     }
 }

@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
-using SmartTaskbar.Core.Settings;
-using static SmartTaskbar.Core.SafeNativeMethods;
+using SmartTaskbar.Models;
+using static SmartTaskbar.PlatformInvoke.SafeNativeMethods;
 
-namespace SmartTaskbar.Core.Helpers
+namespace SmartTaskbar.Engines.Helpers
 {
-    internal static class BarState
+    internal static class TaskbarHelper
     {
         private const int WmThemechanged = 0x031A;
         private const int SwHide = 0;
@@ -24,19 +24,19 @@ namespace SmartTaskbar.Core.Helpers
         {
             if (taskbarState.HideTaskbarCompletely)
             {
-                AutoHide.SetAutoHide(true);
+                AutoHideHelper.SetAutoHide(true);
                 foreach (var taskbar in taskbars) ShowWindow(taskbar.Handle, SwHide);
             }
             else
             {
                 if (taskbarState.TransparentMode == TransparentModeType.Disable)
                 {
-                    ButtonSize.SetIconSize(taskbarState.IconSize);
-                    AutoHide.SetAutoHide(taskbarState.IsAutoHide);
+                    ButtonSizeHelper.SetIconSize(taskbarState.IconSize);
+                    AutoHideHelper.SetAutoHide(taskbarState.IsAutoHide);
 
                     foreach (var taskbar in taskbars) ShowWindow(taskbar.Handle, SwShow);
 
-                    PostMessage(FindWindow(Constant.MainTaskbar, null), WmThemechanged, IntPtr.Zero, IntPtr.Zero);
+                    PostMessage(FindWindow(Constants.MainTaskbar, null), WmThemechanged, IntPtr.Zero, IntPtr.Zero);
 
                     if (_accentPtr == IntPtr.Zero) return;
 
@@ -81,8 +81,8 @@ namespace SmartTaskbar.Core.Helpers
 
                     Marshal.StructureToPtr(accent, _accentPtr, false);
 
-                    ButtonSize.SetIconSize(taskbarState.IconSize);
-                    AutoHide.SetAutoHide(taskbarState.IsAutoHide);
+                    ButtonSizeHelper.SetIconSize(taskbarState.IconSize);
+                    AutoHideHelper.SetAutoHide(taskbarState.IsAutoHide);
                     foreach (var taskbar in taskbars)
                     {
                         SetWindowCompositionAttribute(taskbar.Handle, ref _data);

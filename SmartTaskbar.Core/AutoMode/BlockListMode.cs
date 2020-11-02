@@ -7,10 +7,10 @@ namespace SmartTaskbar.Core.AutoMode
 {
     public class BlockListMode : IAutoMode
     {
-        private readonly UserSettings _userSettings;
         private static IntPtr _maxWindow;
         private static bool _tryShowBar;
         private static int _counter;
+        private readonly UserSettings _userSettings;
 
         public BlockListMode(UserSettings userSettings)
         {
@@ -26,7 +26,8 @@ namespace SmartTaskbar.Core.AutoMode
 
                 if (++_counter % Constant.MaxCount != 0) return;
 
-                if (_maxWindow.IsWindowInvisible() || _maxWindow.IsNotMaximizeWindow()) Ready();
+                if (_maxWindow.IsWindowInvisible()
+                    || _maxWindow.IsNotMaximizeWindow()) Ready();
                 return;
             }
 
@@ -38,16 +39,17 @@ namespace SmartTaskbar.Core.AutoMode
 
             _maxWindow = IntPtr.Zero;
             EnumWindows((handle, lp) =>
-            {
-                if (handle.IsWindowInvisible()) return true;
+                        {
+                            if (handle.IsWindowInvisible()) return true;
 
-                if (handle.IsNotMaximizeWindow()) return true;
+                            if (handle.IsNotMaximizeWindow()) return true;
 
-                if (handle.InBlockList(_userSettings.BlockList)) return true;
+                            if (handle.InBlockList(_userSettings.BlockList)) return true;
 
-                _maxWindow = handle;
-                return false;
-            }, IntPtr.Zero);
+                            _maxWindow = handle;
+                            return false;
+                        },
+                        IntPtr.Zero);
 
             if (_maxWindow == IntPtr.Zero)
             {

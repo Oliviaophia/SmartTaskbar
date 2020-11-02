@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using SmartTaskbar.Engines.Interfaces;
 using SmartTaskbar.Models;
 using SmartTaskbar.Models.Interfaces;
 

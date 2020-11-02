@@ -7,6 +7,7 @@ namespace SmartTaskbar.Core.Helpers
     {
         private const uint GaParent = 1;
 
-        internal static IntPtr GetParentWindow(this IntPtr handle) => GetAncestor(handle, GaParent);
+        internal static IntPtr GetParentWindow(this IntPtr handle)
+            => GetAncestor(handle, GaParent);
     }
 }

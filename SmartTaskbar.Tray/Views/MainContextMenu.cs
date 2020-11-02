@@ -14,8 +14,8 @@ namespace SmartTaskbar.Tray.Views
     {
         private readonly IContainer _container;
         private readonly CultureResource _cultureResource;
-        private readonly UserConfigEngine _userConfigEngine;
         private readonly MainContextMenuViewModel _mainContextMenuViewModel;
+        private readonly UserConfigEngine _userConfigEngine;
 
         public MainContextMenu(IContainer container, UserConfigEngine userConfigEngine, CultureResource cultureResource)
         {

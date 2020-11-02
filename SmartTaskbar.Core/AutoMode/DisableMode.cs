@@ -13,15 +13,9 @@ namespace SmartTaskbar.Core.AutoMode
             Reset();
         }
 
-        public void Run()
-        {
-            Variable.Taskbars.MaintainBarState(_userSettings.ResetState);
-        }
+        public void Run() { Variable.Taskbars.MaintainBarState(_userSettings.ResetState); }
 
-        public void Ready()
-        {
-            Variable.Taskbars.SetBarState(_userSettings.ResetState);
-        }
+        public void Ready() { Variable.Taskbars.SetBarState(_userSettings.ResetState); }
 
         public void Reset()
         {

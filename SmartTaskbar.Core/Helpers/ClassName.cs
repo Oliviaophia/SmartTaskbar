@@ -17,14 +17,14 @@ namespace SmartTaskbar.Core.Helpers
 
             return StringBuilder.ToString() switch
             {
-                "Progman" => true,
-                "WorkerW" => true,
-                "DV2ControlHost" => true,
-                Constant.MainTaskbar => true,
-                Constant.SubTaskbar => true,
-                "MultitaskingViewFrame" => true,
+                "Progman"                    => true,
+                "WorkerW"                    => true,
+                "DV2ControlHost"             => true,
+                Constant.MainTaskbar         => true,
+                Constant.SubTaskbar          => true,
+                "MultitaskingViewFrame"      => true,
                 "Windows.UI.Core.CoreWindow" => true,
-                _ => false
+                _                            => false
             };
         }
     }

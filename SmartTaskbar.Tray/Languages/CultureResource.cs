@@ -10,10 +10,7 @@ namespace SmartTaskbar.Tray.Languages
         private readonly ResourceManager _resourceManager =
             new ResourceManager("SmartTaskbar.Tray.Languages.Resource", Assembly.GetExecutingAssembly());
 
-        public CultureResource()
-        {
-            LanguageChange();
-        }
+        public CultureResource() { LanguageChange(); }
 
         public void LanguageChange()
         {
@@ -29,6 +26,7 @@ namespace SmartTaskbar.Tray.Languages
             }
         }
 
-        public string GetText(string name) => _resourceManager.GetString(name, Thread.CurrentThread.CurrentUICulture);
+        public string GetText(string name)
+            => _resourceManager.GetString(name, Thread.CurrentThread.CurrentUICulture);
     }
 }

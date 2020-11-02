@@ -10,8 +10,8 @@ namespace SmartTaskbar.Core
     {
         #region PostThreadMessage
 
-        public static void BringOutSettingsWindow(int id) =>
-            PostThreadMessage(id, Constant.MsgSettings, IntPtr.Zero, IntPtr.Zero);
+        public static void BringOutSettingsWindow(int id)
+            => PostThreadMessage(id, Constant.MsgSettings, IntPtr.Zero, IntPtr.Zero);
 
         #endregion
 
@@ -23,14 +23,17 @@ namespace SmartTaskbar.Core
         public static async void SaveUserSettings(UserSettings userSettings)
             => await SettingsHelper.SaveSettingsAsync(userSettings);
 
-        public static bool IsLightTheme() => LightTheme.IsSystemUsesLightTheme();
+        public static bool IsLightTheme()
+            => LightTheme.IsSystemUsesLightTheme();
 
-        public static void ResetAutoModeState(in UserSettings userSettings) =>
-            Variable.Taskbars.SetBarState(userSettings.ResetState);
+        public static void ResetAutoModeState(in UserSettings userSettings)
+            => Variable.Taskbars.SetBarState(userSettings.ResetState);
 
-        public static bool GetTaskbarAnimation() => Animation.GetTaskbarAnimation();
+        public static bool GetTaskbarAnimation()
+            => Animation.GetTaskbarAnimation();
 
-        public static void ChangeTaskbarAnimation() => Animation.ChangeTaskbarAnimation();
+        public static void ChangeTaskbarAnimation()
+            => Animation.ChangeTaskbarAnimation();
 
         #endregion
     }

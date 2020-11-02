@@ -12,9 +12,7 @@ namespace SmartTaskbar
         private readonly MainNotifyIcon _tray;
 
         public MainController()
-        {
-            _tray = new MainNotifyIcon(_container, _coreInvoker);
-        }
+            => _tray = new MainNotifyIcon(_container, _coreInvoker);
 
         public void ShowSettingWindow()
         {

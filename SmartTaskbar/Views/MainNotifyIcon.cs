@@ -7,21 +7,9 @@ namespace SmartTaskbar.Views
     internal class MainNotifyIcon : Form
     {
         private static MainContextMenu _mainContextMenu;
+        private readonly IContainer _container;
         private readonly CoreInvoker _coreInvoker;
         private readonly NotifyIcon _notifyIcon;
-        private readonly IContainer _container;
-
-
-        public MainContextMenu MainContextMenuInstance
-        {
-            get
-            {
-                if (_mainContextMenu == null || _mainContextMenu.IsDisposed)
-                    _mainContextMenu = new MainContextMenu(_container, _coreInvoker);
-
-                return _mainContextMenu;
-            }
-        }
 
 
         public MainNotifyIcon(IContainer container, CoreInvoker coreInvoker)
@@ -48,6 +36,19 @@ namespace SmartTaskbar.Views
             };
 
             #endregion
+        }
+
+
+        public MainContextMenu MainContextMenuInstance
+        {
+            get
+            {
+                if (_mainContextMenu == null
+                    || _mainContextMenu.IsDisposed)
+                    _mainContextMenu = new MainContextMenu(_container, _coreInvoker);
+
+                return _mainContextMenu;
+            }
         }
     }
 }

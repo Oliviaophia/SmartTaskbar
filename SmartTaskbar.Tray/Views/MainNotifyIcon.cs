@@ -11,13 +11,13 @@ namespace SmartTaskbar.Tray.Views
 {
     public class MainNotifyIcon : ApplicationContext
     {
-        private readonly NotifyIcon _notifyIcon;
         private readonly IContainer _container;
-        private readonly UserConfigEngine _userConfigEngine;
-        private readonly CultureResource _cultureResource;
-        private readonly MainNotifyIconViewModel _mainNotifyIconViewModel;
 
         private readonly Lazy<MainContextMenu> _contextMenuLazy;
+        private readonly CultureResource _cultureResource;
+        private readonly MainNotifyIconViewModel _mainNotifyIconViewModel;
+        private readonly NotifyIcon _notifyIcon;
+        private readonly UserConfigEngine _userConfigEngine;
 
         public MainNotifyIcon(IContainer container, UserConfigEngine userConfigEngine, CultureResource cultureResource)
         {

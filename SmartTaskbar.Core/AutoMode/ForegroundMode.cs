@@ -7,8 +7,8 @@ namespace SmartTaskbar.Core.AutoMode
 {
     public class ForegroundMode : IAutoMode
     {
-        private readonly UserSettings _userSettings;
         private static bool _sendMessage;
+        private readonly UserSettings _userSettings;
 
         public ForegroundMode(UserSettings userSettings)
         {
@@ -39,14 +39,16 @@ namespace SmartTaskbar.Core.AutoMode
             if (foregroundHandle.IsClassNameInvalid()) return;
 
             _sendMessage = false;
-            if (foregroundHandle.IsNotMaximizeWindow() || foregroundHandle.IsNotFullScreenWindow())
+            if (foregroundHandle.IsNotMaximizeWindow()
+                || foregroundHandle.IsNotFullScreenWindow())
             {
                 GetWindowRect(foregroundHandle, out var rect);
-                foreach (var taskbar in Variable.Taskbars.Where(taskbar => (rect.left < taskbar.Rect.Right &&
-                                                                            rect.right > taskbar.Rect.Left &&
-                                                                            rect.top < taskbar.Rect.Bottom &&
-                                                                            rect.bottom > taskbar.Rect.Top) !=
-                                                                           taskbar.Intersect))
+                foreach (var taskbar in Variable.Taskbars.Where(
+                    taskbar => (rect.left < taskbar.Rect.Right
+                                && rect.right > taskbar.Rect.Left
+                                && rect.top < taskbar.Rect.Bottom
+                                && rect.bottom > taskbar.Rect.Top)
+                               != taskbar.Intersect))
                 {
                     taskbar.Intersect = !taskbar.Intersect;
                     _sendMessage = true;
@@ -56,7 +58,7 @@ namespace SmartTaskbar.Core.AutoMode
             {
                 var monitor = foregroundHandle.GetMonitor();
                 foreach (var taskbar in Variable.Taskbars.Where(taskbar =>
-                    taskbar.Monitor == monitor != taskbar.Intersect))
+                                                                    taskbar.Monitor == monitor != taskbar.Intersect))
                 {
                     taskbar.Intersect = !taskbar.Intersect;
                     _sendMessage = true;

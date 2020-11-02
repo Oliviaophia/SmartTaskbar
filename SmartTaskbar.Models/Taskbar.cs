@@ -1,13 +1,10 @@
 ﻿using System;
 using System.Drawing;
 
-namespace SmartTaskbar.Core
+namespace SmartTaskbar.Models
 {
-    internal class Taskbar
+    public struct Taskbar
     {
-        public Taskbar(IntPtr handle)
-            => Handle = handle;
-
         public IntPtr Handle { get; set; }
 
         public IntPtr Monitor { get; set; }

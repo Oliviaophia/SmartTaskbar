@@ -12,9 +12,6 @@ namespace SmartTaskbar.PlatformInvoke
         private static readonly RegistryKey Key =
             Registry.CurrentUser.OpenSubKey(@"Software\Microsoft\Windows\CurrentVersion\Themes\Personalize", false);
 
-        public static bool IsLightTheme()
-            => (int) Key.GetValue("SystemUsesLightTheme", 0)! == 1;
-
         // https://stackoverflow.com/questions/51334674/how-to-detect-windows-10-light-dark-mode-in-win32-application
         public static DrawingColor ForeGround
             => Settings.GetColorValue(UIColorType.Foreground).ToColor();
@@ -42,6 +39,9 @@ namespace SmartTaskbar.PlatformInvoke
 
         public static DrawingColor AccentLight3
             => Settings.GetColorValue(UIColorType.AccentLight3).ToColor();
+
+        public static bool IsLightTheme()
+            => (int) Key.GetValue("SystemUsesLightTheme", 0)! == 1;
 
         private static DrawingColor ToColor(this Color color)
             => DrawingColor.FromArgb(color.A, color.R, color.G, color.B);

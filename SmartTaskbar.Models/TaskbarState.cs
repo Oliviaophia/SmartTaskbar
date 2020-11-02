@@ -1,6 +1,6 @@
-﻿namespace SmartTaskbar.Core.Settings
+﻿namespace SmartTaskbar.Models
 {
-    public class TaskbarState
+    public struct TaskbarState
     {
         public bool IsAutoHide { get; set; }
 

@@ -1,10 +1,11 @@
 ﻿using System;
 using Microsoft.Win32;
-using static SmartTaskbar.Core.SafeNativeMethods;
+using SmartTaskbar.Models;
+using static SmartTaskbar.PlatformInvoke.SafeNativeMethods;
 
-namespace SmartTaskbar.Core.Helpers
+namespace SmartTaskbar.Engines.Helpers
 {
-    internal static class ButtonSize
+    internal static class ButtonSizeHelper
     {
         private const int HwndBroadcast = 0xffff;
         private const int WmSettingChange = 0x001a;
@@ -20,6 +21,6 @@ namespace SmartTaskbar.Core.Helpers
         }
 
         public static int GetIconSize()
-            => (int) Key.GetValue("TaskbarSmallIcons", Constant.IconLarge);
+            => (int) Key.GetValue("TaskbarSmallIcons", Constants.IconLarge)!;
     }
 }

@@ -10,19 +10,20 @@ namespace SmartTaskbar.Hook
         private readonly ServerInterface _server;
 
         public InjectionEntryPoint(RemoteHooking.IContext context,
-            string channelName)
+                                   string                 channelName)
         {
             _server = RemoteHooking.IpcConnectClient<ServerInterface>(channelName);
             _server.Ping();
         }
 
         public void Run(RemoteHooking.IContext context,
-            string channelName)
+                        string                 channelName)
         {
             _server.Ping();
             var postMessageHook = LocalHook.Create(
                 LocalHook.GetProcAddress("user32.dll", "PostMessageW"),
-                new PostMessageDelegate(PostMessageHook), this);
+                new PostMessageDelegate(PostMessageHook),
+                this);
             postMessageHook.ThreadACL.SetExclusiveACL(new[] {0});
             RemoteHooking.WakeUpProcess();
             try
@@ -59,15 +60,13 @@ namespace SmartTaskbar.Hook
         {
             try
             {
-                if (hWnd == FindWindow("Shell_TrayWnd", null) && msg == 0x05D1)
+                if (hWnd == FindWindow("Shell_TrayWnd", null)
+                    && msg == 0x05D1)
                     return false;
 
                 return PostMessage(hWnd, msg, wParam, lParam);
             }
-            catch
-            {
-                return false;
-            }
+            catch { return false; }
         }
 
 

@@ -14,7 +14,8 @@ namespace SmartTaskbar.Core.Helpers
         private const uint UpdateAndSend = 3;
         private static bool _animation;
 
-        static Animation() => GetTaskbarAnimation();
+        static Animation()
+            => GetTaskbarAnimation();
 
         internal static bool GetTaskbarAnimation()
         {

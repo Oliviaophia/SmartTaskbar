@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Microsoft.Extensions.DependencyInjection;
 using SmartTaskbar.Engines;
-using SmartTaskbar.Engines.Interfaces;
+using SmartTaskbar.Models.Interfaces;
 using SmartTaskbar.PlatformInvoke;
 using SmartTaskbar.Tray.Languages;
 using SmartTaskbar.Tray.Views;

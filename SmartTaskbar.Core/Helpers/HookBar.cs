@@ -16,8 +16,9 @@ namespace SmartTaskbar.Core.Helpers
 
         private static readonly string InjectionLibrary =
             Path.Combine(
-                Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) ??
-                throw new InvalidOperationException(), "SmartTaskbar.Hook.dll");
+                Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location)
+                ?? throw new InvalidOperationException(),
+                "SmartTaskbar.Hook.dll");
 
         internal static void SetHook()
         {

@@ -10,8 +10,9 @@ namespace SmartTaskbar.Core.Settings
     public static class SettingsHelper
     {
         private static readonly string SettingPath =
-            Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "SmartTaskbar",
-                "SmartTaskbar.json");
+            Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments),
+                         "SmartTaskbar",
+                         "SmartTaskbar.json");
 
         internal static async Task SaveSettingsAsync(UserSettings userSettings)
         {
@@ -36,8 +37,8 @@ namespace SmartTaskbar.Core.Settings
             return settings.UpdateSettings();
         }
 
-        private static void DirectoryBuilder() =>
-            Directory.CreateDirectory(Path.GetDirectoryName(SettingPath) ?? throw new InvalidOperationException());
+        private static void DirectoryBuilder()
+            => Directory.CreateDirectory(Path.GetDirectoryName(SettingPath) ?? throw new InvalidOperationException());
 
         private static UserSettings UpdateSettings(this UserSettings settings)
             => new UserSettings

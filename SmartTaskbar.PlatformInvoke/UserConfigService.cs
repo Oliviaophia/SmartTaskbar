@@ -3,20 +3,21 @@ using System.IO;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
-using SmartTaskbar.Engines.Interfaces;
 using SmartTaskbar.Models;
+using SmartTaskbar.Models.Interfaces;
 
 namespace SmartTaskbar.PlatformInvoke
 {
     public class UserConfigService : IUserConfigService
     {
-        private readonly string _userConfigPath;
-
         private readonly JsonSerializerOptions _options;
+        private readonly string _userConfigPath;
 
         public UserConfigService()
         {
-            _userConfigPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), Constants.ApplicationName, "SmartTaskbar.json");
+            _userConfigPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments),
+                                           Constants.ApplicationName,
+                                           "SmartTaskbar.json");
 
             _options = new JsonSerializerOptions
             {

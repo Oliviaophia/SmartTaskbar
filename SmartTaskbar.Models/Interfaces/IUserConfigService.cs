@@ -1,7 +1,6 @@
-﻿using SmartTaskbar.Models;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 
-namespace SmartTaskbar.Engines.Interfaces
+namespace SmartTaskbar.Models.Interfaces
 {
     public interface IUserConfigService
     {
