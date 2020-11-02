@@ -4,7 +4,7 @@ using SmartTaskbar.Models;
 using SmartTaskbar.Models.Interfaces;
 using SmartTaskbar.PlatformInvoke;
 
-namespace SmartTaskbar.Tray.ViewModels
+namespace SmartTaskbar.UI.ViewModels
 {
     public class MainNotifyIconViewModel : IUserConfiguration
     {

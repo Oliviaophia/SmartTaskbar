@@ -7,10 +7,10 @@ using Microsoft.Extensions.DependencyInjection;
 using SmartTaskbar.Engines;
 using SmartTaskbar.Models.Interfaces;
 using SmartTaskbar.PlatformInvoke;
-using SmartTaskbar.Tray.Languages;
-using SmartTaskbar.Tray.Views;
+using SmartTaskbar.UI.Languages;
+using SmartTaskbar.UI.Views;
 
-namespace SmartTaskbar.Tray
+namespace SmartTaskbar.UI
 {
     internal static class Program
     {

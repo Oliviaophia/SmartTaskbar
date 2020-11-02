@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace SmartTaskbar.Tray {
+namespace SmartTaskbar.UI {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace SmartTaskbar.Tray {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("SmartTaskbar.Tray.IconResources", typeof(IconResources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("SmartTaskbar.UI.IconResources", typeof(IconResources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;

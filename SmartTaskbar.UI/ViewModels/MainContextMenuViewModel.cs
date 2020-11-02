@@ -1,7 +1,7 @@
 ﻿using SmartTaskbar.Models;
 using SmartTaskbar.Models.Interfaces;
 
-namespace SmartTaskbar.Tray.ViewModels
+namespace SmartTaskbar.UI.ViewModels
 {
     public class MainContextMenuViewModel : IUserConfiguration
     {

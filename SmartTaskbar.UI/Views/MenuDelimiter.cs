@@ -2,7 +2,7 @@
 using System.Windows.Forms;
 using SmartTaskbar.PlatformInvoke;
 
-namespace SmartTaskbar.Tray.Views
+namespace SmartTaskbar.UI.Views
 {
     public sealed class MenuDelimiter : Label
     {

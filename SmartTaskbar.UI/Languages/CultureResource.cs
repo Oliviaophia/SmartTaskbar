@@ -3,7 +3,7 @@ using System.Reflection;
 using System.Resources;
 using System.Threading;
 
-namespace SmartTaskbar.Tray.Languages
+namespace SmartTaskbar.UI.Languages
 {
     public class CultureResource
     {

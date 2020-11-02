@@ -14,7 +14,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartTaskbar", "SmartTaskba
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "OldFramework", "OldFramework", "{5B4257C2-90BC-4462-87B9-EFF3A2234481}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SmartTaskbar.Tray", "SmartTaskbar.Tray\SmartTaskbar.Tray.csproj", "{937433CC-AC44-40E7-A971-1BB5D9A9CB79}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SmartTaskbar.UI", "SmartTaskbar.UI\SmartTaskbar.UI.csproj", "{937433CC-AC44-40E7-A971-1BB5D9A9CB79}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SmartTaskbar.PlatformInvoke", "SmartTaskbar.PlatformInvoke\SmartTaskbar.PlatformInvoke.csproj", "{A5D03345-039C-4572-B8BF-FC822F52062C}"
 EndProject

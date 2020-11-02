@@ -4,10 +4,10 @@ using System.Threading;
 using System.Windows.Forms;
 using SmartTaskbar.Engines;
 using SmartTaskbar.Models;
-using SmartTaskbar.Tray.Languages;
-using SmartTaskbar.Tray.ViewModels;
+using SmartTaskbar.UI.Languages;
+using SmartTaskbar.UI.ViewModels;
 
-namespace SmartTaskbar.Tray.Views
+namespace SmartTaskbar.UI.Views
 {
     public class MainNotifyIcon : ApplicationContext
     {
