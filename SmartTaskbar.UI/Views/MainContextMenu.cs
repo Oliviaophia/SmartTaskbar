@@ -75,7 +75,7 @@ namespace SmartTaskbar.UI.Views
             BackColor = UIInfo.Background;
             ForeColor = UIInfo.ForeGround;
 
-            settingsButton.Image = UIInfo.IsLightTheme() ? IconResources.Setting_White : IconResources.Setting_Black;
+            settingsButton.Image = UIInfo.IsLightTheme() ? IconResources.Setting_Black : IconResources.Setting_White;
 
             //todo
 
@@ -94,7 +94,7 @@ namespace SmartTaskbar.UI.Views
             switch (type)
             {
                 case AutoModeType.Disable:
-                    stopButton.Image = UIInfo.IsLightTheme() ? IconResources.Pause_White : IconResources.Pause_Black;
+                    stopButton.Image = UIInfo.IsLightTheme() ? IconResources.Pause_Black : IconResources.Pause_White;
                     AllowlistButton.Image =
                         BlockListButton.Image =
                             foreButton.Image =
@@ -102,7 +102,7 @@ namespace SmartTaskbar.UI.Views
                                     IconResources.Empty;
                     break;
                 case AutoModeType.AutoHideApiMode:
-                    apiButton.Image = UIInfo.IsLightTheme() ? IconResources.Run_White : IconResources.Run_Black;
+                    apiButton.Image = UIInfo.IsLightTheme() ? IconResources.Run_Black : IconResources.Run_White;
                     AllowlistButton.Image =
                         BlockListButton.Image =
                             foreButton.Image =
@@ -110,7 +110,7 @@ namespace SmartTaskbar.UI.Views
                                     IconResources.Empty;
                     break;
                 case AutoModeType.ForegroundMode:
-                    foreButton.Image = UIInfo.IsLightTheme() ? IconResources.Run_White : IconResources.Run_Black;
+                    foreButton.Image = UIInfo.IsLightTheme() ? IconResources.Run_Black : IconResources.Run_White;
                     AllowlistButton.Image =
                         BlockListButton.Image =
                             apiButton.Image =
@@ -118,7 +118,7 @@ namespace SmartTaskbar.UI.Views
                                     IconResources.Empty;
                     break;
                 case AutoModeType.BlockListMode:
-                    BlockListButton.Image = UIInfo.IsLightTheme() ? IconResources.Run_White : IconResources.Run_Black;
+                    BlockListButton.Image = UIInfo.IsLightTheme() ? IconResources.Run_Black : IconResources.Run_White;
                     AllowlistButton.Image =
                         apiButton.Image =
                             foreButton.Image =
@@ -126,7 +126,7 @@ namespace SmartTaskbar.UI.Views
                                     IconResources.Empty;
                     break;
                 case AutoModeType.AllowlistMode:
-                    AllowlistButton.Image = UIInfo.IsLightTheme() ? IconResources.Run_White : IconResources.Run_Black;
+                    AllowlistButton.Image = UIInfo.IsLightTheme() ? IconResources.Run_Black : IconResources.Run_White;
                     apiButton.Image =
                         BlockListButton.Image =
                             foreButton.Image =

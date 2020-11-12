@@ -8,7 +8,7 @@ namespace SmartTaskbar.Engines
 {
     public class UserConfigEngine
     {
-        private static readonly List<IUserConfiguration> _viewModelList = new List<IUserConfiguration>();
+        private static readonly List<IUserConfiguration> ViewModelList = new List<IUserConfiguration>();
         private readonly IUserConfigService _userConfigService;
 
         public UserConfigEngine(IUserConfigService userConfigServices)
@@ -37,14 +37,14 @@ namespace SmartTaskbar.Engines
                 AutoModeType = UserConfiguration.AutoModeType
             };
 
-            _viewModelList.Add(viewModel);
+            ViewModelList.Add(viewModel);
 
             return viewModel;
         }
 
         public Task Update(Action<IUserConfiguration> action)
         {
-            _viewModelList.ForEach(action);
+            ViewModelList.ForEach(action);
 
             action(UserConfiguration);
 
@@ -52,6 +52,6 @@ namespace SmartTaskbar.Engines
         }
 
         public bool Remove(IUserConfiguration userConfiguration)
-            => _viewModelList.Remove(userConfiguration);
+            => ViewModelList.Remove(userConfiguration);
     }
 }
