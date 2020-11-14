@@ -30,7 +30,7 @@ namespace SmartTaskbar.UI.Views
             base.OnPaint(pevent);
             ForeColor = UIInfo.ForeGround;
             FlatAppearance.MouseOverBackColor = FlatAppearance.MouseDownBackColor =
-                UIInfo.IsLightTheme() ? UIInfo.AccentLight3 : UIInfo.AccentDark3;
+                UIInfo.IsWhiteBackground ? UIInfo.AccentLight3 : UIInfo.AccentDark3;
         }
     }
 }

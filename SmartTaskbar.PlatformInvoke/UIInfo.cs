@@ -9,6 +9,8 @@ namespace SmartTaskbar.PlatformInvoke
     public static class UIInfo
     {
         private static readonly UISettings Settings = new UISettings();
+        private static readonly DrawingColor WhiteColor = DrawingColor.FromArgb(255, 255, 255, 255);
+
 
         private static readonly RegistryKey Key =
             Registry.CurrentUser.OpenSubKey(@"Software\Microsoft\Windows\CurrentVersion\Themes\Personalize", false);
@@ -43,6 +45,9 @@ namespace SmartTaskbar.PlatformInvoke
 
         public static bool IsLightTheme()
             => (int) (Key.GetValue("SystemUsesLightTheme", 0) ?? 0) == 1;
+
+        public static bool IsWhiteBackground
+            => Background == WhiteColor;
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private static DrawingColor ToColor(this Color color)
