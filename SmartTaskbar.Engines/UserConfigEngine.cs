@@ -16,7 +16,7 @@ namespace SmartTaskbar.Engines
 
         public UserConfiguration UserConfiguration { get; set; }
 
-        public async Task Initializer()
+        public async Task InitializationAsync()
         {
             UserConfiguration = await GetUserConfigurationAsync();
             // save User Configuration at first time.

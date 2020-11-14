@@ -1,4 +1,5 @@
-﻿using Windows.UI;
+﻿using System.Runtime.CompilerServices;
+using Windows.UI;
 using Windows.UI.ViewManagement;
 using Microsoft.Win32;
 using DrawingColor = System.Drawing.Color;
@@ -41,8 +42,9 @@ namespace SmartTaskbar.PlatformInvoke
             => Settings.GetColorValue(UIColorType.AccentLight3).ToColor();
 
         public static bool IsLightTheme()
-            => (int) Key.GetValue("SystemUsesLightTheme", 0)! == 1;
+            => (int) (Key.GetValue("SystemUsesLightTheme", 0) ?? 0) == 1;
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private static DrawingColor ToColor(this Color color)
             => DrawingColor.FromArgb(color.A, color.R, color.G, color.B);
     }

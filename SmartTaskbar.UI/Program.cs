@@ -34,7 +34,8 @@ namespace SmartTaskbar.UI
 
                     await DependencyInjection();
 
-                    Application.Run(_serviceProvider.GetService<MainNotifyIcon>()!);
+                    Application.Run(_serviceProvider.GetService<MainNotifyIcon>()
+                                    ?? throw new NullReferenceException("The System Tray Icon failed to load."));
                 }
             }
         }
@@ -46,7 +47,10 @@ namespace SmartTaskbar.UI
 
             _serviceProvider = serviceCollection.BuildServiceProvider();
 
-            await _serviceProvider.GetService<UserConfigEngine>()!.Initializer();
+            var service = _serviceProvider.GetService<UserConfigEngine>()
+                          ?? throw new NullReferenceException("The user settings failed to load.");
+
+            await service.InitializationAsync();
         }
 
         private static void ConfigureServices(IServiceCollection serviceCollection)
