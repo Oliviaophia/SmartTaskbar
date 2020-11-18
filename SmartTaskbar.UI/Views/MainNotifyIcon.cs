@@ -54,9 +54,6 @@ namespace SmartTaskbar.UI.Views
 
         private void UpdateTheme() { _notifyIcon.Icon = _mainNotifyIconViewModel.Icon; }
 
-        protected override void Dispose(bool disposing)
-        {
-            // todo 
-        }
+        protected override void Dispose(bool disposing) { _container?.Dispose(); }
     }
 }
