@@ -16,5 +16,18 @@ namespace SmartTaskbar.UI.Views
         {
             InitializeComponent();
         }
+
+        /// <summary>Raises the <see cref="E:System.Windows.Forms.Form.FormClosing" /> event.</summary>
+        /// <param name="e">A <see cref="T:System.Windows.Forms.FormClosingEventArgs" /> that contains the event data.</param>
+        protected override void OnFormClosing(FormClosingEventArgs e)
+        {
+            if (e.CloseReason == CloseReason.UserClosing)
+            {
+                e.Cancel = true;
+                Hide();
+            }
+
+            base.OnFormClosing(e);
+        }
     }
 }
