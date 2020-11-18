@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Threading;
 using System.Windows.Forms;
 using Windows.System;
 using SmartTaskbar.Engines;
@@ -16,6 +17,7 @@ namespace SmartTaskbar.UI.Views
         private readonly CultureResource _cultureResource;
         private readonly MainContextMenuViewModel _mainContextMenuViewModel;
         private readonly UserConfigEngine _userConfigEngine;
+        private readonly Lazy<MainSettingForm> _mainSettingForm;
 
         public MainContextMenu(IContainer container, UserConfigEngine userConfigEngine, CultureResource cultureResource)
         {
@@ -25,6 +27,8 @@ namespace SmartTaskbar.UI.Views
             _userConfigEngine = userConfigEngine;
             _mainContextMenuViewModel = userConfigEngine.InitViewModel<MainContextMenuViewModel>();
             _cultureResource = cultureResource;
+            _mainSettingForm =
+                new Lazy<MainSettingForm>(() => new MainSettingForm(), LazyThreadSafetyMode.ExecutionAndPublication);
 
             VisibleChanged += (s, e) =>
             {
@@ -59,6 +63,7 @@ namespace SmartTaskbar.UI.Views
             apiButton.Click += (s, e) => { SetAutoModeType(AutoModeType.AutoHideApiMode); };
 
             settingsButton.Text = cultureResource.GetText("TraySettings");
+            settingsButton.Click += (s, e) => { _mainSettingForm.Value.Show(); };
 
             aboutButton.Text = cultureResource.GetText("TrayAbout");
             aboutButton.Image = IconResources.Empty;

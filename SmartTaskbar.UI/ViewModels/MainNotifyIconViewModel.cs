@@ -18,7 +18,7 @@ namespace SmartTaskbar.UI.ViewModels
                 IconStyle.Blue  => IconResources.Logo_Blue,
                 IconStyle.Pink  => IconResources.Logo_Pink,
                 IconStyle.White => IconResources.Logo_White,
-                _               => throw new ArgumentOutOfRangeException()
+                _               => throw new ArgumentOutOfRangeException(nameof(IconStyle), "Illegal icon type.")
             };
 
         public IconStyle IconStyle { get; set; }
