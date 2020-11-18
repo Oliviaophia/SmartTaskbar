@@ -151,11 +151,20 @@ namespace SmartTaskbar.UI.Views
 
             var workArea = Screen.GetWorkingArea(mouse);
 
-            // todo for unknown reason the Taskbar may cover other windows
-            Left = mouse.X + Width < workArea.Right ? mouse.X :
-                mouse.X < workArea.Right            ? mouse.X - Width : workArea.Right - Width - Offset;
-            Top = mouse.Y + Height < workArea.Bottom ? mouse.Y :
-                mouse.Y < workArea.Bottom            ? mouse.Y - Height : workArea.Bottom - Height - Offset;
+            Left = mouse.X + Width < workArea.Right
+                ? workArea.Left < mouse.X
+                    ? mouse.X
+                    : workArea.Left + Offset
+                : mouse.X < workArea.Right
+                    ? mouse.X - Width
+                    : workArea.Right - Width - Offset;
+            Top = mouse.Y + Height < workArea.Bottom
+                ? workArea.Top < mouse.Y
+                    ? mouse.Y
+                    : workArea.Top + Offset
+                : mouse.Y < workArea.Bottom
+                    ? mouse.Y - Height
+                    : workArea.Bottom - Height - Offset;
         }
 
         /// <summary>
