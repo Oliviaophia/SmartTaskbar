@@ -1,12 +1,11 @@
 ﻿using System;
 using System.Drawing;
 using SmartTaskbar.Models;
-using SmartTaskbar.Models.Interfaces;
 using SmartTaskbar.PlatformInvoke;
 
-namespace SmartTaskbar.UI.ViewModels
+namespace SmartTaskbar.UI
 {
-    public class MainNotifyIconViewModel : IUserConfiguration
+    public class MainViewModel : UserConfiguration
     {
         public Icon Icon
             => IconStyle switch
@@ -20,8 +19,5 @@ namespace SmartTaskbar.UI.ViewModels
                 IconStyle.White => IconResources.Logo_White,
                 _               => throw new ArgumentOutOfRangeException(nameof(IconStyle), "Illegal icon type.")
             };
-
-        public IconStyle IconStyle { get; set; }
-        public AutoModeType AutoModeType { get; set; }
     }
 }

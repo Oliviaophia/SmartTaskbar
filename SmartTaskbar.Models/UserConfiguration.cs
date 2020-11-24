@@ -1,8 +1,6 @@
-﻿using SmartTaskbar.Models.Interfaces;
-
-namespace SmartTaskbar.Models
+﻿namespace SmartTaskbar.Models
 {
-    public class UserConfiguration : IUserConfiguration
+    public class UserConfiguration
     {
         public IconStyle IconStyle { get; set; } = IconStyle.Auto;
 

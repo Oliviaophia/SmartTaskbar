@@ -5,7 +5,6 @@ using System.Windows.Forms;
 using SmartTaskbar.Engines;
 using SmartTaskbar.Models;
 using SmartTaskbar.UI.Languages;
-using SmartTaskbar.UI.ViewModels;
 
 namespace SmartTaskbar.UI.Views
 {
@@ -15,27 +14,26 @@ namespace SmartTaskbar.UI.Views
 
         private readonly Lazy<MainContextMenu> _contextMenuLazy;
         private readonly CultureResource _cultureResource;
-        private readonly MainNotifyIconViewModel _mainNotifyIconViewModel;
         private readonly NotifyIcon _notifyIcon;
-        private readonly UserConfigEngine _userConfigEngine;
+        private readonly UserConfigEngine<MainViewModel> _userConfigEngine;
 
-        public MainNotifyIcon(IContainer container, UserConfigEngine userConfigEngine, CultureResource cultureResource)
+        public MainNotifyIcon(UserConfigEngine<MainViewModel> userConfigEngine,
+                              CultureResource                 cultureResource)
         {
-            _container = container;
+            _container = new Container();
             _userConfigEngine = userConfigEngine;
             _cultureResource = cultureResource;
-            _mainNotifyIconViewModel = userConfigEngine.InitViewModel<MainNotifyIconViewModel>();
 
             _contextMenuLazy = new Lazy<MainContextMenu>(
-                () => new MainContextMenu(container, userConfigEngine, cultureResource),
+                () => new MainContextMenu(userConfigEngine, cultureResource),
                 LazyThreadSafetyMode.ExecutionAndPublication);
 
             #region Initialization
 
-            _notifyIcon = new NotifyIcon(container)
+            _notifyIcon = new NotifyIcon(_container)
             {
                 Text = Constants.ApplicationName,
-                Icon = _mainNotifyIconViewModel.Icon,
+                Icon = _userConfigEngine.ViewModel.Icon,
                 Visible = true
             };
 
@@ -52,7 +50,7 @@ namespace SmartTaskbar.UI.Views
             #endregion
         }
 
-        private void UpdateTheme() { _notifyIcon.Icon = _mainNotifyIconViewModel.Icon; }
+        private void UpdateTheme() { _notifyIcon.Icon = _userConfigEngine.ViewModel.Icon; }
 
         protected override void Dispose(bool disposing) { _container?.Dispose(); }
     }

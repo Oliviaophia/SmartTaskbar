@@ -12,9 +12,9 @@ namespace SmartTaskbar.Engines
 
         private static List<Taskbar> _taskbars = new List<Taskbar>(4);
 
-        private readonly UserConfigEngine _userConfigEngine;
+        private readonly IUserConfigEngine _userConfigEngine;
 
-        public AutoModeWorker(UserConfigEngine userConfigEngine)
+        public AutoModeWorker(IUserConfigEngine userConfigEngine)
         {
             _userConfigEngine = userConfigEngine;
             UpdateTaskbarList();

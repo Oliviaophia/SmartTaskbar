@@ -1,12 +1,21 @@
 ﻿using System.Windows.Forms;
+using SmartTaskbar.Engines;
+using SmartTaskbar.UI.Languages;
 
 namespace SmartTaskbar.UI.Views
 {
     public partial class MainSettingForm : Form
     {
-        public MainSettingForm()
+        private readonly UserConfigEngine<MainViewModel> _userConfigEngine;
+        private readonly CultureResource _cultureResource;
+
+        public MainSettingForm(UserConfigEngine<MainViewModel> userConfigEngine,
+                               CultureResource                 cultureResource)
         {
+            _userConfigEngine = userConfigEngine;
+            _cultureResource = cultureResource;
             InitializeComponent();
+            ThemeUpdate();
         }
 
         /// <summary>Raises the <see cref="E:System.Windows.Forms.Form.FormClosing" /> event.</summary>
@@ -21,5 +30,7 @@ namespace SmartTaskbar.UI.Views
 
             base.OnFormClosing(e);
         }
+
+        private void ThemeUpdate() { Icon = _userConfigEngine.ViewModel.Icon; }
     }
 }

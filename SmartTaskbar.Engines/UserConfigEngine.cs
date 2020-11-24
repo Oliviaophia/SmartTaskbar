@@ -1,57 +1,60 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
+using SmartTaskbar.Engines.Interfaces;
 using SmartTaskbar.Models;
 using SmartTaskbar.Models.Interfaces;
 
 namespace SmartTaskbar.Engines
 {
-    public class UserConfigEngine
+    public class UserConfigEngine<TViewModel> : IUserConfigEngine
+        where TViewModel : UserConfiguration, new()
     {
-        private static readonly List<IUserConfiguration> ViewModelList = new List<IUserConfiguration>();
         private readonly IUserConfigService _userConfigService;
+        private UserConfiguration _userConfiguration;
 
         public UserConfigEngine(IUserConfigService userConfigServices)
             => _userConfigService = userConfigServices;
 
-        public UserConfiguration UserConfiguration { get; set; }
+        public TViewModel ViewModel { get; private set; }
+
+        UserConfiguration IUserConfigEngine.UserConfiguration
+            => _userConfiguration;
 
         public async Task InitializationAsync()
         {
-            UserConfiguration = await GetUserConfigurationAsync();
+            ViewModel = await GetUserConfigurationAsync();
             // save User Configuration at first time.
             _ = SaveUserConfigurationAsync();
         }
 
-        private async Task<UserConfiguration> GetUserConfigurationAsync()
-            => UserConfiguration = await _userConfigService.ReadSettingsAsync();
-
-        private Task SaveUserConfigurationAsync()
-            => _userConfigService.SaveSettingsAsync(UserConfiguration);
-
-        public TViewModel InitViewModel<TViewModel>() where TViewModel : IUserConfiguration, new()
+        private async Task<TViewModel> GetUserConfigurationAsync()
         {
-            var viewModel = new TViewModel
-            {
-                IconStyle = UserConfiguration.IconStyle,
-                AutoModeType = UserConfiguration.AutoModeType
-            };
+            _userConfiguration = await _userConfigService.ReadSettingsAsync();
 
-            ViewModelList.Add(viewModel);
-
-            return viewModel;
+            return ViewModel = InitViewModel();
         }
 
-        public Task Update(Action<IUserConfiguration> action)
-        {
-            ViewModelList.ForEach(action);
+        private Task SaveUserConfigurationAsync()
+            => _userConfigService.SaveSettingsAsync(ViewModel);
 
-            action(UserConfiguration);
+        public Task Update(Action<UserConfiguration> action)
+        {
+            var model = InitViewModel();
+
+            action(model);
+
+            _userConfiguration = model;
+
+            ViewModel = model;
 
             return SaveUserConfigurationAsync();
         }
 
-        public bool Remove(IUserConfiguration userConfiguration)
-            => ViewModelList.Remove(userConfiguration);
+        private TViewModel InitViewModel()
+            => new TViewModel
+            {
+                AutoModeType = _userConfiguration.AutoModeType,
+                IconStyle = _userConfiguration.IconStyle
+            };
     }
 }

@@ -1,5 +1,4 @@
 ﻿using System;
-using System.ComponentModel;
 using System.Threading;
 using System.Windows.Forms;
 using Windows.System;
@@ -7,28 +6,25 @@ using SmartTaskbar.Engines;
 using SmartTaskbar.Models;
 using SmartTaskbar.PlatformInvoke;
 using SmartTaskbar.UI.Languages;
-using SmartTaskbar.UI.ViewModels;
 
 namespace SmartTaskbar.UI.Views
 {
     public partial class MainContextMenu : Form
     {
-        private readonly IContainer _container;
         private readonly CultureResource _cultureResource;
-        private readonly MainContextMenuViewModel _mainContextMenuViewModel;
-        private readonly UserConfigEngine _userConfigEngine;
         private readonly Lazy<MainSettingForm> _mainSettingForm;
+        private readonly UserConfigEngine<MainViewModel> _userConfigEngine;
 
-        public MainContextMenu(IContainer container, UserConfigEngine userConfigEngine, CultureResource cultureResource)
+        public MainContextMenu(UserConfigEngine<MainViewModel> userConfigEngine,
+                               CultureResource                 cultureResource)
         {
             InitializeComponent();
 
-            _container = container;
             _userConfigEngine = userConfigEngine;
-            _mainContextMenuViewModel = userConfigEngine.InitViewModel<MainContextMenuViewModel>();
             _cultureResource = cultureResource;
             _mainSettingForm =
-                new Lazy<MainSettingForm>(() => new MainSettingForm(), LazyThreadSafetyMode.ExecutionAndPublication);
+                new Lazy<MainSettingForm>(() => new MainSettingForm(_userConfigEngine, cultureResource),
+                                          LazyThreadSafetyMode.ExecutionAndPublication);
 
             VisibleChanged += (s, e) =>
             {
@@ -36,36 +32,36 @@ namespace SmartTaskbar.UI.Views
             };
             Activated += (s, e) =>
             {
-                ChangeTheme();
+                ThemeUpdate();
                 SetPosition();
             };
             Deactivate += (s, e) => Hide();
 
             #region Initialization
 
-            exitMenuButton.Text = cultureResource.GetText("TrayExit");
+            exitMenuButton.Text = _cultureResource.GetText("TrayExit");
             exitMenuButton.Image = IconResources.Empty;
             exitMenuButton.Click += (s, e) => Application.Exit();
 
-            stopButton.Text = cultureResource.GetText("TrayStop");
+            stopButton.Text = _cultureResource.GetText("TrayStop");
             stopButton.Click += (s, e) => { SetAutoModeType(AutoModeType.Disable); };
 
-            AllowlistButton.Text = cultureResource.GetText("TrayAllowlistMode");
+            AllowlistButton.Text = _cultureResource.GetText("TrayAllowlistMode");
             AllowlistButton.Click += (s, e) => { SetAutoModeType(AutoModeType.AllowlistMode); };
 
-            BlockListButton.Text = cultureResource.GetText("TrayBlockListMode");
+            BlockListButton.Text = _cultureResource.GetText("TrayBlockListMode");
             BlockListButton.Click += (s, e) => { SetAutoModeType(AutoModeType.BlockListMode); };
 
-            foreButton.Text = cultureResource.GetText("TrayAutoMode2");
+            foreButton.Text = _cultureResource.GetText("TrayAutoMode2");
             foreButton.Click += (s, e) => { SetAutoModeType(AutoModeType.ForegroundMode); };
 
-            apiButton.Text = cultureResource.GetText("TrayAutoMode1");
+            apiButton.Text = _cultureResource.GetText("TrayAutoMode1");
             apiButton.Click += (s, e) => { SetAutoModeType(AutoModeType.AutoHideApiMode); };
 
-            settingsButton.Text = cultureResource.GetText("TraySettings");
+            settingsButton.Text = _cultureResource.GetText("TraySettings");
             settingsButton.Click += (s, e) => { _mainSettingForm.Value.Show(); };
 
-            aboutButton.Text = cultureResource.GetText("TrayAbout");
+            aboutButton.Text = _cultureResource.GetText("TrayAbout");
             aboutButton.Image = IconResources.Empty;
             aboutButton.Click += (s, e)
                 => _ = Launcher.LaunchUriAsync(new Uri("https://github.com/ChanpleCai/SmartTaskbar/releases"));
@@ -75,7 +71,7 @@ namespace SmartTaskbar.UI.Views
 
         #region Helper
 
-        private void ChangeTheme()
+        private void ThemeUpdate()
         {
             BackColor = UIInfo.Background;
             ForeColor = UIInfo.ForeGround;
@@ -84,7 +80,7 @@ namespace SmartTaskbar.UI.Views
 
             //todo
 
-            LoadAutoModeTypeIcon(_mainContextMenuViewModel.AutoModeType);
+            LoadAutoModeTypeIcon(_userConfigEngine.ViewModel.AutoModeType);
         }
 
         private void SetAutoModeType(AutoModeType type)

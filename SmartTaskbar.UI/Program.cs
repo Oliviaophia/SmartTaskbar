@@ -1,5 +1,4 @@
 using System;
-using System.ComponentModel;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -47,7 +46,7 @@ namespace SmartTaskbar.UI
 
             _serviceProvider = serviceCollection.BuildServiceProvider();
 
-            var service = _serviceProvider.GetService<UserConfigEngine>()
+            var service = _serviceProvider.GetService<UserConfigEngine<MainViewModel>>()
                           ?? throw new NullReferenceException("The user settings failed to load.");
 
             await service.InitializationAsync();
@@ -56,11 +55,10 @@ namespace SmartTaskbar.UI
         private static void ConfigureServices(IServiceCollection serviceCollection)
         {
             // todo add Services;
-            serviceCollection.AddSingleton<IContainer, Container>();
             serviceCollection.AddSingleton<MainNotifyIcon>();
             serviceCollection.AddSingleton<CultureResource>();
             serviceCollection.AddSingleton<IUserConfigService, UserConfigService>();
-            serviceCollection.AddSingleton<UserConfigEngine>();
+            serviceCollection.AddSingleton<UserConfigEngine<MainViewModel>, UserConfigEngine<MainViewModel>>();
         }
     }
 }
