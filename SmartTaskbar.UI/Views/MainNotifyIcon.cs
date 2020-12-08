@@ -2,6 +2,7 @@
 using System.ComponentModel;
 using System.Threading;
 using System.Windows.Forms;
+using Microsoft.Win32;
 using SmartTaskbar.Engines;
 using SmartTaskbar.Models;
 using SmartTaskbar.UI.Languages;
@@ -40,12 +41,13 @@ namespace SmartTaskbar.UI.Views
             _notifyIcon.MouseClick += (s, e) =>
             {
                 // todo
-                UpdateTheme();
 
                 if (e.Button == MouseButtons.Right)
                     // show Menu
                     _contextMenuLazy.Value.Show();
             };
+
+            SystemEvents.UserPreferenceChanged += (s, e) => { UpdateTheme(); };
 
             #endregion
         }

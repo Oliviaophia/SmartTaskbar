@@ -2,6 +2,7 @@
 using System.Threading;
 using System.Windows.Forms;
 using Windows.System;
+using Microsoft.Win32;
 using SmartTaskbar.Engines;
 using SmartTaskbar.Models;
 using SmartTaskbar.PlatformInvoke;
@@ -30,15 +31,13 @@ namespace SmartTaskbar.UI.Views
             {
                 if (Visible) Activate();
             };
-            Activated += (s, e) =>
-            {
-                ThemeUpdate();
-                SetPosition();
-            };
-            Deactivate += (s, e) => Hide();
+            Activated += (s,                          e) => { SetPosition(); };
+            Deactivate += (s,                         e) => Hide();
+            SystemEvents.UserPreferenceChanged += (s, e) => ThemeUpdate();
 
             #region Initialization
 
+            ThemeUpdate();
             exitMenuButton.Text = _cultureResource.GetText("TrayExit");
             exitMenuButton.Image = IconResources.Empty;
             exitMenuButton.Click += (s, e) => Application.Exit();

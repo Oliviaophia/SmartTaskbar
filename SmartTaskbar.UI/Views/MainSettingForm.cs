@@ -1,4 +1,5 @@
 ﻿using System.Windows.Forms;
+using Microsoft.Win32;
 using SmartTaskbar.Engines;
 using SmartTaskbar.UI.Languages;
 
@@ -16,6 +17,8 @@ namespace SmartTaskbar.UI.Views
             _cultureResource = cultureResource;
             InitializeComponent();
             ThemeUpdate();
+
+            SystemEvents.UserPreferenceChanged += (s, e) => ThemeUpdate();
         }
 
         /// <summary>Raises the <see cref="E:System.Windows.Forms.Form.FormClosing" /> event.</summary>
