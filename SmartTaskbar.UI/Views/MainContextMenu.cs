@@ -46,7 +46,7 @@ namespace SmartTaskbar.UI.Views
             stopButton.Click += (s, e) => { SetAutoModeType(AutoModeType.Disable); };
 
             AllowlistButton.Text = _cultureResource.GetText("TrayAllowlistMode");
-            AllowlistButton.Click += (s, e) => { SetAutoModeType(AutoModeType.AllowlistMode); };
+            AllowlistButton.Click += (s, e) => { SetAutoModeType(AutoModeType.AllowListMode); };
 
             BlockListButton.Text = _cultureResource.GetText("TrayBlockListMode");
             BlockListButton.Click += (s, e) => { SetAutoModeType(AutoModeType.BlockListMode); };
@@ -126,7 +126,7 @@ namespace SmartTaskbar.UI.Views
                                 stopButton.Image =
                                     IconResources.Empty;
                     break;
-                case AutoModeType.AllowlistMode:
+                case AutoModeType.AllowListMode:
                     AllowlistButton.Image =
                         UIInfo.IsWhiteBackground ? IconResources.Run_Black : IconResources.Run_White;
                     apiButton.Image =

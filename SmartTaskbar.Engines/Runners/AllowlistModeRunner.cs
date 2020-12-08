@@ -7,7 +7,7 @@ namespace SmartTaskbar.Engines.Runners
     internal class AllowlistModeRunner
         : IAutoModeMethod
     {
-        public AutoModeType Type { get; } = AutoModeType.AllowlistMode;
+        public AutoModeType Type { get; } = AutoModeType.AllowListMode;
         public void Run() { throw new NotImplementedException(); }
 
         public void Reset() { throw new NotImplementedException(); }

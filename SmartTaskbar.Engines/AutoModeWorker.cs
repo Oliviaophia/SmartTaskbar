@@ -35,7 +35,7 @@ namespace SmartTaskbar.Engines
                 AutoModeType.BlockListMode => _autoModeRunner.Type == AutoModeType.BlockListMode
                     ? _autoModeRunner
                     : _autoModeRunner = new BlockListModeRunner(),
-                AutoModeType.AllowlistMode => _autoModeRunner.Type == AutoModeType.AllowlistMode
+                AutoModeType.AllowListMode => _autoModeRunner.Type == AutoModeType.AllowListMode
                     ? _autoModeRunner
                     : _autoModeRunner = new AllowlistModeRunner(),
                 _ => throw new ArgumentOutOfRangeException()

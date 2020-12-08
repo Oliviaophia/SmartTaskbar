@@ -6,6 +6,6 @@
         AutoHideApiMode,
         ForegroundMode,
         BlockListMode,
-        AllowlistMode
+        AllowListMode
     }
 }
