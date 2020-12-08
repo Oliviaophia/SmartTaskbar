@@ -37,21 +37,21 @@ namespace SmartTaskbar.Engines
         private Task SaveUserConfigurationAsync()
             => _userConfigService.SaveSettingsAsync(ViewModel);
 
-        public Task Update(Action<UserConfiguration> action)
+        public Task Update(Func<UserConfiguration, TViewModel> func)
         {
             var model = InitViewModel();
 
-            action(model);
+            var result = func(model);
 
-            _userConfiguration = model;
+            _userConfiguration = result;
 
-            ViewModel = model;
+            ViewModel = result;
 
             return SaveUserConfigurationAsync();
         }
 
         private TViewModel InitViewModel()
-            => new TViewModel
+            => new()
             {
                 AutoModeType = _userConfiguration.AutoModeType,
                 IconStyle = _userConfiguration.IconStyle

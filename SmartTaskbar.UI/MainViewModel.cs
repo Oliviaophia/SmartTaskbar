@@ -5,7 +5,7 @@ using SmartTaskbar.PlatformInvoke;
 
 namespace SmartTaskbar.UI
 {
-    public class MainViewModel : UserConfiguration
+    public record MainViewModel : UserConfiguration
     {
         public Icon Icon
             => IconStyle switch

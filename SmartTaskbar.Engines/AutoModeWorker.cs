@@ -10,7 +10,7 @@ namespace SmartTaskbar.Engines
     {
         private static IAutoModeMethod _autoModeRunner;
 
-        private static List<Taskbar> _taskbars = new List<Taskbar>(4);
+        private static List<Taskbar> _taskbars = new(4);
 
         private readonly IUserConfigEngine _userConfigEngine;
 
@@ -41,6 +41,9 @@ namespace SmartTaskbar.Engines
                 _ => throw new ArgumentOutOfRangeException()
             };
 
-        public void UpdateTaskbarList() { }
+        public void UpdateTaskbarList()
+        {
+            //_taskbars.
+        }
     }
 }

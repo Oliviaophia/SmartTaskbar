@@ -191,7 +191,7 @@ namespace SmartTaskbar.PlatformInvoke
                 => Rectangle.FromLTRB(rect.left, rect.top, rect.right, rect.bottom);
 
             public static implicit operator TagRect(Rectangle rectangle)
-                => new TagRect
+                => new()
                 {
                     left = rectangle.Left,
                     top = rectangle.Top,

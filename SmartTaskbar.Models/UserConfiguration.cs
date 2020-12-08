@@ -1,9 +1,9 @@
 ﻿namespace SmartTaskbar.Models
 {
-    public class UserConfiguration
+    public record UserConfiguration
     {
-        public IconStyle IconStyle { get; set; } = IconStyle.Auto;
+        public IconStyle IconStyle { get; init; } = IconStyle.Auto;
 
-        public AutoModeType AutoModeType { get; set; } = AutoModeType.AutoHideApiMode;
+        public AutoModeType AutoModeType { get; init; } = AutoModeType.AutoHideApiMode;
     }
 }

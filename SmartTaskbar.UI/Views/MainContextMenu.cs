@@ -84,7 +84,10 @@ namespace SmartTaskbar.UI.Views
 
         private void SetAutoModeType(AutoModeType type)
         {
-            _userConfigEngine.Update(x => x.AutoModeType = type);
+            _userConfigEngine.Update(x => x with {
+                                         AutoModeType = type
+                                         } as MainViewModel
+            );
 
             LoadAutoModeTypeIcon(type);
         }

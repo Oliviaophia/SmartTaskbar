@@ -1,13 +1,7 @@
 ﻿namespace SmartTaskbar.Models
 {
-    public struct TaskbarState
-    {
-        public bool IsAutoHide { get; set; }
-
-        public bool HideTaskbarCompletely { get; set; }
-
-        public int IconSize { get; set; }
-
-        public TransparentModeType TransparentMode { get; set; }
-    }
+    public record TaskbarState(bool                IsAutoHide,
+                               bool                HideTaskbarCompletely,
+                               int                 IconSize,
+                               TransparentModeType TransparentMode);
 }

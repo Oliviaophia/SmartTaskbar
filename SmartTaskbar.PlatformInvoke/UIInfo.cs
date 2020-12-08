@@ -8,7 +8,7 @@ namespace SmartTaskbar.PlatformInvoke
 {
     public static class UIInfo
     {
-        private static readonly UISettings Settings = new UISettings();
+        private static readonly UISettings Settings = new();
         private static readonly DrawingColor WhiteColor = DrawingColor.FromArgb(255, 255, 255, 255);
 
 

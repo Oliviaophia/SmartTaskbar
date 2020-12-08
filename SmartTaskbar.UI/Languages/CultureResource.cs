@@ -8,7 +8,7 @@ namespace SmartTaskbar.UI.Languages
     public class CultureResource
     {
         private readonly ResourceManager _resourceManager =
-            new ResourceManager("SmartTaskbar.UI.Languages.Resource", Assembly.GetExecutingAssembly());
+            new("SmartTaskbar.UI.Languages.Resource", Assembly.GetExecutingAssembly());
 
         public CultureResource() { LanguageChange(); }
 
