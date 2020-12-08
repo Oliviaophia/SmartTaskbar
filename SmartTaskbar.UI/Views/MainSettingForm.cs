@@ -21,6 +21,16 @@ namespace SmartTaskbar.UI.Views
             SystemEvents.UserPreferenceChanged += (s, e) => ThemeUpdate();
         }
 
+        public void BringUp()
+        {
+            if (Visible)
+            {
+                Activate();
+                Focus();
+            }
+            else { Show(); }
+        }
+
         /// <summary>Raises the <see cref="E:System.Windows.Forms.Form.FormClosing" /> event.</summary>
         /// <param name="e">A <see cref="T:System.Windows.Forms.FormClosingEventArgs" /> that contains the event data.</param>
         protected override void OnFormClosing(FormClosingEventArgs e)

@@ -58,7 +58,7 @@ namespace SmartTaskbar.UI.Views
             apiButton.Click += (s, e) => { SetAutoModeType(AutoModeType.AutoHideApiMode); };
 
             settingsButton.Text = _cultureResource.GetText("TraySettings");
-            settingsButton.Click += (s, e) => { _mainSettingForm.Value.Show(); };
+            settingsButton.Click += (s, e) => { _mainSettingForm.Value.BringUp(); };
 
             aboutButton.Text = _cultureResource.GetText("TrayAbout");
             aboutButton.Image = IconResources.Empty;
