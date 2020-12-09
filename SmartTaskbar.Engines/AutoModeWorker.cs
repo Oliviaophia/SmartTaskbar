@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using SmartTaskbar.Engines.Helpers;
 using SmartTaskbar.Engines.Interfaces;
 using SmartTaskbar.Engines.Runners;
 using SmartTaskbar.Models;
 
 namespace SmartTaskbar.Engines
 {
-    public class AutoModeWorker
+    public class AutoModeWorker : IAutoModeMethod
     {
         private static IAutoModeMethod _autoModeRunner;
 
@@ -20,7 +21,22 @@ namespace SmartTaskbar.Engines
             UpdateTaskbarList();
         }
 
-        public void Run() { }
+        public AutoModeType Type
+            => _userConfigEngine.UserConfiguration.AutoModeType;
+
+        public void Run() { _autoModeRunner.Run(); }
+
+        public void Reset()
+        {
+            _autoModeRunner.Reset();
+            UpdateTaskbarList();
+        }
+
+        public void Ready()
+        {
+            _autoModeRunner.Ready();
+            UpdateTaskbarList();
+        }
 
         public IAutoModeMethod AutoModelSelector()
             => _userConfigEngine.UserConfiguration.AutoModeType switch
@@ -41,9 +57,6 @@ namespace SmartTaskbar.Engines
                 _ => throw new ArgumentOutOfRangeException()
             };
 
-        public void UpdateTaskbarList()
-        {
-            //_taskbars.
-        }
+        public static void UpdateTaskbarList() { _taskbars.ResetTaskbars(); }
     }
 }
