@@ -34,6 +34,7 @@ namespace SmartTaskbar.UI.Views
         {
             if (Visible)
             {
+                WindowState = FormWindowState.Normal;
                 Activate();
                 Focus();
             }
