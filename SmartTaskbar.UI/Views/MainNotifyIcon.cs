@@ -32,7 +32,7 @@ namespace SmartTaskbar.UI.Views
             _timeEngine = timeEngine;
 
             _contextMenuLazy = new Lazy<MainContextMenu>(
-                () => new MainContextMenu(userConfigEngine, cultureResource),
+                () => new MainContextMenu(userConfigEngine, cultureResource, autoModeWorker),
                 LazyThreadSafetyMode.ExecutionAndPublication);
 
             #region Initialization
@@ -45,22 +45,22 @@ namespace SmartTaskbar.UI.Views
             };
 
             _notifyIcon.MouseClick += NotifyIcon_MouseClick;
-
             UIInfo.Settings.ColorValuesChanged += Settings_ColorValuesChanged;
-
             SystemEvents.DisplaySettingsChanged += SystemEvents_DisplaySettingsChanged;
 
             #endregion
         }
 
-        private void SystemEvents_DisplaySettingsChanged(object sender, EventArgs e)
+        #region Events
+
+        private void SystemEvents_DisplaySettingsChanged(object? sender, EventArgs e)
         {
             _autoModeWorker.UpdateTaskbarList();
         }
 
-        private void Settings_ColorValuesChanged(UISettings sender, object args) { UpdateTheme(); }
+        private void Settings_ColorValuesChanged(UISettings sender, object? args) { UpdateTheme(); }
 
-        private void NotifyIcon_MouseClick(object sender, MouseEventArgs e)
+        private void NotifyIcon_MouseClick(object? sender, MouseEventArgs e)
         {
             // todo
 
@@ -72,6 +72,8 @@ namespace SmartTaskbar.UI.Views
                 _contextMenuLazy.Value.Focus();
             }
         }
+
+        #endregion
 
         private void UpdateTheme() { _notifyIcon.Icon = _userConfigEngine.ViewModel.Icon; }
 

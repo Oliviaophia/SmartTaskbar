@@ -13,16 +13,19 @@ namespace SmartTaskbar.UI.Views
     public partial class MainContextMenu : Form
     {
         private readonly CultureResource _cultureResource;
+        private readonly AutoModeWorker _autoModeWorker;
         private readonly Lazy<MainSettingForm> _mainSettingForm;
         private readonly UserConfigEngine<MainViewModel> _userConfigEngine;
 
         public MainContextMenu(UserConfigEngine<MainViewModel> userConfigEngine,
-                               CultureResource                 cultureResource)
+                               CultureResource                 cultureResource,
+                               AutoModeWorker                  autoModeWorker)
         {
             InitializeComponent();
 
             _userConfigEngine = userConfigEngine;
             _cultureResource = cultureResource;
+            _autoModeWorker = autoModeWorker;
             _mainSettingForm =
                 new Lazy<MainSettingForm>(() => new MainSettingForm(userConfigEngine, cultureResource),
                                           LazyThreadSafetyMode.ExecutionAndPublication);
@@ -56,6 +59,8 @@ namespace SmartTaskbar.UI.Views
             #endregion
         }
 
+        #region Events
+
         private void OnAboutButtonOnClick(object? s, EventArgs e)
         {
             _ = Launcher.LaunchUriAsync(new Uri("https://github.com/ChanpleCai/SmartTaskbar/releases"));
@@ -73,9 +78,13 @@ namespace SmartTaskbar.UI.Views
 
         private void OnStopButtonOnClick(object? s, EventArgs e) { SetAutoModeType(AutoModeType.Disable); }
 
-        private void OnExitMenuButtonOnClick(object? s, EventArgs e) { Application.Exit(); }
+        private void OnExitMenuButtonOnClick(object? s, EventArgs e)
+        {
+            _autoModeWorker.ResetTaskbarState();
+            Application.Exit();
+        }
 
-        private void Settings_ColorValuesChanged(UISettings sender, object args)
+        private void Settings_ColorValuesChanged(UISettings sender, object? args)
         {
             if (InvokeRequired)
                 BeginInvoke(new MethodInvoker(UpdateTheme));
@@ -93,6 +102,8 @@ namespace SmartTaskbar.UI.Views
         {
             if (Visible) Activate();
         }
+
+        #endregion
 
         #region Helper
 
