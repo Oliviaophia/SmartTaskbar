@@ -51,6 +51,14 @@ namespace SmartTaskbar.UI.Views
             #endregion
         }
 
+        private void UpdateTheme() { _notifyIcon.Icon = _userConfigEngine.ViewModel.Icon; }
+
+        protected override void Dispose(bool disposing)
+        {
+            _container.Dispose();
+            _timeEngine.Dispose();
+        }
+
         #region Events
 
         private void SystemEvents_DisplaySettingsChanged(object? sender, EventArgs e)
@@ -74,13 +82,5 @@ namespace SmartTaskbar.UI.Views
         }
 
         #endregion
-
-        private void UpdateTheme() { _notifyIcon.Icon = _userConfigEngine.ViewModel.Icon; }
-
-        protected override void Dispose(bool disposing)
-        {
-            _container.Dispose();
-            _timeEngine.Dispose();
-        }
     }
 }

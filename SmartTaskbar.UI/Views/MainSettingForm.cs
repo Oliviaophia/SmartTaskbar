@@ -54,6 +54,11 @@ namespace SmartTaskbar.UI.Views
             base.OnFormClosing(e);
         }
 
-        private void UpdateTheme() { Icon = _userConfigEngine.ViewModel.Icon; }
+        private void UpdateTheme()
+        {
+            Icon = _userConfigEngine.ViewModel.Icon;
+            BackColor = UIInfo.Background;
+            ForeColor = UIInfo.ForeGround;
+        }
     }
 }
