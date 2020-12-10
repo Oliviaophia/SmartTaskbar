@@ -1,4 +1,5 @@
-﻿using System.Globalization;
+﻿using System;
+using System.Globalization;
 using System.Reflection;
 using System.Resources;
 using System.Threading;
@@ -12,7 +13,7 @@ namespace SmartTaskbar.UI.Languages
 
         public CultureResource() { LanguageChange(); }
 
-        public void LanguageChange()
+        public static void LanguageChange()
         {
             switch (Thread.CurrentThread.CurrentUICulture.Name)
             {
@@ -27,6 +28,7 @@ namespace SmartTaskbar.UI.Languages
         }
 
         public string GetText(string name)
-            => _resourceManager.GetString(name, Thread.CurrentThread.CurrentUICulture);
+            => _resourceManager.GetString(name, Thread.CurrentThread.CurrentUICulture)
+               ?? throw new InvalidOperationException("Failed to load Text.");
     }
 }

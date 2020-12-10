@@ -32,7 +32,12 @@ namespace SmartTaskbar.PlatformInvoke
 
 
             await using var fs = new FileStream(_userConfigPath, FileMode.OpenOrCreate);
-            try { return await JsonSerializer.DeserializeAsync<UserConfiguration>(fs, _options); }
+            try
+            {
+                // todo UserConfiguration load default settings.
+                return await JsonSerializer.DeserializeAsync<UserConfiguration>(fs, _options)
+                       ?? new UserConfiguration();
+            }
             catch
             {
                 // clear the contents of the file without creating a new file.

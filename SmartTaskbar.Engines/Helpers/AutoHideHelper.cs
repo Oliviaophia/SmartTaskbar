@@ -12,12 +12,14 @@ namespace SmartTaskbar.Engines.Helpers
         private const uint AbmGetstate = 4;
         private static AppbarData _msgData = new() {cbSize = (uint) Marshal.SizeOf(typeof(AppbarData))};
 
+
         internal static void SetAutoHide()
         {
             _msgData.lParam = AbsAutohide;
             SHAppBarMessage(AbmSetstate, ref _msgData);
             PostMessageHelper.HideTaskbar();
         }
+
 
         internal static void SetAutoHide(bool isAutoHide)
         {
@@ -27,11 +29,13 @@ namespace SmartTaskbar.Engines.Helpers
                 CancelAutoHide();
         }
 
+
         internal static void CancelAutoHide()
         {
             _msgData.lParam = AbsAlwaysontop;
             SHAppBarMessage(AbmSetstate, ref _msgData);
         }
+
 
         internal static bool NotAutoHide()
             => SHAppBarMessage(AbmGetstate, ref _msgData) == IntPtr.Zero;

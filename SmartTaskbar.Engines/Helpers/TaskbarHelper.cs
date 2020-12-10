@@ -95,6 +95,7 @@ namespace SmartTaskbar.Engines.Helpers
             }
         }
 
+
         internal static void MaintainBarState(this List<Taskbar> taskbars, TaskbarState taskbarState)
         {
             if (taskbarState.HideTaskbarCompletely)
@@ -108,6 +109,7 @@ namespace SmartTaskbar.Engines.Helpers
                 foreach (var taskbar in taskbars) _ = SetWindowCompositionAttribute(taskbar.Handle, ref _data);
             }
         }
+
 
         internal static List<Taskbar> ResetTaskbars(this List<Taskbar> taskbars)
         {
@@ -123,6 +125,7 @@ namespace SmartTaskbar.Engines.Helpers
                 taskbars.Add(nextTaskbar.InitTaskbar());
             }
         }
+
 
         private static Taskbar InitTaskbar(this IntPtr handle)
         {

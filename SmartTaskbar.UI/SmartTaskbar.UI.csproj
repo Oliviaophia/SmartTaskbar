@@ -4,6 +4,7 @@
     <OutputType>WinExe</OutputType>
     <TargetFramework>net5.0-windows10.0.19041</TargetFramework>
     <UseWindowsForms>true</UseWindowsForms>
+	<Nullable>enable</Nullable>
   </PropertyGroup>
 
   <ItemGroup>

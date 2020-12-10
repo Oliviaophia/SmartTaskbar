@@ -9,11 +9,10 @@ namespace SmartTaskbar.Engines
 {
     public class AutoModeWorker : IAutoModeMethod
     {
-        private static IAutoModeMethod _autoModeRunner;
-
-        private static List<Taskbar> _taskbars = new(4);
+        private readonly List<Taskbar> _taskbars = new(4);
 
         private readonly IUserConfigEngine _userConfigEngine;
+        private IAutoModeMethod? _autoModeRunner;
 
         public AutoModeWorker(IUserConfigEngine userConfigEngine)
         {
@@ -21,42 +20,49 @@ namespace SmartTaskbar.Engines
             UpdateTaskbarList();
         }
 
-        public AutoModeType Type
-            => _userConfigEngine.UserConfiguration.AutoModeType;
+        public AutoModeType Type { get; private set; }
 
-        public void Run() { _autoModeRunner.Run(); }
+        public void Run()
+            => AutoModelSelector()?.Run();
 
         public void Reset()
-        {
-            _autoModeRunner.Reset();
-            UpdateTaskbarList();
-        }
+            => AutoModelSelector()?.Reset();
 
         public void Ready()
+            => AutoModelSelector()?.Ready();
+
+        public IAutoModeMethod? AutoModelSelector()
         {
-            _autoModeRunner.Ready();
-            UpdateTaskbarList();
+            Type = _userConfigEngine.UserConfiguration.AutoModeType;
+
+            if (Type != AutoModeType.Disable
+                || _autoModeRunner is null)
+                return Type switch
+                {
+                    AutoModeType.Disable => _autoModeRunner,
+                    AutoModeType.AutoHideApiMode => _autoModeRunner?.Type == AutoModeType.AutoHideApiMode
+                        ? _autoModeRunner
+                        : _autoModeRunner = new AutoHideApiModeRunner(_userConfigEngine.UserConfiguration, _taskbars),
+                    AutoModeType.ForegroundMode => _autoModeRunner?.Type == AutoModeType.ForegroundMode
+                        ? _autoModeRunner
+                        : _autoModeRunner = new ForegroundModeRunner(),
+                    AutoModeType.BlockListMode => _autoModeRunner?.Type == AutoModeType.BlockListMode
+                        ? _autoModeRunner
+                        : _autoModeRunner = new BlockListModeRunner(),
+                    AutoModeType.AllowListMode => _autoModeRunner?.Type == AutoModeType.AllowListMode
+                        ? _autoModeRunner
+                        : _autoModeRunner = new AllowlistModeRunner(),
+                    _ => throw new ArgumentOutOfRangeException()
+                };
+
+            ResetTaskbarState();
+
+            return _autoModeRunner = null;
         }
 
-        public IAutoModeMethod AutoModelSelector()
-            => _userConfigEngine.UserConfiguration.AutoModeType switch
-            {
-                AutoModeType.Disable => _autoModeRunner = null,
-                AutoModeType.AutoHideApiMode => _autoModeRunner.Type == AutoModeType.AutoHideApiMode
-                    ? _autoModeRunner
-                    : _autoModeRunner = new AutoHideApiModeRunner(_userConfigEngine.UserConfiguration),
-                AutoModeType.ForegroundMode => _autoModeRunner.Type == AutoModeType.ForegroundMode
-                    ? _autoModeRunner
-                    : _autoModeRunner = new ForegroundModeRunner(),
-                AutoModeType.BlockListMode => _autoModeRunner.Type == AutoModeType.BlockListMode
-                    ? _autoModeRunner
-                    : _autoModeRunner = new BlockListModeRunner(),
-                AutoModeType.AllowListMode => _autoModeRunner.Type == AutoModeType.AllowListMode
-                    ? _autoModeRunner
-                    : _autoModeRunner = new AllowlistModeRunner(),
-                _ => throw new ArgumentOutOfRangeException()
-            };
+        public void UpdateTaskbarList() { _taskbars.ResetTaskbars(); }
 
-        public static void UpdateTaskbarList() { _taskbars.ResetTaskbars(); }
+        public void ResetTaskbarState()
+            => _taskbars.SetBarState(_userConfigEngine.UserConfiguration.ResetState);
     }
 }

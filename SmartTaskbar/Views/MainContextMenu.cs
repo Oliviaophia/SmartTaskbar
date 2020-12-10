@@ -1,5 +1,4 @@
 ﻿using System;
-using System.ComponentModel;
 using System.Diagnostics;
 using System.Drawing;
 using System.Windows.Forms;
@@ -12,14 +11,12 @@ namespace SmartTaskbar.Views
 {
     public partial class MainContextMenu : Form
     {
-        private readonly IContainer _container;
         private readonly CoreInvoker _coreInvoker;
 
-        public MainContextMenu(IContainer container, CoreInvoker coreInvoker)
+        public MainContextMenu(CoreInvoker coreInvoker)
         {
             InitializeComponent();
 
-            _container = container;
             _coreInvoker = coreInvoker;
 
             VisibleChanged += (s, e) =>

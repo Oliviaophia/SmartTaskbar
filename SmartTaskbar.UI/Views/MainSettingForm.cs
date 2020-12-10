@@ -1,14 +1,15 @@
 ﻿using System.Windows.Forms;
-using Microsoft.Win32;
+using Windows.UI.ViewManagement;
 using SmartTaskbar.Engines;
+using SmartTaskbar.PlatformInvoke;
 using SmartTaskbar.UI.Languages;
 
 namespace SmartTaskbar.UI.Views
 {
     public partial class MainSettingForm : Form
     {
-        private readonly UserConfigEngine<MainViewModel> _userConfigEngine;
         private readonly CultureResource _cultureResource;
+        private readonly UserConfigEngine<MainViewModel> _userConfigEngine;
 
         public MainSettingForm(UserConfigEngine<MainViewModel> userConfigEngine,
                                CultureResource                 cultureResource)
@@ -16,9 +17,17 @@ namespace SmartTaskbar.UI.Views
             _userConfigEngine = userConfigEngine;
             _cultureResource = cultureResource;
             InitializeComponent();
-            ThemeUpdate();
+            UpdateTheme();
 
-            SystemEvents.UserPreferenceChanged += (s, e) => ThemeUpdate();
+            UIInfo.Settings.ColorValuesChanged += Settings_ColorValuesChanged;
+        }
+
+        private void Settings_ColorValuesChanged(UISettings sender, object args)
+        {
+            if (InvokeRequired)
+                BeginInvoke(new MethodInvoker(UpdateTheme));
+            else
+                UpdateTheme();
         }
 
         public void BringUp()
@@ -44,6 +53,6 @@ namespace SmartTaskbar.UI.Views
             base.OnFormClosing(e);
         }
 
-        private void ThemeUpdate() { Icon = _userConfigEngine.ViewModel.Icon; }
+        private void UpdateTheme() { Icon = _userConfigEngine.ViewModel.Icon; }
     }
 }

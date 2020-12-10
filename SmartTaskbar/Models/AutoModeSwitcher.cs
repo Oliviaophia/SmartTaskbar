@@ -63,7 +63,7 @@ namespace SmartTaskbar.Models
             {
                 AutoModeType.Disable         => new DisableMode(_coreInvoker.UserSettings),
                 AutoModeType.AutoHideApiMode => new AutoHideApiMode(_coreInvoker.UserSettings),
-                AutoModeType.ForegroundMode  => new ForegroundMode(_coreInvoker.UserSettings),
+                AutoModeType.ForegroundMode  => new ForegroundMode(),
                 AutoModeType.BlockListMode   => new BlockListMode(_coreInvoker.UserSettings),
                 AutoModeType.AllowlistMode   => new AllowlistMode(_coreInvoker.UserSettings),
                 _                            => throw new ArgumentOutOfRangeException(nameof(modeType), modeType, null)

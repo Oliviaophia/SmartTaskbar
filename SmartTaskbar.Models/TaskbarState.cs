@@ -2,6 +2,6 @@
 {
     public record TaskbarState(bool                IsAutoHide,
                                bool                HideTaskbarCompletely,
-                               int                 IconSize,
+                               IconSize            IconSize,
                                TransparentModeType TransparentMode);
 }

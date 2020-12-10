@@ -14,7 +14,7 @@ namespace SmartTaskbar.PlatformInvoke
 
         [DllImport("user32.dll", CharSet = CharSet.Unicode)]
         [return: MarshalAs(UnmanagedType.Bool)]
-        public static extern bool SendNotifyMessage([In] IntPtr hWnd, uint msg, UIntPtr wParam, string lParam);
+        public static extern bool SendNotifyMessage([In] IntPtr hWnd, uint msg, UIntPtr wParam, string? lParam);
 
         #endregion
 
@@ -160,13 +160,13 @@ namespace SmartTaskbar.PlatformInvoke
         #region FindWindow
 
         [DllImport("user32.dll", CharSet = CharSet.Unicode)]
-        public static extern IntPtr FindWindow([In] string strClassName, [In] string strWindowName);
+        public static extern IntPtr FindWindow([In] string? strClassName, [In] string? strWindowName);
 
         [DllImport("user32.dll", CharSet = CharSet.Unicode)]
-        public static extern IntPtr FindWindowEx([In] IntPtr parentHandle,
-                                                 [In] IntPtr childAfter,
-                                                 [In] string lclassName,
-                                                 [In] string windowTitle);
+        public static extern IntPtr FindWindowEx([In] IntPtr  parentHandle,
+                                                 [In] IntPtr  childAfter,
+                                                 [In] string? lclassName,
+                                                 [In] string? windowTitle);
 
         #endregion
 

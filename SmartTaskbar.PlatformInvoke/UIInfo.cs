@@ -1,4 +1,4 @@
-﻿using System.Runtime.CompilerServices;
+﻿using System;
 using Windows.UI;
 using Windows.UI.ViewManagement;
 using Microsoft.Win32;
@@ -6,14 +6,15 @@ using DrawingColor = System.Drawing.Color;
 
 namespace SmartTaskbar.PlatformInvoke
 {
+    // ReSharper disable once InconsistentNaming
     public static class UIInfo
     {
-        private static readonly UISettings Settings = new();
+        public static readonly UISettings Settings = new();
         private static readonly DrawingColor WhiteColor = DrawingColor.FromArgb(255, 255, 255, 255);
 
-
         private static readonly RegistryKey Key =
-            Registry.CurrentUser.OpenSubKey(@"Software\Microsoft\Windows\CurrentVersion\Themes\Personalize", false);
+            Registry.CurrentUser.OpenSubKey(@"Software\Microsoft\Windows\CurrentVersion\Themes\Personalize", false)
+            ?? throw new InvalidOperationException("OpenSubKey Failed.");
 
         // https://stackoverflow.com/questions/51334674/how-to-detect-windows-10-light-dark-mode-in-win32-application
         public static DrawingColor ForeGround
@@ -43,13 +44,12 @@ namespace SmartTaskbar.PlatformInvoke
         public static DrawingColor AccentLight3
             => Settings.GetColorValue(UIColorType.AccentLight3).ToColor();
 
-        public static bool IsLightTheme()
-            => (int) (Key.GetValue("SystemUsesLightTheme", 0) ?? 0) == 1;
-
         public static bool IsWhiteBackground
             => Background == WhiteColor;
 
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool IsLightTheme()
+            => (int) (Key.GetValue("SystemUsesLightTheme", 0) ?? 0) == 1;
+
         private static DrawingColor ToColor(this Color color)
             => DrawingColor.FromArgb(color.A, color.R, color.G, color.B);
     }

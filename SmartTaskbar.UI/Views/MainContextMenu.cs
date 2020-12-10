@@ -2,7 +2,7 @@
 using System.Threading;
 using System.Windows.Forms;
 using Windows.System;
-using Microsoft.Win32;
+using Windows.UI.ViewManagement;
 using SmartTaskbar.Engines;
 using SmartTaskbar.Models;
 using SmartTaskbar.PlatformInvoke;
@@ -24,53 +24,91 @@ namespace SmartTaskbar.UI.Views
             _userConfigEngine = userConfigEngine;
             _cultureResource = cultureResource;
             _mainSettingForm =
-                new Lazy<MainSettingForm>(() => new MainSettingForm(_userConfigEngine, cultureResource),
+                new Lazy<MainSettingForm>(() => new MainSettingForm(userConfigEngine, cultureResource),
                                           LazyThreadSafetyMode.ExecutionAndPublication);
 
-            VisibleChanged += (s, e) =>
-            {
-                if (Visible) Activate();
-            };
-            Activated += (s,                          e) => { SetPosition(); };
-            Deactivate += (s,                         e) => Hide();
-            SystemEvents.UserPreferenceChanged += (s, e) => ThemeUpdate();
+            #region Events
+
+            VisibleChanged += MainContextMenu_VisibleChanged;
+            Activated += MainContextMenu_Activated;
+            Deactivate += MainContextMenu_Deactivate;
+            UIInfo.Settings.ColorValuesChanged += Settings_ColorValuesChanged;
+
+            exitMenuButton.Click += OnExitMenuButtonOnClick;
+            stopButton.Click += OnStopButtonOnClick;
+            AllowlistButton.Click += OnAllowlistButtonOnClick;
+            BlockListButton.Click += OnBlockListButtonOnClick;
+            foreButton.Click += OnForeButtonOnClick;
+            apiButton.Click += OnApiButtonOnClick;
+            settingsButton.Click += OnSettingsButtonOnClick;
+            aboutButton.Click += OnAboutButtonOnClick;
+
+            #endregion
 
             #region Initialization
 
-            ThemeUpdate();
-            exitMenuButton.Text = _cultureResource.GetText("TrayExit");
-            exitMenuButton.Image = IconResources.Empty;
-            exitMenuButton.Click += (s, e) => Application.Exit();
+            UpdateTheme();
+            UpdateText();
 
-            stopButton.Text = _cultureResource.GetText("TrayStop");
-            stopButton.Click += (s, e) => { SetAutoModeType(AutoModeType.Disable); };
-
-            AllowlistButton.Text = _cultureResource.GetText("TrayAllowlistMode");
-            AllowlistButton.Click += (s, e) => { SetAutoModeType(AutoModeType.AllowListMode); };
-
-            BlockListButton.Text = _cultureResource.GetText("TrayBlockListMode");
-            BlockListButton.Click += (s, e) => { SetAutoModeType(AutoModeType.BlockListMode); };
-
-            foreButton.Text = _cultureResource.GetText("TrayAutoMode2");
-            foreButton.Click += (s, e) => { SetAutoModeType(AutoModeType.ForegroundMode); };
-
-            apiButton.Text = _cultureResource.GetText("TrayAutoMode1");
-            apiButton.Click += (s, e) => { SetAutoModeType(AutoModeType.AutoHideApiMode); };
-
-            settingsButton.Text = _cultureResource.GetText("TraySettings");
-            settingsButton.Click += (s, e) => { _mainSettingForm.Value.BringUp(); };
-
-            aboutButton.Text = _cultureResource.GetText("TrayAbout");
             aboutButton.Image = IconResources.Empty;
-            aboutButton.Click += (s, e)
-                => _ = Launcher.LaunchUriAsync(new Uri("https://github.com/ChanpleCai/SmartTaskbar/releases"));
+            exitMenuButton.Image = IconResources.Empty;
 
             #endregion
         }
 
+        private void OnAboutButtonOnClick(object? s, EventArgs e)
+        {
+            _ = Launcher.LaunchUriAsync(new Uri("https://github.com/ChanpleCai/SmartTaskbar/releases"));
+        }
+
+        private void OnSettingsButtonOnClick(object? s, EventArgs e) { _mainSettingForm.Value.BringUp(); }
+
+        private void OnApiButtonOnClick(object? s, EventArgs e) { SetAutoModeType(AutoModeType.AutoHideApiMode); }
+
+        private void OnForeButtonOnClick(object? s, EventArgs e) { SetAutoModeType(AutoModeType.ForegroundMode); }
+
+        private void OnBlockListButtonOnClick(object? s, EventArgs e) { SetAutoModeType(AutoModeType.BlockListMode); }
+
+        private void OnAllowlistButtonOnClick(object? s, EventArgs e) { SetAutoModeType(AutoModeType.AllowListMode); }
+
+        private void OnStopButtonOnClick(object? s, EventArgs e) { SetAutoModeType(AutoModeType.Disable); }
+
+        private void OnExitMenuButtonOnClick(object? s, EventArgs e) { Application.Exit(); }
+
+        private void Settings_ColorValuesChanged(UISettings sender, object args)
+        {
+            if (InvokeRequired)
+                BeginInvoke(new MethodInvoker(UpdateTheme));
+            else
+                UpdateTheme();
+        }
+
+        private void MainContextMenu_Deactivate(object? sender, EventArgs e)
+            => Hide();
+
+        private void MainContextMenu_Activated(object? sender, EventArgs e)
+            => SetPosition();
+
+        private void MainContextMenu_VisibleChanged(object? sender, EventArgs e)
+        {
+            if (Visible) Activate();
+        }
+
         #region Helper
 
-        private void ThemeUpdate()
+        private void UpdateText()
+        {
+            exitMenuButton.Text = _cultureResource.GetText("TrayExit");
+            stopButton.Text = _cultureResource.GetText("TrayStop");
+            AllowlistButton.Text = _cultureResource.GetText("TrayAllowlistMode");
+            BlockListButton.Text = _cultureResource.GetText("TrayBlockListMode");
+            foreButton.Text = _cultureResource.GetText("TrayAutoMode2");
+            apiButton.Text = _cultureResource.GetText("TrayAutoMode1");
+            settingsButton.Text = _cultureResource.GetText("TraySettings");
+            aboutButton.Text = _cultureResource.GetText("TrayAbout");
+        }
+
+        private void UpdateTheme()
         {
             BackColor = UIInfo.Background;
             ForeColor = UIInfo.ForeGround;
@@ -84,9 +122,11 @@ namespace SmartTaskbar.UI.Views
 
         private void SetAutoModeType(AutoModeType type)
         {
-            _userConfigEngine.Update(x => x with {
-                                         AutoModeType = type
-                                         } as MainViewModel
+            _ = _userConfigEngine.Update(x => x with
+                                                  {
+                                                  AutoModeType = type
+                                                  } as MainViewModel
+                                              ?? throw new InvalidOperationException("UserConfiguration is null")
             );
 
             LoadAutoModeTypeIcon(type);

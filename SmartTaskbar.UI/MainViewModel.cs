@@ -1,5 +1,4 @@
-﻿using System;
-using System.Drawing;
+﻿using System.Drawing;
 using SmartTaskbar.Models;
 using SmartTaskbar.PlatformInvoke;
 
@@ -17,7 +16,7 @@ namespace SmartTaskbar.UI
                 IconStyle.Blue  => IconResources.Logo_Blue,
                 IconStyle.Pink  => IconResources.Logo_Pink,
                 IconStyle.White => IconResources.Logo_White,
-                _               => throw new ArgumentOutOfRangeException(nameof(IconStyle), "Illegal icon type.")
+                _               => IconResources.Logo_Blue
             };
     }
 }

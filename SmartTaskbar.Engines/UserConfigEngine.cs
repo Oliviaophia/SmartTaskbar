@@ -13,26 +13,20 @@ namespace SmartTaskbar.Engines
         private UserConfiguration _userConfiguration;
 
         public UserConfigEngine(IUserConfigService userConfigServices)
-            => _userConfigService = userConfigServices;
+        {
+            _userConfigService = userConfigServices;
+
+            _userConfiguration = _userConfigService.ReadSettingsAsync().GetAwaiter().GetResult();
+
+            ViewModel = InitViewModel();
+            // save User Configuration at first time.
+            _ = SaveUserConfigurationAsync();
+        }
 
         public TViewModel ViewModel { get; private set; }
 
         UserConfiguration IUserConfigEngine.UserConfiguration
             => _userConfiguration;
-
-        public async Task InitializationAsync()
-        {
-            ViewModel = await GetUserConfigurationAsync();
-            // save User Configuration at first time.
-            _ = SaveUserConfigurationAsync();
-        }
-
-        private async Task<TViewModel> GetUserConfigurationAsync()
-        {
-            _userConfiguration = await _userConfigService.ReadSettingsAsync();
-
-            return ViewModel = InitViewModel();
-        }
 
         private Task SaveUserConfigurationAsync()
             => _userConfigService.SaveSettingsAsync(ViewModel);
