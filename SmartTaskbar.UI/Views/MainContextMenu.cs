@@ -12,8 +12,8 @@ namespace SmartTaskbar.UI.Views
 {
     public partial class MainContextMenu : Form
     {
-        private readonly CultureResource _cultureResource;
         private readonly AutoModeWorker _autoModeWorker;
+        private readonly CultureResource _cultureResource;
         private readonly Lazy<MainSettingForm> _mainSettingForm;
         private readonly UserConfigEngine<MainViewModel> _userConfigEngine;
 
