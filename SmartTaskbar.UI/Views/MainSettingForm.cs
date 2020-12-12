@@ -59,6 +59,7 @@ namespace SmartTaskbar.UI.Views
             Icon = _userConfigEngine.ViewModel.Icon;
             BackColor = UIInfo.Background;
             ForeColor = UIInfo.ForeGround;
+            panelMenu.BackColor = UIInfo.IsWhiteBackground ? UIInfo.AccentLight3 : UIInfo.AccentDark1;
         }
     }
 }

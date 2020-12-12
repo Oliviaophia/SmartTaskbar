@@ -39,6 +39,9 @@
     <Compile Update="Views\MainContextMenu.Designer.cs">
       <DependentUpon>MainContextMenu.cs</DependentUpon>
     </Compile>
+    <Compile Update="Views\SettingMenuButton.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Update="Views\MenuButton.cs">
       <SubType>Component</SubType>
     </Compile>

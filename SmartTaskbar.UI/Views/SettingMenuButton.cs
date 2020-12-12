@@ -4,16 +4,16 @@ using SmartTaskbar.PlatformInvoke;
 
 namespace SmartTaskbar.UI.Views
 {
-    public sealed class MenuButton : Button
+    public sealed class SettingMenuButton : Button
     {
-        public MenuButton()
+        public SettingMenuButton()
         {
             FlatStyle = FlatStyle.Flat;
             BackColor = Color.Transparent;
-            Size = new Size(230, 32);
+            Size = new Size(180, 32);
             Margin = Padding.Empty;
             FlatAppearance.BorderSize = 0;
-            Font = new Font("Segoe UI", 9F);
+            Font = new Font("Segoe UI", 12F);
             TextAlign = ContentAlignment.MiddleLeft;
             TextImageRelation = TextImageRelation.ImageBeforeText;
             ImageAlign = ContentAlignment.MiddleCenter;

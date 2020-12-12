@@ -88,7 +88,6 @@ namespace SmartTaskbar.Engines.Helpers
                     foreach (var taskbar in taskbars)
                     {
                         _ = SetWindowCompositionAttribute(taskbar.Handle, ref _data);
-
                         _ = ShowWindow(taskbar.Handle, SwShow);
                     }
                 }
