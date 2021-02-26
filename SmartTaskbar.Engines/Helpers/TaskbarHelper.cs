@@ -38,7 +38,8 @@ namespace SmartTaskbar.Engines.Helpers
 
                     foreach (var taskbar in taskbars) _ = ShowWindow(taskbar.Handle, SwShow);
 
-                    PostMessage(FindWindow(Constants.MainTaskbar, null), WmThemeChanged, IntPtr.Zero, IntPtr.Zero);
+
+                    //PostMessage(FindWindow(Constants.MainTaskbar, null), WmThemeChanged, IntPtr.Zero, IntPtr.Zero);
 
                     if (_accentPtr == IntPtr.Zero) return;
 
