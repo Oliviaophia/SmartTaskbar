@@ -8,6 +8,7 @@ namespace SmartTaskbar
         private static readonly Timer timer = new Timer(125);
         private static int _counter = 0;
         private static readonly AutoModeWorker _worker = new AutoModeWorker();
+        private static bool RunningFlag = true;
 
         public Engine()
         {
@@ -17,7 +18,10 @@ namespace SmartTaskbar
 
         private void Timer_Elapsed(object? sender, ElapsedEventArgs e)
         {
-            timer.Stop();
+            timer?.Stop();
+
+            if (!RunningFlag)
+                return;
 
             if (_counter % 97 == 0) _worker.Ready();
 
@@ -31,12 +35,27 @@ namespace SmartTaskbar
 
             ++_counter;
 
-            timer.Start();
+            if (RunningFlag)
+            timer?.Start();
         }
 
         public void Dispose()
         {
+            RunningFlag = false;
+            timer?.Stop();
             timer?.Dispose();
+        }
+
+        public void Stop()
+        {
+            timer?.Stop();
+            RunningFlag = false;
+        }
+
+        public void Start()
+        {
+            timer?.Start();
+            RunningFlag = true;
         }
     }
 }

@@ -72,24 +72,36 @@ namespace SmartTaskbar
                 {
                     case AutoModeType.Display:
                         auto_display.Checked = true;
-                        AutoHideHelper.SetAutoHide(AutoHideHelper.NotAutoHide());
+                        AutoHideHelper.SetAutoHide();
+                        engine.Start();
                         break;
                     case AutoModeType.None:
                         auto_display.Checked = false;
+                        engine.Stop();
                         break;
                 }
             };
 
             animation.Click += (s, e) => animation.Checked = Animation.ChangeTaskbarAnimation();
 
-            auto_display.Click += (s, e) => UserSettings.Default.TaskbarState = auto_display.Checked ? (int)AutoModeType.None : (int)AutoModeType.Display;
+            auto_display.Click += (s, e) =>
+            {
+                if (auto_display.Checked)
+                {
+                    UserSettings.Default.TaskbarState = (int)AutoModeType.None;
+                }
+                else
+                {
+                    UserSettings.Default.TaskbarState = (int)AutoModeType.Display;
+                }
+            };
 
             exit.Click += (s, e) =>
             {
                 PostMessageHelper.HideTaskbar();
                 AutoHideHelper.CancelAutoHide();
-                notifyIcon?.Dispose();
-                engine?.Dispose();
+                notifyIcon.Dispose();
+                engine.Dispose();
                 Application.Exit();
             };
 
