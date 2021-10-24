@@ -1,59 +1,61 @@
 ﻿using System.Timers;
 
+using Timer = System.Timers.Timer;
+
 namespace SmartTaskbar;
 
 internal class Engine : IDisposable
 {
-    private static readonly global::System.Timers.Timer timer = new(125);
+    private static readonly Timer Timer = new(125);
     private static int _counter;
-    private static readonly AutoModeWorker _worker = new();
-    private static bool RunningFlag = true;
+    private static readonly AutoModeWorker Worker = new();
+    private static bool _runningFlag = true;
 
     public Engine()
     {
-        timer.Elapsed += Timer_Elapsed;
-        timer.Start();
+        Timer.Elapsed += Timer_Elapsed;
+        Timer.Start();
     }
 
     public void Dispose()
     {
-        RunningFlag = false;
-        timer?.Stop();
-        timer?.Dispose();
+        _runningFlag = false;
+        Timer?.Stop();
+        Timer?.Dispose();
     }
 
     private void Timer_Elapsed(object? sender, ElapsedEventArgs e)
     {
-        timer?.Stop();
+        Timer?.Stop();
 
-        if (!RunningFlag)
+        if (!_runningFlag)
             return;
 
-        if (_counter % 97 == 0) _worker.Ready();
+        if (_counter % 97 == 0) Worker.Ready();
 
         if (_counter % 193 == 0)
         {
-            _worker.Reset();
+            Worker.Reset();
             _counter = 0;
         }
 
-        _worker.Run();
+        Worker.Run();
 
         ++_counter;
 
-        if (RunningFlag)
-            timer?.Start();
+        if (_runningFlag)
+            Timer?.Start();
     }
 
     public void Stop()
     {
-        timer?.Stop();
-        RunningFlag = false;
+        Timer?.Stop();
+        _runningFlag = false;
     }
 
     public void Start()
     {
-        timer?.Start();
-        RunningFlag = true;
+        Timer?.Start();
+        _runningFlag = true;
     }
 }

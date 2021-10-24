@@ -3,7 +3,7 @@ using Microsoft.Win32;
 
 namespace SmartTaskbar;
 
-public static class UIInfo
+public static class UiInfo
 {
     public static readonly UISettings Settings = new();
 

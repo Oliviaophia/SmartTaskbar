@@ -4,14 +4,14 @@ namespace SmartTaskbar;
 
 internal class AutoModeWorker
 {
-    private static readonly List<Taskbar> _taskbars = new();
+    private static readonly List<Taskbar> Taskbars = new();
     private static bool _sendMessage;
 
     public AutoModeWorker() { Reset(); }
 
     public void Run()
     {
-        if (_taskbars.IsMouseOverTaskbar())
+        if (Taskbars.IsMouseOverTaskbar())
         {
             _sendMessage = true;
             return;
@@ -44,7 +44,7 @@ internal class AutoModeWorker
             || foregroundHandle.IsNotFullScreenWindow())
         {
             _ = GetWindowRect(foregroundHandle, out var rect);
-            foreach (var taskbar in _taskbars.Where(
+            foreach (var taskbar in Taskbars.Where(
                          taskbar => (rect.left < taskbar.Rectangle.Right
                                      && rect.right > taskbar.Rectangle.Left
                                      && rect.top < taskbar.Rectangle.Bottom
@@ -58,8 +58,8 @@ internal class AutoModeWorker
         else
         {
             var monitor = foregroundHandle.GetMonitor();
-            foreach (var taskbar in _taskbars.Where(taskbar =>
-                                                        taskbar.Monitor == monitor != taskbar.Intersect))
+            foreach (var taskbar in Taskbars.Where(taskbar =>
+                                                       taskbar.Monitor == monitor != taskbar.Intersect))
             {
                 taskbar.Intersect = !taskbar.Intersect;
                 _sendMessage = true;
@@ -69,7 +69,7 @@ internal class AutoModeWorker
         if (!_sendMessage) return;
         _sendMessage = false;
 
-        foreach (var taskbar in _taskbars.Where(taskbar => !taskbar.Intersect))
+        foreach (var taskbar in Taskbars.Where(taskbar => !taskbar.Intersect))
         {
             taskbar.Monitor.ShowTaskar();
             return;
@@ -81,7 +81,7 @@ internal class AutoModeWorker
 
     public void Reset()
     {
-        _ = _taskbars.ResetTaskbars();
+        _ = Taskbars.ResetTaskbars();
         Ready();
     }
 

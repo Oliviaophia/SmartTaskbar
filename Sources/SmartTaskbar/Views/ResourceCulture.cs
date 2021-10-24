@@ -6,9 +6,9 @@ namespace SmartTaskbar;
 
 internal class ResourceCulture
 {
-    private readonly CultureInfo cultureInfo = new("en-US");
+    private readonly CultureInfo _cultureInfo = new("en-US");
 
-    private readonly ResourceManager resourceManager =
+    private readonly ResourceManager _resourceManager =
         new("SmartTaskbar.Languages.Resource", Assembly.GetExecutingAssembly());
 
     public ResourceCulture()
@@ -21,14 +21,14 @@ internal class ResourceCulture
             case "uk-UA":
                 break;
             default:
-                Thread.CurrentThread.CurrentUICulture = cultureInfo;
+                Thread.CurrentThread.CurrentUICulture = _cultureInfo;
                 break;
         }
     }
 
     public string GetString(string name)
     {
-        try { return resourceManager.GetString(name, Thread.CurrentThread.CurrentUICulture) ?? ""; }
-        catch { return resourceManager.GetString(name, cultureInfo) ?? ""; }
+        try { return _resourceManager.GetString(name, Thread.CurrentThread.CurrentUICulture) ?? ""; }
+        catch { return _resourceManager.GetString(name, _cultureInfo) ?? ""; }
     }
 }
