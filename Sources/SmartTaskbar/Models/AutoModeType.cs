@@ -1,8 +1,7 @@
-﻿namespace SmartTaskbar
+﻿namespace SmartTaskbar;
+
+public enum AutoModeType
 {
-    public enum AutoModeType
-    {
-        Display,
-        None
-    }
+    Display,
+    None
 }
