@@ -2,19 +2,21 @@
 
 internal class Taskbar
 {
-    public Taskbar(IntPtr handle, IntPtr monitor, Rectangle rectangle, bool intersect)
+    public Taskbar(IntPtr taskbarHandle, IntPtr monitorHandle, Rectangle taskbarRectangle, Rectangle monitorRectangle)
     {
-        Handle = handle;
-        Monitor = monitor;
-        Rectangle = rectangle;
-        Intersect = intersect;
+        TaskbarHandle = taskbarHandle;
+        MonitorHandle = monitorHandle;
+        TaskbarRectangle = taskbarRectangle;
+        MonitorRectangle = monitorRectangle;
     }
 
-    public IntPtr Handle { get; init; }
+    public IntPtr TaskbarHandle { get; }
 
-    public IntPtr Monitor { get; init; }
+    public IntPtr MonitorHandle { get; }
 
-    public Rectangle Rectangle { get; set; }
+    public Rectangle TaskbarRectangle { get; }
+
+    public Rectangle MonitorRectangle { get; }
 
     public bool Intersect { get; set; }
 }

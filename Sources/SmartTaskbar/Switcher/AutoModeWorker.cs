@@ -45,10 +45,10 @@ internal class AutoModeWorker
         {
             _ = GetWindowRect(foregroundHandle, out var rect);
             foreach (var taskbar in Taskbars.Where(
-                         taskbar => (rect.left < taskbar.Rectangle.Right
-                                     && rect.right > taskbar.Rectangle.Left
-                                     && rect.top < taskbar.Rectangle.Bottom
-                                     && rect.bottom > taskbar.Rectangle.Top)
+                         taskbar => (rect.left < taskbar.TaskbarRectangle.Right
+                                     && rect.right > taskbar.TaskbarRectangle.Left
+                                     && rect.top < taskbar.TaskbarRectangle.Bottom
+                                     && rect.bottom > taskbar.TaskbarRectangle.Top)
                                     != taskbar.Intersect))
             {
                 taskbar.Intersect = !taskbar.Intersect;
@@ -59,7 +59,7 @@ internal class AutoModeWorker
         {
             var monitor = foregroundHandle.GetMonitor();
             foreach (var taskbar in Taskbars.Where(taskbar =>
-                                                       taskbar.Monitor == monitor != taskbar.Intersect))
+                                                       taskbar.MonitorHandle == monitor != taskbar.Intersect))
             {
                 taskbar.Intersect = !taskbar.Intersect;
                 _sendMessage = true;
@@ -71,7 +71,7 @@ internal class AutoModeWorker
 
         foreach (var taskbar in Taskbars.Where(taskbar => !taskbar.Intersect))
         {
-            taskbar.Monitor.ShowTaskar();
+            taskbar.MonitorHandle.ShowTaskar();
             return;
         }
 

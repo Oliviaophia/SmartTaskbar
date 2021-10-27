@@ -15,7 +15,7 @@ internal static class MouseHover
         if (_lastHandle == _currentHandle) return _lastResult;
 
         var monitor = _currentHandle.GetMonitor();
-        var taskbar = taskbars.FirstOrDefault(_ => _.Monitor == monitor)?.Handle;
+        var taskbar = taskbars.FirstOrDefault(_ => _.MonitorHandle == monitor)?.TaskbarHandle;
         if (taskbar == IntPtr.Zero) return _lastResult = false;
 
         _lastHandle = _currentHandle;
