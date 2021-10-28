@@ -6,17 +6,17 @@ internal static class PostMessageHelper
 {
     private const uint BarFlag = 0x05D1;
 
-    internal static void HideTaskbar()
-        => PostMessage(FindWindow(Constants.MainTaskbar, null),
+    internal static void HideTaskbar(this TaskbarInfo taskbar)
+        => PostMessage(taskbar.TaskbarHandle,
                        BarFlag,
                        IntPtr.Zero,
                        IntPtr.Zero);
 
 
-    internal static void ShowTaskar(this IntPtr handle)
+    internal static void ShowTaskar(this TaskbarInfo taskbar)
         => PostMessage(
-            FindWindow(Constants.MainTaskbar, null),
+            taskbar.TaskbarHandle,
             BarFlag,
             (IntPtr) 1,
-            handle);
+            taskbar.MonitorHandle);
 }

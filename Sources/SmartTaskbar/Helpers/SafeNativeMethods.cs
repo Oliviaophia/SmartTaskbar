@@ -4,7 +4,7 @@ using System.Text;
 
 namespace SmartTaskbar;
 
-[SuppressUnmanagedCodeSecurity]
+//[SuppressUnmanagedCodeSecurity]
 public static class SafeNativeMethods
 {
     #region PostMessage
@@ -176,9 +176,6 @@ public static class SafeNativeMethods
 
         public int bottom;
 
-        public static implicit operator Rectangle(TagRect rect)
-            => Rectangle.FromLTRB(rect.left, rect.top, rect.right, rect.bottom);
-
         public static implicit operator TagRect(Rectangle rectangle)
             => new()
             {
@@ -187,6 +184,16 @@ public static class SafeNativeMethods
                 right = rectangle.Right,
                 bottom = rectangle.Bottom
             };
+
+        public bool Contains(TagPoint point)
+            => point.x >= left && point.x <= right &&
+               point.y >= top && point.y <= bottom;
+
+        public bool IntersectsWith(TagRect rect)
+            => rect.left < right
+               && rect.right > left
+               && rect.top < bottom
+               && rect.bottom > top;
     }
 
     #endregion

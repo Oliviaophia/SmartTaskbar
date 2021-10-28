@@ -8,21 +8,19 @@ internal static class MouseHover
     private static IntPtr _currentHandle;
     private static bool _lastResult;
 
-    internal static bool IsMouseOverTaskbar(this IList<Taskbar> taskbars)
+    internal static bool IsMouseOverTaskbar(this TaskbarInfo taskbar)
     {
         _ = GetCursorPos(out var point);
         _currentHandle = WindowFromPoint(point);
         if (_lastHandle == _currentHandle) return _lastResult;
 
-        var monitor = _currentHandle.GetMonitor();
-        var taskbar = taskbars.FirstOrDefault(_ => _.MonitorHandle == monitor)?.TaskbarHandle;
-        if (taskbar == IntPtr.Zero) return _lastResult = false;
+        if (!taskbar.MonitorRectangle.Contains(point)) return _lastResult = false;
 
         _lastHandle = _currentHandle;
         var desktopHandle = GetDesktopWindow();
         while (_currentHandle != desktopHandle)
         {
-            if (taskbar == _currentHandle) return _lastResult = true;
+            if (taskbar.TaskbarHandle == _currentHandle) return _lastResult = true;
 
             _currentHandle = _currentHandle.GetParentWindow();
         }

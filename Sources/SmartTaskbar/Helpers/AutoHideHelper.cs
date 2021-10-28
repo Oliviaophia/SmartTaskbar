@@ -16,7 +16,7 @@ internal static class AutoHideHelper
     {
         _msgData.lParam = AbsAutohide;
         _ = SHAppBarMessage(AbmSetstate, ref _msgData);
-        PostMessageHelper.HideTaskbar();
+        TaskbarHelper.Taskbar.HideTaskbar();
     }
 
 

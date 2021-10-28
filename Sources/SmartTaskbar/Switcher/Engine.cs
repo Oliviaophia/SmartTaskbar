@@ -16,7 +16,7 @@ internal class Engine : IDisposable
         Timer.Elapsed += Timer_Elapsed;
         Timer.Start();
     }
-
+    
     public void Dispose()
     {
         _runningFlag = false;

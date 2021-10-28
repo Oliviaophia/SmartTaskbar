@@ -95,7 +95,7 @@ internal class SystemTray : ApplicationContext
 
         _exit.Click += (s, e) =>
         {
-            PostMessageHelper.HideTaskbar();
+            TaskbarHelper.Taskbar.HideTaskbar();
             AutoHideHelper.CancelAutoHide();
             _notifyIcon.Dispose();
             _engine.Dispose();

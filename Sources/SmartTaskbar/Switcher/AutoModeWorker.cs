@@ -4,14 +4,13 @@ namespace SmartTaskbar;
 
 internal class AutoModeWorker
 {
-    private static readonly List<Taskbar> Taskbars = new();
     private static bool _sendMessage;
 
     public AutoModeWorker() { Reset(); }
 
     public void Run()
     {
-        if (Taskbars.IsMouseOverTaskbar())
+        if (TaskbarHelper.Taskbar.IsMouseOverTaskbar())
         {
             _sendMessage = true;
             return;
@@ -40,48 +39,32 @@ internal class AutoModeWorker
                 return;
         }
 
-        if (foregroundHandle.IsNotMaximizeWindow()
-            || foregroundHandle.IsNotFullScreenWindow())
+
+        _ = GetWindowRect(foregroundHandle, out var rect);
+        if (TaskbarHelper.Taskbar.TaskbarRectangle.IntersectsWith(rect) != TaskbarHelper.Taskbar.Intersect)
         {
-            _ = GetWindowRect(foregroundHandle, out var rect);
-            foreach (var taskbar in Taskbars.Where(
-                         taskbar => (rect.left < taskbar.TaskbarRectangle.Right
-                                     && rect.right > taskbar.TaskbarRectangle.Left
-                                     && rect.top < taskbar.TaskbarRectangle.Bottom
-                                     && rect.bottom > taskbar.TaskbarRectangle.Top)
-                                    != taskbar.Intersect))
-            {
-                taskbar.Intersect = !taskbar.Intersect;
-                _sendMessage = true;
-            }
+            TaskbarHelper.Taskbar.Intersect = !TaskbarHelper.Taskbar.Intersect;
+            _sendMessage = true;
         }
-        else
-        {
-            var monitor = foregroundHandle.GetMonitor();
-            foreach (var taskbar in Taskbars.Where(taskbar =>
-                                                       taskbar.MonitorHandle == monitor != taskbar.Intersect))
-            {
-                taskbar.Intersect = !taskbar.Intersect;
-                _sendMessage = true;
-            }
-        }
+
 
         if (!_sendMessage) return;
         _sendMessage = false;
 
-        foreach (var taskbar in Taskbars.Where(taskbar => !taskbar.Intersect))
+        if (TaskbarHelper.Taskbar.Intersect)
         {
-            taskbar.MonitorHandle.ShowTaskar();
-            return;
+            TaskbarHelper.Taskbar.HideTaskbar();
         }
-
-        PostMessageHelper.HideTaskbar();
+        else
+        {
+            TaskbarHelper.Taskbar.ShowTaskar();
+        }
     }
 
 
     public void Reset()
     {
-        _ = Taskbars.ResetTaskbars();
+        
         Ready();
     }
 
