@@ -8,6 +8,9 @@ internal static class MouseHover
     private static IntPtr _currentHandle;
     private static bool _lastResult;
 
+    private const uint GaParent = 1;
+
+
     internal static bool IsMouseOverTaskbar(this TaskbarInfo taskbar)
     {
         _ = GetCursorPos(out var point);
@@ -22,7 +25,7 @@ internal static class MouseHover
         {
             if (taskbar.TaskbarHandle == _currentHandle) return _lastResult = true;
 
-            _currentHandle = _currentHandle.GetParentWindow();
+            _currentHandle = GetAncestor(_currentHandle, GaParent);
         }
 
         return _lastResult = false;

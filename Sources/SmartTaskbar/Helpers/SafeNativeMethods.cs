@@ -15,24 +15,6 @@ public static class SafeNativeMethods
 
     #endregion
 
-    #region PostThreadMessage
-
-    [DllImport("user32.dll", EntryPoint = "PostThreadMessageW")]
-    [return: MarshalAs(UnmanagedType.Bool)]
-    public static extern bool PostThreadMessage(int    idThread,
-                                                uint   msg,
-                                                IntPtr wParam,
-                                                IntPtr lParam);
-
-    #endregion
-
-    #region MonitorFromWindow
-
-    [DllImport("user32.dll", EntryPoint = "MonitorFromWindow")]
-    public static extern IntPtr MonitorFromWindow([In] IntPtr hwnd, uint dwFlags);
-
-    #endregion
-
     #region GetParentWindow
 
     [DllImport("user32.dll", EntryPoint = "GetAncestor")]
@@ -90,24 +72,10 @@ public static class SafeNativeMethods
 
     #endregion
 
-    #region GetWindowThreadProcessId
-
-    [DllImport("user32.dll", EntryPoint = "GetWindowThreadProcessId")]
-    public static extern uint GetWindowThreadProcessId([In] IntPtr hWnd, out int lpdwProcessId);
-
-    #endregion
-
     #region MonitorFromPoint
 
     [DllImport("user32.dll", EntryPoint = "MonitorFromPoint")]
     public static extern IntPtr MonitorFromPoint(TagPoint pt, uint dwFlags);
-
-    #endregion
-
-    #region ShowWindows
-
-    [DllImport("user32.dll")]
-    public static extern int ShowWindow(IntPtr hwnd, int command);
 
     #endregion
 
@@ -150,12 +118,6 @@ public static class SafeNativeMethods
 
     [DllImport("user32.dll", CharSet = CharSet.Unicode)]
     public static extern IntPtr FindWindow([In] string? strClassName, [In] string? strWindowName);
-
-    [DllImport("user32.dll", CharSet = CharSet.Unicode)]
-    public static extern IntPtr FindWindowEx([In] IntPtr  parentHandle,
-                                             [In] IntPtr  childAfter,
-                                             [In] string? lclassName,
-                                             [In] string? windowTitle);
 
     #endregion
 
@@ -210,42 +172,6 @@ public static class SafeNativeMethods
 
         public int y;
     }
-
-    #endregion
-
-    #region GetWindowPlacement
-
-    [StructLayout(LayoutKind.Sequential)]
-    public struct TagWindowPlacement
-    {
-        public uint length;
-
-        public uint flags;
-
-        public uint showCmd;
-
-        public TagPoint ptMinPosition;
-
-        public TagPoint ptMaxPosition;
-
-        public TagRect rcNormalPosition;
-    }
-
-    [DllImport("user32.dll", EntryPoint = "GetWindowPlacement")]
-    [return: MarshalAs(UnmanagedType.Bool)]
-    public static extern bool GetWindowPlacement([In] IntPtr hWnd, ref TagWindowPlacement lpwndpl);
-
-    #endregion
-
-    #region EnumWindows
-
-    [UnmanagedFunctionPointer(CallingConvention.StdCall)]
-    [return: MarshalAs(UnmanagedType.Bool)]
-    public delegate bool WndEnumProc(IntPtr param0, AutoModeType param1);
-
-    [DllImport("user32.dll", EntryPoint = "EnumWindows")]
-    [return: MarshalAs(UnmanagedType.Bool)]
-    public static extern bool EnumWindows(WndEnumProc lpEnumFunc, in IntPtr lParam);
 
     #endregion
 }

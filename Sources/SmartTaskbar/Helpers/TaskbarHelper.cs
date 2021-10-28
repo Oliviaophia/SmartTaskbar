@@ -21,4 +21,30 @@ internal static class TaskbarHelper
 
         return new TaskbarInfo(taskbarHandle, MonitorHelper.GetPrimaryMonitor(), new TagRect { left = rect.left, top = rect.top - heightΔ, right= rect.right, bottom= rect.bottom - heightΔ }, Screen.PrimaryScreen.Bounds);
     }
+
+    private const uint BarFlag = 0x05D1;
+
+    internal static void HideTaskbar(this TaskbarInfo taskbar)
+    {
+        _ = GetWindowRect(taskbar.TaskbarHandle, out var rect);
+
+        if (rect.bottom == taskbar.MonitorRectangle.bottom)
+            PostMessage(taskbar.TaskbarHandle,
+                              BarFlag,
+                              IntPtr.Zero,
+                              IntPtr.Zero);
+    }
+
+    internal static void ShowTaskar(this TaskbarInfo taskbar)
+    {
+        _ = GetWindowRect(taskbar.TaskbarHandle, out var rect);
+
+        if (rect.bottom != taskbar.MonitorRectangle.bottom)
+            PostMessage(
+                   taskbar.TaskbarHandle,
+                   BarFlag,
+                   (IntPtr)1,
+                   taskbar.MonitorHandle);
+    }
+
 }
