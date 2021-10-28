@@ -2,14 +2,14 @@
 
 namespace SmartTaskbar;
 
-internal class AutoModeWorker
+internal static class Worker
 {
     private static bool _sendMessage;
     private static bool _intersect;
 
-    public AutoModeWorker() { Reset(); }
+    static Worker() { Reset(); }
 
-    public void Run()
+    public static void Run()
     {
         if (TaskbarHelper.Taskbar.IsMouseOverTaskbar())
         {
@@ -63,17 +63,17 @@ internal class AutoModeWorker
     }
 
 
-    public void Reset()
+    public static void Reset()
     {
         TaskbarHelper.UpdateTaskbarInfo();
         Ready();
     }
 
-    public void Ready()
+    public static void Ready()
     {
         _intersect = false;
         _sendMessage = true;
         if (AutoHideHelper.NotAutoHide())
-        AutoHideHelper.SetAutoHide();
+            AutoHideHelper.SetAutoHide();
     }
 }

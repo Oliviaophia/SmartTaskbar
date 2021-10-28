@@ -4,7 +4,7 @@ using System.Text;
 
 namespace SmartTaskbar;
 
-//[SuppressUnmanagedCodeSecurity]
+[SuppressUnmanagedCodeSecurity]
 public static class SafeNativeMethods
 {
     #region PostMessage

@@ -11,7 +11,6 @@ internal static class AutoHideHelper
     private const uint AbmGetstate = 4;
     private static AppbarData _msgData = new() {cbSize = (uint) Marshal.SizeOf(typeof(AppbarData))};
 
-
     internal static void SetAutoHide()
     {
         _msgData.lParam = AbsAutohide;

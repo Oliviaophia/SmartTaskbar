@@ -8,13 +8,11 @@ internal class Engine : IDisposable
 {
     private static readonly Timer Timer = new(125);
     private static int _counter;
-    private static readonly AutoModeWorker Worker = new();
     private static bool _runningFlag = true;
 
     public Engine()
     {
         Timer.Elapsed += Timer_Elapsed;
-        Timer.Start();
     }
     
     public void Dispose()
