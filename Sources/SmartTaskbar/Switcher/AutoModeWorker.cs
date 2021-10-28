@@ -5,6 +5,7 @@ namespace SmartTaskbar;
 internal class AutoModeWorker
 {
     private static bool _sendMessage;
+    private static bool _intersect;
 
     public AutoModeWorker() { Reset(); }
 
@@ -41,9 +42,9 @@ internal class AutoModeWorker
 
 
         _ = GetWindowRect(foregroundHandle, out var rect);
-        if (TaskbarHelper.Taskbar.TaskbarRectangle.IntersectsWith(rect) != TaskbarHelper.Taskbar.Intersect)
+        if (TaskbarHelper.Taskbar.TaskbarRectangle.IntersectsWith(rect) != _intersect)
         {
-            TaskbarHelper.Taskbar.Intersect = !TaskbarHelper.Taskbar.Intersect;
+            _intersect = !_intersect;
             _sendMessage = true;
         }
 
@@ -51,7 +52,7 @@ internal class AutoModeWorker
         if (!_sendMessage) return;
         _sendMessage = false;
 
-        if (TaskbarHelper.Taskbar.Intersect)
+        if (_intersect)
         {
             TaskbarHelper.Taskbar.HideTaskbar();
         }
@@ -64,13 +65,15 @@ internal class AutoModeWorker
 
     public void Reset()
     {
-        
+        TaskbarHelper.UpdateTaskbarInfo();
         Ready();
     }
 
     public void Ready()
     {
+        _intersect = false;
         _sendMessage = true;
+        if (AutoHideHelper.NotAutoHide())
         AutoHideHelper.SetAutoHide();
     }
 }

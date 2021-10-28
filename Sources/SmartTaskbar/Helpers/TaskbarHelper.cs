@@ -19,6 +19,6 @@ internal static class TaskbarHelper
 
         var heightΔ = rect.bottom - Screen.PrimaryScreen.Bounds.Bottom;
 
-        return new TaskbarInfo(taskbarHandle, MonitorHelper.GetPrimaryMonitor(), Rectangle.FromLTRB(rect.left, rect.top - heightΔ, rect.right, rect.bottom - heightΔ), Screen.PrimaryScreen.Bounds);
+        return new TaskbarInfo(taskbarHandle, MonitorHelper.GetPrimaryMonitor(), new TagRect { left = rect.left, top = rect.top - heightΔ, right= rect.right, bottom= rect.bottom - heightΔ }, Screen.PrimaryScreen.Bounds);
     }
 }
