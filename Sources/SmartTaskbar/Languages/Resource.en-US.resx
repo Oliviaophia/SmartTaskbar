@@ -121,7 +121,7 @@
     <value>About</value>
   </data>
   <data name="tray_animation" xml:space="preserve">
-    <value>Animation</value>
+    <value>Animations in the taskbar</value>
   </data>
   <data name="tray_auto" xml:space="preserve">
     <value>Auto</value>
@@ -130,6 +130,6 @@
     <value>Exit</value>
   </data>
   <data name="tray_showBarOnExit" xml:space="preserve">
-    <value>Show Taskbar After Exit</value>
+    <value>Show the taskbar after exit</value>
   </data>
 </root>
