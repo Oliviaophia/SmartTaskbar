@@ -6,9 +6,9 @@ namespace SmartTaskbar;
 internal class SystemTray : ApplicationContext
 {
     private readonly ToolStripMenuItem _about;
-    private readonly ToolStripMenuItem _animation; 
+    private readonly ToolStripMenuItem _animationInBar; 
     private readonly ToolStripMenuItem _showBarOnExit;
-    private readonly ToolStripMenuItem _auto;
+    private readonly ToolStripMenuItem _autoMode;
     private readonly ContextMenuStrip _contextMenuStrip;
 
     private readonly Engine _engine = new();
@@ -26,7 +26,7 @@ internal class SystemTray : ApplicationContext
             Text = resource.GetString("tray_about"),
             Font = font
         };
-        _animation = new ToolStripMenuItem
+        _animationInBar = new ToolStripMenuItem
         {
             Text = resource.GetString("tray_animation"),
             Font = font
@@ -36,7 +36,7 @@ internal class SystemTray : ApplicationContext
             Text = resource.GetString("tray_showBarOnExit"),
             Font = font
         };
-        _auto = new ToolStripMenuItem
+        _autoMode = new ToolStripMenuItem
         {
             Text = resource.GetString("tray_auto"),
             Font = font
@@ -51,11 +51,11 @@ internal class SystemTray : ApplicationContext
         _contextMenuStrip.Items.AddRange(new ToolStripItem[]
         {
             _about,
-            _animation,
+            _animationInBar,
             new ToolStripSeparator(),
-            _auto,
-            new ToolStripSeparator(),
+            _autoMode,
             _showBarOnExit,
+            new ToolStripSeparator(),
             _exit
         });
 
@@ -80,22 +80,22 @@ internal class SystemTray : ApplicationContext
             switch ((AutoModeType) UserSettings.Default.TaskbarState)
             {
                 case AutoModeType.Display:
-                    _auto.Checked = true;
+                    _autoMode.Checked = true;
                     AutoHideHelper.SetAutoHide();
                     _engine.Start();
                     break;
                 case AutoModeType.None:
-                    _auto.Checked = false;
+                    _autoMode.Checked = false;
                     _engine.Stop();
                     break;
             }
         };
 
-        _animation.Click += (s, e) => _animation.Checked = Animation.ChangeTaskbarAnimation();
+        _animationInBar.Click += (s, e) => _animationInBar.Checked = Animation.ChangeTaskbarAnimation();
 
-        _auto.Click += (s, e) =>
+        _autoMode.Click += (s, e) =>
         {
-            if (_auto.Checked)
+            if (_autoMode.Checked)
                 UserSettings.Default.TaskbarState = (int) AutoModeType.None;
             else
                 UserSettings.Default.TaskbarState = (int) AutoModeType.Display;
@@ -118,7 +118,7 @@ internal class SystemTray : ApplicationContext
             if (e.Button != MouseButtons.Right)
                 return;
 
-            _animation.Checked = Animation.GetTaskbarAnimation();
+            _animationInBar.Checked = Animation.GetTaskbarAnimation();
             _showBarOnExit.Checked = UserSettings.Default.ShowBarOnExit;
         };
 
@@ -146,11 +146,11 @@ internal class SystemTray : ApplicationContext
             switch ((AutoModeType) UserSettings.Default.TaskbarState)
             {
                 case AutoModeType.Display:
-                    _auto.Checked = true;
+                    _autoMode.Checked = true;
                     _engine.Start();
                     break;
                 case AutoModeType.None:
-                    _auto.Checked = false;
+                    _autoMode.Checked = false;
                     break;
             }
 

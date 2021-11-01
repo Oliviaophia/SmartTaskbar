@@ -1,10 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-
   <PropertyGroup Condition="'$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '15.0'">
     <VisualStudioVersion>15.0</VisualStudioVersion>
   </PropertyGroup>
-
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|x86">
       <Configuration>Debug</Configuration>
@@ -47,30 +45,69 @@
       <Platform>AnyCPU</Platform>
     </ProjectConfiguration>
   </ItemGroup>
-
   <PropertyGroup>
     <WapProjPath Condition="'$(WapProjPath)'==''">$(MSBuildExtensionsPath)\Microsoft\DesktopBridge\</WapProjPath>
   </PropertyGroup>
-
   <Import Project="$(WapProjPath)\Microsoft.DesktopBridge.props" />
-
   <PropertyGroup>
     <ProjectGuid>4bb030e8-5894-4ca4-b80b-ead44b9b4de4</ProjectGuid>
     <TargetPlatformVersion>10.0.22000.0</TargetPlatformVersion>
     <TargetPlatformMinVersion>10.0.22000.0</TargetPlatformMinVersion>
     <DefaultLanguage>zh-CN</DefaultLanguage>
-    
     <AppxPackageSigningEnabled>false</AppxPackageSigningEnabled>
-    <NoWarn>$(NoWarn);NU1702</NoWarn>    
+    <NoWarn>$(NoWarn);NU1702</NoWarn>
+    <EntryPointProjectUniqueName>..\SmartTaskbar\SmartTaskbar.csproj</EntryPointProjectUniqueName>
+    <GenerateAppInstallerFile>False</GenerateAppInstallerFile>
+    <AppxAutoIncrementPackageRevision>True</AppxAutoIncrementPackageRevision>
+    <GenerateTestArtifacts>True</GenerateTestArtifacts>
+    <AppxBundlePlatforms>neutral</AppxBundlePlatforms>
+    <HoursBetweenUpdateChecks>0</HoursBetweenUpdateChecks>
   </PropertyGroup>
-
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DefaultLanguage>en-US</DefaultLanguage>
+    <AppxBundle>Always</AppxBundle>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <DefaultLanguage>en-US</DefaultLanguage>
+    <AppxBundle>Always</AppxBundle>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">
+    <DefaultLanguage>en-US</DefaultLanguage>
+    <AppxBundle>Always</AppxBundle>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x86'">
+    <DefaultLanguage>en-US</DefaultLanguage>
+    <AppxBundle>Always</AppxBundle>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x86'">
+    <DefaultLanguage>en-US</DefaultLanguage>
+    <AppxBundle>Always</AppxBundle>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64'">
+    <DefaultLanguage>en-US</DefaultLanguage>
+    <AppxBundle>Always</AppxBundle>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|ARM64'">
+    <DefaultLanguage>en-US</DefaultLanguage>
+    <AppxBundle>Always</AppxBundle>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <DefaultLanguage>en-US</DefaultLanguage>
+    <AppxBundle>Always</AppxBundle>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">
+    <DefaultLanguage>en-US</DefaultLanguage>
+    <AppxBundle>Always</AppxBundle>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <DefaultLanguage>en-US</DefaultLanguage>
+    <AppxBundle>Always</AppxBundle>
+  </PropertyGroup>
   <ItemGroup>
     <AppxManifest Include="Package.appxmanifest">
       <SubType>Designer</SubType>
     </AppxManifest>
-    
   </ItemGroup>
-
   <ItemGroup>
     <Content Include="Images\SplashScreen.scale-200.png" />
     <Content Include="Images\LockScreenLogo.scale-200.png" />
@@ -80,11 +117,11 @@
     <Content Include="Images\StoreLogo.png" />
     <Content Include="Images\Wide310x150Logo.scale-200.png" />
   </ItemGroup>
-
   <Import Project="$(WapProjPath)\Microsoft.DesktopBridge.targets" />
-
   <ItemGroup>
     <PackageReference Include="Microsoft.Windows.SDK.BuildTools" Version="10.0.22000.194" PrivateAssets="all" />
   </ItemGroup>
-
+  <ItemGroup>
+    <ProjectReference Include="..\SmartTaskbar\SmartTaskbar.csproj" />
+  </ItemGroup>
 </Project>
