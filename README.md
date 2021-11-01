@@ -1,6 +1,6 @@
-* If you are using Windows 11, please download the latest version from the [Microsoft Store](https://www.microsoft.com/en-us/p/smarttaskbar/9pjm69mps6t9?activetab=pivot%3aoverviewtab).
-
-  如果你使用的是 Windows 11 请到微软[应用商店](https://www.microsoft.com/zh-cn/p/smarttaskbar/9pjm69mps6t9?activetab=pivot%3aoverviewtab#)下载最新版本。
+>If you are using Windows 11, please download the latest version from the [Microsoft Store](https://www.microsoft.com/en-us/p/smarttaskbar/9pjm69mps6t9?activetab=pivot%3aoverviewtab).
+>
+>如果你使用的是 Windows 11 请到微软[应用商店](https://www.microsoft.com/zh-cn/p/smarttaskbar/9pjm69mps6t9?activetab=pivot%3aoverviewtab#)下载最新版本。
 
 SmartTaskbar  <img src="https://github.com/ChanpleCai/SmartTaskbar/blob/main/logo/logo.png" width="24">
 =====
