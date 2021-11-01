@@ -1,4 +1,5 @@
-﻿using Windows.System;
+﻿using System.Diagnostics;
+using Windows.System;
 
 namespace SmartTaskbar;
 
@@ -95,7 +96,7 @@ internal class SystemTray : ApplicationContext
 
         _exit.Click += (s, e) =>
         {
-            TaskbarHelper.Taskbar.HideTaskbar();
+            TaskbarHelper.HideTaskbar();
             AutoHideHelper.CancelAutoHide();
             _notifyIcon.Dispose();
             _engine.Dispose();
@@ -121,6 +122,8 @@ internal class SystemTray : ApplicationContext
             _notifyIcon.Icon = UiInfo.IsLightTheme() ? IconResource.Logo_Black : IconResource.Logo_White;
         };
 
+        Application.ApplicationExit += Application_ApplicationExit;
+
         #endregion
 
         #region Load Settings
@@ -141,5 +144,11 @@ internal class SystemTray : ApplicationContext
             }
 
         #endregion
+    }
+
+    private void Application_ApplicationExit(object? sender, EventArgs e)
+    {
+        // Weird bug.
+        Process.GetCurrentProcess().Kill();
     }
 }

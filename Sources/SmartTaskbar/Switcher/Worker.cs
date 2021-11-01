@@ -11,7 +11,7 @@ internal static class Worker
 
     public static void Run()
     {
-        if (TaskbarHelper.Taskbar.IsMouseOverTaskbar())
+        if (TaskbarHelper.IsMouseOverTaskbar())
         {
             _sendMessage = true;
             return;
@@ -29,8 +29,7 @@ internal static class Worker
             case "WorkerW":
             case "Progman":
             case "DV2ControlHost":
-            case Constants.MainTaskbar:
-            case Constants.SubTaskbar:
+            case TaskbarHelper.MainTaskbar:
             case "MultitaskingViewFrame":
             case "WindowsDashboard":
             case "VirtualDesktopGestureSwitcher":
@@ -54,11 +53,11 @@ internal static class Worker
 
         if (_intersect)
         {
-            TaskbarHelper.Taskbar.HideTaskbar();
+            TaskbarHelper.HideTaskbar();
         }
         else
         {
-            TaskbarHelper.Taskbar.ShowTaskar();
+            TaskbarHelper.ShowTaskar();
         }
     }
 

@@ -1,11 +1,23 @@
+using Microsoft.Extensions.DependencyInjection;
+
 namespace SmartTaskbar;
 
 internal static class Program
 {
+    private static readonly ServiceProvider ServiceProvider;
+    
+    static Program()
+    {
+        var serviceCollection = new ServiceCollection();
+        ConfigureServices(serviceCollection);
+
+        ServiceProvider = serviceCollection.BuildServiceProvider();
+    }
+
+
     /// <summary>
     ///     The main entry point for the application.
     /// </summary>
-    [STAThread]
     private static void Main()
     {
         // Use a mutex to ensure single instance
@@ -14,10 +26,14 @@ internal static class Program
             if (createNew)
             {
                 ApplicationConfiguration.Initialize();
-
                 // Start a tray instead of a WinForm to reduce memory usage
-                Application.Run(new SystemTray());
+                Application.Run(ServiceProvider.GetService<SystemTray>());
             }
         }
+    }
+
+    private static void ConfigureServices(IServiceCollection serviceCollection)
+    {
+        serviceCollection.AddSingleton<SystemTray>();
     }
 }
