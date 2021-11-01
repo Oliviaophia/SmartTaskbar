@@ -1,5 +1,6 @@
 ﻿namespace SmartTaskbar;
-using static SmartTaskbar.SafeNativeMethods;
+
+using static SafeNativeMethods;
 
 internal struct TaskbarInfo
 {

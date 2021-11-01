@@ -1,6 +1,4 @@
-﻿using System.Threading;
-
-using Timer = System.Threading.Timer;
+﻿using Timer = System.Threading.Timer;
 
 namespace SmartTaskbar;
 
@@ -40,13 +38,13 @@ internal class Engine : IDisposable
             Timer.Change(125, Timeout.Infinite);
     }
 
-    public void Stop()
+    public static void Stop()
     {
         Timer.Change(Timeout.Infinite, Timeout.Infinite);
         _runningFlag = false;
     }
 
-    public void Start()
+    public static void Start()
     {
         Timer.Change(125, Timeout.Infinite);
         _runningFlag = true;

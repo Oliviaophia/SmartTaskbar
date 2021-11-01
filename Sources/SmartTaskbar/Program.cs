@@ -5,7 +5,7 @@ namespace SmartTaskbar;
 internal static class Program
 {
     private static readonly ServiceProvider ServiceProvider;
-    
+
     static Program()
     {
         var serviceCollection = new ServiceCollection();
@@ -23,12 +23,11 @@ internal static class Program
         // Use a mutex to ensure single instance
         using (new Mutex(true, "{959d3545-aa5c-42a8-a327-6e2c079daa94}", out var createNew))
         {
-            if (createNew)
-            {
-                ApplicationConfiguration.Initialize();
-                // Start a tray instead of a WinForm to reduce memory usage
-                Application.Run(ServiceProvider.GetService<SystemTray>());
-            }
+            if (!createNew) return;
+
+            ApplicationConfiguration.Initialize();
+            // Start a tray instead of a WinForm to reduce memory usage
+            Application.Run(ServiceProvider.GetService<SystemTray>()!);
         }
     }
 

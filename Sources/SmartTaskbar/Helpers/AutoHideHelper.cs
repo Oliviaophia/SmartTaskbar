@@ -8,7 +8,7 @@ internal class AutoHideHelper
     private const int AbsAlwaysontop = 2;
     private const uint AbmSetstate = 10;
     private const uint AbmGetstate = 4;
-    private static AppbarData _msgData = new();
+    private static AppbarData _msgData;
 
     internal static void SetAutoHide()
     {

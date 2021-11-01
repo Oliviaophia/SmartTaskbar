@@ -52,13 +52,9 @@ internal static class Worker
         _sendMessage = false;
 
         if (_intersect)
-        {
             TaskbarHelper.HideTaskbar();
-        }
         else
-        {
             TaskbarHelper.ShowTaskar();
-        }
     }
 
 

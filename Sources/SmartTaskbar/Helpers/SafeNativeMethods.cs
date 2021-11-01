@@ -79,6 +79,13 @@ public static class SafeNativeMethods
 
     #endregion
 
+    #region FindWindow
+
+    [DllImport("user32.dll", CharSet = CharSet.Unicode)]
+    public static extern IntPtr FindWindow([In] string? strClassName, [In] string? strWindowName);
+
+    #endregion
+
     #region Taskbar Display State
 
     [StructLayout(LayoutKind.Sequential)]
@@ -114,13 +121,6 @@ public static class SafeNativeMethods
 
     #endregion
 
-    #region FindWindow
-
-    [DllImport("user32.dll", CharSet = CharSet.Unicode)]
-    public static extern IntPtr FindWindow([In] string? strClassName, [In] string? strWindowName);
-
-    #endregion
-
     #region GetWindowRect
 
     [DllImport("user32.dll", EntryPoint = "GetWindowRect")]
@@ -148,8 +148,7 @@ public static class SafeNativeMethods
             };
 
         public bool Contains(TagPoint point)
-            => point.x >= left && point.x <= right &&
-               point.y >= top && point.y <= bottom;
+            => point.x >= left && point.x <= right && point.y >= top && point.y <= bottom;
 
         public bool IntersectsWith(TagRect rect)
             => rect.left < right

@@ -17,8 +17,6 @@ internal class ResourceCulture
         {
             case "zh-CN":
             case "en-US":
-            case "ru-RU":
-            case "uk-UA":
                 break;
             default:
                 Thread.CurrentThread.CurrentUICulture = _cultureInfo;
