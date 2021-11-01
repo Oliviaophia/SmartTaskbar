@@ -133,6 +133,7 @@ internal class SystemTray : ApplicationContext
             {
                 case AutoModeType.Display:
                     _auto.Checked = true;
+                    _engine.Start();
                     break;
                 case AutoModeType.None:
                     _auto.Checked = false;
