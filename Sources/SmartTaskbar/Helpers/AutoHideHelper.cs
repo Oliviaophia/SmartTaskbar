@@ -1,5 +1,4 @@
-﻿using System.Runtime.InteropServices;
-using static SmartTaskbar.SafeNativeMethods;
+﻿using static SmartTaskbar.SafeNativeMethods;
 
 namespace SmartTaskbar;
 
@@ -9,7 +8,7 @@ internal static class AutoHideHelper
     private const int AbsAlwaysontop = 2;
     private const uint AbmSetstate = 10;
     private const uint AbmGetstate = 4;
-    private static AppbarData _msgData = new() {cbSize = (uint) Marshal.SizeOf(typeof(AppbarData))};
+    private static AppbarData _msgData = new();
 
     internal static void SetAutoHide()
     {
