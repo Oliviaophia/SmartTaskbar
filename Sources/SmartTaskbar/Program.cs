@@ -18,6 +18,7 @@ internal static class Program
     /// <summary>
     ///     The main entry point for the application.
     /// </summary>
+    [STAThread]
     private static void Main()
     {
         // Use a mutex to ensure single instance
@@ -33,6 +34,7 @@ internal static class Program
 
     private static void ConfigureServices(IServiceCollection serviceCollection)
     {
+        serviceCollection.AddSingleton<UserSettings>();
         serviceCollection.AddSingleton<SystemTray>();
     }
 }

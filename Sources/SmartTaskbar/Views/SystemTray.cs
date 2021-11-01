@@ -1,6 +1,4 @@
-﻿using System.ComponentModel;
-using System.Diagnostics;
-using Windows.System;
+﻿using System.Diagnostics;
 using Windows.UI.ViewManagement;
 
 namespace SmartTaskbar;
@@ -13,18 +11,16 @@ internal class SystemTray : ApplicationContext
     private readonly Engine _engine = new();
     private readonly NotifyIcon _notifyIcon;
     private readonly ToolStripMenuItem _showBarOnExit;
+    private readonly UserSettings _userSettings;
 
-    public SystemTray()
+    public SystemTray(UserSettings userSettings)
     {
+        _userSettings = userSettings;
+
         #region Initialization
 
         var resource = new ResourceCulture();
         var font = new Font("Segoe UI", 9F);
-        var about = new ToolStripMenuItem
-        {
-            Text = resource.GetString("tray_about"),
-            Font = font
-        };
         _animationInBar = new ToolStripMenuItem
         {
             Text = resource.GetString("tray_animation"),
@@ -45,15 +41,17 @@ internal class SystemTray : ApplicationContext
             Text = resource.GetString("tray_exit"),
             Font = font
         };
-        var contextMenuStrip = new ContextMenuStrip();
+        var contextMenuStrip = new ContextMenuStrip
+        {
+            Renderer = new Win10Renderer()
+        };
 
         contextMenuStrip.Items.AddRange(new ToolStripItem[]
         {
-            about,
             _animationInBar,
+            _showBarOnExit,
             new ToolStripSeparator(),
             _autoMode,
-            _showBarOnExit,
             new ToolStripSeparator(),
             exit
         });
@@ -61,7 +59,7 @@ internal class SystemTray : ApplicationContext
         _notifyIcon = new NotifyIcon
         {
             ContextMenuStrip = contextMenuStrip,
-            Text = @"SmartTaskbar v1.2.0",
+            Text = Application.ProductName,
             Icon = UiInfo.IsLightTheme() ? IconResource.Logo_Black : IconResource.Logo_White,
             Visible = true
         };
@@ -70,44 +68,38 @@ internal class SystemTray : ApplicationContext
 
         #region Load Event
 
-        about.Click += OnAboutOnClick!;
+        _animationInBar.Click += OnAnimationInBarOnClick;
 
-        UserSettings.Default.PropertyChanged += OnDefaultOnPropertyChanged!;
+        _autoMode.Click += OnAutoModeOnClick;
 
-        _animationInBar.Click += OnAnimationInBarOnClick!;
+        _showBarOnExit.Click += OnShowBarOnExitOnClick;
 
-        _autoMode.Click += OnAutoModeOnClick!;
+        exit.Click += OnExitOnClick;
 
-        _showBarOnExit.Click += OnShowBarOnExitOnClick!;
+        _notifyIcon.MouseClick += OnNotifyIconOnMouseClick;
 
-        exit.Click += OnExitOnClick!;
-
-        _notifyIcon.MouseClick += OnNotifyIconOnMouseClick!;
-
-        _notifyIcon.MouseDoubleClick += OnNotifyIconOnMouseDoubleClick!;
+        _notifyIcon.MouseDoubleClick += OnNotifyIconOnMouseDoubleClick;
 
         UiInfo.Settings.ColorValuesChanged += OnSettingsOnColorValuesChanged;
 
         Application.ApplicationExit += Application_ApplicationExit;
 
+        userSettings.OnAutoModeTypePropertyChanged += OnPropertyChanged;
+
         #endregion
 
         #region Load Settings
 
-        if (UserSettings.Default.TaskbarState == -1)
-            //Run the software for the first time
-            UserSettings.Default.TaskbarState = (int) AutoModeType.Display;
-        else
-            switch ((AutoModeType) UserSettings.Default.TaskbarState)
-            {
-                case AutoModeType.Display:
-                    _autoMode.Checked = true;
-                    Engine.Start();
-                    break;
-                case AutoModeType.None:
-                    _autoMode.Checked = false;
-                    break;
-            }
+        switch (userSettings.AutoModeType)
+        {
+            case AutoModeType.Auto:
+                _autoMode.Checked = true;
+                Engine.Start();
+                break;
+            case AutoModeType.None:
+                _autoMode.Checked = false;
+                break;
+        }
 
         #endregion
     }
@@ -115,47 +107,47 @@ internal class SystemTray : ApplicationContext
     private void OnSettingsOnColorValuesChanged(UISettings s, object e)
         => _notifyIcon.Icon = UiInfo.IsLightTheme() ? IconResource.Logo_Black : IconResource.Logo_White;
 
-    private static void OnNotifyIconOnMouseDoubleClick(object s, MouseEventArgs e)
+    private void OnNotifyIconOnMouseDoubleClick(object? s, MouseEventArgs e)
     {
-        UserSettings.Default.TaskbarState = (int) AutoModeType.None;
+        _userSettings.AutoModeType = AutoModeType.None;
         AutoHideHelper.SetAutoHide(AutoHideHelper.NotAutoHide());
     }
 
-    private void OnNotifyIconOnMouseClick(object s, MouseEventArgs e)
+    private void OnNotifyIconOnMouseClick(object? s, MouseEventArgs e)
     {
         if (e.Button != MouseButtons.Right) return;
 
         _animationInBar.Checked = Animation.GetTaskbarAnimation();
-        _showBarOnExit.Checked = UserSettings.Default.ShowBarOnExit;
+        _showBarOnExit.Checked = _userSettings.ShowTaskbarWhenExit;
+
+        _notifyIcon.ContextMenuStrip.Show(Cursor.Position.X - 40, TaskbarHelper.Taskbar.TaskbarRectangle.top - _notifyIcon.ContextMenuStrip.Height - 20);
     }
 
-    private void OnExitOnClick(object s, EventArgs e)
+    private void OnExitOnClick(object? s, EventArgs e)
     {
         TaskbarHelper.HideTaskbar();
-        if (UserSettings.Default.ShowBarOnExit) AutoHideHelper.CancelAutoHide();
+        if (_userSettings.ShowTaskbarWhenExit) AutoHideHelper.CancelAutoHide();
         _notifyIcon.Dispose();
         _engine.Dispose();
         Application.Exit();
     }
 
-    private void OnShowBarOnExitOnClick(object s, EventArgs e) { UserSettings.Default.ShowBarOnExit = !_showBarOnExit.Checked; }
+    private void OnShowBarOnExitOnClick(object? s, EventArgs e)
+        => _userSettings.ShowTaskbarWhenExit = !_showBarOnExit.Checked;
 
-    private void OnAutoModeOnClick(object s, EventArgs e)
+    private void OnAutoModeOnClick(object? s, EventArgs e)
+        => _userSettings.AutoModeType = _autoMode.Checked ? AutoModeType.None : AutoModeType.Auto;
+
+    private void OnAnimationInBarOnClick(object? s, EventArgs e)
     {
-        if (_autoMode.Checked)
-            UserSettings.Default.TaskbarState = (int) AutoModeType.None;
-        else
-            UserSettings.Default.TaskbarState = (int) AutoModeType.Display;
+        _animationInBar.Checked = Animation.ChangeTaskbarAnimation();
     }
 
-    private void OnAnimationInBarOnClick(object s, EventArgs e) { _animationInBar.Checked = Animation.ChangeTaskbarAnimation(); }
-
-    private void OnDefaultOnPropertyChanged(object s, PropertyChangedEventArgs e)
+    private void OnPropertyChanged(object? s, AutoModeType e)
     {
-        UserSettings.Default.Save();
-        switch ((AutoModeType) UserSettings.Default.TaskbarState)
+        switch (e)
         {
-            case AutoModeType.Display:
+            case AutoModeType.Auto:
                 _autoMode.Checked = true;
                 AutoHideHelper.SetAutoHide();
                 Engine.Start();
@@ -167,12 +159,11 @@ internal class SystemTray : ApplicationContext
         }
     }
 
-    private static void OnAboutOnClick(object s, EventArgs e) { _ = Launcher.LaunchUriAsync(new Uri(@"https://github.com/ChanpleCai/SmartTaskbar/releases")); }
 
     private static async void Application_ApplicationExit(object? sender, EventArgs e)
     {
         // Weird bug.
-        await Task.Delay(1000);
+        await Task.Delay(500);
         Process.GetCurrentProcess().Kill();
     }
 }

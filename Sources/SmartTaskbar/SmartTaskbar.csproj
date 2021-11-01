@@ -23,11 +23,6 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>IconResource.resx</DependentUpon>
     </Compile>
-    <Compile Update="UserSettings.Designer.cs">
-      <DesignTimeSharedInput>True</DesignTimeSharedInput>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>UserSettings.settings</DependentUpon>
-    </Compile>
   </ItemGroup>
 
   <ItemGroup>
@@ -35,13 +30,6 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>IconResource.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Update="UserSettings.settings">
-      <Generator>SettingsSingleFileGenerator</Generator>
-      <LastGenOutput>UserSettings.Designer.cs</LastGenOutput>
-    </None>
   </ItemGroup>
 
 </Project>
