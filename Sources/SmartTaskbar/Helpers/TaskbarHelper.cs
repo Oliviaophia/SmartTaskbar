@@ -77,5 +77,4 @@ internal static class TaskbarHelper
 
         return _lastResult = false;
     }
-
 }

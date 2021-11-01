@@ -6,7 +6,8 @@ namespace SmartTaskbar;
 internal class SystemTray : ApplicationContext
 {
     private readonly ToolStripMenuItem _about;
-    private readonly ToolStripMenuItem _animation;
+    private readonly ToolStripMenuItem _animation; 
+    private readonly ToolStripMenuItem _showBarOnExit;
     private readonly ToolStripMenuItem _auto;
     private readonly ContextMenuStrip _contextMenuStrip;
 
@@ -30,6 +31,11 @@ internal class SystemTray : ApplicationContext
             Text = resource.GetString("tray_animation"),
             Font = font
         };
+        _showBarOnExit = new ToolStripMenuItem
+        {
+            Text = resource.GetString("tray_showBarOnExit"),
+            Font = font
+        };
         _auto = new ToolStripMenuItem
         {
             Text = resource.GetString("tray_auto"),
@@ -49,6 +55,7 @@ internal class SystemTray : ApplicationContext
             new ToolStripSeparator(),
             _auto,
             new ToolStripSeparator(),
+            _showBarOnExit,
             _exit
         });
 
@@ -94,10 +101,13 @@ internal class SystemTray : ApplicationContext
                 UserSettings.Default.TaskbarState = (int) AutoModeType.Display;
         };
 
+        _showBarOnExit.Click += (s, e) => UserSettings.Default.ShowBarOnExit = !_showBarOnExit.Checked;
+
         _exit.Click += (s, e) =>
         {
             TaskbarHelper.HideTaskbar();
-            AutoHideHelper.CancelAutoHide();
+            if (UserSettings.Default.ShowBarOnExit)
+                AutoHideHelper.CancelAutoHide();
             _notifyIcon.Dispose();
             _engine.Dispose();
             Application.Exit();
@@ -109,6 +119,7 @@ internal class SystemTray : ApplicationContext
                 return;
 
             _animation.Checked = Animation.GetTaskbarAnimation();
+            _showBarOnExit.Checked = UserSettings.Default.ShowBarOnExit;
         };
 
         _notifyIcon.MouseDoubleClick += (s, e) =>

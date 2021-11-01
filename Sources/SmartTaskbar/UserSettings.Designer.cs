@@ -34,5 +34,17 @@ namespace SmartTaskbar {
                 this["TaskbarState"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool ShowBarOnExit {
+            get {
+                return ((bool)(this["ShowBarOnExit"]));
+            }
+            set {
+                this["ShowBarOnExit"] = value;
+            }
+        }
     }
 }
