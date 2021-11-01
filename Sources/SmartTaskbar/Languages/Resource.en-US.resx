@@ -124,7 +124,7 @@
     <value>Animations in the taskbar</value>
   </data>
   <data name="tray_auto" xml:space="preserve">
-    <value>Auto</value>
+    <value>Auto Mode</value>
   </data>
   <data name="tray_exit" xml:space="preserve">
     <value>Exit</value>

@@ -1,37 +1,32 @@
-﻿using System.Timers;
+﻿using System.Threading;
 
-using Timer = System.Timers.Timer;
+using Timer = System.Threading.Timer;
 
 namespace SmartTaskbar;
 
 internal class Engine : IDisposable
 {
-    private static readonly Timer Timer = new(125);
+    private static readonly Timer Timer = new(TimerCallback, null, Timeout.Infinite, Timeout.Infinite);
     private static int _counter;
     private static bool _runningFlag = true;
 
-    public Engine()
-    {
-        Timer.Elapsed += Timer_Elapsed;
-    }
-    
     public void Dispose()
     {
         _runningFlag = false;
-        Timer?.Stop();
-        Timer?.Dispose();
+        Timer.Change(Timeout.Infinite, Timeout.Infinite);
+        Timer.Dispose();
     }
 
-    private void Timer_Elapsed(object? sender, ElapsedEventArgs e)
+    private static void TimerCallback(object? state)
     {
-        Timer?.Stop();
+        Timer.Change(Timeout.Infinite, Timeout.Infinite);
 
         if (!_runningFlag)
             return;
 
-        if (_counter % 97 == 0) Worker.Ready();
+        if (_counter == 80) Worker.Ready();
 
-        if (_counter % 193 == 0)
+        if (_counter == 320)
         {
             Worker.Reset();
             _counter = 0;
@@ -42,18 +37,18 @@ internal class Engine : IDisposable
         ++_counter;
 
         if (_runningFlag)
-            Timer?.Start();
+            Timer.Change(125, Timeout.Infinite);
     }
 
     public void Stop()
     {
-        Timer?.Stop();
+        Timer.Change(Timeout.Infinite, Timeout.Infinite);
         _runningFlag = false;
     }
 
     public void Start()
     {
-        Timer?.Start();
+        Timer.Change(125, Timeout.Infinite);
         _runningFlag = true;
     }
 }
