@@ -65,7 +65,7 @@ internal static class TaskbarHelper
                 Taskbar.MonitorHandle);
     }
 
-    internal static bool IsMouseOverTaskbar()
+    internal static bool IsMouseOverTaskbar(IntPtr desktopHandle)
     {
         _ = GetCursorPos(out var point);
         _currentHandle = WindowFromPoint(point);
@@ -74,7 +74,6 @@ internal static class TaskbarHelper
         if (!Taskbar.MonitorRectangle.Contains(point)) return _lastResult = false;
 
         _lastHandle = _currentHandle;
-        var desktopHandle = GetDesktopWindow();
         while (_currentHandle != desktopHandle)
         {
             if (Taskbar.TaskbarHandle == _currentHandle) return _lastResult = true;

@@ -4,31 +4,32 @@ namespace SmartTaskbar;
 
 internal static class Worker
 {
-    private static bool _sendMessage;
-    private static bool _intersect;
+    private static IntPtr _desktopHandle;
 
     static Worker() { Reset(); }
 
     public static void Run()
     {
-        if (TaskbarHelper.IsMouseOverTaskbar())
+        if (TaskbarHelper.IsMouseOverTaskbar(_desktopHandle))
         {
-            _sendMessage = true;
             return;
         }
 
         var foregroundHandle = GetForegroundWindow();
+
         if (foregroundHandle.IsWindowInvisible()) return;
 
-        switch (foregroundHandle.GetName())
+        var name = foregroundHandle.GetName();
+        switch (name)
         {
             case "Windows.UI.Core.CoreWindow":
-                _sendMessage = true;
                 return;
             case "XamlExplorerHostIslandWindow":
             case "WorkerW":
+                TaskbarHelper.ShowTaskar();
+                return;
             case "Progman":
-            case "DV2ControlHost":
+            case "DV2ControlHost": 
             case TaskbarHelper.MainTaskbar:
             case "MultitaskingViewFrame":
             case "WindowsDashboard":
@@ -41,17 +42,7 @@ internal static class Worker
 
 
         _ = GetWindowRect(foregroundHandle, out var rect);
-        if (TaskbarHelper.Taskbar.TaskbarRectangle.IntersectsWith(rect) != _intersect)
-        {
-            _intersect = !_intersect;
-            _sendMessage = true;
-        }
-
-
-        if (!_sendMessage) return;
-        _sendMessage = false;
-
-        if (_intersect)
+        if (TaskbarHelper.Taskbar.TaskbarRectangle.IntersectsWith(rect))
             TaskbarHelper.HideTaskbar();
         else
             TaskbarHelper.ShowTaskar();
@@ -66,8 +57,7 @@ internal static class Worker
 
     public static void Ready()
     {
-        _intersect = false;
-        _sendMessage = true;
+        _desktopHandle = GetDesktopWindow();
         if (AutoHideHelper.NotAutoHide())
             AutoHideHelper.SetAutoHide();
     }
