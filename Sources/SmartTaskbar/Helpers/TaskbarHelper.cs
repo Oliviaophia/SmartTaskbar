@@ -15,7 +15,7 @@ internal static class TaskbarHelper
     private static IntPtr _currentHandle;
     private static bool _lastResult;
     private static IntPtr _desktopHandle;
-    private static readonly TagPoint PointZero = new() { x = 0, y = 0 };
+    private static readonly TagPoint PointZero = new() {x = 0, y = 0};
 
     private static TaskbarInfo? _taskbar;
 

@@ -4,43 +4,32 @@ namespace SmartTaskbar;
 
 internal static class Worker
 {
+    private static HashSet<IntPtr> _cachedIntPtr;
+
     static Worker() { Reset(); }
 
     public static void Run()
     {
-        if (TaskbarHelper.IsMouseOverTaskbar())
-        {
-            return;
-        }
+        if (TaskbarHelper.IsMouseOverTaskbar()) return;
 
         var foregroundHandle = GetForegroundWindow();
 
         if (foregroundHandle.IsWindowInvisible()) return;
 
-        if (foregroundHandle == TaskbarHelper.Taskbar.TaskbarHandle)
+        if (_cachedIntPtr.Contains(foregroundHandle))
         {
             TaskbarHelper.ShowTaskar();
             return;
         }
-        
+
         switch (foregroundHandle.GetName())
         {
             case "Progman":
             case "WorkerW":
-            case TaskbarHelper.MainTaskbar:
+                _cachedIntPtr.Add(foregroundHandle);
                 TaskbarHelper.ShowTaskar();
                 return;
-            //case "Windows.UI.Core.CoreWindow":
-            //case "XamlExplorerHostIslandWindow":
-            //case "DV2ControlHost":           
-            //case "MultitaskingViewFrame":
-            //case "WindowsDashboard":
-            //case "VirtualDesktopGestureSwitcher":
-            //case "ForegroundStaging":
-            //case "NotifyIconOverflowWindow":
-            //case "TrayiconMessageWindow":
         }
-
 
         _ = GetWindowRect(foregroundHandle, out var rect);
         if (TaskbarHelper.Taskbar.TaskbarRectangle.IntersectsWith(rect))
@@ -53,6 +42,7 @@ internal static class Worker
     public static void Reset()
     {
         TaskbarHelper.UpdateTaskbarInfo();
+        _cachedIntPtr = new HashSet<IntPtr> {TaskbarHelper.Taskbar.TaskbarHandle};
         Ready();
     }
 
