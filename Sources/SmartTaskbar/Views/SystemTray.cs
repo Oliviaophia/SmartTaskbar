@@ -11,12 +11,10 @@ internal class SystemTray : ApplicationContext
     private readonly Engine _engine = new();
     private readonly NotifyIcon _notifyIcon;
     private readonly ToolStripMenuItem _showBarOnExit;
-    private readonly UserSettings _userSettings;
+    private readonly UserSettings _userSettings = new();
 
-    public SystemTray(UserSettings userSettings)
+    public SystemTray()
     {
-        _userSettings = userSettings;
-
         #region Initialization
 
         var resource = new ResourceCulture();
@@ -84,13 +82,13 @@ internal class SystemTray : ApplicationContext
 
         Application.ApplicationExit += Application_ApplicationExit;
 
-        userSettings.OnAutoModeTypePropertyChanged += OnPropertyChanged;
+        _userSettings.OnAutoModeTypePropertyChanged += OnPropertyChanged;
 
         #endregion
 
         #region Load Settings
 
-        switch (userSettings.AutoModeType)
+        switch (_userSettings.AutoModeType)
         {
             case AutoModeType.Auto:
                 _autoMode.Checked = true;
@@ -138,10 +136,8 @@ internal class SystemTray : ApplicationContext
     private void OnAutoModeOnClick(object? s, EventArgs e)
         => _userSettings.AutoModeType = _autoMode.Checked ? AutoModeType.None : AutoModeType.Auto;
 
-    private void OnAnimationInBarOnClick(object? s, EventArgs e)
-    {
-        _animationInBar.Checked = Animation.ChangeTaskbarAnimation();
-    }
+    private void OnAnimationInBarOnClick(object? s, EventArgs e) 
+        => _animationInBar.Checked = Animation.ChangeTaskbarAnimation();
 
     private void OnPropertyChanged(object? s, AutoModeType e)
     {
@@ -158,7 +154,6 @@ internal class SystemTray : ApplicationContext
                 break;
         }
     }
-
 
     private static async void Application_ApplicationExit(object? sender, EventArgs e)
     {

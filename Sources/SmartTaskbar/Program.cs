@@ -3,18 +3,7 @@ using Microsoft.Extensions.DependencyInjection;
 namespace SmartTaskbar;
 
 internal static class Program
-{
-    private static readonly ServiceProvider ServiceProvider;
-
-    static Program()
-    {
-        var serviceCollection = new ServiceCollection();
-        ConfigureServices(serviceCollection);
-
-        ServiceProvider = serviceCollection.BuildServiceProvider();
-    }
-
-
+{ 
     /// <summary>
     ///     The main entry point for the application.
     /// </summary>
@@ -28,13 +17,7 @@ internal static class Program
 
             ApplicationConfiguration.Initialize();
             // Start a tray instead of a WinForm to reduce memory usage
-            Application.Run(ServiceProvider.GetService<SystemTray>()!);
+            Application.Run(new SystemTray());
         }
-    }
-
-    private static void ConfigureServices(IServiceCollection serviceCollection)
-    {
-        serviceCollection.AddSingleton<UserSettings>();
-        serviceCollection.AddSingleton<SystemTray>();
     }
 }
