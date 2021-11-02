@@ -173,4 +173,12 @@ public static class SafeNativeMethods
     }
 
     #endregion
+
+    #region SendNotifyMessage
+
+    [DllImport("user32.dll", CharSet = CharSet.Unicode)]
+    [return: MarshalAs(UnmanagedType.Bool)]
+    public static extern bool SendNotifyMessage([In] IntPtr hWnd, uint msg, UIntPtr wParam, string? lParam);
+
+    #endregion
 }

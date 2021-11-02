@@ -11,13 +11,14 @@ internal class UserSettings
     /// </summary>
     public UserSettings()
     {
-        var autoMode = ApplicationData.Current.LocalSettings.Values["AutoModeType"] as string;
+        var autoMode = ApplicationData.Current.LocalSettings.Values[nameof(UserConfiguration.AutoModeType)] as string;
 
         _userConfiguration = new UserConfiguration
         {
             AutoModeType = autoMode == nameof(AutoModeType.None) ? AutoModeType.None : AutoModeType.Auto,
             ShowTaskbarWhenExit =
-                ApplicationData.Current.LocalSettings.Values["ShowTaskbarWhenExit"] as bool? ?? true
+                ApplicationData.Current.LocalSettings.Values[nameof(UserConfiguration.ShowTaskbarWhenExit)] as bool? ?? true,
+            AlignLeftWhenTheMouseIsLeft = ApplicationData.Current.LocalSettings.Values[nameof(UserConfiguration.AlignLeftWhenTheMouseIsLeft)] as bool? ?? false
         };
     }
 
@@ -30,12 +31,12 @@ internal class UserSettings
                 return;
 
             _userConfiguration.AutoModeType = value;
-            ApplicationData.Current.LocalSettings.Values["AutoModeType"] = value.ToString();
+            ApplicationData.Current.LocalSettings.Values[nameof(UserConfiguration.AutoModeType)] = value.ToString();
             OnAutoModeTypePropertyChanged?.Invoke(null, value);
         }
     }
 
-    public bool ShowTaskbarWhenExit
+    public static bool ShowTaskbarWhenExit
     {
         get => _userConfiguration.ShowTaskbarWhenExit;
         set
@@ -44,7 +45,20 @@ internal class UserSettings
                 return;
 
             _userConfiguration.ShowTaskbarWhenExit = value;
-            ApplicationData.Current.LocalSettings.Values["ShowTaskbarWhenExit"] = value;
+            ApplicationData.Current.LocalSettings.Values[nameof(UserConfiguration.ShowTaskbarWhenExit)] = value;
+        }
+    }
+
+    public static bool AlignLeftWhenTheMouseIsLeft
+    {
+        get => _userConfiguration.AlignLeftWhenTheMouseIsLeft;
+        set
+        {
+            if (value == _userConfiguration.AlignLeftWhenTheMouseIsLeft)
+                return;
+
+            _userConfiguration.AlignLeftWhenTheMouseIsLeft = value;
+            ApplicationData.Current.LocalSettings.Values[nameof(UserConfiguration.AlignLeftWhenTheMouseIsLeft)] = value;
         }
     }
 

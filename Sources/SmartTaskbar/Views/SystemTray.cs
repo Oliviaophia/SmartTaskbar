@@ -117,7 +117,7 @@ internal class SystemTray : ApplicationContext
         if (e.Button != MouseButtons.Right) return;
 
         _animationInBar.Checked = Animation.GetTaskbarAnimation();
-        _showBarOnExit.Checked = _userSettings.ShowTaskbarWhenExit;
+        _showBarOnExit.Checked = UserSettings.ShowTaskbarWhenExit;
 
         _notifyIcon.ContextMenuStrip.Show(Cursor.Position.X - 30,
                                           TaskbarHelper.Taskbar.TaskbarRectangle.top
@@ -128,14 +128,14 @@ internal class SystemTray : ApplicationContext
     private void OnExitOnClick(object? s, EventArgs e)
     {
         TaskbarHelper.HideTaskbar();
-        if (_userSettings.ShowTaskbarWhenExit) AutoHideHelper.CancelAutoHide();
+        if (UserSettings.ShowTaskbarWhenExit) AutoHideHelper.CancelAutoHide();
         _notifyIcon.Dispose();
         _engine.Dispose();
         Application.Exit();
     }
 
     private void OnShowBarOnExitOnClick(object? s, EventArgs e)
-        => _userSettings.ShowTaskbarWhenExit = !_showBarOnExit.Checked;
+        => UserSettings.ShowTaskbarWhenExit = !_showBarOnExit.Checked;
 
     private void OnAutoModeOnClick(object? s, EventArgs e)
         => _userSettings.AutoModeType = _autoMode.Checked ? AutoModeType.None : AutoModeType.Auto;
