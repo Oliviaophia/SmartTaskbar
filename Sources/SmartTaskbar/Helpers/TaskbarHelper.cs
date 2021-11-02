@@ -14,7 +14,8 @@ internal static class TaskbarHelper
     private static IntPtr _lastHandle;
     private static IntPtr _currentHandle;
     private static bool _lastResult;
-    private static readonly TagPoint PointZero = new() {x = 0, y = 0};
+    private static IntPtr _desktopHandle;
+    private static readonly TagPoint PointZero = new() { x = 0, y = 0 };
 
     private static TaskbarInfo? _taskbar;
 
@@ -26,6 +27,7 @@ internal static class TaskbarHelper
 
     private static TaskbarInfo InitTaskbar()
     {
+        _desktopHandle = GetDesktopWindow();
         var taskbarHandle = FindWindow(MainTaskbar, null);
 
         _ = GetWindowRect(taskbarHandle, out var rect);
@@ -65,7 +67,7 @@ internal static class TaskbarHelper
                 Taskbar.MonitorHandle);
     }
 
-    internal static bool IsMouseOverTaskbar(IntPtr desktopHandle)
+    internal static bool IsMouseOverTaskbar()
     {
         _ = GetCursorPos(out var point);
         _currentHandle = WindowFromPoint(point);
@@ -74,7 +76,7 @@ internal static class TaskbarHelper
         if (!Taskbar.MonitorRectangle.Contains(point)) return _lastResult = false;
 
         _lastHandle = _currentHandle;
-        while (_currentHandle != desktopHandle)
+        while (_currentHandle != _desktopHandle)
         {
             if (Taskbar.TaskbarHandle == _currentHandle) return _lastResult = true;
 

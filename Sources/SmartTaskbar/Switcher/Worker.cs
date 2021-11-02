@@ -4,13 +4,11 @@ namespace SmartTaskbar;
 
 internal static class Worker
 {
-    private static IntPtr _desktopHandle;
-
     static Worker() { Reset(); }
 
     public static void Run()
     {
-        if (TaskbarHelper.IsMouseOverTaskbar(_desktopHandle))
+        if (TaskbarHelper.IsMouseOverTaskbar())
         {
             return;
         }
@@ -57,7 +55,6 @@ internal static class Worker
 
     public static void Ready()
     {
-        _desktopHandle = GetDesktopWindow();
         if (AutoHideHelper.NotAutoHide())
             AutoHideHelper.SetAutoHide();
     }
