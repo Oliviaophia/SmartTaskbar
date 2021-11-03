@@ -1,5 +1,4 @@
 ﻿using System.Diagnostics;
-using Windows.UI.ViewManagement;
 
 namespace SmartTaskbar;
 
@@ -58,7 +57,7 @@ internal class SystemTray : ApplicationContext
         {
             ContextMenuStrip = contextMenuStrip,
             Text = Application.ProductName,
-            Icon = UISettings.IsLightTheme() ? IconResource.Logo_Black : IconResource.Logo_White,
+            Icon = UISettingsHelper.IsLightTheme() ? IconResource.Logo_Black : IconResource.Logo_White,
             Visible = true
         };
 
@@ -78,7 +77,7 @@ internal class SystemTray : ApplicationContext
 
         _notifyIcon.MouseDoubleClick += OnNotifyIconOnMouseDoubleClick;
 
-        UISettings.Settings.ColorValuesChanged += OnSettingsOnColorValuesChanged;
+        UISettingsHelper.Settings.ColorValuesChanged += OnSettingsOnColorValuesChanged;
 
         Application.ApplicationExit += Application_ApplicationExit;
 
@@ -103,7 +102,7 @@ internal class SystemTray : ApplicationContext
     }
 
     private void OnSettingsOnColorValuesChanged(Windows.UI.ViewManagement.UISettings s, object e)
-        => _notifyIcon.Icon = UISettings.IsLightTheme() ? IconResource.Logo_Black : IconResource.Logo_White;
+        => _notifyIcon.Icon = UISettingsHelper.IsLightTheme() ? IconResource.Logo_Black : IconResource.Logo_White;
 
     private void OnNotifyIconOnMouseDoubleClick(object? s, MouseEventArgs e)
     {
@@ -115,7 +114,7 @@ internal class SystemTray : ApplicationContext
     {
         if (e.Button != MouseButtons.Right) return;
 
-        _animationInBar.Checked = Animation.GetTaskbarAnimation();
+        _animationInBar.Checked = AnimationHelper.GetTaskbarAnimation();
         _showBarOnExit.Checked = UserSettings.ShowTaskbarWhenExit;
 
         _notifyIcon.ContextMenuStrip.Show(Cursor.Position.X - 30,
@@ -140,7 +139,7 @@ internal class SystemTray : ApplicationContext
         => _userSettings.AutoModeType = _autoMode.Checked ? AutoModeType.None : AutoModeType.Auto;
 
     private void OnAnimationInBarOnClick(object? s, EventArgs e)
-        => _animationInBar.Checked = Animation.ChangeTaskbarAnimation();
+        => _animationInBar.Checked = AnimationHelper.ChangeTaskbarAnimation();
 
     private void OnPropertyChanged(object? s, AutoModeType e)
     {

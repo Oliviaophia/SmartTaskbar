@@ -4,6 +4,9 @@ using System.Resources;
 
 namespace SmartTaskbar;
 
+/// <summary>
+///     Language management
+/// </summary>
 internal class ResourceCulture
 {
     private readonly CultureInfo _cultureInfo = new("en-US");
@@ -13,6 +16,8 @@ internal class ResourceCulture
 
     public ResourceCulture()
     {
+        // I feel that there is no need to add an option for language selection
+        // If there is a new language translation, just add it below
         switch (Thread.CurrentThread.CurrentUICulture.Name)
         {
             case "zh-CN":
@@ -24,6 +29,11 @@ internal class ResourceCulture
         }
     }
 
+    /// <summary>
+    ///     Get the corresponding translation based on the name, default en-US
+    /// </summary>
+    /// <param name="name"></param>
+    /// <returns></returns>
     public string GetString(string name)
     {
         try { return _resourceManager.GetString(name, Thread.CurrentThread.CurrentUICulture) ?? ""; }

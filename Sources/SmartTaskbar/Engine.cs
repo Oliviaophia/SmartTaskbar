@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using System.Diagnostics;
+using System.Text;
 using static SmartTaskbar.SafeNativeMethods;
 using Timer = System.Threading.Timer;
 
@@ -10,14 +11,9 @@ internal class Engine : IDisposable
     private static int _counter;
     private static TaskbarInfo Taskbar = TaskbarHelper.InitTaskbar();
     private static HashSet<IntPtr> _cachedIntPtr;
-    private static IntPtr _desktopHandle = GetDesktopWindow();
 
     private const int Capacity = 256;
     private static readonly StringBuilder Sb = new(Capacity);
-
-    private const uint MonitorDefaultToPrimary = 1;
-    private static readonly TagPoint PointZero = new() { x = 0, y = 0 };
-    private static IntPtr _monitor = MonitorFromPoint(PointZero, MonitorDefaultToPrimary);
 
     static Engine()
     {
@@ -32,44 +28,64 @@ internal class Engine : IDisposable
 
     private static void TimerCallback(object? state)
     {
+        // There is a certain probability that values will be incorrect after a long, long, long time of operation.
+        // Reset every minute to avoid.
         if (_counter == 480)
         {
             #region Reset
-
+            // Reinitialize taskbar information.
             Taskbar = TaskbarHelper.InitTaskbar();
+            // Reinitialize the cache IntPtr.
             _cachedIntPtr = new HashSet<IntPtr> { Taskbar.Handle };
-            _desktopHandle = GetDesktopWindow();
-            _monitor = MonitorFromPoint(PointZero, MonitorDefaultToPrimary);
+            // Set the taskbar to Auto-Hide.
             AutoHideHelper.SetAutoHide();
 
             #endregion
+            // Reset counter.
             _counter = 0;
         }
 
         #region Run
 
-        if (IsMouseOverTaskbar()) return;
+        if (Taskbar.IsMouseOverTaskbar())
+        {
+            return;
+        }
+        else
+        {
+             // todo
+        }
 
         var foregroundHandle = GetForegroundWindow();
 
         if (_cachedIntPtr.Contains(foregroundHandle))
         {
-            Taskbar.ShowTaskar(_monitor);
+            Taskbar.ShowTaskar();
             return;
         }
 
         _ = Sb.Clear();
         _ = GetClassName(foregroundHandle, Sb, Capacity);
 
-        switch (Sb.ToString())
+        var name = Sb.ToString();
+        Debug.WriteLine(name);
+        switch (name)
         {
-            case "Progman":
+            // Determine whether it is a desktop.
             case "WorkerW":
+            case "Progman":
+                // If true, add to the cache list.
                 _cachedIntPtr.Add(foregroundHandle);
-                Taskbar.ShowTaskar(_monitor);
+                Taskbar.ShowTaskar();
+                return;
+            // On some devices, opening the search and start menu can cause the taskbar to hide. Seems to be related to third-party software.
+            case "Windows.UI.Core.CoreWindow":
+                // do nothing just return?
+                // todo
                 return;
         }
 
+        // Get foreground window Re
         _ = GetWindowRect(foregroundHandle, out var rect);
         if (rect.left < Taskbar.Rect.right
                && rect.right > Taskbar.Rect.left
@@ -77,49 +93,26 @@ internal class Engine : IDisposable
                && rect.bottom > Taskbar.Rect.top)
             Taskbar.HideTaskbar();
         else
-            Taskbar.ShowTaskar(_monitor);
-
+            Taskbar.ShowTaskar();
+         
         #endregion
 
         ++_counter;
     }
 
-    public static void Stop()
-    {
-        Timer.Change(Timeout.Infinite, Timeout.Infinite);
-    }
+    /// <summary>
+    ///     Turn off the timer, Pause auto mode
+    /// </summary>
+    public static void Stop() => Timer.Change(Timeout.Infinite, Timeout.Infinite);
 
+    /// <summary>
+    ///     Start the timer, start the auto mode
+    /// </summary>
     public static void Start()
     {
+        // Make sure the taskbar has been automatically hidden, otherwise it will not work
         AutoHideHelper.SetAutoHide();
+        // 125 milliseconds is a balance between user-acceptable perception and system call time
         Timer.Change(125, 125);
-    }
-
-    private const uint GaParent = 1;
-
-    private static IntPtr _lastHandle;
-    private static IntPtr _currentHandle;
-    private static bool _lastResult;
-    private static bool IsMouseOverTaskbar()
-    {
-        _ = GetCursorPos(out var point);
-        _currentHandle = WindowFromPoint(point);
-        if (_lastHandle == _currentHandle) return _lastResult;
-
-        if (point.y < Taskbar.Rect.top ||
-            point.x > Taskbar.Rect.right ||
-            point.x < Taskbar.Rect.left ||
-            point.y > Taskbar.Rect.bottom) 
-            return _lastResult = false;
-
-        _lastHandle = _currentHandle;
-        while (_currentHandle != _desktopHandle)
-        {
-            if (Taskbar.Handle == _currentHandle) return _lastResult = true;
-
-            _currentHandle = GetAncestor(_currentHandle, GaParent);
-        }
-
-        return _lastResult = false;
     }
 }

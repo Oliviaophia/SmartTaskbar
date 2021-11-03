@@ -12,6 +12,9 @@ internal static class AutoHideHelper
     
     private const uint AbmGetstate = 4;
     
+    /// <summary>
+    ///     Set taskbar to Auto-Hide
+    /// </summary>
     internal static void SetAutoHide()
     {
         var msg = new AppbarData
@@ -21,6 +24,9 @@ internal static class AutoHideHelper
         _ = SHAppBarMessage(AbmSetstate, ref msg);
     }
 
+    /// <summary>
+    ///     Change Auto-Hide status
+    /// </summary>
     internal static void ChangeAutoHide()
     {
         var msg = new AppbarData();
@@ -28,6 +34,9 @@ internal static class AutoHideHelper
         _ = SHAppBarMessage(AbmSetstate, ref msg);
     }
 
+    /// <summary>
+    ///     Set taskbar to Always-On-Top
+    /// </summary>
     internal static void CancelAutoHide()
     {
         var msg = new AppbarData

@@ -2,7 +2,7 @@
 
 namespace SmartTaskbar;
 
-internal static class Animation
+internal static class AnimationHelper
 {
     private const uint SpiGetMenuAnimation = 0x1002;
 
@@ -10,15 +10,23 @@ internal static class Animation
 
     private const uint UpdateAndSend = 3;
 
-    static Animation()
+    static AnimationHelper()
         => GetTaskbarAnimation();
 
+    /// <summary>
+    ///     Get taskbar animation status
+    /// </summary>
+    /// <returns></returns>
     internal static bool GetTaskbarAnimation()
     {
         _ = GetSystemParameters(SpiGetMenuAnimation, 0, out bool animation, 0);
         return animation;
     }
 
+    /// <summary>
+    ///     Change the animation state of the taskbar
+    /// </summary>
+    /// <returns></returns>
     internal static bool ChangeTaskbarAnimation()
     {
         _ = GetSystemParameters(SpiGetMenuAnimation, 0, out bool animation, 0);

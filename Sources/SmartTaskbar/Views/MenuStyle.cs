@@ -3,6 +3,9 @@
 namespace SmartTaskbar;
 
 //https://stackoverflow.com/questions/32786250/windows-10-styled-contextmenustrip
+/// <summary>
+///     Tray menu style (will be rewritten later)
+/// </summary>
 internal class Win11ColorTable : ProfessionalColorTable
 {
     public override Color MenuItemBorder
@@ -33,6 +36,7 @@ internal class Win11Renderer : ToolStripProfessionalRenderer
 
     protected override void OnRenderItemCheck(ToolStripItemImageRenderEventArgs e)
     {
+        // Calculate and draw ✓ , adding DPI perception
         e.Graphics.SmoothingMode = SmoothingMode.AntiAlias;
         var r = new Rectangle(e.ImageRectangle.Location, e.ImageRectangle.Size);
         r.Inflate(_x, _x);
