@@ -7,11 +7,11 @@ internal static class AutoHideHelper
     private const int AbsAutohide = 1;
 
     private const int AbsAlwaysontop = 2;
-    
+
     private const uint AbmSetstate = 10;
-    
+
     private const uint AbmGetstate = 4;
-    
+
     /// <summary>
     ///     Set taskbar to Auto-Hide
     /// </summary>

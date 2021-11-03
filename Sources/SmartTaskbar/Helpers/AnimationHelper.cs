@@ -19,7 +19,7 @@ internal static class AnimationHelper
     /// <returns></returns>
     internal static bool GetTaskbarAnimation()
     {
-        _ = GetSystemParameters(SpiGetMenuAnimation, 0, out bool animation, 0);
+        _ = GetSystemParameters(SpiGetMenuAnimation, 0, out var animation, 0);
         return animation;
     }
 
@@ -29,7 +29,7 @@ internal static class AnimationHelper
     /// <returns></returns>
     internal static bool ChangeTaskbarAnimation()
     {
-        _ = GetSystemParameters(SpiGetMenuAnimation, 0, out bool animation, 0);
+        _ = GetSystemParameters(SpiGetMenuAnimation, 0, out var animation, 0);
         _ = SetSystemParameters(SpiSetMenuAnimation, 0, animation ? IntPtr.Zero : (IntPtr) 1, UpdateAndSend);
         return !animation;
     }

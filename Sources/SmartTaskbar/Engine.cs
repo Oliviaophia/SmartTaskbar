@@ -1,5 +1,4 @@
 ﻿using System.Diagnostics;
-using System.Text;
 using static SmartTaskbar.SafeNativeMethods;
 using Timer = System.Threading.Timer;
 
@@ -9,16 +8,13 @@ internal class Engine : IDisposable
 {
     private static readonly Timer Timer = new(TimerCallback, null, Timeout.Infinite, Timeout.Infinite);
     private static int _counter;
-    private static TaskbarInfo Taskbar = TaskbarHelper.InitTaskbar();
+    private static TaskbarInfo _taskbar = TaskbarHelper.InitTaskbar();
     private static HashSet<IntPtr> _cachedIntPtr;
-
-    private const int Capacity = 256;
-    private static readonly StringBuilder Sb = new(Capacity);
+    private static bool _isCoreWindow;
+    private static IntPtr _coreWindowHandle;
 
     static Engine()
-    {
-        _cachedIntPtr = new HashSet<IntPtr> { Taskbar.Handle };
-    }
+        => _cachedIntPtr = new HashSet<IntPtr> {_taskbar.Handle};
 
     public void Dispose()
     {
@@ -33,68 +29,72 @@ internal class Engine : IDisposable
         if (_counter == 480)
         {
             #region Reset
+
             // Reinitialize taskbar information.
-            Taskbar = TaskbarHelper.InitTaskbar();
+            _taskbar = TaskbarHelper.InitTaskbar();
             // Reinitialize the cache IntPtr.
-            _cachedIntPtr = new HashSet<IntPtr> { Taskbar.Handle };
+            _cachedIntPtr = new HashSet<IntPtr> {_taskbar.Handle};
             // Set the taskbar to Auto-Hide.
             AutoHideHelper.SetAutoHide();
 
             #endregion
+
             // Reset counter.
             _counter = 0;
         }
 
+        // todo 
         #region Run
-
-        if (Taskbar.IsMouseOverTaskbar())
-        {
-            return;
-        }
-        else
-        {
-             // todo
-        }
-
         var foregroundHandle = GetForegroundWindow();
+
+        if (_isCoreWindow)
+        {
+            if (foregroundHandle == _coreWindowHandle)
+                return;
+
+            _isCoreWindow = false;
+        }
 
         if (_cachedIntPtr.Contains(foregroundHandle))
         {
-            Taskbar.ShowTaskar();
+            _taskbar.ShowTaskar();
             return;
         }
 
-        _ = Sb.Clear();
-        _ = GetClassName(foregroundHandle, Sb, Capacity);
-
-        var name = Sb.ToString();
+        #if DEBUG
+        var name = foregroundHandle.GetName();
         Debug.WriteLine(name);
         switch (name)
+            #else
+        switch (foregroundHandle.GetName())
+            #endif
         {
             // Determine whether it is a desktop.
             case "WorkerW":
             case "Progman":
                 // If true, add to the cache list.
                 _cachedIntPtr.Add(foregroundHandle);
-                Taskbar.ShowTaskar();
+                _taskbar.ShowTaskar();
                 return;
-            // On some devices, opening the search and start menu can cause the taskbar to hide. Seems to be related to third-party software.
+            // On some devices, opening the search and start menu can cause the taskbar to hide.
             case "Windows.UI.Core.CoreWindow":
-                // do nothing just return?
-                // todo
+            case "CabinetWClass":
+                _isCoreWindow = true;
                 return;
         }
 
-        // Get foreground window Re
+        if (_taskbar.IsMouseOverTaskbar()) return;
+
+        // Get foreground window Rectange
         _ = GetWindowRect(foregroundHandle, out var rect);
-        if (rect.left < Taskbar.Rect.right
-               && rect.right > Taskbar.Rect.left
-               && rect.top < Taskbar.Rect.bottom
-               && rect.bottom > Taskbar.Rect.top)
-            Taskbar.HideTaskbar();
+        if (rect.left < _taskbar.Rect.right
+            && rect.right > _taskbar.Rect.left
+            && rect.top < _taskbar.Rect.bottom
+            && rect.bottom > _taskbar.Rect.top)
+            _taskbar.HideTaskbar();
         else
-            Taskbar.ShowTaskar();
-         
+            _taskbar.ShowTaskar();
+
         #endregion
 
         ++_counter;
@@ -103,7 +103,8 @@ internal class Engine : IDisposable
     /// <summary>
     ///     Turn off the timer, Pause auto mode
     /// </summary>
-    public static void Stop() => Timer.Change(Timeout.Infinite, Timeout.Infinite);
+    public static void Stop()
+        => Timer.Change(Timeout.Infinite, Timeout.Infinite);
 
     /// <summary>
     ///     Start the timer, start the auto mode

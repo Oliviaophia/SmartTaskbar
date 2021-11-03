@@ -9,6 +9,7 @@ public enum AutoModeType
     ///     None
     /// </summary>
     None,
+
     /// <summary>
     ///     Auto
     /// </summary>

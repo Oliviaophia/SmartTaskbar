@@ -68,6 +68,14 @@ public static class SafeNativeMethods
 
     #endregion
 
+    #region SendNotifyMessage
+
+    [DllImport("user32.dll", CharSet = CharSet.Unicode)]
+    [return: MarshalAs(UnmanagedType.Bool)]
+    public static extern bool SendNotifyMessage([In] IntPtr hWnd, uint msg, UIntPtr wParam, string? lParam);
+
+    #endregion
+
     #region Taskbar Display State
 
     [StructLayout(LayoutKind.Sequential)]
@@ -135,14 +143,6 @@ public static class SafeNativeMethods
 
         public int y;
     }
-
-    #endregion
-
-    #region SendNotifyMessage
-
-    [DllImport("user32.dll", CharSet = CharSet.Unicode)]
-    [return: MarshalAs(UnmanagedType.Bool)]
-    public static extern bool SendNotifyMessage([In] IntPtr hWnd, uint msg, UIntPtr wParam, string? lParam);
 
     #endregion
 }

@@ -39,7 +39,7 @@ internal static class TaskbarHelper
     private const uint BarFlag = 0x05D1;
 
     private const uint MonitorDefaultToPrimary = 1;
-    private static readonly TagPoint PointZero = new() { x = 0, y = 0 };
+    private static readonly TagPoint PointZero = new() {x = 0, y = 0};
 
     /// <summary>
     ///     Hide the taskbar, in auto-hide mode
@@ -72,8 +72,8 @@ internal static class TaskbarHelper
         if (rect.bottom != taskbar.Rect.bottom)
             PostMessage(
                 taskbar.Handle,
-                TaskbarHelper.BarFlag,
-                (IntPtr)1,
+                BarFlag,
+                (IntPtr) 1,
                 MonitorFromPoint(PointZero, MonitorDefaultToPrimary));
     }
 
@@ -94,15 +94,18 @@ internal static class TaskbarHelper
         _ = GetCursorPos(out var point);
         // use the point to get the window below it
         // this method is the fastest
-         var currentHandle = WindowFromPoint(point);
+        var currentHandle = WindowFromPoint(point);
 
         // If the current mouse position is not in the taskbar (in the fully displayed state),
         // it means that the mouse cannot be above the taskbar.
-        if (point.y < taskbar.Rect.top ||
-            point.x > taskbar.Rect.right ||
-            point.x < taskbar.Rect.left ||
-            point.y > taskbar.Rect.bottom)
+        if (point.y < taskbar.Rect.top
+            || point.x > taskbar.Rect.right
+            || point.x < taskbar.Rect.left
+            || point.y > taskbar.Rect.bottom)
+        {
+            OnMouseOverLeftCorner?.Invoke(null, false);
             return false;
+        }
 
         // Traverse to get the parent of the current window.
         // If its parent is the taskbar, it means that the mouse is on the taskbar.
@@ -114,13 +117,23 @@ internal static class TaskbarHelper
         var desktopHandle = GetDesktopWindow();
         while (currentHandle != desktopHandle)
         {
-            if (taskbar.Handle == currentHandle) return true;
+            if (taskbar.Handle == currentHandle)
+            {
+                if (point.x <= taskbar.Rect.left + taskbar.Rect.bottom - taskbar.Rect.top)
+                {
+                    OnMouseOverLeftCorner?.Invoke(null, true);
+                }
+                return true;
+            }
 
             currentHandle = GetAncestor(currentHandle, GaParent);
         }
 
+        OnMouseOverLeftCorner?.Invoke(null, false);
         return false;
     }
+
+    public static event EventHandler<bool>? OnMouseOverLeftCorner;
 
     #endregion
 }

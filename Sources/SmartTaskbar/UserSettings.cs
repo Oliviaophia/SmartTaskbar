@@ -17,8 +17,12 @@ internal class UserSettings
         {
             AutoModeType = autoMode == nameof(AutoModeType.None) ? AutoModeType.None : AutoModeType.Auto,
             ShowTaskbarWhenExit =
-                ApplicationData.Current.LocalSettings.Values[nameof(UserConfiguration.ShowTaskbarWhenExit)] as bool? ?? true,
-            AlignLeftWhenTheMouseIsLeft = ApplicationData.Current.LocalSettings.Values[nameof(UserConfiguration.AlignLeftWhenTheMouseIsLeft)] as bool? ?? false
+                ApplicationData.Current.LocalSettings.Values[nameof(UserConfiguration.ShowTaskbarWhenExit)] as bool?
+                ?? true,
+            AlignLeftWhenTheMouseIsLeft =
+                ApplicationData.Current.LocalSettings.Values[nameof(UserConfiguration.AlignLeftWhenTheMouseIsLeft)] as
+                    bool?
+                ?? false
         };
     }
 

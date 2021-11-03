@@ -1,14 +1,15 @@
-﻿using Microsoft.Win32;
+﻿using Windows.UI.ViewManagement;
+using Microsoft.Win32;
 using static SmartTaskbar.SafeNativeMethods;
 
 namespace SmartTaskbar;
 
 public static class UISettingsHelper
 {
-    private static readonly IntPtr HwndBroadcast = new (0xffff);
     private const int WmSettingChange = 0x001a;
+    private static readonly IntPtr HwndBroadcast = new(0xffff);
 
-    public static readonly Windows.UI.ViewManagement.UISettings Settings = new();
+    public static readonly UISettings Settings = new();
 
     /// <summary>
     ///     Get CurrentUser Advanced Registry Key
@@ -17,7 +18,7 @@ public static class UISettingsHelper
     /// <exception cref="InvalidOperationException"></exception>
     private static RegistryKey GetAdvancedKey()
         => Registry.CurrentUser.OpenSubKey(@"Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced", true)
-        ?? throw new InvalidOperationException("OpenSubKey Advanced Failed.");
+           ?? throw new InvalidOperationException("OpenSubKey Advanced Failed.");
 
     /// <summary>
     ///     Determine whether it is a light theme
@@ -27,9 +28,10 @@ public static class UISettingsHelper
     public static bool IsLightTheme()
     {
         using var personalizeKey =
-        Registry.CurrentUser.OpenSubKey(@"Software\Microsoft\Windows\CurrentVersion\Themes\Personalize", false) ?? throw new InvalidOperationException("OpenSubKey Personalize Failed.");
+            Registry.CurrentUser.OpenSubKey(@"Software\Microsoft\Windows\CurrentVersion\Themes\Personalize", false)
+            ?? throw new InvalidOperationException("OpenSubKey Personalize Failed.");
 
-        return (int)(personalizeKey.GetValue("SystemUsesLightTheme", 0) ?? 0) == 1;
+        return (int) (personalizeKey.GetValue("SystemUsesLightTheme", 0) ?? 0) == 1;
     }
 
     /// <summary>
@@ -40,7 +42,7 @@ public static class UISettingsHelper
     {
         using var advancedKey = GetAdvancedKey();
 
-        return (int)(advancedKey.GetValue("TaskbarAl", 1) ?? 1) == 1;
+        return (int) (advancedKey.GetValue("TaskbarAl", 1) ?? 1) == 1;
     }
 
     /// <summary>
@@ -50,7 +52,7 @@ public static class UISettingsHelper
     {
         using var advancedKey = GetAdvancedKey();
 
-        advancedKey.SetValue("TaskbarAl", 0); 
+        advancedKey.SetValue("TaskbarAl", 0);
         BroadcastSystemChange();
     }
 
