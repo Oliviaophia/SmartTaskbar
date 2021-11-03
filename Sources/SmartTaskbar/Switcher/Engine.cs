@@ -10,15 +10,18 @@ internal class Engine : IDisposable
     private static int _counter;
     private static TaskbarInfo Taskbar = TaskbarHelper.InitTaskbar();
     private static HashSet<IntPtr> _cachedIntPtr;
-    private static IntPtr _desktopHandle;
+    private static IntPtr _desktopHandle = GetDesktopWindow();
 
     private const int Capacity = 256;
     private static readonly StringBuilder Sb = new(Capacity);
 
+    private const uint MonitorDefaultToPrimary = 1;
+    private static readonly TagPoint PointZero = new() { x = 0, y = 0 };
+    private static IntPtr _monitor = MonitorFromPoint(PointZero, MonitorDefaultToPrimary);
+
     static Engine()
     {
-        _cachedIntPtr = new HashSet<IntPtr> { Taskbar.TaskbarHandle };
-        _desktopHandle = GetDesktopWindow();
+        _cachedIntPtr = new HashSet<IntPtr> { Taskbar.Handle };
     }
 
     public void Dispose()
@@ -34,8 +37,9 @@ internal class Engine : IDisposable
             #region Reset
 
             Taskbar = TaskbarHelper.InitTaskbar();
-            _cachedIntPtr = new HashSet<IntPtr> { Taskbar.TaskbarHandle };
+            _cachedIntPtr = new HashSet<IntPtr> { Taskbar.Handle };
             _desktopHandle = GetDesktopWindow();
+            _monitor = MonitorFromPoint(PointZero, MonitorDefaultToPrimary);
             AutoHideHelper.SetAutoHide();
 
             #endregion
@@ -52,7 +56,7 @@ internal class Engine : IDisposable
 
         if (_cachedIntPtr.Contains(foregroundHandle))
         {
-            Taskbar.ShowTaskar();
+            Taskbar.ShowTaskar(_monitor);
             return;
         }
 
@@ -64,18 +68,18 @@ internal class Engine : IDisposable
             case "Progman":
             case "WorkerW":
                 _cachedIntPtr.Add(foregroundHandle);
-                Taskbar.ShowTaskar();
+                Taskbar.ShowTaskar(_monitor);
                 return;
         }
 
         _ = GetWindowRect(foregroundHandle, out var rect);
-        if (rect.left < Taskbar.TaskbarRectangle.right
-               && rect.right > Taskbar.TaskbarRectangle.left
-               && rect.top < Taskbar.TaskbarRectangle.bottom
-               && rect.bottom > Taskbar.TaskbarRectangle.top)
+        if (rect.left < Taskbar.Rect.right
+               && rect.right > Taskbar.Rect.left
+               && rect.top < Taskbar.Rect.bottom
+               && rect.bottom > Taskbar.Rect.top)
             Taskbar.HideTaskbar();
         else
-            Taskbar.ShowTaskar();
+            Taskbar.ShowTaskar(_monitor);
 
         #endregion
 
@@ -104,16 +108,16 @@ internal class Engine : IDisposable
         _currentHandle = WindowFromPoint(point);
         if (_lastHandle == _currentHandle) return _lastResult;
 
-        if (point.y < Taskbar.MonitorRectangle.Top ||
-            point.x > Taskbar.MonitorRectangle.Right ||
-            point.x < Taskbar.MonitorRectangle.Left ||
-            point.y > Taskbar.MonitorRectangle.Bottom) 
+        if (point.y < Taskbar.Rect.top ||
+            point.x > Taskbar.Rect.right ||
+            point.x < Taskbar.Rect.left ||
+            point.y > Taskbar.Rect.bottom) 
             return _lastResult = false;
 
         _lastHandle = _currentHandle;
         while (_currentHandle != _desktopHandle)
         {
-            if (Taskbar.TaskbarHandle == _currentHandle) return _lastResult = true;
+            if (Taskbar.Handle == _currentHandle) return _lastResult = true;
 
             _currentHandle = GetAncestor(_currentHandle, GaParent);
         }

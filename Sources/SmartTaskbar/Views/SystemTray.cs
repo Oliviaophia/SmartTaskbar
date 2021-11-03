@@ -119,7 +119,7 @@ internal class SystemTray : ApplicationContext
         _showBarOnExit.Checked = UserSettings.ShowTaskbarWhenExit;
 
         _notifyIcon.ContextMenuStrip.Show(Cursor.Position.X - 30,
-                                          TaskbarHelper.InitTaskbar().TaskbarRectangle.top
+                                          TaskbarHelper.InitTaskbar().Rect.top
                                           - _notifyIcon.ContextMenuStrip.Height
                                           - 20);
     }
