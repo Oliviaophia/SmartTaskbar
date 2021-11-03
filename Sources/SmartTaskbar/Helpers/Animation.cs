@@ -9,21 +9,20 @@ internal static class Animation
     private const uint SpiSetMenuAnimation = 0x1003;
 
     private const uint UpdateAndSend = 3;
-    private static bool _animation;
 
     static Animation()
         => GetTaskbarAnimation();
 
     internal static bool GetTaskbarAnimation()
     {
-        _ = GetSystemParameters(SpiGetMenuAnimation, 0, out _animation, 0);
-        return _animation;
+        _ = GetSystemParameters(SpiGetMenuAnimation, 0, out bool animation, 0);
+        return animation;
     }
 
     internal static bool ChangeTaskbarAnimation()
     {
-        _animation = !_animation;
-        _ = SetSystemParameters(SpiSetMenuAnimation, 0, _animation ? (IntPtr) 1 : IntPtr.Zero, UpdateAndSend);
-        return _animation;
+        _ = GetSystemParameters(SpiGetMenuAnimation, 0, out bool animation, 0);
+        _ = SetSystemParameters(SpiSetMenuAnimation, 0, animation ? IntPtr.Zero : (IntPtr) 1, UpdateAndSend);
+        return !animation;
     }
 }

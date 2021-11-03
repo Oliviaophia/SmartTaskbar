@@ -41,7 +41,7 @@ internal class SystemTray : ApplicationContext
         };
         var contextMenuStrip = new ContextMenuStrip
         {
-            Renderer = new Win10Renderer()
+            Renderer = new Win11Renderer()
         };
 
         contextMenuStrip.Items.AddRange(new ToolStripItem[]
@@ -108,26 +108,25 @@ internal class SystemTray : ApplicationContext
     private void OnNotifyIconOnMouseDoubleClick(object? s, MouseEventArgs e)
     {
         _userSettings.AutoModeType = AutoModeType.None;
-        AutoHideHelper.SetAutoHide(AutoHideHelper.NotAutoHide());
+        AutoHideHelper.ChangeAutoHide();
     }
 
     private void OnNotifyIconOnMouseClick(object? s, MouseEventArgs e)
     {
-        TaskbarHelper.UpdateTaskbarInfo();
         if (e.Button != MouseButtons.Right) return;
 
         _animationInBar.Checked = Animation.GetTaskbarAnimation();
         _showBarOnExit.Checked = UserSettings.ShowTaskbarWhenExit;
 
         _notifyIcon.ContextMenuStrip.Show(Cursor.Position.X - 30,
-                                          TaskbarHelper.Taskbar.TaskbarRectangle.top
+                                          TaskbarHelper.InitTaskbar().TaskbarRectangle.top
                                           - _notifyIcon.ContextMenuStrip.Height
                                           - 20);
     }
 
     private void OnExitOnClick(object? s, EventArgs e)
     {
-        TaskbarHelper.HideTaskbar();
+        TaskbarHelper.InitTaskbar().HideTaskbar();
         if (UserSettings.ShowTaskbarWhenExit) AutoHideHelper.CancelAutoHide();
         _notifyIcon.Dispose();
         _engine.Dispose();
@@ -149,7 +148,6 @@ internal class SystemTray : ApplicationContext
         {
             case AutoModeType.Auto:
                 _autoMode.Checked = true;
-                AutoHideHelper.SetAutoHide();
                 Engine.Start();
                 break;
             case AutoModeType.None:

@@ -3,7 +3,7 @@
 namespace SmartTaskbar;
 
 //https://stackoverflow.com/questions/32786250/windows-10-styled-contextmenustrip
-internal class Win10ColorTable : ProfessionalColorTable
+internal class Win11ColorTable : ProfessionalColorTable
 {
     public override Color MenuItemBorder
         => Color.WhiteSmoke;
@@ -21,11 +21,11 @@ internal class Win10ColorTable : ProfessionalColorTable
         => Color.White;
 }
 
-internal class Win10Renderer : ToolStripProfessionalRenderer
+internal class Win11Renderer : ToolStripProfessionalRenderer
 {
     private static int _x;
 
-    public Win10Renderer() : base(new Win10ColorTable())
+    public Win11Renderer() : base(new Win11ColorTable())
     {
         var g = Graphics.FromHwnd(IntPtr.Zero);
         _x = (int) Math.Floor(-0.03 * g.DpiX);

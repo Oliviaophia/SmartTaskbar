@@ -11,29 +11,38 @@ public static class UiInfo
 
     public static readonly UISettings Settings = new();
 
-    private static readonly RegistryKey PersonalizeKey =
-        Registry.CurrentUser.OpenSubKey(@"Software\Microsoft\Windows\CurrentVersion\Themes\Personalize", false)
-        ?? throw new InvalidOperationException("OpenSubKey Failed.");
-
-    private static readonly RegistryKey AdvancedKey =
-        Registry.CurrentUser.OpenSubKey(@"Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced", true)
-        ?? throw new InvalidOperationException("OpenSubKey Failed.");
+    private static RegistryKey GetAdvancedKey()
+        => Registry.CurrentUser.OpenSubKey(@"Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced", true)
+        ?? throw new InvalidOperationException("OpenSubKey Advanced Failed.");
 
     public static bool IsLightTheme()
-        => (int) (PersonalizeKey.GetValue("SystemUsesLightTheme", 0) ?? 0) == 1;
+    {
+        using var personalizeKey =
+        Registry.CurrentUser.OpenSubKey(@"Software\Microsoft\Windows\CurrentVersion\Themes\Personalize", false) ?? throw new InvalidOperationException("OpenSubKey Personalize Failed.");
+
+        return (int)(personalizeKey.GetValue("SystemUsesLightTheme", 0) ?? 0) == 1;
+    }
 
     public static bool IsCenterAlignment()
-        => (int) (AdvancedKey.GetValue("TaskbarAl", 1) ?? 1) == 1;
+    {
+        using var advancedKey = GetAdvancedKey();
+
+        return (int)(advancedKey.GetValue("TaskbarAl", 1) ?? 1) == 1;
+    }
 
     public static void SetLeftAlignment()
     {
-        AdvancedKey.SetValue("TaskbarAl", 0); 
+        using var advancedKey = GetAdvancedKey();
+
+        advancedKey.SetValue("TaskbarAl", 0); 
         BroadcastSystemChange();
     }
 
     public static void SetCenterAlignment()
     {
-        AdvancedKey.SetValue("TaskbarAl", 1);
+        using var advancedKey = GetAdvancedKey();
+
+        advancedKey.SetValue("TaskbarAl", 1);
         BroadcastSystemChange();
     }
 

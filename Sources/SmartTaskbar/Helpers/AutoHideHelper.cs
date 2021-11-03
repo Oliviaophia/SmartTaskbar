@@ -2,35 +2,38 @@
 
 namespace SmartTaskbar;
 
-internal class AutoHideHelper
+internal static class AutoHideHelper
 {
     private const int AbsAutohide = 1;
-    private const int AbsAlwaysontop = 2;
-    private const uint AbmSetstate = 10;
-    private const uint AbmGetstate = 4;
-    private static AppbarData _msgData;
 
+    private const int AbsAlwaysontop = 2;
+    
+    private const uint AbmSetstate = 10;
+    
+    private const uint AbmGetstate = 4;
+    
     internal static void SetAutoHide()
     {
-        _msgData.lParam = AbsAutohide;
-        _ = SHAppBarMessage(AbmSetstate, ref _msgData);
-        TaskbarHelper.HideTaskbar();
+        var msg = new AppbarData
+        {
+            lParam = AbsAutohide
+        };
+        _ = SHAppBarMessage(AbmSetstate, ref msg);
     }
 
-    internal static void SetAutoHide(bool isAutoHide)
+    internal static void ChangeAutoHide()
     {
-        if (isAutoHide)
-            SetAutoHide();
-        else
-            CancelAutoHide();
+        var msg = new AppbarData();
+        msg.lParam = SHAppBarMessage(AbmGetstate, ref msg) == IntPtr.Zero ? AbsAutohide : AbsAlwaysontop;
+        _ = SHAppBarMessage(AbmSetstate, ref msg);
     }
 
     internal static void CancelAutoHide()
     {
-        _msgData.lParam = AbsAlwaysontop;
-        _ = SHAppBarMessage(AbmSetstate, ref _msgData);
+        var msg = new AppbarData
+        {
+            lParam = AbsAlwaysontop
+        };
+        _ = SHAppBarMessage(AbmSetstate, ref msg);
     }
-
-    internal static bool NotAutoHide()
-        => SHAppBarMessage(AbmGetstate, ref _msgData) == IntPtr.Zero;
 }

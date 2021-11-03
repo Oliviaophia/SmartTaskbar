@@ -2,21 +2,21 @@
 
 using static SafeNativeMethods;
 
-internal struct TaskbarInfo
+internal readonly struct TaskbarInfo
 {
-    public TaskbarInfo(IntPtr taskbarHandle, IntPtr monitorHandle, TagRect taskbarRectangle, TagRect monitorRectangle)
+    public TaskbarInfo(IntPtr taskbarHandle, IntPtr monitorHandle, TagRect taskbarRectangle, Rectangle monitorRectangle)
     {
         TaskbarHandle = taskbarHandle;
         MonitorHandle = monitorHandle;
-        MonitorRectangle = monitorRectangle;
         TaskbarRectangle = taskbarRectangle;
+        MonitorRectangle = monitorRectangle;
     }
 
-    public IntPtr TaskbarHandle;
+    public readonly IntPtr TaskbarHandle;
 
-    public IntPtr MonitorHandle;
+    public readonly IntPtr MonitorHandle;
 
-    public TagRect TaskbarRectangle;
+    public readonly TagRect TaskbarRectangle;
 
-    public TagRect MonitorRectangle;
+    public readonly Rectangle MonitorRectangle;
 }

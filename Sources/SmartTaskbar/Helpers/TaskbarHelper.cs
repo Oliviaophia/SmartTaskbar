@@ -4,30 +4,16 @@ namespace SmartTaskbar;
 
 internal static class TaskbarHelper
 {
-    private const uint GaParent = 1;
 
     private const uint MonitorDefaultToPrimary = 1;
 
     public const string MainTaskbar = "Shell_TrayWnd";
 
     private const uint BarFlag = 0x05D1;
-    private static IntPtr _lastHandle;
-    private static IntPtr _currentHandle;
-    private static bool _lastResult;
-    private static IntPtr _desktopHandle;
     private static readonly TagPoint PointZero = new() {x = 0, y = 0};
 
-    private static TaskbarInfo? _taskbar;
-
-    internal static TaskbarInfo Taskbar
-        => _taskbar ??= InitTaskbar();
-
-    internal static void UpdateTaskbarInfo()
-        => _taskbar = InitTaskbar();
-
-    private static TaskbarInfo InitTaskbar()
+    internal static TaskbarInfo InitTaskbar()
     {
-        _desktopHandle = GetDesktopWindow();
         var taskbarHandle = FindWindow(MainTaskbar, null);
 
         _ = GetWindowRect(taskbarHandle, out var rect);
@@ -44,45 +30,27 @@ internal static class TaskbarHelper
                                Screen.PrimaryScreen.Bounds);
     }
 
-    internal static void HideTaskbar()
+    internal static void HideTaskbar(this in TaskbarInfo taskbar)
     {
-        _ = GetWindowRect(Taskbar.TaskbarHandle, out var rect);
+        _ = GetWindowRect(taskbar.TaskbarHandle, out var rect);
 
-        if (rect.bottom == Taskbar.MonitorRectangle.bottom)
-            PostMessage(Taskbar.TaskbarHandle,
+        if (rect.bottom == taskbar.MonitorRectangle.Bottom)
+            PostMessage(taskbar.TaskbarHandle,
                         BarFlag,
                         IntPtr.Zero,
                         IntPtr.Zero);
     }
 
-    internal static void ShowTaskar()
+    internal static void ShowTaskar(this in TaskbarInfo taskbar)
     {
-        _ = GetWindowRect(Taskbar.TaskbarHandle, out var rect);
+        _ = GetWindowRect(taskbar.TaskbarHandle, out var rect);
 
-        if (rect.bottom != Taskbar.MonitorRectangle.bottom)
+        if (rect.bottom != taskbar.MonitorRectangle.Bottom)
             PostMessage(
-                Taskbar.TaskbarHandle,
+                taskbar.TaskbarHandle,
                 BarFlag,
                 (IntPtr) 1,
-                Taskbar.MonitorHandle);
+                taskbar.MonitorHandle);
     }
 
-    internal static bool IsMouseOverTaskbar()
-    {
-        _ = GetCursorPos(out var point);
-        _currentHandle = WindowFromPoint(point);
-        if (_lastHandle == _currentHandle) return _lastResult;
-
-        if (!Taskbar.MonitorRectangle.Contains(point)) return _lastResult = false;
-
-        _lastHandle = _currentHandle;
-        while (_currentHandle != _desktopHandle)
-        {
-            if (Taskbar.TaskbarHandle == _currentHandle) return _lastResult = true;
-
-            _currentHandle = GetAncestor(_currentHandle, GaParent);
-        }
-
-        return _lastResult = false;
-    }
 }
