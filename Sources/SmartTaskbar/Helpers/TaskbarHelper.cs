@@ -35,7 +35,7 @@ internal static class TaskbarHelper
                         IntPtr.Zero);
     }
 
-    internal static void ShowTaskar(this in TaskbarInfo taskbar, IntPtr monitorHandle)
+    internal static void ShowTaskar(this in TaskbarInfo taskbar, in IntPtr monitorHandle)
     {
         _ = GetWindowRect(taskbar.Handle, out var rect);
 

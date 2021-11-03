@@ -1,15 +1,14 @@
-﻿using Windows.UI.ViewManagement;
-using Microsoft.Win32;
+﻿using Microsoft.Win32;
 using static SmartTaskbar.SafeNativeMethods;
 
 namespace SmartTaskbar;
 
-public static class UiInfo
+public static class UISettings
 {
     private static readonly IntPtr HwndBroadcast = new (0xffff);
     private const int WmSettingChange = 0x001a;
 
-    public static readonly UISettings Settings = new();
+    public static readonly Windows.UI.ViewManagement.UISettings Settings = new();
 
     private static RegistryKey GetAdvancedKey()
         => Registry.CurrentUser.OpenSubKey(@"Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced", true)

@@ -52,8 +52,6 @@ internal class Engine : IDisposable
 
         var foregroundHandle = GetForegroundWindow();
 
-        if (foregroundHandle.IsWindowInvisible()) return;
-
         if (_cachedIntPtr.Contains(foregroundHandle))
         {
             Taskbar.ShowTaskar(_monitor);

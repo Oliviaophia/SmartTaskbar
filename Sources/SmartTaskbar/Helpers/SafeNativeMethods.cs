@@ -37,24 +37,6 @@ public static class SafeNativeMethods
 
     #endregion
 
-    #region IsWindowVisible
-
-    [DllImport("user32.dll", EntryPoint = "IsWindowVisible")]
-    [return: MarshalAs(UnmanagedType.Bool)]
-    public static extern bool IsWindowVisible([In] IntPtr hWnd);
-
-    #endregion
-
-    #region DwmGetWindowAttribute
-
-    [DllImport("dwmapi.dll")]
-    public static extern int DwmGetWindowAttribute(IntPtr                                   hwnd,
-                                                   int                                      dwAttribute,
-                                                   [MarshalAs(UnmanagedType.Bool)] out bool pvAttribute,
-                                                   int                                      cbAttribute);
-
-    #endregion
-
     #region GetForegroundWindow
 
     [DllImport("user32.dll", EntryPoint = "GetForegroundWindow")]

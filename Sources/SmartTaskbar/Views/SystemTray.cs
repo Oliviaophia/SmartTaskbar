@@ -58,7 +58,7 @@ internal class SystemTray : ApplicationContext
         {
             ContextMenuStrip = contextMenuStrip,
             Text = Application.ProductName,
-            Icon = UiInfo.IsLightTheme() ? IconResource.Logo_Black : IconResource.Logo_White,
+            Icon = UISettings.IsLightTheme() ? IconResource.Logo_Black : IconResource.Logo_White,
             Visible = true
         };
 
@@ -78,7 +78,7 @@ internal class SystemTray : ApplicationContext
 
         _notifyIcon.MouseDoubleClick += OnNotifyIconOnMouseDoubleClick;
 
-        UiInfo.Settings.ColorValuesChanged += OnSettingsOnColorValuesChanged;
+        UISettings.Settings.ColorValuesChanged += OnSettingsOnColorValuesChanged;
 
         Application.ApplicationExit += Application_ApplicationExit;
 
@@ -102,8 +102,8 @@ internal class SystemTray : ApplicationContext
         #endregion
     }
 
-    private void OnSettingsOnColorValuesChanged(UISettings s, object e)
-        => _notifyIcon.Icon = UiInfo.IsLightTheme() ? IconResource.Logo_Black : IconResource.Logo_White;
+    private void OnSettingsOnColorValuesChanged(Windows.UI.ViewManagement.UISettings s, object e)
+        => _notifyIcon.Icon = UISettings.IsLightTheme() ? IconResource.Logo_Black : IconResource.Logo_White;
 
     private void OnNotifyIconOnMouseDoubleClick(object? s, MouseEventArgs e)
     {
