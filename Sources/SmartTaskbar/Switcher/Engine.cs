@@ -8,7 +8,6 @@ internal class Engine : IDisposable
 {
     private static readonly Timer Timer = new(TimerCallback, null, Timeout.Infinite, Timeout.Infinite);
     private static int _counter;
-    private static bool _runningFlag = true;
     private static TaskbarInfo Taskbar = TaskbarHelper.InitTaskbar();
     private static HashSet<IntPtr> _cachedIntPtr;
     private static IntPtr _desktopHandle;
@@ -24,16 +23,12 @@ internal class Engine : IDisposable
 
     public void Dispose()
     {
-        _runningFlag = false;
         Timer.Change(Timeout.Infinite, Timeout.Infinite);
         Timer.Dispose();
     }
 
     private static void TimerCallback(object? state)
     {
-        if (!_runningFlag)
-            return;
-
         if (_counter == 480)
         {
             #region Reset
@@ -74,10 +69,10 @@ internal class Engine : IDisposable
         }
 
         _ = GetWindowRect(foregroundHandle, out var rect);
-        if (rect.left < Taskbar.MonitorRectangle.Right
-               && rect.right > Taskbar.MonitorRectangle.Left
-               && rect.top < Taskbar.MonitorRectangle.Bottom
-               && rect.bottom > Taskbar.MonitorRectangle.Top)
+        if (rect.left < Taskbar.TaskbarRectangle.right
+               && rect.right > Taskbar.TaskbarRectangle.left
+               && rect.top < Taskbar.TaskbarRectangle.bottom
+               && rect.bottom > Taskbar.TaskbarRectangle.top)
             Taskbar.HideTaskbar();
         else
             Taskbar.ShowTaskar();
@@ -90,14 +85,12 @@ internal class Engine : IDisposable
     public static void Stop()
     {
         Timer.Change(Timeout.Infinite, Timeout.Infinite);
-        _runningFlag = false;
     }
 
     public static void Start()
     {
         AutoHideHelper.SetAutoHide();
         Timer.Change(125, 125);
-        _runningFlag = true;
     }
 
     private const uint GaParent = 1;
