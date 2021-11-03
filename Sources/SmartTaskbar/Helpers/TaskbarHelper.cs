@@ -120,9 +120,7 @@ internal static class TaskbarHelper
             if (taskbar.Handle == currentHandle)
             {
                 if (point.x <= taskbar.Rect.left + taskbar.Rect.bottom - taskbar.Rect.top)
-                {
                     OnMouseOverLeftCorner?.Invoke(null, true);
-                }
                 return true;
             }
 

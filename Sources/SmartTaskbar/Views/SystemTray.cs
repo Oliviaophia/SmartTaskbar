@@ -5,13 +5,14 @@ namespace SmartTaskbar;
 
 internal class SystemTray : ApplicationContext
 {
+    private static bool _isCenterAlignment = true;
+    private readonly ToolStripMenuItem _alignLeftWhenLeft;
     private readonly ToolStripMenuItem _animationInBar;
     private readonly ToolStripMenuItem _autoMode;
-    private readonly ToolStripMenuItem _alignLeftWhenLeft;
-    private readonly ToolStripMenuItem _showBarOnExit;
 
     private readonly Engine _engine = new();
     private readonly NotifyIcon _notifyIcon;
+    private readonly ToolStripMenuItem _showBarOnExit;
     private readonly UserSettings _userSettings = new();
 
     public SystemTray()
@@ -118,8 +119,6 @@ internal class SystemTray : ApplicationContext
 
         #endregion
     }
-
-    private static bool _isCenterAlignment = true;
 
     private static void OnMouseOverLeftCorner(object? sender, bool e)
     {

@@ -44,7 +44,9 @@ internal class Engine : IDisposable
         }
 
         // todo 
+
         #region Run
+
         var foregroundHandle = GetForegroundWindow();
 
         if (_isCoreWindow)
