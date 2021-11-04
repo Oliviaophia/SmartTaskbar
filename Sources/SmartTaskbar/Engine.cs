@@ -6,8 +6,8 @@ namespace SmartTaskbar;
 
 internal class Engine : IDisposable
 {
-    private static readonly Timer Timer = new(TimerCallback, null, Timeout.Infinite, Timeout.Infinite);
-
+    private static readonly Timer Timer = new(TimerCallback);
+    
     public void Dispose()
     {
         Timer.Change(Timeout.Infinite, Timeout.Infinite);
@@ -36,10 +36,8 @@ internal class Engine : IDisposable
             case "Progman":
                 taskbar.ShowTaskar();
                 return;
-            //case "Windows.UI.Core.CoreWindow":
-            //    return;
         }
-        Debug.WriteLine(name);
+        //Debug.WriteLine(name);
 
         // Get foreground window Rectange
         _ = GetWindowRect(foregroundHandle, out var rect);

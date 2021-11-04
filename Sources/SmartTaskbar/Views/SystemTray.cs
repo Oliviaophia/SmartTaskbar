@@ -1,4 +1,5 @@
-﻿using System.Diagnostics;
+﻿using System.ComponentModel;
+using System.Diagnostics;
 using Windows.UI.ViewManagement;
 
 namespace SmartTaskbar;
@@ -14,46 +15,53 @@ internal class SystemTray : ApplicationContext
     private readonly ToolStripMenuItem _showBarOnExit;
     private readonly UserSettings _userSettings = new();
 
+    private readonly Container _container = new();
+
     public SystemTray()
     {
         #region Initialization
 
         var resource = new ResourceCulture();
-        var font = new Font("Segoe UI", 12F);
-        var padding = new Padding(4, 2, 4, 2);
+        var font = new Font("Segoe UI", 10.5F);
+        var padding = new Padding(0, 30, 0, 30);
         _animationInBar = new ToolStripMenuItem
         {
             Text = resource.GetString("tray_animation"),
             Font = font,
-            Margin = padding
+            Padding = padding,
+            TextAlign = ContentAlignment.MiddleCenter
         };
         _showBarOnExit = new ToolStripMenuItem
         {
             Text = resource.GetString("tray_showBarOnExit"),
             Font = font,
-            Margin = padding
+            Padding = padding,
+            TextAlign = ContentAlignment.MiddleCenter
         };
         _centerAlignment = new ToolStripMenuItem
         {
             Text = resource.GetString("tray_centerAlignment"),
             Font = font,
-            Margin = padding
+            Padding = padding,
+            TextAlign = ContentAlignment.MiddleCenter
         };
         _autoMode = new ToolStripMenuItem
         {
             Text = resource.GetString("tray_auto"),
             Font = font,
-            Margin = padding
+            Padding = padding,
+            TextAlign = ContentAlignment.MiddleCenter
         };
         var exit = new ToolStripMenuItem
         {
             Text = resource.GetString("tray_exit"),
             Font = font,
-            Margin = padding
+            Padding = padding,
+            TextAlign = ContentAlignment.MiddleCenter
         };
-        var contextMenuStrip = new ContextMenuStrip
+        var contextMenuStrip = new ContextMenuStrip(_container)
         {
-            Renderer = new Win11Renderer()
+            Renderer = new Win11Renderer(),
         };
 
         contextMenuStrip.Items.AddRange(new ToolStripItem[]
@@ -67,12 +75,12 @@ internal class SystemTray : ApplicationContext
             exit
         });
 
-        _notifyIcon = new NotifyIcon
+        _notifyIcon = new NotifyIcon(_container)
         {
             ContextMenuStrip = contextMenuStrip,
             Text = $"{Application.ProductName} 1.2.7",
             Icon = UISettingsHelper.IsLightTheme() ? IconResource.Logo_Black : IconResource.Logo_White,
-            Visible = true
+            Visible = true,
         };
 
         #endregion
@@ -141,7 +149,7 @@ internal class SystemTray : ApplicationContext
     private void OnExitOnClick(object? s, EventArgs e)
     {
         TaskbarHelper.InitTaskbar().HideTaskbar();
-        _notifyIcon.Dispose();
+        _container.Dispose();
         _engine.Dispose();
         if (UserSettings.ShowTaskbarWhenExit) AutoHideHelper.CancelAutoHide();
         Application.Exit();
