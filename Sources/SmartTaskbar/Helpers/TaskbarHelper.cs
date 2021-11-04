@@ -131,8 +131,7 @@ internal static class TaskbarHelper
 
         } while (currentHandle != desktopHandle);
 
-
-            return false;
+        return false;
     }
 
     #endregion
