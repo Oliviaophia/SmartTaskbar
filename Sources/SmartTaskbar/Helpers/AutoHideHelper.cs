@@ -17,13 +17,13 @@ internal static class AutoHideHelper
     /// </summary>
     internal static void SetAutoHide()
     {
-        var msg = new AppbarData
-        {
-            lParam = AbsAutohide
-        };
+        var msg = new AppbarData();
+        if (SHAppBarMessage(AbmGetstate, ref msg) != IntPtr.Zero)
+            return;
+
+        msg.lParam = AbsAutohide;
         
-        if (SHAppBarMessage(AbmGetstate, ref msg) == IntPtr.Zero)
-            _ = SHAppBarMessage(AbmSetstate, ref msg);
+        _ = SHAppBarMessage(AbmSetstate, ref msg);
     }
 
     /// <summary>
@@ -41,12 +41,12 @@ internal static class AutoHideHelper
     /// </summary>
     internal static void CancelAutoHide()
     {
-        var msg = new AppbarData
-        {
-            lParam = AbsAlwaysontop
-        };
+        var msg = new AppbarData();
+        if (SHAppBarMessage(AbmGetstate, ref msg) == IntPtr.Zero)
+            return;
 
-        if (SHAppBarMessage(AbmGetstate, ref msg) != IntPtr.Zero)
-            _ = SHAppBarMessage(AbmSetstate, ref msg);
+        msg.lParam = AbsAlwaysontop;
+
+        _ = SHAppBarMessage(AbmSetstate, ref msg);
     }
 }

@@ -141,9 +141,9 @@ internal class SystemTray : ApplicationContext
     private void OnExitOnClick(object? s, EventArgs e)
     {
         TaskbarHelper.InitTaskbar().HideTaskbar();
-        if (UserSettings.ShowTaskbarWhenExit) AutoHideHelper.CancelAutoHide();
         _notifyIcon.Dispose();
         _engine.Dispose();
+        if (UserSettings.ShowTaskbarWhenExit) AutoHideHelper.CancelAutoHide();
         Application.Exit();
     }
 
