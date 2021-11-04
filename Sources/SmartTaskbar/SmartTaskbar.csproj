@@ -7,10 +7,23 @@
     <UseWindowsForms>true</UseWindowsForms>
     <ImplicitUsings>enable</ImplicitUsings>
     <ApplicationIcon>Resources\Logo-White.ico</ApplicationIcon>
+    <Authors>Chanple</Authors>
+    <Version>1.2.7</Version>
+    <Description>A Lightweight Windows Taskbar Enhancement Utility.</Description>
+    <Copyright>Copyright (c) 2018-2021 ChanpleCai</Copyright>
+    <PackageProjectUrl>https://github.com/ChanpleCai/SmartTaskbar</PackageProjectUrl>
+    <PackageIcon>logo.png</PackageIcon>
   </PropertyGroup>
 
   <ItemGroup>
     <Content Include="Resources\Logo-White.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\..\logo\logo.png">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
   </ItemGroup>
 
   <ItemGroup>

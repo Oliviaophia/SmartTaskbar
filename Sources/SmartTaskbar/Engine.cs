@@ -1,4 +1,5 @@
-﻿using static SmartTaskbar.SafeNativeMethods;
+﻿using System.Diagnostics;
+using static SmartTaskbar.SafeNativeMethods;
 using Timer = System.Threading.Timer;
 
 namespace SmartTaskbar;
@@ -21,11 +22,14 @@ internal class Engine : IDisposable
 
         #region Run
 
-        if (taskbar.IsMouseOverTaskbar()) return;
-
         var foregroundHandle = GetForegroundWindow();
 
-        switch (foregroundHandle.GetName())
+        if (foregroundHandle.IsWindowInvisible()) return;
+
+        if (taskbar.IsMouseOverWhitelist()) return;
+
+        var name = foregroundHandle.GetName();
+        switch (name)
         {
             // Determine whether it is a desktop.
             case "WorkerW":
@@ -35,6 +39,7 @@ internal class Engine : IDisposable
             //case "Windows.UI.Core.CoreWindow":
             //    return;
         }
+        Debug.WriteLine(name);
 
         // Get foreground window Rectange
         _ = GetWindowRect(foregroundHandle, out var rect);

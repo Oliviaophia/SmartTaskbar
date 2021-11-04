@@ -80,7 +80,7 @@ internal static class TaskbarHelper
 
     #endregion
 
-    #region IsMouseOverTaskbar
+    #region IsMouseOverWhitelist
 
     private const uint GaParent = 1;
     private const int Tolerance = 20;
@@ -90,10 +90,33 @@ internal static class TaskbarHelper
     /// </summary>
     /// <param name="taskbar"></param>
     /// <returns></returns>
-    public static bool IsMouseOverTaskbar(this in TaskbarInfo taskbar)
+    public static bool IsMouseOverWhitelist(this in TaskbarInfo taskbar)
     {
         // Get mouse coordinates
         _ = GetCursorPos(out var point);
+
+        // use the point to get the window below it
+        // this method is the fastest
+        var currentHandle = WindowFromPoint(point);
+
+        if (taskbar.Handle == currentHandle) return true;
+
+        var name = currentHandle.GetName();
+        switch (name)
+        {
+            case "ReBarWindow32":
+            case "MSTaskSwWClass":
+            case "Xaml_WindowedPopupClass":
+            case "TaskListThumbnailWnd":
+            case "Windows.UI.Core.CoreWindow":
+            case "Button":
+            case "TrayNotifyWnd":
+            case "ToolbarWindow32":
+                taskbar.ShowTaskar();
+                return true;
+        } 
+
+        //Debug.WriteLine(name);
 
         // If the current mouse position is not in the taskbar (in the fully displayed state),
         // it means that the mouse cannot be above the taskbar.
@@ -103,19 +126,15 @@ internal static class TaskbarHelper
             point.x < taskbar.Rect.left)
             return false;
 
-        // use the point to get the window below it
-        // this method is the fastest
-        var currentHandle = WindowFromPoint(point);
-
-        if (taskbar.Handle == currentHandle) return true;
-
         // Some third-party software will parasitic on the taskbar
         // in order to prevent hide the taskbar by misjudgment.
         // Skip the windows that satisfy top and bottom in the range.
         _ = GetWindowRect(currentHandle, out var rect);
 
         if (rect.top >= taskbar.Rect.top - Tolerance &&
-            rect.bottom <= taskbar.Rect.bottom + Tolerance)
+            rect.bottom <= taskbar.Rect.bottom + Tolerance &&
+            rect.left >= taskbar.Rect.left - Tolerance &&
+            rect.right <= taskbar.Rect.right + Tolerance)
             return true;
 
         // Traverse to get the parent of the current window.

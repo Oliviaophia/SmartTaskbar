@@ -70,7 +70,7 @@ internal class SystemTray : ApplicationContext
         _notifyIcon = new NotifyIcon
         {
             ContextMenuStrip = contextMenuStrip,
-            Text = Application.ProductName,
+            Text = $"{Application.ProductName} 1.2.7",
             Icon = UISettingsHelper.IsLightTheme() ? IconResource.Logo_Black : IconResource.Logo_White,
             Visible = true
         };
