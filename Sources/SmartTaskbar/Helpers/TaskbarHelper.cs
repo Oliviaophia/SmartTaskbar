@@ -1,4 +1,5 @@
-﻿using static SmartTaskbar.SafeNativeMethods;
+﻿using System.Diagnostics;
+using static SmartTaskbar.SafeNativeMethods;
 
 namespace SmartTaskbar;
 
@@ -82,6 +83,7 @@ internal static class TaskbarHelper
     #region IsMouseOverTaskbar
 
     private const uint GaParent = 1;
+    private const int Tolerance = 20;
 
     /// <summary>
     ///     Determine if the current mouse is above the taskbar
@@ -92,46 +94,47 @@ internal static class TaskbarHelper
     {
         // Get mouse coordinates
         _ = GetCursorPos(out var point);
+
+        // If the current mouse position is not in the taskbar (in the fully displayed state),
+        // it means that the mouse cannot be above the taskbar.
+        if (point.y < taskbar.Rect.top ||
+            point.y > taskbar.Rect.bottom ||
+            point.x > taskbar.Rect.right ||
+            point.x < taskbar.Rect.left)
+            return false;
+
         // use the point to get the window below it
         // this method is the fastest
         var currentHandle = WindowFromPoint(point);
 
-        // If the current mouse position is not in the taskbar (in the fully displayed state),
-        // it means that the mouse cannot be above the taskbar.
-        if (point.y < taskbar.Rect.top
-            || point.x > taskbar.Rect.right
-            || point.x < taskbar.Rect.left
-            || point.y > taskbar.Rect.bottom)
-        {
-            OnMouseOverLeftCorner?.Invoke(null, false);
-            return false;
-        }
+        if (taskbar.Handle == currentHandle) return true;
+
+        // Some third-party software will parasitic on the taskbar
+        // in order to prevent hide the taskbar by misjudgment.
+        // Skip the windows that satisfy top and bottom in the range.
+        _ = GetWindowRect(currentHandle, out var rect);
+
+        if (rect.top >= taskbar.Rect.top - Tolerance &&
+            rect.bottom <= taskbar.Rect.bottom + Tolerance)
+            return true;
 
         // Traverse to get the parent of the current window.
         // If its parent is the taskbar, it means that the mouse is on the taskbar.
         // Otherwise, all the way to the highest level, the desktop, jump out of the loop.
 
-        // Under normal circumstances, there will be no more than three loops,
-        // usually the first one is the taskbar or desktop.
-        // So don't worry too much about performance.
         var desktopHandle = GetDesktopWindow();
-        while (currentHandle != desktopHandle)
+        do
         {
-            if (taskbar.Handle == currentHandle)
-            {
-                if (point.x <= taskbar.Rect.left + taskbar.Rect.bottom - taskbar.Rect.top)
-                    OnMouseOverLeftCorner?.Invoke(null, true);
-                return true;
-            }
-
             currentHandle = GetAncestor(currentHandle, GaParent);
-        }
 
-        OnMouseOverLeftCorner?.Invoke(null, false);
-        return false;
+            if (taskbar.Handle == currentHandle) return true;
+
+        } while (currentHandle != desktopHandle);
+
+
+            return false;
     }
 
-    public static event EventHandler<bool>? OnMouseOverLeftCorner;
-
     #endregion
+
 }

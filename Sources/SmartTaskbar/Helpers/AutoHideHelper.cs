@@ -21,7 +21,9 @@ internal static class AutoHideHelper
         {
             lParam = AbsAutohide
         };
-        _ = SHAppBarMessage(AbmSetstate, ref msg);
+        
+        if (SHAppBarMessage(AbmGetstate, ref msg) == IntPtr.Zero)
+            _ = SHAppBarMessage(AbmSetstate, ref msg);
     }
 
     /// <summary>
@@ -43,6 +45,8 @@ internal static class AutoHideHelper
         {
             lParam = AbsAlwaysontop
         };
-        _ = SHAppBarMessage(AbmSetstate, ref msg);
+
+        if (SHAppBarMessage(AbmGetstate, ref msg) != IntPtr.Zero)
+            _ = SHAppBarMessage(AbmSetstate, ref msg);
     }
 }

@@ -117,14 +117,14 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="tray_alignLeftWhenLeft" xml:space="preserve">
-    <value>当鼠标在左侧时图标左对齐</value>
-  </data>
   <data name="tray_animation" xml:space="preserve">
     <value>任务栏中的动画</value>
   </data>
   <data name="tray_auto" xml:space="preserve">
     <value>智能模式</value>
+  </data>
+  <data name="tray_centerAlignment" xml:space="preserve">
+    <value>任务栏居中对齐</value>
   </data>
   <data name="tray_exit" xml:space="preserve">
     <value>退出</value>

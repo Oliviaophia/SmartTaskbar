@@ -5,8 +5,7 @@ namespace SmartTaskbar;
 
 internal class SystemTray : ApplicationContext
 {
-    private static bool _isCenterAlignment = true;
-    private readonly ToolStripMenuItem _alignLeftWhenLeft;
+    private readonly ToolStripMenuItem _centerAlignment;
     private readonly ToolStripMenuItem _animationInBar;
     private readonly ToolStripMenuItem _autoMode;
 
@@ -34,9 +33,9 @@ internal class SystemTray : ApplicationContext
             Font = font,
             Margin = padding
         };
-        _alignLeftWhenLeft = new ToolStripMenuItem
+        _centerAlignment = new ToolStripMenuItem
         {
-            Text = resource.GetString("tray_alignLeftWhenLeft"),
+            Text = resource.GetString("tray_centerAlignment"),
             Font = font,
             Margin = padding
         };
@@ -60,9 +59,9 @@ internal class SystemTray : ApplicationContext
         contextMenuStrip.Items.AddRange(new ToolStripItem[]
         {
             _animationInBar,
+            _centerAlignment,
             _showBarOnExit,
             new ToolStripSeparator(),
-            _alignLeftWhenLeft,
             _autoMode,
             new ToolStripSeparator(),
             exit
@@ -84,7 +83,7 @@ internal class SystemTray : ApplicationContext
 
         _showBarOnExit.Click += OnShowBarOnExitOnClick;
 
-        _alignLeftWhenLeft.Click += AlignLeftWhenLeft_Click;
+        _centerAlignment.Click += AlignLeftWhenLeft_Click;
 
         _autoMode.Click += OnAutoModeOnClick;
 
@@ -99,8 +98,6 @@ internal class SystemTray : ApplicationContext
         Application.ApplicationExit += Application_ApplicationExit;
 
         _userSettings.OnAutoModeTypePropertyChanged += OnAutoModeTypePropertyChanged;
-
-        TaskbarHelper.OnMouseOverLeftCorner += OnMouseOverLeftCorner;
 
         #endregion
 
@@ -119,26 +116,6 @@ internal class SystemTray : ApplicationContext
 
         #endregion
     }
-
-    private static void OnMouseOverLeftCorner(object? sender, bool e)
-    {
-        if (!UserSettings.AlignLeftWhenTheMouseIsLeft) return;
-
-        switch (e)
-        {
-            case true when _isCenterAlignment:
-                _isCenterAlignment = false;
-
-                UISettingsHelper.SetLeftAlignment();
-                return;
-            case false when !_isCenterAlignment:
-                _isCenterAlignment = true;
-
-                UISettingsHelper.SetCenterAlignment();
-                return;
-        }
-    }
-
     private void OnSettingsOnColorValuesChanged(UISettings s, object e)
         => _notifyIcon.Icon = UISettingsHelper.IsLightTheme() ? IconResource.Logo_Black : IconResource.Logo_White;
 
@@ -154,10 +131,10 @@ internal class SystemTray : ApplicationContext
 
         _animationInBar.Checked = AnimationHelper.GetTaskbarAnimation();
         _showBarOnExit.Checked = UserSettings.ShowTaskbarWhenExit;
-        _alignLeftWhenLeft.Checked = UserSettings.AlignLeftWhenTheMouseIsLeft;
+        _centerAlignment.Checked = UISettingsHelper.IsCenterAlignment();
         _notifyIcon.ContextMenuStrip.Show(Cursor.Position.X - 30,
                                           TaskbarHelper.InitTaskbar().Rect.top
-                                          - _notifyIcon.ContextMenuStrip.Height
+                                            - _notifyIcon.ContextMenuStrip.Height
                                           - 20);
     }
 
@@ -171,8 +148,7 @@ internal class SystemTray : ApplicationContext
     }
 
     private void AlignLeftWhenLeft_Click(object? sender, EventArgs e)
-        => _alignLeftWhenLeft.Checked =
-            UserSettings.AlignLeftWhenTheMouseIsLeft = !UserSettings.AlignLeftWhenTheMouseIsLeft;
+        => _centerAlignment.Checked = UISettingsHelper.ChangeAlignment(); 
 
     private void OnShowBarOnExitOnClick(object? s, EventArgs e)
         => UserSettings.ShowTaskbarWhenExit = !_showBarOnExit.Checked;

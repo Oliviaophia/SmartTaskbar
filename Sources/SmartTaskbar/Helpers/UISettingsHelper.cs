@@ -46,25 +46,26 @@ public static class UISettingsHelper
     }
 
     /// <summary>
-    ///     Set left-aligned taskbar icons
+    ///     Set the center of left alignment of the taskbar icon
     /// </summary>
-    public static void SetLeftAlignment()
+    public static bool ChangeAlignment()
     {
         using var advancedKey = GetAdvancedKey();
 
-        advancedKey.SetValue("TaskbarAl", 0);
-        BroadcastSystemChange();
-    }
+        var isCenter = (int)(advancedKey.GetValue("TaskbarAl", 1) ?? 1) == 1;
 
-    /// <summary>
-    ///     Set the center alignment of the taskbar icon
-    /// </summary>
-    public static void SetCenterAlignment()
-    {
-        using var advancedKey = GetAdvancedKey();
-
-        advancedKey.SetValue("TaskbarAl", 1);
+        if (isCenter)
+        {
+            advancedKey.SetValue("TaskbarAl", 0);
+        }
+        else
+        {
+            advancedKey.SetValue("TaskbarAl", 1);
+        }
+        
         BroadcastSystemChange();
+
+        return !isCenter;
     }
 
     /// <summary>
