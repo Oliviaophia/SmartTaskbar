@@ -22,7 +22,7 @@ internal static class AutoHideHelper
             return;
 
         msg.lParam = AbsAutohide;
-        
+
         _ = SHAppBarMessage(AbmSetstate, ref msg);
     }
 

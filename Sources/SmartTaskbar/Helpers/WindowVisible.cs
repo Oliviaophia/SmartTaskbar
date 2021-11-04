@@ -10,7 +10,7 @@ internal static class WindowVisible
     {
         if (IsWindowVisible(handle) == false) return true;
 
-        _ = DwmGetWindowAttribute(handle, DwmwaCloaked, out bool _cloaked, sizeof(int));
+        _ = DwmGetWindowAttribute(handle, DwmwaCloaked, out var _cloaked, sizeof(int));
         return _cloaked;
     }
 }

@@ -1,44 +1,43 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <OutputType>WinExe</OutputType>
-    <TargetFramework>net6.0-windows10.0.20348.0</TargetFramework>
-    <Nullable>enable</Nullable>
-    <UseWindowsForms>true</UseWindowsForms>
-    <ImplicitUsings>enable</ImplicitUsings>
-    <ApplicationIcon>Resources\Logo-White.ico</ApplicationIcon>
-    <Authors>Chanple</Authors>
-    <Version>1.2.7</Version>
-    <Description>A Lightweight Windows Taskbar Enhancement Utility.</Description>
-    <Copyright>Copyright (c) 2018-2021 ChanpleCai</Copyright>
-    <PackageProjectUrl>https://github.com/ChanpleCai/SmartTaskbar</PackageProjectUrl>
-    <PackageIcon>logo.png</PackageIcon>
-  </PropertyGroup>
+	<PropertyGroup>
+		<OutputType>WinExe</OutputType>
+		<TargetFramework>net6.0-windows10.0.20348.0</TargetFramework>
+		<Nullable>enable</Nullable>
+		<UseWindowsForms>true</UseWindowsForms>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<ApplicationIcon>Resources\Logo-White.ico</ApplicationIcon>
+		<Authors>Chanple</Authors>
+		<Version>1.2.7</Version>
+		<Description>A Lightweight Windows Taskbar Enhancement Utility.</Description>
+		<Copyright>Copyright (c) 2018-2021 ChanpleCai</Copyright>
+		<PackageIcon>logo.png</PackageIcon>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <Content Include="Resources\Logo-White.ico" />
-  </ItemGroup>
+	<ItemGroup>
+		<Content Include="Resources\Logo-White.ico" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <None Include="..\..\logo\logo.png">
-      <Pack>True</Pack>
-      <PackagePath>\</PackagePath>
-    </None>
-  </ItemGroup>
+	<ItemGroup>
+		<None Include="..\..\logo\logo.png">
+			<Pack>True</Pack>
+			<PackagePath>\</PackagePath>
+		</None>
+	</ItemGroup>
 
-  <ItemGroup>
-    <Compile Update="IconResource.Designer.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>IconResource.resx</DependentUpon>
-    </Compile>
-  </ItemGroup>
+	<ItemGroup>
+		<Compile Update="IconResource.Designer.cs">
+			<DesignTime>True</DesignTime>
+			<AutoGen>True</AutoGen>
+			<DependentUpon>IconResource.resx</DependentUpon>
+		</Compile>
+	</ItemGroup>
 
-  <ItemGroup>
-    <EmbeddedResource Update="IconResource.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>IconResource.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-  </ItemGroup>
+	<ItemGroup>
+		<EmbeddedResource Update="IconResource.resx">
+			<Generator>ResXFileCodeGenerator</Generator>
+			<LastGenOutput>IconResource.Designer.cs</LastGenOutput>
+		</EmbeddedResource>
+	</ItemGroup>
 
 </Project>

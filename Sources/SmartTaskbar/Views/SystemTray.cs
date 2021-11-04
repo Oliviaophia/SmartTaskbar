@@ -6,16 +6,16 @@ namespace SmartTaskbar;
 
 internal class SystemTray : ApplicationContext
 {
-    private readonly ToolStripMenuItem _centerAlignment;
     private readonly ToolStripMenuItem _animationInBar;
     private readonly ToolStripMenuItem _autoMode;
+    private readonly ToolStripMenuItem _centerAlignment;
+
+    private readonly Container _container = new();
 
     private readonly Engine _engine = new();
     private readonly NotifyIcon _notifyIcon;
     private readonly ToolStripMenuItem _showBarOnExit;
     private readonly UserSettings _userSettings = new();
-
-    private readonly Container _container = new();
 
     public SystemTray()
     {
@@ -23,7 +23,7 @@ internal class SystemTray : ApplicationContext
 
         var resource = new ResourceCulture();
         var font = new Font("Segoe UI", 10.5F);
-        var padding = new Padding(0, 30, 0, 30);
+        var padding = new Padding(0, 2, 0, 0);
         _animationInBar = new ToolStripMenuItem
         {
             Text = resource.GetString("tray_animation"),
@@ -61,7 +61,7 @@ internal class SystemTray : ApplicationContext
         };
         var contextMenuStrip = new ContextMenuStrip(_container)
         {
-            Renderer = new Win11Renderer(),
+            Renderer = new Win11Renderer()
         };
 
         contextMenuStrip.Items.AddRange(new ToolStripItem[]
@@ -80,7 +80,7 @@ internal class SystemTray : ApplicationContext
             ContextMenuStrip = contextMenuStrip,
             Text = $"{Application.ProductName} 1.2.7",
             Icon = UISettingsHelper.IsLightTheme() ? IconResource.Logo_Black : IconResource.Logo_White,
-            Visible = true,
+            Visible = true
         };
 
         #endregion
@@ -124,6 +124,7 @@ internal class SystemTray : ApplicationContext
 
         #endregion
     }
+
     private void OnSettingsOnColorValuesChanged(UISettings s, object e)
         => _notifyIcon.Icon = UISettingsHelper.IsLightTheme() ? IconResource.Logo_Black : IconResource.Logo_White;
 
@@ -142,8 +143,9 @@ internal class SystemTray : ApplicationContext
         _centerAlignment.Checked = UISettingsHelper.IsCenterAlignment();
         _notifyIcon.ContextMenuStrip.Show(Cursor.Position.X - 30,
                                           TaskbarHelper.InitTaskbar().Rect.top
-                                            - _notifyIcon.ContextMenuStrip.Height
+                                          - _notifyIcon.ContextMenuStrip.Height
                                           - 20);
+        _notifyIcon.ContextMenuStrip.AutoClose = true;
     }
 
     private void OnExitOnClick(object? s, EventArgs e)
@@ -156,7 +158,7 @@ internal class SystemTray : ApplicationContext
     }
 
     private void AlignLeftWhenLeft_Click(object? sender, EventArgs e)
-        => _centerAlignment.Checked = UISettingsHelper.ChangeAlignment(); 
+        => _centerAlignment.Checked = UISettingsHelper.ChangeAlignment();
 
     private void OnShowBarOnExitOnClick(object? s, EventArgs e)
         => UserSettings.ShowTaskbarWhenExit = !_showBarOnExit.Checked;
