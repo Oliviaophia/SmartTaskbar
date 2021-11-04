@@ -13,7 +13,7 @@
   <Identity
     Name="20535Chanple.SmartTaskbar"
     Publisher="CN=F5F524C9-8FE8-4344-A509-F43DDE3B3ED6"
-    Version="1.2.5.0" />
+    Version="1.2.6.0" />
 
   <Properties>
     <DisplayName>SmartTaskbar</DisplayName>
