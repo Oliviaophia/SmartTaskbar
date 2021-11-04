@@ -52,17 +52,13 @@ public static class UISettingsHelper
     {
         using var advancedKey = GetAdvancedKey();
 
-        var isCenter = (int)(advancedKey.GetValue("TaskbarAl", 1) ?? 1) == 1;
+        var isCenter = (int) (advancedKey.GetValue("TaskbarAl", 1) ?? 1) == 1;
 
         if (isCenter)
-        {
             advancedKey.SetValue("TaskbarAl", 0);
-        }
         else
-        {
             advancedKey.SetValue("TaskbarAl", 1);
-        }
-        
+
         BroadcastSystemChange();
 
         return !isCenter;

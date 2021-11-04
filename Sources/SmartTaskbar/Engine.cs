@@ -1,5 +1,4 @@
-﻿using System.Diagnostics;
-using static SmartTaskbar.SafeNativeMethods;
+﻿using static SmartTaskbar.SafeNativeMethods;
 using Timer = System.Threading.Timer;
 
 namespace SmartTaskbar;
@@ -7,7 +6,7 @@ namespace SmartTaskbar;
 internal class Engine : IDisposable
 {
     private static readonly Timer Timer = new(TimerCallback);
-    
+
     public void Dispose()
     {
         Timer.Change(Timeout.Infinite, Timeout.Infinite);
@@ -18,7 +17,7 @@ internal class Engine : IDisposable
     {
         // Make sure the taskbar has been automatically hidden, otherwise it will not work
         AutoHideHelper.SetAutoHide();
-        var taskbar =TaskbarHelper.InitTaskbar();
+        var taskbar = TaskbarHelper.InitTaskbar();
 
         #region Run
 
@@ -41,10 +40,10 @@ internal class Engine : IDisposable
 
         // Get foreground window Rectange
         _ = GetWindowRect(foregroundHandle, out var rect);
-        if (rect.bottom > taskbar.Rect.top &&
-            rect.top < taskbar.Rect.bottom &&
-            rect.left < taskbar.Rect.right &&
-            rect.right > taskbar.Rect.left)
+        if (rect.bottom > taskbar.Rect.top
+            && rect.top < taskbar.Rect.bottom
+            && rect.left < taskbar.Rect.right
+            && rect.right > taskbar.Rect.left)
             taskbar.HideTaskbar();
         else
             taskbar.ShowTaskar();

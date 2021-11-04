@@ -1,5 +1,4 @@
-﻿using System.Diagnostics;
-using static SmartTaskbar.SafeNativeMethods;
+﻿using static SmartTaskbar.SafeNativeMethods;
 
 namespace SmartTaskbar;
 
@@ -114,16 +113,16 @@ internal static class TaskbarHelper
             case "ToolbarWindow32":
                 taskbar.ShowTaskar();
                 return true;
-        } 
+        }
 
         //Debug.WriteLine(name);
 
         // If the current mouse position is not in the taskbar (in the fully displayed state),
         // it means that the mouse cannot be above the taskbar.
-        if (point.y < taskbar.Rect.top ||
-            point.y > taskbar.Rect.bottom ||
-            point.x > taskbar.Rect.right ||
-            point.x < taskbar.Rect.left)
+        if (point.y < taskbar.Rect.top
+            || point.y > taskbar.Rect.bottom
+            || point.x > taskbar.Rect.right
+            || point.x < taskbar.Rect.left)
             return false;
 
         // Some third-party software will parasitic on the taskbar
@@ -131,10 +130,10 @@ internal static class TaskbarHelper
         // Skip the windows that satisfy top and bottom in the range.
         _ = GetWindowRect(currentHandle, out var rect);
 
-        if (rect.top >= taskbar.Rect.top - Tolerance &&
-            rect.bottom <= taskbar.Rect.bottom + Tolerance &&
-            rect.left >= taskbar.Rect.left - Tolerance &&
-            rect.right <= taskbar.Rect.right + Tolerance)
+        if (rect.top >= taskbar.Rect.top - Tolerance
+            && rect.bottom <= taskbar.Rect.bottom + Tolerance
+            && rect.left >= taskbar.Rect.left - Tolerance
+            && rect.right <= taskbar.Rect.right + Tolerance)
             return true;
 
         // Traverse to get the parent of the current window.
@@ -147,12 +146,11 @@ internal static class TaskbarHelper
             currentHandle = GetAncestor(currentHandle, GaParent);
 
             if (taskbar.Handle == currentHandle) return true;
-
-        } while (currentHandle != desktopHandle);
+        }
+        while (currentHandle != desktopHandle);
 
         return false;
     }
 
     #endregion
-
 }

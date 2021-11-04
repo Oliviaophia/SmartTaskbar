@@ -41,13 +41,12 @@ public static class SafeNativeMethods
     #region DwmGetWindowAttribute
 
     [DllImport("dwmapi.dll")]
-    public static extern int DwmGetWindowAttribute(IntPtr hwnd,
-                                                   int dwAttribute,
+    public static extern int DwmGetWindowAttribute(IntPtr                                   hwnd,
+                                                   int                                      dwAttribute,
                                                    [MarshalAs(UnmanagedType.Bool)] out bool pvAttribute,
-                                                   int cbAttribute);
+                                                   int                                      cbAttribute);
 
     #endregion
-
 
 
     #region GetDesktopWindow
