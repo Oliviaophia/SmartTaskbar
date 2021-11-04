@@ -145,6 +145,7 @@ internal class SystemTray : ApplicationContext
                                           TaskbarHelper.InitTaskbar().Rect.top
                                           - _notifyIcon.ContextMenuStrip.Height
                                           - 20);
+        _notifyIcon.ContextMenuStrip.AutoClose = true;
     }
 
     private void OnExitOnClick(object? s, EventArgs e)
