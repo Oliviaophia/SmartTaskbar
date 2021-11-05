@@ -22,40 +22,22 @@ public class Engine : IDisposable
         AutoHideHelper.SetAutoHide();
         var taskbar = TaskbarHelper.InitTaskbar();
 
-        switch (taskbar.ShouldMouseOverWindowShowTheTaskbar())
+        var behavior = taskbar.ShouldMouseOverWindowShowTheTaskbar();
+
+        if (behavior == TaskbarBehavior.Pending)
         {
-            case TaskbarBehavior.Pending:
-                switch (taskbar.ShouldForegroundWindowShowTheTaskbar())
-                {
-                    case TaskbarBehavior.Show:
-                        taskbar.ShowTaskar();
-                        break;
-                    case TaskbarBehavior.Hide:
-                        taskbar.HideTaskbar();
-                        break;
-                    case TaskbarBehavior.Pending:
-                        switch (taskbar.ShouldVisibleWindowShowTheTaskbar())
-                        {
-                            case TaskbarBehavior.Show:
-                                taskbar.ShowTaskar();
-                                break;
-                            case TaskbarBehavior.Hide:
-                                taskbar.HideTaskbar();
-                                break;
-                            case TaskbarBehavior.Pending:
-                                break;
-                            case TaskbarBehavior.DoNothing:
-                                break;
-                        }
-                        break;
-                    case TaskbarBehavior.DoNothing:
-                        break;
-                }
-                break;
+            behavior = taskbar.ShouldForegroundWindowShowTheTaskbar();
+            if (behavior == TaskbarBehavior.Pending)
+                behavior = taskbar.ShouldVisibleWindowShowTheTaskbar();
+        }
+
+        switch (behavior)
+        {
             case TaskbarBehavior.Show:
                 taskbar.ShowTaskar();
                 break;
-            case TaskbarBehavior.DoNothing:
+            case TaskbarBehavior.Hide:
+                taskbar.HideTaskbar();
                 break;
         }
 

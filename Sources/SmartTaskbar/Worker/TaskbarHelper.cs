@@ -94,10 +94,7 @@ internal static class TaskbarHelper
 
         // Somehow, the foreground window is not necessarily visible.
         if (foregroundHandle.IsWindowInvisible())
-        {
-            Debug.WriteLine(foregroundHandle.GetName());
             return TaskbarBehavior.Pending;
-        }
 
         switch (foregroundHandle.GetName())
         {
