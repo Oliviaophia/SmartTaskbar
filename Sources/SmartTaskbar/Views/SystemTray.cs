@@ -20,6 +20,7 @@ internal class SystemTray : ApplicationContext
     public SystemTray()
     {
         #region Initialization
+
         var resource = new ResourceCulture();
         var font = new Font("Segoe UI", 10.5F);
         var padding = new Padding(0, 2, 0, 0);

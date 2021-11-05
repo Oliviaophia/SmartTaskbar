@@ -1,4 +1,5 @@
-﻿using Timer = System.Timers.Timer;
+﻿using System.Timers;
+using Timer = System.Timers.Timer;
 
 namespace SmartTaskbar;
 
@@ -15,7 +16,13 @@ public class Engine : IDisposable
         _timer.Elapsed += Timer_Elapsed;
     }
 
-    private void Timer_Elapsed(object? sender, System.Timers.ElapsedEventArgs e)
+    public void Dispose()
+    {
+        Dispose(true);
+        GC.SuppressFinalize(this);
+    }
+
+    private void Timer_Elapsed(object? sender, ElapsedEventArgs e)
     {
         _timer?.Stop();
         // Make sure the taskbar has been automatically hidden, otherwise it will not work
@@ -63,21 +70,13 @@ public class Engine : IDisposable
         _timer?.Start();
     }
 
-    public void Dispose()
-    {
-        Dispose(true);
-        GC.SuppressFinalize(this);
-    }
-
     protected virtual void Dispose(bool disposing)
     {
         if (disposing)
-        {
             if (_timer is not null)
             {
                 _timer?.Dispose();
                 _timer = null;
             }
-        }
     }
 }
