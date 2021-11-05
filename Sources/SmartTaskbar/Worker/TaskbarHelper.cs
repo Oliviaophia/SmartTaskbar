@@ -182,20 +182,22 @@ internal static class TaskbarHelper
     }
 
     private static bool _enumWindowResult;
+    private static TaskbarInfo _taskbarInfo;
 
-    internal static TaskbarBehavior ShouldVisibleWindowShowTheTaskbar(this TaskbarInfo taskbar)
+    internal static TaskbarBehavior ShouldVisibleWindowShowTheTaskbar(this in TaskbarInfo taskbar)
     {
         _enumWindowResult = false;
-        EnumWindows((handle, t) =>
+        _taskbarInfo = taskbar;
+        EnumWindows((handle, _) =>
                     {
                         if (handle.IsWindowInvisible()) return true;
 
-                        _ = GetWindowRect(handle, out var rect);
+                        GetWindowRect(handle, out var rect);
 
-                        if (rect.bottom <= t.Rect.top
-                            || rect.top >= t.Rect.bottom
-                            || rect.left >= t.Rect.right
-                            || rect.right <= t.Rect.left) return true;
+                        if (rect.bottom <= _taskbarInfo.Rect.top
+                            || rect.top >= _taskbarInfo.Rect.bottom
+                            || rect.left >= _taskbarInfo.Rect.right
+                            || rect.right <= _taskbarInfo.Rect.left) return true;
 
                         switch (handle.GetName())
                         {
@@ -209,7 +211,7 @@ internal static class TaskbarHelper
                         return false;
 
                     },
-                    ref taskbar);
+                    IntPtr.Zero);
 
         return _enumWindowResult ? TaskbarBehavior.Hide : TaskbarBehavior.Show;
     }

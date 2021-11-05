@@ -168,11 +168,11 @@ public static class SafeNativeMethods
 
     [UnmanagedFunctionPointer(CallingConvention.StdCall)]
     [return: MarshalAs(UnmanagedType.Bool)]
-    public delegate bool WndEnumProc(IntPtr param0, TaskbarInfo param1);
+    public delegate bool WndEnumProc(IntPtr param0, IntPtr param1);
 
     [DllImport("user32.dll", EntryPoint = "EnumWindows")]
     [return: MarshalAs(UnmanagedType.Bool)]
-    public static extern bool EnumWindows(WndEnumProc lpEnumFunc, ref TaskbarInfo lParam);
+    public static extern bool EnumWindows(WndEnumProc lpEnumFunc, IntPtr lParam);
 
     #endregion
 }
