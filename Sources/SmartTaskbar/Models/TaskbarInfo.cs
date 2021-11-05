@@ -5,17 +5,17 @@ using static SafeNativeMethods;
 /// <summary>
 ///     Taskbar information structure
 /// </summary>
-internal readonly struct TaskbarInfo
+public readonly struct TaskbarInfo
 {
     /// <summary>
-    ///     ctor
+    ///     Initialize taskbar information
     /// </summary>
-    /// <param name="handle"></param>
-    /// <param name="rect"></param>
-    public TaskbarInfo(IntPtr handle, TagRect rect)
+    /// <returns></returns>
+    public TaskbarInfo(IntPtr handle, TagRect rect, bool isShow)
     {
         Handle = handle;
         Rect = rect;
+        IsShow = isShow;
     }
 
     /// <summary>
@@ -27,4 +27,9 @@ internal readonly struct TaskbarInfo
     ///     Taskbar rectangle (in display state)
     /// </summary>
     public readonly TagRect Rect;
+
+    /// <summary>
+    ///     Whether the taskbar is displayed
+    /// </summary>
+    public readonly bool IsShow;
 }

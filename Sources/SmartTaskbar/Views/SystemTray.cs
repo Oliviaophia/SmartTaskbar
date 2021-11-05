@@ -12,6 +12,7 @@ internal class SystemTray : ApplicationContext
     private readonly Container _container = new();
 
     private readonly Engine _engine = new();
+
     private readonly NotifyIcon _notifyIcon;
     private readonly ToolStripMenuItem _showBarOnExit;
     private readonly UserSettings _userSettings = new();
@@ -19,7 +20,6 @@ internal class SystemTray : ApplicationContext
     public SystemTray()
     {
         #region Initialization
-
         var resource = new ResourceCulture();
         var font = new Font("Segoe UI", 10.5F);
         var padding = new Padding(0, 2, 0, 0);
@@ -95,9 +95,6 @@ internal class SystemTray : ApplicationContext
         Application.ApplicationExit += Application_ApplicationExit;
 
         _userSettings.OnAutoModeTypePropertyChanged += OnAutoModeTypePropertyChanged;
-#if DEBUG
-        Engine.OnDebugTips += Engine_OnDebugTips;
-#endif
 
         #endregion
 
@@ -107,7 +104,7 @@ internal class SystemTray : ApplicationContext
         {
             case AutoModeType.Auto:
                 _autoMode.Checked = true;
-                _engine.Start();
+                Engine.Start();
                 break;
             case AutoModeType.None:
                 _autoMode.Checked = false;
@@ -116,17 +113,6 @@ internal class SystemTray : ApplicationContext
 
         #endregion
     }
-
-#if DEBUG
-    private static string? lastName;
-    private void Engine_OnDebugTips(object? sender, string e)
-    {
-        if (lastName == e) return;
-        lastName = e;
-
-        _notifyIcon.ShowBalloonTip(5000, "Debug Info", e, ToolTipIcon.Info);
-    }
-#endif
 
     private void OnSettingsOnColorValuesChanged(UISettings s, object e)
         => _notifyIcon.Icon = UISettingsHelper.IsLightTheme() ? IconResource.Logo_Black : IconResource.Logo_White;
@@ -147,14 +133,13 @@ internal class SystemTray : ApplicationContext
                                           TaskbarHelper.InitTaskbar().Rect.top
                                           - _notifyIcon.ContextMenuStrip.Height
                                           - 20);
-        _notifyIcon.ContextMenuStrip.AutoClose = true;
     }
 
     private void OnExitOnClick(object? s, EventArgs e)
     {
-        TaskbarHelper.InitTaskbar().HideTaskbar();
         _container.Dispose();
         _engine.Dispose();
+        TaskbarHelper.InitTaskbar().HideTaskbar();
         if (UserSettings.ShowTaskbarWhenExit) AutoHideHelper.CancelAutoHide();
         Application.Exit();
     }
@@ -174,11 +159,11 @@ internal class SystemTray : ApplicationContext
         {
             case AutoModeType.Auto:
                 _autoMode.Checked = true;
-                _engine.Start();
+                Engine.Start();
                 break;
             case AutoModeType.None:
                 _autoMode.Checked = false;
-                _engine.Stop();
+                Engine.Stop();
                 break;
         }
     }

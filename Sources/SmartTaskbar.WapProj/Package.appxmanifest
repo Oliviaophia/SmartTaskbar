@@ -3,12 +3,9 @@
 <Package
   xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10"
   xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10"
-  xmlns:uap2="http://schemas.microsoft.com/appx/manifest/uap/windows10/2"
-  xmlns:uap3="http://schemas.microsoft.com/appx/manifest/uap/windows10/3"
   xmlns:rescap="http://schemas.microsoft.com/appx/manifest/foundation/windows10/restrictedcapabilities"
   xmlns:desktop="http://schemas.microsoft.com/appx/manifest/desktop/windows10"
-  xmlns:uap10="http://schemas.microsoft.com/appx/manifest/uap/windows10/10"
-  IgnorableNamespaces="uap uap2 uap3 rescap desktop uap10">
+  IgnorableNamespaces="uap rescap">
 
   <Identity
     Name="20535Chanple.SmartTaskbar"
