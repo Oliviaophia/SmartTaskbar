@@ -1,4 +1,4 @@
-﻿using static SmartTaskbar.SafeNativeMethods;
+﻿using static SmartTaskbar.NativeMethods;
 
 namespace SmartTaskbar;
 

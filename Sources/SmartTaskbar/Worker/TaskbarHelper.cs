@@ -1,6 +1,6 @@
 ﻿namespace SmartTaskbar;
 
-using static SafeNativeMethods;
+using static NativeMethods;
 
 internal static class TaskbarHelper
 {
@@ -188,30 +188,40 @@ internal static class TaskbarHelper
     {
         _enumWindowResult = false;
         _taskbarInfo = taskbar;
-        EnumWindows((handle, _) =>
-                    {
-                        if (handle.IsWindowInvisible()) return true;
-
-                        GetWindowRect(handle, out var rect);
-
-                        if (rect.bottom <= _taskbarInfo.Rect.top
-                            || rect.top >= _taskbarInfo.Rect.bottom
-                            || rect.left >= _taskbarInfo.Rect.right
-                            || rect.right <= _taskbarInfo.Rect.left) return true;
-
-                        switch (handle.GetName())
+        try
+        {
+            EnumWindows((handle, _) =>
                         {
-                            case Progman:
-                            case WorkerW:
-                            case MainTaskbarClassName:
-                                return true;
-                        }
+                            if (handle.IsWindowInvisible()) return true;
 
-                        _enumWindowResult = true;
-                        return false;
+                            GetWindowRect(handle, out var rect);
 
-                    },
-                    IntPtr.Zero);
+                            if (rect.bottom <= _taskbarInfo.Rect.top
+                                || rect.top >= _taskbarInfo.Rect.bottom
+                                || rect.left >= _taskbarInfo.Rect.right
+                                || rect.right <= _taskbarInfo.Rect.left) return true;
+
+                            switch (handle.GetName())
+                            {
+                                case Progman:
+                                case WorkerW:
+                                case MainTaskbarClassName:
+                                    return true;
+                            }
+
+                            _enumWindowResult = true;
+                            return false;
+
+                        },
+                        IntPtr.Zero);
+        }
+        catch (Exception)
+        {
+            // https://stackoverflow.com/questions/9365809/why-does-enumwindows-fail-with-error-already-exists
+            
+            // So the windows API is not as reliable as expected.
+            return TaskbarBehavior.DoNothing;
+        }
 
         return _enumWindowResult ? TaskbarBehavior.Hide : TaskbarBehavior.Show;
     }

@@ -1,11 +1,9 @@
 ﻿using System.Runtime.InteropServices;
-using System.Security;
 using System.Text;
 
 namespace SmartTaskbar;
 
-[SuppressUnmanagedCodeSecurity]
-public static class SafeNativeMethods
+public static class NativeMethods
 {
     #region PostMessage
 

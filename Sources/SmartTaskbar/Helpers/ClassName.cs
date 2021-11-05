@@ -2,7 +2,7 @@
 
 namespace SmartTaskbar;
 
-using static SafeNativeMethods;
+using static NativeMethods;
 
 internal static class ClassName
 {
