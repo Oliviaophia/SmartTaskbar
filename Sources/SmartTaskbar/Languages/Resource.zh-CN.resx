@@ -123,9 +123,6 @@
   <data name="tray_auto" xml:space="preserve">
     <value>智能模式</value>
   </data>
-  <data name="tray_centerAlignment" xml:space="preserve">
-    <value>任务栏居中对齐</value>
-  </data>
   <data name="tray_exit" xml:space="preserve">
     <value>退出</value>
   </data>

@@ -5,7 +5,7 @@ namespace SmartTaskbar;
 
 internal class Engine : IDisposable
 {
-    private static readonly Timer Timer = new(TimerCallback);
+    private readonly Timer Timer = new(TimerCallback);
 
     public void Dispose()
     {
@@ -23,6 +23,12 @@ internal class Engine : IDisposable
 
         var foregroundHandle = GetForegroundWindow();
 
+        if (foregroundHandle == taskbar.Handle)
+        {
+            taskbar.ShowTaskar();
+            return;
+        }
+
         if (foregroundHandle.IsWindowInvisible()) return;
 
         if (taskbar.IsMouseOverWhitelist()) return;
@@ -37,6 +43,9 @@ internal class Engine : IDisposable
                 return;
         }
         //Debug.WriteLine(name);
+#if DEBUG
+        OnDebugTips?.Invoke(null, name);
+#endif
 
         // Get foreground window Rectange
         _ = GetWindowRect(foregroundHandle, out var rect);
@@ -54,15 +63,19 @@ internal class Engine : IDisposable
     /// <summary>
     ///     Turn off the timer, Pause auto mode
     /// </summary>
-    public static void Stop()
+    public void Stop()
         => Timer.Change(Timeout.Infinite, Timeout.Infinite);
 
     /// <summary>
     ///     Start the timer, start the auto mode
     /// </summary>
-    public static void Start()
+    public void Start()
     {
         // 125 milliseconds is a balance between user-acceptable perception and system call time
         Timer.Change(125, 125);
     }
+
+#if DEBUG
+    public static event EventHandler<string>? OnDebugTips;
+#endif
 }

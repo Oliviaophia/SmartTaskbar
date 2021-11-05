@@ -48,7 +48,6 @@ public static class SafeNativeMethods
 
     #endregion
 
-
     #region GetDesktopWindow
 
     [DllImport("user32.dll", EntryPoint = "GetDesktopWindow")]

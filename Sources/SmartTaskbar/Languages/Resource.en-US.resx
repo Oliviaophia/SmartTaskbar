@@ -123,9 +123,6 @@
   <data name="tray_auto" xml:space="preserve">
     <value>Auto Mode</value>
   </data>
-  <data name="tray_centerAlignment" xml:space="preserve">
-    <value>Taskbar center alignment</value>
-  </data>
   <data name="tray_exit" xml:space="preserve">
     <value>Exit</value>
   </data>

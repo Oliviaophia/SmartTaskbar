@@ -8,7 +8,6 @@ internal class SystemTray : ApplicationContext
 {
     private readonly ToolStripMenuItem _animationInBar;
     private readonly ToolStripMenuItem _autoMode;
-    private readonly ToolStripMenuItem _centerAlignment;
 
     private readonly Container _container = new();
 
@@ -38,13 +37,6 @@ internal class SystemTray : ApplicationContext
             Padding = padding,
             TextAlign = ContentAlignment.MiddleCenter
         };
-        _centerAlignment = new ToolStripMenuItem
-        {
-            Text = resource.GetString("tray_centerAlignment"),
-            Font = font,
-            Padding = padding,
-            TextAlign = ContentAlignment.MiddleCenter
-        };
         _autoMode = new ToolStripMenuItem
         {
             Text = resource.GetString("tray_auto"),
@@ -67,7 +59,6 @@ internal class SystemTray : ApplicationContext
         contextMenuStrip.Items.AddRange(new ToolStripItem[]
         {
             _animationInBar,
-            _centerAlignment,
             _showBarOnExit,
             new ToolStripSeparator(),
             _autoMode,
@@ -78,7 +69,7 @@ internal class SystemTray : ApplicationContext
         _notifyIcon = new NotifyIcon(_container)
         {
             ContextMenuStrip = contextMenuStrip,
-            Text = $"{Application.ProductName} 1.2.7",
+            Text = Application.ProductName,
             Icon = UISettingsHelper.IsLightTheme() ? IconResource.Logo_Black : IconResource.Logo_White,
             Visible = true
         };
@@ -90,8 +81,6 @@ internal class SystemTray : ApplicationContext
         _animationInBar.Click += OnAnimationInBarOnClick;
 
         _showBarOnExit.Click += OnShowBarOnExitOnClick;
-
-        _centerAlignment.Click += AlignLeftWhenLeft_Click;
 
         _autoMode.Click += OnAutoModeOnClick;
 
@@ -106,6 +95,9 @@ internal class SystemTray : ApplicationContext
         Application.ApplicationExit += Application_ApplicationExit;
 
         _userSettings.OnAutoModeTypePropertyChanged += OnAutoModeTypePropertyChanged;
+#if DEBUG
+        Engine.OnDebugTips += Engine_OnDebugTips;
+#endif
 
         #endregion
 
@@ -115,7 +107,7 @@ internal class SystemTray : ApplicationContext
         {
             case AutoModeType.Auto:
                 _autoMode.Checked = true;
-                Engine.Start();
+                _engine.Start();
                 break;
             case AutoModeType.None:
                 _autoMode.Checked = false;
@@ -124,6 +116,17 @@ internal class SystemTray : ApplicationContext
 
         #endregion
     }
+
+#if DEBUG
+    private static string? lastName;
+    private void Engine_OnDebugTips(object? sender, string e)
+    {
+        if (lastName == e) return;
+        lastName = e;
+
+        _notifyIcon.ShowBalloonTip(5000, "Debug Info", e, ToolTipIcon.Info);
+    }
+#endif
 
     private void OnSettingsOnColorValuesChanged(UISettings s, object e)
         => _notifyIcon.Icon = UISettingsHelper.IsLightTheme() ? IconResource.Logo_Black : IconResource.Logo_White;
@@ -140,7 +143,6 @@ internal class SystemTray : ApplicationContext
 
         _animationInBar.Checked = AnimationHelper.GetTaskbarAnimation();
         _showBarOnExit.Checked = UserSettings.ShowTaskbarWhenExit;
-        _centerAlignment.Checked = UISettingsHelper.IsCenterAlignment();
         _notifyIcon.ContextMenuStrip.Show(Cursor.Position.X - 30,
                                           TaskbarHelper.InitTaskbar().Rect.top
                                           - _notifyIcon.ContextMenuStrip.Height
@@ -157,9 +159,6 @@ internal class SystemTray : ApplicationContext
         Application.Exit();
     }
 
-    private void AlignLeftWhenLeft_Click(object? sender, EventArgs e)
-        => _centerAlignment.Checked = UISettingsHelper.ChangeAlignment();
-
     private void OnShowBarOnExitOnClick(object? s, EventArgs e)
         => UserSettings.ShowTaskbarWhenExit = !_showBarOnExit.Checked;
 
@@ -175,11 +174,11 @@ internal class SystemTray : ApplicationContext
         {
             case AutoModeType.Auto:
                 _autoMode.Checked = true;
-                Engine.Start();
+                _engine.Start();
                 break;
             case AutoModeType.None:
                 _autoMode.Checked = false;
-                Engine.Stop();
+                _engine.Stop();
                 break;
         }
     }
