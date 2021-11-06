@@ -22,11 +22,11 @@ public class Engine : IDisposable
         GC.SuppressFinalize(this);
     }
 
-    private void Timer_Elapsed(object? sender, ElapsedEventArgs e)
+    private static void Timer_Elapsed(object? sender, ElapsedEventArgs e)
     {
         _timer?.Stop();
         // Make sure the taskbar has been automatically hidden, otherwise it will not work
-        AutoHideHelper.SetAutoHide();
+        Fun.SetAutoHide();
         var taskbar = TaskbarHelper.InitTaskbar();
 
         var behavior = taskbar.ShouldMouseOverWindowShowTheTaskbar();
@@ -35,7 +35,7 @@ public class Engine : IDisposable
         {
             behavior = taskbar.ShouldForegroundWindowShowTheTaskbar();
             if (behavior == TaskbarBehavior.Pending)
-                behavior = taskbar.ShouldVisibleWindowShowTheTaskbar();
+                behavior = taskbar.ShouldDesktopShowTheTaskbar();
         }
 
         switch (behavior)
@@ -72,11 +72,11 @@ public class Engine : IDisposable
 
     protected virtual void Dispose(bool disposing)
     {
-        if (disposing)
-            if (_timer is not null)
-            {
-                _timer?.Dispose();
-                _timer = null;
-            }
+        if (!disposing) return;
+
+        if (_timer is null) return;
+
+        _timer?.Dispose();
+        _timer = null;
     }
 }

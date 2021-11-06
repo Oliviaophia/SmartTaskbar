@@ -1,16 +1,14 @@
-﻿using static SmartTaskbar.NativeMethods;
+﻿namespace SmartTaskbar;
 
-namespace SmartTaskbar;
-
-internal static class WindowVisible
+public static partial class Fun
 {
-    private const int DwmwaCloaked = 14;
+    private const int DwmWaCloaked = 14;
 
-    internal static bool IsWindowInvisible(this IntPtr handle)
+    public static bool IsWindowInvisible(this IntPtr handle)
     {
         if (IsWindowVisible(handle) == false) return true;
 
-        _ = DwmGetWindowAttribute(handle, DwmwaCloaked, out var _cloaked, sizeof(int));
-        return _cloaked;
+        _ = DwmGetWindowAttribute(handle, DwmWaCloaked, out var cloaked, sizeof(int));
+        return cloaked;
     }
 }

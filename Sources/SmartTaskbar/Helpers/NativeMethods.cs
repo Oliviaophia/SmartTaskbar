@@ -3,10 +3,21 @@ using System.Text;
 
 namespace SmartTaskbar;
 
-public static class NativeMethods
+public static partial class Fun
 {
     #region PostMessage
 
+    /// <summary>
+    ///     Places (posts) a message in the message queue associated with the thread that created the specified window and
+    ///     returns without waiting for the thread to process the message.
+    ///     If the function succeeds, the return value is nonzero.
+    ///     If the function fails, the return value is zero.
+        /// </summary>
+        /// <param name="hWnd"></param>
+        /// <param name="msg"></param>
+        /// <param name="wParam"></param>
+        /// <param name="lParam"></param>
+        /// <returns></returns>
     [DllImport("user32.dll", EntryPoint = "PostMessageW")]
     [return: MarshalAs(UnmanagedType.Bool)]
     public static extern bool PostMessage([In] IntPtr hWnd, uint msg, IntPtr wParam, IntPtr lParam);
@@ -15,6 +26,13 @@ public static class NativeMethods
 
     #region GetParentWindow
 
+    /// <summary>
+    ///     Retrieves the handle to the ancestor of the specified window.
+    ///     If hwnd parameter is the desktop window, the function returns NULL.
+    /// </summary>
+    /// <param name="hwnd"></param>
+    /// <param name="gaFlags"></param>
+    /// <returns></returns>
     [DllImport("user32.dll", EntryPoint = "GetAncestor")]
     public static extern IntPtr GetAncestor([In] IntPtr hwnd, uint gaFlags);
 
@@ -22,6 +40,12 @@ public static class NativeMethods
 
     #region GetCursorPos
 
+    /// <summary>
+    ///     Retrieves the position of the mouse cursor, in screen coordinates.
+    ///     Returns nonzero if successful or zero otherwise.
+    /// </summary>
+    /// <param name="lpPoint"></param>
+    /// <returns></returns>
     [DllImport("user32.dll", EntryPoint = "GetCursorPos")]
     [return: MarshalAs(UnmanagedType.Bool)]
     public static extern bool GetCursorPos(out TagPoint lpPoint);
@@ -55,6 +79,14 @@ public static class NativeMethods
 
     #region GetForegroundWindow
 
+    /// <summary>
+    ///     Retrieves a handle to the foreground window (the window with which the user is currently working).
+    ///     The system assigns a slightly higher priority to the thread that creates the foreground window than it does to
+    ///     other threads.
+    ///     The return value is a handle to the foreground window.
+    ///     The foreground window can be NULL in certain circumstances, such as when a window is losing activation.
+    /// </summary>
+    /// <returns></returns>
     [DllImport("user32.dll", EntryPoint = "GetForegroundWindow")]
     public static extern IntPtr GetForegroundWindow();
 
@@ -62,6 +94,17 @@ public static class NativeMethods
 
     #region GetClassName
 
+    /// <summary>
+    ///     Retrieves the name of the class to which the specified window belongs.
+    ///     The length of the lpClassName buffer, in characters.
+    ///     The buffer must be large enough to include the terminating null character;
+    ///     otherwise, the class name string is truncated to nMaxCount-1 characters.
+    ///     If the function fails, the return value is zero. 
+    /// </summary>
+    /// <param name="hWnd"></param>
+    /// <param name="lpClassName"></param>
+    /// <param name="nMaxCount"></param>
+    /// <returns></returns>
     [DllImport("user32.dll", EntryPoint = "GetClassNameW")]
     public static extern int GetClassName([In] IntPtr hWnd,
                                           [Out] [MarshalAs(UnmanagedType.LPWStr)]
@@ -129,6 +172,15 @@ public static class NativeMethods
 
     #region GetWindowRect
 
+    /// <summary>
+    ///     Retrieves the dimensions of the bounding rectangle of the specified window.
+    ///     The dimensions are given in screen coordinates that are relative to the upper-left corner of the screen.
+    ///     If the function succeeds, the return value is nonzero.
+    ///     If the function fails, the return value is zero.
+    /// </summary>
+    /// <param name="hWnd"></param>
+    /// <param name="lpRect"></param>
+    /// <returns></returns>
     [DllImport("user32.dll", EntryPoint = "GetWindowRect")]
     [return: MarshalAs(UnmanagedType.Bool)]
     public static extern bool GetWindowRect([In] IntPtr hWnd, out TagRect lpRect);
@@ -149,6 +201,14 @@ public static class NativeMethods
 
     #region WindowFromPoint
 
+    /// <summary>
+    ///     The return value is a handle to the window that contains the point.
+    ///     If no window exists at the given point, the return value is NULL.
+    ///     If the point is over a static text control, the return value is a handle to the window under the static text
+    ///     control.
+    /// </summary>
+    /// <param name="point"></param>
+    /// <returns></returns>
     [DllImport("user32.dll", EntryPoint = "WindowFromPoint")]
     public static extern IntPtr WindowFromPoint(TagPoint point);
 

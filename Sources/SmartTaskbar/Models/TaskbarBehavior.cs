@@ -1,6 +1,6 @@
 ﻿namespace SmartTaskbar;
 
-internal enum TaskbarBehavior
+public enum TaskbarBehavior
 {
     Pending,
     DoNothing,

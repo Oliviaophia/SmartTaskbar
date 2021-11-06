@@ -1,8 +1,6 @@
-﻿using static SmartTaskbar.NativeMethods;
+﻿namespace SmartTaskbar;
 
-namespace SmartTaskbar;
-
-internal static class AnimationHelper
+public static partial class Fun
 {
     private const uint SpiGetMenuAnimation = 0x1002;
 
@@ -10,14 +8,11 @@ internal static class AnimationHelper
 
     private const uint UpdateAndSend = 3;
 
-    static AnimationHelper()
-        => GetTaskbarAnimation();
-
     /// <summary>
     ///     Get taskbar animation status
     /// </summary>
     /// <returns></returns>
-    internal static bool GetTaskbarAnimation()
+    public static bool GetTaskbarAnimation()
     {
         _ = GetSystemParameters(SpiGetMenuAnimation, 0, out var animation, 0);
         return animation;
@@ -27,7 +22,7 @@ internal static class AnimationHelper
     ///     Change the animation state of the taskbar
     /// </summary>
     /// <returns></returns>
-    internal static bool ChangeTaskbarAnimation()
+    public static bool ChangeTaskbarAnimation()
     {
         _ = GetSystemParameters(SpiGetMenuAnimation, 0, out var animation, 0);
         _ = SetSystemParameters(SpiSetMenuAnimation, 0, animation ? IntPtr.Zero : (IntPtr) 1, UpdateAndSend);

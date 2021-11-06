@@ -3,9 +3,9 @@ using Microsoft.Win32;
 
 namespace SmartTaskbar;
 
-public static class UISettingsHelper
+public static partial class Fun
 {
-    public static readonly UISettings Settings = new();
+    public static readonly UISettings UISettings = new();
 
     /// <summary>
     ///     Determine whether it is a light theme

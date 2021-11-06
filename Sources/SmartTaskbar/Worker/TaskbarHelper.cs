@@ -1,8 +1,9 @@
 ﻿namespace SmartTaskbar;
 
-using static NativeMethods;
+using static Fun;
 
-internal static class TaskbarHelper
+public static class TaskbarHelper
+
 {
     #region Initialize the taskbar Info
 
@@ -11,13 +12,17 @@ internal static class TaskbarHelper
     /// </summary>
     private const string MainTaskbarClassName = "Shell_TrayWnd";
 
-    internal static TaskbarInfo InitTaskbar()
+    public static TaskbarInfo InitTaskbar()
     {
         // Find the main taskbar handle
         var handle = FindWindow(MainTaskbarClassName, null);
 
+        if (handle == IntPtr.Zero)
+            throw new ApplicationException("The SmartTaskbar is unable to get the handle of the taskbar.");
+
         // Get taskbar window rectangle
-        _ = GetWindowRect(handle, out var rect);
+        if (!GetWindowRect(handle, out var rect))
+            throw new ApplicationException("The SmartTaskbar is unable to get the rectangle of the taskbar.");
 
         // Currently, the taskbar of Windows 11 is only at the bottom,
         // so you only need to calculate the difference between the taskbar and the bottom of the screen
@@ -48,26 +53,26 @@ internal static class TaskbarHelper
     ///     Hide the taskbar, in auto-hide mode
     /// </summary>
     /// <param name="taskbar"></param>
-    internal static void HideTaskbar(this TaskbarInfo taskbar)
+    public static void HideTaskbar(this in TaskbarInfo taskbar)
     {
         if (taskbar.IsShow)
             // Send a message to hide the taskbar, if taskbar is display
-            PostMessage(taskbar.Handle,
-                        BarFlag,
-                        IntPtr.Zero,
-                        IntPtr.Zero);
+            _ = PostMessage(taskbar.Handle,
+                            BarFlag,
+                            IntPtr.Zero,
+                            IntPtr.Zero);
+
     }
 
     /// <summary>
     ///     Show the taskbar, in auto-hide mode
     /// </summary>
     /// <param name="taskbar"></param>
-    /// <param name="monitor"></param>
-    internal static void ShowTaskar(this TaskbarInfo taskbar)
+    public static void ShowTaskar(this in TaskbarInfo taskbar)
     {
         // Send a message to show the taskbar, if taskbar is hidden
         if (!taskbar.IsShow)
-            PostMessage(
+            _ = PostMessage(
                 taskbar.Handle,
                 BarFlag,
                 (IntPtr) 1,
@@ -78,7 +83,7 @@ internal static class TaskbarHelper
 
     #region Determine whether it need to display the taskbar
 
-    private const uint GaParent = 1;
+    private const uint GaRoot = 2;
     private const int Tolerance = 20;
 
     private const string Progman = "Progman";
@@ -90,45 +95,34 @@ internal static class TaskbarHelper
     ///     it will only cause the taskbar to show or do nothing.
     /// </summary>
     /// <param name="taskbar"></param>
-    /// <param name="mouseOverHandle"></param>
     /// <returns></returns>
-    internal static TaskbarBehavior ShouldMouseOverWindowShowTheTaskbar(this TaskbarInfo taskbar)
+    public static TaskbarBehavior ShouldMouseOverWindowShowTheTaskbar(this in TaskbarInfo taskbar)
     {
         // Get mouse coordinates
-        _ = GetCursorPos(out var point);
+        if (!GetCursorPos(out var point))
+            return TaskbarBehavior.Pending;
 
         // use the point to get the window below it
         // this method is the fastest
         var mouseOverHandle = WindowFromPoint(point);
 
+        // WindowFromPoint unable to get the correct window
+        if (mouseOverHandle == IntPtr.Zero)
+            return TaskbarBehavior.Pending;
+
         // If the current handle is the taskbar, return directly.
         if (taskbar.Handle == mouseOverHandle)
-            return TaskbarBehavior.Pending;
+            return TaskbarBehavior.DoNothing;
 
-        // Not sure if this will happen.
-        if (mouseOverHandle.IsWindowInvisible())
-            return TaskbarBehavior.Pending;
-
-        // Traverse to get the parent of the current window.
-        // If its parent is the taskbar, it means that the mouse is on the taskbar.
-        // Otherwise, all the way to the highest level, the desktop, jump out of the loop.
-        var desktopHandle = GetDesktopWindow();
-        var tempHandle = mouseOverHandle;
-        do
-        {
-            tempHandle = GetAncestor(tempHandle, GaParent);
-
-            if (taskbar.Handle == tempHandle)
-                return TaskbarBehavior.DoNothing;
-        }
-        while (tempHandle != desktopHandle);
+        // If the current handle is within the taskbar, return directly.
+        if (taskbar.Handle == GetAncestor(mouseOverHandle, GaRoot))
+            return TaskbarBehavior.DoNothing;
 
         // Some third-party software will parasitic on the taskbar
         // in order to prevent hide the taskbar by misjudgment.
         // Skip the windows that satisfy top and bottom in the range.
-        _ = GetWindowRect(mouseOverHandle, out var mouseOverRect);
-
-        if (mouseOverRect.top >= taskbar.Rect.top - Tolerance
+        if (GetWindowRect(mouseOverHandle, out var mouseOverRect)
+            && mouseOverRect.top >= taskbar.Rect.top - Tolerance
             && mouseOverRect.bottom <= taskbar.Rect.bottom + Tolerance
             && mouseOverRect.left >= taskbar.Rect.left - Tolerance
             && mouseOverRect.right <= taskbar.Rect.right + Tolerance)
@@ -136,24 +130,20 @@ internal static class TaskbarHelper
 
         // If it is a thumbnail of the floating taskbar icon,
         // the taskbar needs to be displayed.
-
-        switch (mouseOverHandle.GetName())
-        {
-            case TaskListThumbnailWnd:
-                return TaskbarBehavior.Show;
-        }
-
-        return TaskbarBehavior.Pending;
+        return mouseOverHandle.GetName() == TaskListThumbnailWnd
+            ? TaskbarBehavior.Show
+            : TaskbarBehavior.Pending;
     }
 
-    internal static TaskbarBehavior ShouldForegroundWindowShowTheTaskbar(this TaskbarInfo taskbar)
+    public static TaskbarBehavior ShouldForegroundWindowShowTheTaskbar(this TaskbarInfo taskbar)
     {
         var foregroundHandle = GetForegroundWindow();
 
-        //When the system is start up or a window is closed,
-        //there is a certain probability that the taskbar will be set to foreground window.
-        // In this case, if you do not manually set the taskbar display,
-        // the taskbar will not be displayed.
+        if (foregroundHandle == IntPtr.Zero)
+            return TaskbarBehavior.Pending;
+
+        // When the system is start up or a window is closed,
+        // there is a certain probability that the taskbar will be set to foreground window.
         if (foregroundHandle == taskbar.Handle)
             return TaskbarBehavior.Show;
 
@@ -161,69 +151,43 @@ internal static class TaskbarHelper
         if (foregroundHandle.IsWindowInvisible())
             return TaskbarBehavior.Pending;
 
-        switch (foregroundHandle.GetName())
-        {
-            // Determine whether it is a desktop.
-            case Progman:
-            case WorkerW:
-                return TaskbarBehavior.Show;
-        }
+        // Get foreground window Rectange.
+        if (!GetWindowRect(foregroundHandle, out var rect))
+            return TaskbarBehavior.Pending;
 
-        // Get foreground window Rectange
-        _ = GetWindowRect(foregroundHandle, out var rect);
+        // If the window and the taskbar do not intersect, the taskbar should be displayed.
+        if (rect.bottom <= taskbar.Rect.top
+            || rect.top >= taskbar.Rect.bottom
+            || rect.left >= taskbar.Rect.right
+            || rect.right <= taskbar.Rect.left) 
+            return TaskbarBehavior.Show;
 
-        // if it intersects, the taskbar will be hidden.
-        return rect.bottom > taskbar.Rect.top
-               && rect.top < taskbar.Rect.bottom
-               && rect.left < taskbar.Rect.right
-               && rect.right > taskbar.Rect.left
-            ? TaskbarBehavior.Hide
-            : TaskbarBehavior.Show;
+        // Unless it's a desktop.
+        return foregroundHandle.GetName() is Progman or WorkerW 
+            ? TaskbarBehavior.Show 
+            : TaskbarBehavior.Hide;
     }
 
-    private static bool _enumWindowResult;
-    private static TaskbarInfo _taskbarInfo;
-
-    internal static TaskbarBehavior ShouldVisibleWindowShowTheTaskbar(this in TaskbarInfo taskbar)
+    public static TaskbarBehavior ShouldDesktopShowTheTaskbar(this in TaskbarInfo taskbar)
     {
-        _enumWindowResult = false;
-        _taskbarInfo = taskbar;
-        try
-        {
-            EnumWindows((handle, _) =>
-                        {
-                            if (handle.IsWindowInvisible()) return true;
+        // Take a point on the taskbar to determine whether its current window is the desktop,
+        // if it is, the taskbar should be displayed
+        var window = WindowFromPoint(new TagPoint {x = taskbar.Rect.left, y = taskbar.Rect.top});
 
-                            GetWindowRect(handle, out var rect);
+        if (window == IntPtr.Zero)
+            return TaskbarBehavior.Pending;
 
-                            if (rect.bottom <= _taskbarInfo.Rect.top
-                                || rect.top >= _taskbarInfo.Rect.bottom
-                                || rect.left >= _taskbarInfo.Rect.right
-                                || rect.right <= _taskbarInfo.Rect.left) return true;
+        if (window == taskbar.Handle)
+            return TaskbarBehavior.Pending;
 
-                            switch (handle.GetName())
-                            {
-                                case Progman:
-                                case WorkerW:
-                                case MainTaskbarClassName:
-                                    return true;
-                            }
+        var rootWindow = GetAncestor(window, GaRoot);
 
-                            _enumWindowResult = true;
-                            return false;
+        if (rootWindow == taskbar.Handle)
+            return TaskbarBehavior.Pending;
 
-                        },
-                        IntPtr.Zero);
-        }
-        catch (Exception)
-        {
-            // https://stackoverflow.com/questions/9365809/why-does-enumwindows-fail-with-error-already-exists
-            
-            // So the windows API is not as reliable as expected.
-            return TaskbarBehavior.DoNothing;
-        }
+        var name = rootWindow.GetName();
 
-        return _enumWindowResult ? TaskbarBehavior.Hide : TaskbarBehavior.Show;
+        return name is Progman or WorkerW ? TaskbarBehavior.Show : TaskbarBehavior.Pending;
     }
 
     #endregion

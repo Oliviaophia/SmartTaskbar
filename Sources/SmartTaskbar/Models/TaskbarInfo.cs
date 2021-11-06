@@ -1,6 +1,6 @@
 ﻿namespace SmartTaskbar;
 
-using static NativeMethods;
+using static Fun;
 
 /// <summary>
 ///     Taskbar information structure

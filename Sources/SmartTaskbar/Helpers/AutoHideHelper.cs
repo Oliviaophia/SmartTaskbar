@@ -1,52 +1,50 @@
-﻿using static SmartTaskbar.NativeMethods;
+﻿namespace SmartTaskbar;
 
-namespace SmartTaskbar;
-
-internal static class AutoHideHelper
+public static partial class Fun
 {
-    private const int AbsAutohide = 1;
+    private const int AbsAutoHide = 1;
 
-    private const int AbsAlwaysontop = 2;
+    private const int AbsAlwaysOnTop = 2;
 
-    private const uint AbmSetstate = 10;
+    private const uint AbmSetState = 10;
 
-    private const uint AbmGetstate = 4;
+    private const uint AbmGetState = 4;
 
     /// <summary>
     ///     Set taskbar to Auto-Hide
     /// </summary>
-    internal static void SetAutoHide()
+    public static void SetAutoHide()
     {
         var msg = new AppbarData();
-        if (SHAppBarMessage(AbmGetstate, ref msg) != IntPtr.Zero)
+        if (SHAppBarMessage(AbmGetState, ref msg) != IntPtr.Zero)
             return;
 
-        msg.lParam = AbsAutohide;
+        msg.lParam = AbsAutoHide;
 
-        _ = SHAppBarMessage(AbmSetstate, ref msg);
+        _ = SHAppBarMessage(AbmSetState, ref msg);
     }
 
     /// <summary>
     ///     Change Auto-Hide status
     /// </summary>
-    internal static void ChangeAutoHide()
+    public static void ChangeAutoHide()
     {
         var msg = new AppbarData();
-        msg.lParam = SHAppBarMessage(AbmGetstate, ref msg) == IntPtr.Zero ? AbsAutohide : AbsAlwaysontop;
-        _ = SHAppBarMessage(AbmSetstate, ref msg);
+        msg.lParam = SHAppBarMessage(AbmGetState, ref msg) == IntPtr.Zero ? AbsAutoHide : AbsAlwaysOnTop;
+        _ = SHAppBarMessage(AbmSetState, ref msg);
     }
 
     /// <summary>
     ///     Set taskbar to Always-On-Top
     /// </summary>
-    internal static void CancelAutoHide()
+    public static void CancelAutoHide()
     {
         var msg = new AppbarData();
-        if (SHAppBarMessage(AbmGetstate, ref msg) == IntPtr.Zero)
+        if (SHAppBarMessage(AbmGetState, ref msg) == IntPtr.Zero)
             return;
 
-        msg.lParam = AbsAlwaysontop;
+        msg.lParam = AbsAlwaysOnTop;
 
-        _ = SHAppBarMessage(AbmSetstate, ref msg);
+        _ = SHAppBarMessage(AbmSetState, ref msg);
     }
 }

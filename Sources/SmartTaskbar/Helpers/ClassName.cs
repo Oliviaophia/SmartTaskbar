@@ -2,18 +2,11 @@
 
 namespace SmartTaskbar;
 
-using static NativeMethods;
-
-internal static class ClassName
+public static partial class Fun
 {
     private const int Capacity = 256;
     private static readonly StringBuilder Sb = new(Capacity);
 
-    internal static string GetName(this IntPtr handle)
-    {
-        _ = Sb.Clear();
-        _ = GetClassName(handle, Sb, Capacity);
-
-        return Sb.ToString();
-    }
+    public static string GetName(this in IntPtr handle)
+        => GetClassName(handle, Sb.Clear(), Capacity) == 0 ? "" : Sb.ToString();
 }

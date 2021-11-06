@@ -71,7 +71,7 @@ internal class SystemTray : ApplicationContext
         {
             ContextMenuStrip = contextMenuStrip,
             Text = Application.ProductName,
-            Icon = UISettingsHelper.IsLightTheme() ? IconResource.Logo_Black : IconResource.Logo_White,
+            Icon = Fun.IsLightTheme() ? IconResource.Logo_Black : IconResource.Logo_White,
             Visible = true
         };
 
@@ -91,7 +91,7 @@ internal class SystemTray : ApplicationContext
 
         _notifyIcon.MouseDoubleClick += OnNotifyIconOnMouseDoubleClick;
 
-        UISettingsHelper.Settings.ColorValuesChanged += OnSettingsOnColorValuesChanged;
+        Fun.UISettings.ColorValuesChanged += OnUiSettingsOnColorValuesChanged;
 
         Application.ApplicationExit += Application_ApplicationExit;
 
@@ -115,20 +115,20 @@ internal class SystemTray : ApplicationContext
         #endregion
     }
 
-    private void OnSettingsOnColorValuesChanged(UISettings s, object e)
-        => _notifyIcon.Icon = UISettingsHelper.IsLightTheme() ? IconResource.Logo_Black : IconResource.Logo_White;
+    private void OnUiSettingsOnColorValuesChanged(UISettings s, object e)
+        => _notifyIcon.Icon = Fun.IsLightTheme() ? IconResource.Logo_Black : IconResource.Logo_White;
 
     private void OnNotifyIconOnMouseDoubleClick(object? s, MouseEventArgs e)
     {
         _userSettings.AutoModeType = AutoModeType.None;
-        AutoHideHelper.ChangeAutoHide();
+        Fun.ChangeAutoHide();
     }
 
     private void OnNotifyIconOnMouseClick(object? s, MouseEventArgs e)
     {
         if (e.Button != MouseButtons.Right) return;
 
-        _animationInBar.Checked = AnimationHelper.GetTaskbarAnimation();
+        _animationInBar.Checked = Fun.GetTaskbarAnimation();
         _showBarOnExit.Checked = UserSettings.ShowTaskbarWhenExit;
         _notifyIcon.ContextMenuStrip.Show(Cursor.Position.X - 30,
                                           TaskbarHelper.InitTaskbar().Rect.top
@@ -141,7 +141,7 @@ internal class SystemTray : ApplicationContext
         _container.Dispose();
         _engine.Dispose();
         TaskbarHelper.InitTaskbar().HideTaskbar();
-        if (UserSettings.ShowTaskbarWhenExit) AutoHideHelper.CancelAutoHide();
+        if (UserSettings.ShowTaskbarWhenExit) Fun.CancelAutoHide();
         Application.Exit();
     }
 
@@ -152,7 +152,7 @@ internal class SystemTray : ApplicationContext
         => _userSettings.AutoModeType = _autoMode.Checked ? AutoModeType.None : AutoModeType.Auto;
 
     private void OnAnimationInBarOnClick(object? s, EventArgs e)
-        => _animationInBar.Checked = AnimationHelper.ChangeTaskbarAnimation();
+        => _animationInBar.Checked = Fun.ChangeTaskbarAnimation();
 
     private void OnAutoModeTypePropertyChanged(object? s, AutoModeType e)
     {
