@@ -61,7 +61,6 @@ public static class TaskbarHelper
                             BarFlag,
                             IntPtr.Zero,
                             IntPtr.Zero);
-
     }
 
     /// <summary>
@@ -159,12 +158,12 @@ public static class TaskbarHelper
         if (rect.bottom <= taskbar.Rect.top
             || rect.top >= taskbar.Rect.bottom
             || rect.left >= taskbar.Rect.right
-            || rect.right <= taskbar.Rect.left) 
+            || rect.right <= taskbar.Rect.left)
             return TaskbarBehavior.Show;
 
         // Unless it's a desktop.
-        return foregroundHandle.GetName() is Progman or WorkerW 
-            ? TaskbarBehavior.Show 
+        return foregroundHandle.GetName() is Progman or WorkerW
+            ? TaskbarBehavior.Show
             : TaskbarBehavior.Hide;
     }
 

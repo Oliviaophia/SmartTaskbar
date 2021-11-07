@@ -12,12 +12,12 @@ public static partial class Fun
     ///     returns without waiting for the thread to process the message.
     ///     If the function succeeds, the return value is nonzero.
     ///     If the function fails, the return value is zero.
-        /// </summary>
-        /// <param name="hWnd"></param>
-        /// <param name="msg"></param>
-        /// <param name="wParam"></param>
-        /// <param name="lParam"></param>
-        /// <returns></returns>
+    /// </summary>
+    /// <param name="hWnd"></param>
+    /// <param name="msg"></param>
+    /// <param name="wParam"></param>
+    /// <param name="lParam"></param>
+    /// <returns></returns>
     [DllImport("user32.dll", EntryPoint = "PostMessageW")]
     [return: MarshalAs(UnmanagedType.Bool)]
     public static extern bool PostMessage([In] IntPtr hWnd, uint msg, IntPtr wParam, IntPtr lParam);
@@ -54,6 +54,14 @@ public static partial class Fun
 
     #region IsWindowVisible
 
+    /// <summary>
+    ///     If the specified window, its parent window, its parent's parent window, and so forth, have the WS_VISIBLE style,
+    ///     the return value is nonzero. Otherwise, the return value is zero.
+    ///     Because the return value specifies whether the window has the WS_VISIBLE style, it may be nonzero even if the
+    ///     window is totally obscured by other windows.
+    /// </summary>
+    /// <param name="hWnd"></param>
+    /// <returns></returns>
     [DllImport("user32.dll", EntryPoint = "IsWindowVisible")]
     [return: MarshalAs(UnmanagedType.Bool)]
     public static extern bool IsWindowVisible([In] IntPtr hWnd);
@@ -62,18 +70,20 @@ public static partial class Fun
 
     #region DwmGetWindowAttribute
 
+    /// <summary>
+    ///     Retrieves the current value of a specified Desktop Window Manager (DWM) attribute applied to a window.
+    ///     If the function succeeds, it returns S_OK. Otherwise, it returns an HRESULT error code.
+    /// </summary>
+    /// <param name="hwnd"></param>
+    /// <param name="dwAttribute"></param>
+    /// <param name="pvAttribute"></param>
+    /// <param name="cbAttribute"></param>
+    /// <returns></returns>
     [DllImport("dwmapi.dll")]
     public static extern int DwmGetWindowAttribute(IntPtr                                   hwnd,
                                                    int                                      dwAttribute,
                                                    [MarshalAs(UnmanagedType.Bool)] out bool pvAttribute,
                                                    int                                      cbAttribute);
-
-    #endregion
-
-    #region GetDesktopWindow
-
-    [DllImport("user32.dll", EntryPoint = "GetDesktopWindow")]
-    public static extern IntPtr GetDesktopWindow();
 
     #endregion
 
@@ -99,7 +109,7 @@ public static partial class Fun
     ///     The length of the lpClassName buffer, in characters.
     ///     The buffer must be large enough to include the terminating null character;
     ///     otherwise, the class name string is truncated to nMaxCount-1 characters.
-    ///     If the function fails, the return value is zero. 
+    ///     If the function fails, the return value is zero.
     /// </summary>
     /// <param name="hWnd"></param>
     /// <param name="lpClassName"></param>
@@ -115,6 +125,13 @@ public static partial class Fun
 
     #region MonitorFromPoint
 
+    /// <summary>
+    ///     If the point is contained by a display monitor, the return value is an HMONITOR handle to that display monitor.
+    ///     If the point is not contained by a display monitor, the return value depends on the value of dwFlags.
+    /// </summary>
+    /// <param name="pt"></param>
+    /// <param name="dwFlags"></param>
+    /// <returns></returns>
     [DllImport("user32.dll", EntryPoint = "MonitorFromPoint")]
     public static extern IntPtr MonitorFromPoint(TagPoint pt, uint dwFlags);
 
@@ -122,16 +139,16 @@ public static partial class Fun
 
     #region FindWindow
 
+    /// <summary>
+    ///     If the function succeeds, the return value is a handle to the window that has the specified class name and window
+    ///     name.
+    ///     If the function fails, the return value is NULL.
+    /// </summary>
+    /// <param name="strClassName"></param>
+    /// <param name="strWindowName"></param>
+    /// <returns></returns>
     [DllImport("user32.dll", CharSet = CharSet.Unicode)]
     public static extern IntPtr FindWindow([In] string? strClassName, [In] string? strWindowName);
-
-    #endregion
-
-    #region SendNotifyMessage
-
-    [DllImport("user32.dll", CharSet = CharSet.Unicode)]
-    [return: MarshalAs(UnmanagedType.Bool)]
-    public static extern bool SendNotifyMessage([In] IntPtr hWnd, uint msg, UIntPtr wParam, string? lParam);
 
     #endregion
 
@@ -153,6 +170,12 @@ public static partial class Fun
         public int lParam;
     }
 
+    /// <summary>
+    ///     This function returns a message-dependent value.
+    /// </summary>
+    /// <param name="dwMessage"></param>
+    /// <param name="pData"></param>
+    /// <returns></returns>
     [DllImport("shell32.dll", EntryPoint = "SHAppBarMessage", CallingConvention = CallingConvention.StdCall)]
     public static extern IntPtr SHAppBarMessage(uint dwMessage, ref AppbarData pData);
 
@@ -160,10 +183,28 @@ public static partial class Fun
 
     #region Taskbar Animation
 
+    /// <summary>
+    ///     If the function succeeds, the return value is a nonzero value.
+    ///     If the function fails, the return value is zero.
+    /// </summary>
+    /// <param name="uiAction"></param>
+    /// <param name="uiParam"></param>
+    /// <param name="pvParam"></param>
+    /// <param name="fWinIni"></param>
+    /// <returns></returns>
     [DllImport("user32.dll", EntryPoint = "SystemParametersInfoW")]
     [return: MarshalAs(UnmanagedType.Bool)]
     public static extern bool SetSystemParameters(uint uiAction, uint uiParam, IntPtr pvParam, uint fWinIni);
 
+    /// <summary>
+    ///     If the function succeeds, the return value is a nonzero value.
+    ///     If the function fails, the return value is zero.
+    /// </summary>
+    /// <param name="uiAction"></param>
+    /// <param name="uiParam"></param>
+    /// <param name="pvParam"></param>
+    /// <param name="fWinIni"></param>
+    /// <returns></returns>
     [DllImport("user32.dll", EntryPoint = "SystemParametersInfoW")]
     [return: MarshalAs(UnmanagedType.Bool)]
     public static extern bool GetSystemParameters(uint uiAction, uint uiParam, out bool pvParam, uint fWinIni);
@@ -219,18 +260,6 @@ public static partial class Fun
 
         public int y;
     }
-
-    #endregion
-
-    #region EnumWindows
-
-    [UnmanagedFunctionPointer(CallingConvention.StdCall)]
-    [return: MarshalAs(UnmanagedType.Bool)]
-    public delegate bool WndEnumProc(IntPtr param0, IntPtr param1);
-
-    [DllImport("user32.dll", EntryPoint = "EnumWindows")]
-    [return: MarshalAs(UnmanagedType.Bool)]
-    public static extern bool EnumWindows(WndEnumProc lpEnumFunc, IntPtr lParam);
 
     #endregion
 }
