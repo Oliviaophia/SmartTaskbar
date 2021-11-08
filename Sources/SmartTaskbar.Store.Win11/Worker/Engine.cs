@@ -29,22 +29,27 @@ public class Engine : IDisposable
         Fun.SetAutoHide();
         var taskbar = TaskbarHelper.InitTaskbar();
 
-        var behavior = taskbar.ShouldMouseOverWindowShowTheTaskbar();
+        // Some users will kill the explorer.exe under certain situation.
+        // In this case, the taskbar cannot be found, just return and wait for the user to reopen the file explorer.
+        if (!taskbar.HasValue)
+            return;
+
+        var behavior = taskbar.Value.ShouldMouseOverWindowShowTheTaskbar();
 
         if (behavior == TaskbarBehavior.Pending)
         {
-            behavior = taskbar.ShouldForegroundWindowShowTheTaskbar();
+            behavior = taskbar.Value.ShouldForegroundWindowShowTheTaskbar();
             if (behavior == TaskbarBehavior.Pending)
-                behavior = taskbar.ShouldDesktopShowTheTaskbar();
+                behavior = taskbar.Value.ShouldDesktopShowTheTaskbar();
         }
 
         switch (behavior)
         {
             case TaskbarBehavior.Show:
-                taskbar.ShowTaskar();
+                taskbar.Value.ShowTaskar();
                 break;
             case TaskbarBehavior.Hide:
-                taskbar.HideTaskbar();
+                taskbar.Value.HideTaskbar();
                 break;
         }
 

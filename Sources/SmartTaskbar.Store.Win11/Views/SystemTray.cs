@@ -131,7 +131,7 @@ internal class SystemTray : ApplicationContext
         _animationInBar.Checked = Fun.GetTaskbarAnimation();
         _showBarOnExit.Checked = UserSettings.ShowTaskbarWhenExit;
         _notifyIcon.ContextMenuStrip.Show(Cursor.Position.X - 30,
-                                          TaskbarHelper.InitTaskbar().Rect.top
+                                          TaskbarHelper.InitTaskbar()?.Rect.top ?? Cursor.Position.Y
                                           - _notifyIcon.ContextMenuStrip.Height
                                           - 20);
     }
@@ -140,7 +140,7 @@ internal class SystemTray : ApplicationContext
     {
         _container.Dispose();
         _engine.Dispose();
-        TaskbarHelper.InitTaskbar().HideTaskbar();
+        TaskbarHelper.InitTaskbar()?.HideTaskbar();
         if (UserSettings.ShowTaskbarWhenExit) Fun.CancelAutoHide();
         Application.Exit();
     }

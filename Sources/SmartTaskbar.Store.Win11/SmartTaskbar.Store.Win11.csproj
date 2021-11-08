@@ -12,6 +12,8 @@
 		<Description>A Lightweight Windows Taskbar Enhancement Utility.</Description>
 		<Copyright>Copyright (c) 2018-2021 ChanpleCai</Copyright>
 		<PackageIcon>logo.png</PackageIcon>
+		<RootNamespace>SmartTaskbar</RootNamespace>
+		<AssemblyName>SmartTaskbar</AssemblyName>
 	</PropertyGroup>
 
 	<ItemGroup>

@@ -12,17 +12,19 @@ public static class TaskbarHelper
     /// </summary>
     private const string MainTaskbarClassName = "Shell_TrayWnd";
 
-    public static TaskbarInfo InitTaskbar()
+    public static TaskbarInfo? InitTaskbar()
     {
         // Find the main taskbar handle
         var handle = FindWindow(MainTaskbarClassName, null);
 
+        // unable to get the handle of the taskbar.
         if (handle == IntPtr.Zero)
-            throw new ApplicationException("The SmartTaskbar is unable to get the handle of the taskbar.");
+            return null;
 
         // Get taskbar window rectangle
         if (!GetWindowRect(handle, out var rect))
-            throw new ApplicationException("The SmartTaskbar is unable to get the rectangle of the taskbar.");
+            // unable to get the rectangle of the taskbar.
+            return null;
 
         // Currently, the taskbar of Windows 11 is only at the bottom,
         // so you only need to calculate the difference between the taskbar and the bottom of the screen
