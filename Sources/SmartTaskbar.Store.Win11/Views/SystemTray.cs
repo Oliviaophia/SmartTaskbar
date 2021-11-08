@@ -8,13 +8,13 @@ internal class SystemTray : ApplicationContext
 {
     private readonly ToolStripMenuItem _animationInBar;
     private readonly ToolStripMenuItem _autoMode;
+    private readonly ContextMenuStrip _contextMenuStrip;
+    private readonly ToolStripMenuItem _showBarOnExit;
+    private readonly NotifyIcon _notifyIcon;
 
     private readonly Container _container = new();
 
     private readonly Engine _engine = new();
-
-    private readonly NotifyIcon _notifyIcon;
-    private readonly ToolStripMenuItem _showBarOnExit;
     private readonly UserSettings _userSettings = new();
 
     public SystemTray()
@@ -52,12 +52,12 @@ internal class SystemTray : ApplicationContext
             Padding = padding,
             TextAlign = ContentAlignment.MiddleCenter
         };
-        var contextMenuStrip = new ContextMenuStrip(_container)
+        _contextMenuStrip = new ContextMenuStrip(_container)
         {
             Renderer = new Win11Renderer()
         };
 
-        contextMenuStrip.Items.AddRange(new ToolStripItem[]
+        _contextMenuStrip.Items.AddRange(new ToolStripItem[]
         {
             _animationInBar,
             _showBarOnExit,
@@ -69,10 +69,9 @@ internal class SystemTray : ApplicationContext
 
         _notifyIcon = new NotifyIcon(_container)
         {
-            ContextMenuStrip = contextMenuStrip,
             Text = Application.ProductName,
             Icon = Fun.IsLightTheme() ? IconResource.Logo_Black : IconResource.Logo_White,
-            Visible = true
+            Visible = true,
         };
 
         #endregion
@@ -126,14 +125,20 @@ internal class SystemTray : ApplicationContext
 
     private void OnNotifyIconOnMouseClick(object? s, MouseEventArgs e)
     {
+        Fun.SetForegroundWindow(_contextMenuStrip.Handle);
+
+        if (_userSettings.AutoModeType == AutoModeType.Auto)
+            Engine.Start();
+
         if (e.Button != MouseButtons.Right) return;
 
         _animationInBar.Checked = Fun.GetTaskbarAnimation();
         _showBarOnExit.Checked = UserSettings.ShowTaskbarWhenExit;
-        _notifyIcon.ContextMenuStrip.Show(Cursor.Position.X - 30,
-                                          TaskbarHelper.InitTaskbar()?.Rect.top ?? Cursor.Position.Y
-                                          - _notifyIcon.ContextMenuStrip.Height
-                                          - 20);
+
+        var y = TaskbarHelper.InitTaskbar()?.Rect.top ?? Cursor.Position.Y;
+
+        _contextMenuStrip.Show(Cursor.Position.X - 30,
+                                          y - _contextMenuStrip.Height - 20);
     }
 
     private void OnExitOnClick(object? s, EventArgs e)

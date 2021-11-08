@@ -152,6 +152,7 @@ public static class TaskbarHelper
         if (foregroundHandle.IsWindowInvisible())
             return TaskbarBehavior.Pending;
 
+
         // Get foreground window Rectange.
         if (!GetWindowRect(foregroundHandle, out var rect))
             return TaskbarBehavior.Pending;
