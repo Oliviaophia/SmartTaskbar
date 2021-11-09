@@ -26,7 +26,7 @@ internal class SystemTray : ApplicationContext
 
         var resource = new ResourceCulture();
 
-        var about = new ToolStripMenuItem($"{resource.GetString("tray_about")} v1.3.0")
+        var about = new ToolStripMenuItem(resource.GetString("tray_about"))
         {
             Font = font
         };
