@@ -3,7 +3,7 @@ using Timer = System.Timers.Timer;
 
 namespace SmartTaskbar;
 
-public class Engine : IDisposable
+public sealed class Engine : IDisposable
 {
     private static Timer? _timer;
 
@@ -18,8 +18,10 @@ public class Engine : IDisposable
 
     public void Dispose()
     {
-        Dispose(true);
-        GC.SuppressFinalize(this);
+        if (_timer is null) return;
+
+        _timer?.Dispose();
+        _timer = null;
     }
 
     private static void Timer_Elapsed(object? sender, ElapsedEventArgs e)
@@ -73,15 +75,5 @@ public class Engine : IDisposable
     {
         _enabled = true;
         _timer?.Start();
-    }
-
-    protected virtual void Dispose(bool disposing)
-    {
-        if (!disposing) return;
-
-        if (_timer is null) return;
-
-        _timer?.Dispose();
-        _timer = null;
     }
 }

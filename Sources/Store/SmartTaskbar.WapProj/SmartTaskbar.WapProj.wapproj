@@ -62,7 +62,7 @@
     <AppxBundlePlatforms>neutral</AppxBundlePlatforms>
     <HoursBetweenUpdateChecks>0</HoursBetweenUpdateChecks>
     <GenerateTemporaryStoreCertificate>True</GenerateTemporaryStoreCertificate>
-    <EntryPointProjectUniqueName>..\SmartTaskbar.Store.Win11\SmartTaskbar.Store.Win11.csproj</EntryPointProjectUniqueName>
+    <EntryPointProjectUniqueName>..\SmartTaskbar\SmartTaskbar.csproj</EntryPointProjectUniqueName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <DefaultLanguage>en-US</DefaultLanguage>
@@ -168,6 +168,6 @@
     <PackageReference Include="Microsoft.Windows.SDK.BuildTools" Version="10.0.22000.196" PrivateAssets="all" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\SmartTaskbar.Store.Win11\SmartTaskbar.Store.Win11.csproj" />
+    <ProjectReference Include="..\SmartTaskbar\SmartTaskbar.csproj" />
   </ItemGroup>
 </Project>

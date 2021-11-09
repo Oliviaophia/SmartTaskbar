@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel;
 using System.Diagnostics;
+using Windows.System;
 using Windows.UI.ViewManagement;
 
 namespace SmartTaskbar;
@@ -21,37 +22,31 @@ internal class SystemTray : ApplicationContext
     {
         #region Initialization
 
-        var resource = new ResourceCulture();
         var font = new Font("Segoe UI", 10.5F);
-        var padding = new Padding(0, 2, 0, 0);
-        _animationInBar = new ToolStripMenuItem
+
+        var resource = new ResourceCulture();
+
+        var about = new ToolStripMenuItem(text: $"{resource.GetString("tray_about")} v1.3.0")
         {
-            Text = resource.GetString("tray_animation"),
             Font = font,
-            Padding = padding,
-            TextAlign = ContentAlignment.MiddleCenter
         };
-        _showBarOnExit = new ToolStripMenuItem
+        _animationInBar = new ToolStripMenuItem(resource.GetString("tray_animation"))
         {
-            Text = resource.GetString("tray_showBarOnExit"),
             Font = font,
-            Padding = padding,
-            TextAlign = ContentAlignment.MiddleCenter
         };
-        _autoMode = new ToolStripMenuItem
+        _showBarOnExit = new ToolStripMenuItem(resource.GetString("tray_showBarOnExit"))
         {
-            Text = resource.GetString("tray_auto"),
             Font = font,
-            Padding = padding,
-            TextAlign = ContentAlignment.MiddleCenter
         };
-        var exit = new ToolStripMenuItem
+        _autoMode = new ToolStripMenuItem(resource.GetString("tray_auto"))
         {
-            Text = resource.GetString("tray_exit"),
             Font = font,
-            Padding = padding,
-            TextAlign = ContentAlignment.MiddleCenter
         };
+        var exit = new ToolStripMenuItem(resource.GetString("tray_exit"))
+        {
+            Font = font,
+        };
+
         _contextMenuStrip = new ContextMenuStrip(_container)
         {
             Renderer = new Win11Renderer()
@@ -59,6 +54,8 @@ internal class SystemTray : ApplicationContext
 
         _contextMenuStrip.Items.AddRange(new ToolStripItem[]
         {
+            about,
+            new ToolStripSeparator(),
             _animationInBar,
             _showBarOnExit,
             new ToolStripSeparator(),
@@ -77,6 +74,8 @@ internal class SystemTray : ApplicationContext
         #endregion
 
         #region Load Event
+
+        about.Click += AboutOnClick;
 
         _animationInBar.Click += OnAnimationInBarOnClick;
 
@@ -114,6 +113,9 @@ internal class SystemTray : ApplicationContext
         #endregion
     }
 
+    private void AboutOnClick(object? sender, EventArgs e)
+        => _ = Launcher.LaunchUriAsync(new Uri("https://github.com/ChanpleCai/SmartTaskbar"));
+
     private void OnUiSettingsOnColorValuesChanged(UISettings s, object e)
         => _notifyIcon.Icon = Fun.IsLightTheme() ? IconResource.Logo_Black : IconResource.Logo_White;
 
@@ -135,7 +137,9 @@ internal class SystemTray : ApplicationContext
         _animationInBar.Checked = Fun.GetTaskbarAnimation();
         _showBarOnExit.Checked = UserSettings.ShowTaskbarWhenExit;
 
-        var y = TaskbarHelper.InitTaskbar()?.Rect.top ?? Cursor.Position.Y;
+        var taskbar = TaskbarHelper.InitTaskbar();
+
+        var y = taskbar?.Rect.top ?? Cursor.Position.Y;
 
         _contextMenuStrip.Show(Cursor.Position.X - 30,
                                           y - _contextMenuStrip.Height - 20);
