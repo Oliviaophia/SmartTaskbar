@@ -127,8 +127,6 @@ internal class SystemTray : ApplicationContext
 
     private void OnNotifyIconOnMouseClick(object? s, MouseEventArgs e)
     {
-        Fun.SetForegroundWindow(_contextMenuStrip.Handle);
-
         if (_userSettings.AutoModeType == AutoModeType.Auto)
             Engine.Start();
 
@@ -143,6 +141,7 @@ internal class SystemTray : ApplicationContext
 
         _contextMenuStrip.Show(Cursor.Position.X - 30,
                                y - _contextMenuStrip.Height - 20);
+        Fun.SetForegroundWindow(_contextMenuStrip.Handle);
     }
 
     private void OnExitOnClick(object? s, EventArgs e)
