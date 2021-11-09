@@ -105,9 +105,9 @@ public static partial class Fun
     /// <summary>
     ///     If the window was brought to the foreground, the return value is nonzero.
     ///     If the window was not brought to the foreground, the return value is zero.
-        /// </summary>
-        /// <param name="hWnd"></param>
-        /// <returns></returns>
+    /// </summary>
+    /// <param name="hWnd"></param>
+    /// <returns></returns>
     [DllImport("user32.dll", EntryPoint = "SetForegroundWindow")]
     [return: MarshalAs(UnmanagedType.Bool)]
     public static extern bool SetForegroundWindow(IntPtr hWnd);

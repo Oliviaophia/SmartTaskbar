@@ -22,7 +22,6 @@ internal class Win11ColorTable : ProfessionalColorTable
 
     public override Color ImageMarginGradientEnd
         => Color.White;
-
 }
 
 internal class Win11Renderer : ToolStripProfessionalRenderer
