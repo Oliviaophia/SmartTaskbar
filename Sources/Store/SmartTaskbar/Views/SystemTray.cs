@@ -75,7 +75,7 @@ internal class SystemTray : ApplicationContext
 
         #region Load Event
 
-        about.Click += AboutOnClick;
+        about.Click += OnAboutOnClick;
 
         _animationInBar.Click += OnAnimationInBarOnClick;
 
@@ -113,7 +113,7 @@ internal class SystemTray : ApplicationContext
         #endregion
     }
 
-    private void AboutOnClick(object? sender, EventArgs e)
+    private void OnAboutOnClick(object? sender, EventArgs e)
         => _ = Launcher.LaunchUriAsync(new Uri("https://github.com/ChanpleCai/SmartTaskbar"));
 
     private void OnUiSettingsOnColorValuesChanged(UISettings s, object e)
