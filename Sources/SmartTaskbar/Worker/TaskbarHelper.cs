@@ -165,21 +165,19 @@ public static class TaskbarHelper
             || rect.right <= taskbar.Rect.left)
             return TaskbarBehavior.Show;
 
-        // Unless it's a desktop.
-        var name = foregroundHandle.GetName();
-
-        //Debug.WriteLine(name);
-
-        return name switch
+        switch (foregroundHandle.GetName())
         {
+            // it's a desktop.
+            case Progman:
+            case WorkerW:
+                return TaskbarBehavior.Show;
             // In rare circumstances, the start menu and search will not be displayed in the correct position,
             // causing the taskbar keep display, then hide, display, hide... in an endless loop.
-            // Directly bypass CoreWindow will cause other problems, but there is no better way at present.
-            CoreWindow => TaskbarBehavior.DoNothing,
-            Progman    => TaskbarBehavior.Show,
-            WorkerW    => TaskbarBehavior.Show,
-            _          => TaskbarBehavior.Hide
-        };
+            case CoreWindow:
+                return TaskbarBehavior.DoNothing;
+            default:
+                return TaskbarBehavior.Hide;
+        }
     }
 
     public static TaskbarBehavior ShouldDesktopShowTheTaskbar(this in TaskbarInfo taskbar)
