@@ -90,6 +90,7 @@ public static class TaskbarHelper
     private const string Progman = "Progman";
     private const string WorkerW = "WorkerW";
     private const string TaskListThumbnailWnd = "TaskListThumbnailWnd";
+    private const string CoreWindow = "Windows.UI.Core.CoreWindow";
 
     /// <summary>
     ///     Mouse over the taskbar or a specific window,
@@ -131,7 +132,7 @@ public static class TaskbarHelper
 
         // If it is a thumbnail of the floating taskbar icon,
         // the taskbar needs to be displayed.
-        return mouseOverHandle.GetName() == TaskListThumbnailWnd
+        return mouseOverHandle.GetName() is TaskListThumbnailWnd
             ? TaskbarBehavior.Show
             : TaskbarBehavior.Pending;
     }
@@ -165,9 +166,20 @@ public static class TaskbarHelper
             return TaskbarBehavior.Show;
 
         // Unless it's a desktop.
-        return foregroundHandle.GetName() is Progman or WorkerW
-            ? TaskbarBehavior.Show
-            : TaskbarBehavior.Hide;
+        var name = foregroundHandle.GetName();
+
+        //Debug.WriteLine(name);
+
+        return name switch
+        {
+            // In rare circumstances, the start menu and search will not be displayed in the correct position,
+            // causing the taskbar keep display, then hide, display, hide... in an endless loop.
+            // Directly bypass CoreWindow will cause other problems, but there is no better way at present.
+            CoreWindow => TaskbarBehavior.DoNothing,
+            Progman    => TaskbarBehavior.Show,
+            WorkerW    => TaskbarBehavior.Show,
+            _          => TaskbarBehavior.Hide
+        };
     }
 
     public static TaskbarBehavior ShouldDesktopShowTheTaskbar(this in TaskbarInfo taskbar)

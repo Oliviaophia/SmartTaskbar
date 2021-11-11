@@ -75,25 +75,25 @@ internal class SystemTray : ApplicationContext
 
         #region Load Event
 
-        about.Click += OnAboutOnClick;
+        about.Click += AboutOnClick;
 
-        _animationInBar.Click += OnAnimationInBarOnClick;
+        _animationInBar.Click += AnimationInBarOnClick;
 
-        _showBarOnExit.Click += OnShowBarOnExitOnClick;
+        _showBarOnExit.Click += ShowBarOnExitOnClick;
 
-        _autoMode.Click += OnAutoModeOnClick;
+        _autoMode.Click += AutoModeOnClick;
 
-        exit.Click += OnExitOnClick;
+        exit.Click += ExitOnClick;
 
-        _notifyIcon.MouseClick += OnNotifyIconOnMouseClick;
+        _notifyIcon.MouseClick += NotifyIconOnMouseClick;
 
-        _notifyIcon.MouseDoubleClick += OnNotifyIconOnMouseDoubleClick;
+        _notifyIcon.MouseDoubleClick += NotifyIconOnMouseDoubleClick;
 
-        Fun.UISettings.ColorValuesChanged += OnUiSettingsOnColorValuesChanged;
+        Fun.UISettings.ColorValuesChanged += UISettingsOnColorValuesChanged;
 
         Application.ApplicationExit += Application_ApplicationExit;
 
-        _userSettings.OnAutoModeTypePropertyChanged += OnAutoModeTypePropertyChanged;
+        _userSettings.OnAutoModeTypePropertyChanged += AutoModeTypePropertyChanged;
 
         #endregion
 
@@ -113,20 +113,23 @@ internal class SystemTray : ApplicationContext
         #endregion
     }
 
-    private void OnAboutOnClick(object? sender, EventArgs e)
+    private void AboutOnClick(object? sender, EventArgs e)
         => _ = Launcher.LaunchUriAsync(new Uri("https://github.com/ChanpleCai/SmartTaskbar"));
 
-    private void OnUiSettingsOnColorValuesChanged(UISettings s, object e)
+    private void UISettingsOnColorValuesChanged(UISettings s, object e)
         => _notifyIcon.Icon = Fun.IsLightTheme() ? IconResource.Logo_Black : IconResource.Logo_White;
 
-    private void OnNotifyIconOnMouseDoubleClick(object? s, MouseEventArgs e)
+    private void NotifyIconOnMouseDoubleClick(object? s, MouseEventArgs e)
     {
         _userSettings.AutoModeType = AutoModeType.None;
         Fun.ChangeAutoHide();
     }
 
-    private void OnNotifyIconOnMouseClick(object? s, MouseEventArgs e)
+    private void NotifyIconOnMouseClick(object? s, MouseEventArgs e)
     {
+        // When the explorer.exe is killed, the system timer will automatically pause.
+        // It is very difficult to tell when it starts again,
+        // so when the mouse moves over the icon, perform a restart operation.
         if (_userSettings.AutoModeType == AutoModeType.Auto)
             Engine.Start();
 
@@ -144,7 +147,7 @@ internal class SystemTray : ApplicationContext
         Fun.SetForegroundWindow(_contextMenuStrip.Handle);
     }
 
-    private void OnExitOnClick(object? s, EventArgs e)
+    private void ExitOnClick(object? s, EventArgs e)
     {
         _container.Dispose();
         _engine.Dispose();
@@ -153,16 +156,16 @@ internal class SystemTray : ApplicationContext
         Application.Exit();
     }
 
-    private void OnShowBarOnExitOnClick(object? s, EventArgs e)
+    private void ShowBarOnExitOnClick(object? s, EventArgs e)
         => UserSettings.ShowTaskbarWhenExit = !_showBarOnExit.Checked;
 
-    private void OnAutoModeOnClick(object? s, EventArgs e)
+    private void AutoModeOnClick(object? s, EventArgs e)
         => _userSettings.AutoModeType = _autoMode.Checked ? AutoModeType.None : AutoModeType.Auto;
 
-    private void OnAnimationInBarOnClick(object? s, EventArgs e)
+    private void AnimationInBarOnClick(object? s, EventArgs e)
         => _animationInBar.Checked = Fun.ChangeTaskbarAnimation();
 
-    private void OnAutoModeTypePropertyChanged(object? s, AutoModeType e)
+    private void AutoModeTypePropertyChanged(object? s, AutoModeType e)
     {
         switch (e)
         {
