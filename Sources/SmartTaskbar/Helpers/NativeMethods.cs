@@ -102,6 +102,8 @@ public static partial class Fun
 
     #endregion
 
+    #region SetForegroundWindow
+
     /// <summary>
     ///     If the window was brought to the foreground, the return value is nonzero.
     ///     If the window was not brought to the foreground, the return value is zero.
@@ -111,6 +113,8 @@ public static partial class Fun
     [DllImport("user32.dll", EntryPoint = "SetForegroundWindow")]
     [return: MarshalAs(UnmanagedType.Bool)]
     public static extern bool SetForegroundWindow(IntPtr hWnd);
+
+    #endregion
 
 
     #region GetClassName
@@ -192,7 +196,7 @@ public static partial class Fun
 
     #endregion
 
-    #region Taskbar Animation
+    #region SystemParametersInfo
 
     /// <summary>
     ///     If the function succeeds, the return value is a nonzero value.

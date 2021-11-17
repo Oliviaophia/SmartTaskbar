@@ -135,7 +135,7 @@ internal class SystemTray : ApplicationContext
 
         if (e.Button != MouseButtons.Right) return;
 
-        _animationInBar.Checked = Fun.GetTaskbarAnimation();
+        _animationInBar.Checked = Fun.IsEnableTaskbarAnimation();
         _showBarOnExit.Checked = UserSettings.ShowTaskbarWhenExit;
 
         var taskbar = TaskbarHelper.InitTaskbar();
