@@ -132,6 +132,9 @@
   <data name="tray_exit" xml:space="preserve">
     <value>Exit</value>
   </data>
+  <data name="tray_pauseInTabletMode" xml:space="preserve">
+    <value>Pause in Tablet Mode</value>
+  </data>
   <data name="tray_smallIcon" xml:space="preserve">
     <value>Small Buttons</value>
   </data>

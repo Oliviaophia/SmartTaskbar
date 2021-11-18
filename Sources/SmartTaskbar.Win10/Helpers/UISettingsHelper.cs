@@ -22,5 +22,24 @@ namespace SmartTaskbar
                 return (int)(personalizeKey?.GetValue("SystemUsesLightTheme", 0) ?? 0) == 1;
             }
         }
+
+        /// <summary>
+        ///     Determine whether it is tablet mode
+        /// </summary>
+        /// <returns></returns>
+        public static bool IsTabletMode()
+        {
+            switch (Registry.CurrentUser.GetValue(
+                        @"Software\Microsoft\Windows\CurrentVersion\ImmersiveShell\TabletMode",
+                        0))
+            {
+                case 1:
+                    return true;
+                case 0:
+                    return false;
+                default:
+                    throw new Exception();
+            }
+        }
     }
 }

@@ -132,6 +132,9 @@
   <data name="tray_exit" xml:space="preserve">
     <value>退出</value>
   </data>
+  <data name="tray_pauseInTabletMode" xml:space="preserve">
+    <value>在平板模式暂停</value>
+  </data>
   <data name="tray_smallIcon" xml:space="preserve">
     <value>小按钮</value>
   </data>

@@ -46,5 +46,41 @@ namespace SmartTaskbar.Properties {
                 this["ShowTaskbarWhenExit"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool ReverseDisplayModeBehavior {
+            get {
+                return ((bool)(this["ReverseDisplayModeBehavior"]));
+            }
+            set {
+                this["ReverseDisplayModeBehavior"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool ReverseSizeModeBehavior {
+            get {
+                return ((bool)(this["ReverseSizeModeBehavior"]));
+            }
+            set {
+                this["ReverseSizeModeBehavior"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool PauseInTabletMode {
+            get {
+                return ((bool)(this["PauseInTabletMode"]));
+            }
+            set {
+                this["PauseInTabletMode"] = value;
+            }
+        }
     }
 }

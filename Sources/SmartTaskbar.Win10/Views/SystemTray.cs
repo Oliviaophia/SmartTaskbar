@@ -2,6 +2,7 @@
 using System.Diagnostics;
 using System.Drawing;
 using System.Windows.Forms;
+using Windows.UI.ViewManagement;
 using SmartTaskbar.Properties;
 
 namespace SmartTaskbar
@@ -9,13 +10,17 @@ namespace SmartTaskbar
     internal class SystemTray : ApplicationContext
     {
         private readonly ToolStripMenuItem _about;
+        private readonly ToolStripMenuItem _smallIcon;
         private readonly ToolStripMenuItem _animation;
+        private readonly ToolStripMenuItem _pauseInTabletMode;
+        private readonly ToolStripMenuItem _showTaskbarWhenExit;
+        private readonly ToolStripMenuItem _reverseDisplayModeBehavior;
+        private readonly ToolStripMenuItem _reverseSizeModeBehavior;
         private readonly ToolStripMenuItem _autoDisplay;
         private readonly ToolStripMenuItem _autoSize;
         private readonly ContextMenuStrip _contextMenuStrip;
         private readonly ToolStripMenuItem _exit;
         private readonly NotifyIcon _notifyIcon;
-        private readonly ToolStripMenuItem _smallIcon;
 
         private readonly UserSettings _userSettings = new UserSettings();
 
@@ -38,6 +43,11 @@ namespace SmartTaskbar
             _animation = new ToolStripMenuItem
             {
                 Text = resource.GetString("tray_animation"),
+                Font = font
+            };
+            _pauseInTabletMode = new ToolStripMenuItem
+            {
+                Text = resource.GetString("tray_pauseInTabletMode"),
                 Font = font
             };
             _autoSize = new ToolStripMenuItem
@@ -66,6 +76,8 @@ namespace SmartTaskbar
                 new ToolStripSeparator(),
                 _smallIcon,
                 _animation,
+                _pauseInTabletMode,
+
                 new ToolStripSeparator(),
                 _autoDisplay,
                 _autoSize,
@@ -76,7 +88,7 @@ namespace SmartTaskbar
             _notifyIcon = new NotifyIcon
             {
                 ContextMenuStrip = _contextMenuStrip,
-                Text = @"SmartTaskbar v1.3.0",
+                Text = @"SmartTaskbar v1.3.1",
                 Icon = Fun.IsLightTheme() ? Resources.Logo_Black : Resources.Logo_White,
                 Visible = true
             };
@@ -101,6 +113,8 @@ namespace SmartTaskbar
 
             _notifyIcon.MouseDoubleClick += NotifyIconOnMouseDoubleClick;
 
+            Fun.UISettings.ColorValuesChanged += UISettingsOnColorValuesChanged;
+
             #endregion
 
             #region Load Settings
@@ -122,6 +136,9 @@ namespace SmartTaskbar
 
             #endregion
         }
+
+        private void UISettingsOnColorValuesChanged(UISettings sender, object args)
+            => _notifyIcon.Icon = Fun.IsLightTheme() ? Resources.Logo_Black : Resources.Logo_White;
 
         private void NotifyIconOnMouseDoubleClick(object s, MouseEventArgs e)
         {
