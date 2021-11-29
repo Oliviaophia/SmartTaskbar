@@ -117,6 +117,9 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="show_noFindInfo" xml:space="preserve">
+    <value>Can't get window information</value>
+  </data>
   <data name="tray_about" xml:space="preserve">
     <value>About</value>
   </data>
@@ -125,6 +128,9 @@
   </data>
   <data name="tray_auto" xml:space="preserve">
     <value>Auto Mode</value>
+  </data>
+  <data name="tray_debug" xml:space="preserve">
+    <value>Last hidden reason</value>
   </data>
   <data name="tray_exit" xml:space="preserve">
     <value>Exit</value>

@@ -137,7 +137,8 @@ public static class TaskbarHelper
             : TaskbarBehavior.Pending;
     }
 
-    public static TaskbarBehavior ShouldForegroundWindowShowTheTaskbar(this TaskbarInfo taskbar)
+    public static TaskbarBehavior ShouldForegroundWindowShowTheTaskbar(this TaskbarInfo taskbar,
+                                                                       ref  IntPtr      lastHiddenHandle)
     {
         var foregroundHandle = GetForegroundWindow();
 
@@ -165,6 +166,11 @@ public static class TaskbarHelper
             || rect.right <= taskbar.Rect.left)
             return TaskbarBehavior.Show;
 
+        // If the foreground Window is closing or idle, do nothing
+        _ = GetWindowThreadProcessId(foregroundHandle, out var processId);
+        if (processId == 0)
+            return TaskbarBehavior.DoNothing;
+
         switch (foregroundHandle.GetName())
         {
             // it's a desktop.
@@ -176,6 +182,7 @@ public static class TaskbarHelper
             case CoreWindow:
                 return TaskbarBehavior.DoNothing;
             default:
+                lastHiddenHandle = foregroundHandle;
                 return TaskbarBehavior.Hide;
         }
     }

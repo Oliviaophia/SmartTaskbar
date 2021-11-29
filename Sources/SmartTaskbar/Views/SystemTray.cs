@@ -2,18 +2,21 @@
 using System.Diagnostics;
 using Windows.System;
 using Windows.UI.ViewManagement;
+using SmartTaskbar.Languages;
 
 namespace SmartTaskbar;
 
 internal class SystemTray : ApplicationContext
 {
+    private readonly ToolStripMenuItem _debugItem;
     private readonly ToolStripMenuItem _animationInBar;
     private readonly ToolStripMenuItem _autoMode;
 
     private readonly Container _container = new();
     private readonly ContextMenuStrip _contextMenuStrip;
 
-    private readonly Engine _engine = new();
+    private readonly Engine _engine;
+    private readonly ResourceCulture _resourceCulture = new();
     private readonly NotifyIcon _notifyIcon;
     private readonly ToolStripMenuItem _showBarOnExit;
     private readonly UserSettings _userSettings = new();
@@ -22,27 +25,31 @@ internal class SystemTray : ApplicationContext
     {
         #region Initialization
 
+        _engine = new Engine(_container, _userSettings);
+
         var font = new Font("Segoe UI", 10.5F);
 
-        var resource = new ResourceCulture();
-
-        var about = new ToolStripMenuItem(resource.GetString("tray_about"))
+        var about = new ToolStripMenuItem(_resourceCulture.GetString(LanguagName.TrayAbout))
         {
             Font = font
         };
-        _animationInBar = new ToolStripMenuItem(resource.GetString("tray_animation"))
+        _debugItem = new ToolStripMenuItem(_resourceCulture.GetString(LanguagName.TrayDebug))
         {
             Font = font
         };
-        _showBarOnExit = new ToolStripMenuItem(resource.GetString("tray_showBarOnExit"))
+        _animationInBar = new ToolStripMenuItem(_resourceCulture.GetString(LanguagName.TrayAnimation))
         {
             Font = font
         };
-        _autoMode = new ToolStripMenuItem(resource.GetString("tray_auto"))
+        _showBarOnExit = new ToolStripMenuItem(_resourceCulture.GetString(LanguagName.TrayShowBarOnExit))
         {
             Font = font
         };
-        var exit = new ToolStripMenuItem(resource.GetString("tray_exit"))
+        _autoMode = new ToolStripMenuItem(_resourceCulture.GetString(LanguagName.TrayAuto))
+        {
+            Font = font
+        };
+        var exit = new ToolStripMenuItem(_resourceCulture.GetString(LanguagName.TrayExit))
         {
             Font = font
         };
@@ -55,6 +62,7 @@ internal class SystemTray : ApplicationContext
         _contextMenuStrip.Items.AddRange(new ToolStripItem[]
         {
             about,
+            _debugItem,
             new ToolStripSeparator(),
             _animationInBar,
             _showBarOnExit,
@@ -76,6 +84,8 @@ internal class SystemTray : ApplicationContext
         #region Load Event
 
         about.Click += AboutOnClick;
+
+        _debugItem.Click += DebugItem_Click;
 
         _animationInBar.Click += AnimationInBarOnClick;
 
@@ -103,7 +113,6 @@ internal class SystemTray : ApplicationContext
         {
             case AutoModeType.Auto:
                 _autoMode.Checked = true;
-                Engine.Start();
                 break;
             case AutoModeType.None:
                 _autoMode.Checked = false;
@@ -111,6 +120,36 @@ internal class SystemTray : ApplicationContext
         }
 
         #endregion
+    }
+
+    private void DebugItem_Click(object? sender, EventArgs e)
+    {
+        if (_engine.LastHiddenHandle == IntPtr.Zero)
+        {
+            MessageBox.Show(_resourceCulture.GetString(LanguagName.ShowNoFindInfo),
+                            _resourceCulture.GetString(LanguagName.TrayDebug),
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Warning);
+            return;
+        }
+
+        _ = Fun.GetWindowThreadProcessId(_engine.LastHiddenHandle, out var processId);
+
+        if (processId == 0)
+        {
+            MessageBox.Show(_resourceCulture.GetString(LanguagName.ShowNoFindInfo),
+                            _resourceCulture.GetString(LanguagName.TrayDebug),
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Error);
+            return;
+        }
+
+        var process = Process.GetProcessById(processId);
+
+        MessageBox.Show($@"{process.MainWindowTitle} {process.ProcessName}",
+                        _resourceCulture.GetString(LanguagName.TrayDebug),
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Information);
     }
 
     private void AboutOnClick(object? sender, EventArgs e)
@@ -127,12 +166,6 @@ internal class SystemTray : ApplicationContext
 
     private void NotifyIconOnMouseClick(object? s, MouseEventArgs e)
     {
-        // When the explorer.exe is killed, the system timer will automatically pause.
-        // It is very difficult to tell when it starts again,
-        // so when the mouse moves over the icon, perform a restart operation.
-        if (_userSettings.AutoModeType == AutoModeType.Auto)
-            Engine.Start();
-
         if (e.Button != MouseButtons.Right) return;
 
         _animationInBar.Checked = Fun.IsEnableTaskbarAnimation();
@@ -150,7 +183,6 @@ internal class SystemTray : ApplicationContext
     private void ExitOnClick(object? s, EventArgs e)
     {
         _container.Dispose();
-        _engine.Dispose();
         TaskbarHelper.InitTaskbar()?.HideTaskbar();
         if (UserSettings.ShowTaskbarWhenExit) Fun.CancelAutoHide();
         Application.Exit();
@@ -171,11 +203,9 @@ internal class SystemTray : ApplicationContext
         {
             case AutoModeType.Auto:
                 _autoMode.Checked = true;
-                Engine.Start();
                 break;
             case AutoModeType.None:
                 _autoMode.Checked = false;
-                Engine.Stop();
                 break;
         }
     }

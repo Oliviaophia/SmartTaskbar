@@ -116,7 +116,6 @@ public static partial class Fun
 
     #endregion
 
-
     #region GetClassName
 
     /// <summary>
@@ -275,6 +274,23 @@ public static partial class Fun
 
         public int y;
     }
+
+    #endregion
+
+    #region GetProcessId
+
+    /// <summary>
+    ///     Retrieves the identifier of the thread that created the specified window and, optionally, the identifier of the
+    ///     process that created the window.
+    /// </summary>
+    /// <param name="hWnd"></param>
+    /// <param name="lpdwProcessId">
+    ///     A pointer to a variable that receives the process identifier. If this parameter is not NULL,
+    ///     GetWindowThreadProcessId copies the identifier of the process to the variable; otherwise, it does not.
+    /// </param>
+    /// <returns>The return value is the identifier of the thread that created the window.</returns>
+    [DllImport("user32.dll")]
+    public static extern uint GetWindowThreadProcessId(IntPtr hWnd, out int lpdwProcessId);
 
     #endregion
 }

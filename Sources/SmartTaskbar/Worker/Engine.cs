@@ -1,32 +1,35 @@
-﻿using System.Timers;
-using Timer = System.Timers.Timer;
+﻿using System.ComponentModel;
+using Timer = System.Windows.Forms.Timer;
 
 namespace SmartTaskbar;
 
-public sealed class Engine : IDisposable
+public sealed class Engine
 {
     private static Timer? _timer;
+    private readonly UserSettings _userSettings;
+    private static IntPtr _lastHiddenHandle;
 
-    private static bool _enabled;
+    public IntPtr LastHiddenHandle
+        => _lastHiddenHandle;
 
-    public Engine()
+    public Engine(Container container, UserSettings userSettings)
     {
+        _userSettings = userSettings;
         // 125 milliseconds is a balance between user-acceptable perception and system call time.
-        _timer = new Timer(125);
-        _timer.Elapsed += Timer_Elapsed;
+        _timer = new Timer(container);
+        _timer.Interval = 125;
+        _timer.Tick += Timer_Tick;
+        _timer.Start();
     }
 
-    public void Dispose()
+    private void Timer_Tick(object? sender, EventArgs e)
     {
-        if (_timer is null) return;
-
-        _timer?.Dispose();
-        _timer = null;
+        if (_userSettings.AutoModeType == AutoModeType.Auto)
+            Task.Run(Worker);
     }
 
-    private static void Timer_Elapsed(object? sender, ElapsedEventArgs e)
+    private static void Worker()
     {
-        _timer?.Stop();
         // Make sure the taskbar has been automatically hidden, otherwise it will not work
         Fun.SetAutoHide();
         var taskbar = TaskbarHelper.InitTaskbar();
@@ -40,7 +43,7 @@ public sealed class Engine : IDisposable
 
         if (behavior == TaskbarBehavior.Pending)
         {
-            behavior = taskbar.Value.ShouldForegroundWindowShowTheTaskbar();
+            behavior = taskbar.Value.ShouldForegroundWindowShowTheTaskbar(ref _lastHiddenHandle);
             if (behavior == TaskbarBehavior.Pending)
                 behavior = taskbar.Value.ShouldDesktopShowTheTaskbar();
         }
@@ -54,26 +57,5 @@ public sealed class Engine : IDisposable
                 taskbar.Value.HideTaskbar();
                 break;
         }
-
-        if (_enabled)
-            _timer?.Start();
-    }
-
-    /// <summary>
-    ///     Turn off the timer, Pause auto mode
-    /// </summary>
-    public static void Stop()
-    {
-        _enabled = false;
-        _timer?.Stop();
-    }
-
-    /// <summary>
-    ///     Start the timer, start the auto mode
-    /// </summary>
-    public static void Start()
-    {
-        _enabled = true;
-        _timer?.Start();
     }
 }

@@ -2,7 +2,7 @@
 
 namespace SmartTaskbar;
 
-internal class UserSettings
+public class UserSettings
 {
     private static UserConfiguration _userConfiguration;
 
