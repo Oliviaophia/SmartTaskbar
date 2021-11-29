@@ -8,7 +8,7 @@
 		<ImplicitUsings>enable</ImplicitUsings>
 		<ApplicationIcon>Resources\Logo-White.ico</ApplicationIcon>
 		<Authors>Chanple</Authors>
-		<Version>1.3.0</Version>
+		<Version>1.3.2</Version>
 		<Description>A Lightweight Windows Taskbar Enhancement Utility.</Description>
 		<Copyright>Copyright (c) 2018-2021 ChanpleCai</Copyright>
 		<PackageIcon>logo.png</PackageIcon>
