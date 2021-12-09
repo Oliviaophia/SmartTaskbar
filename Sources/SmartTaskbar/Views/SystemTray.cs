@@ -162,6 +162,7 @@ internal class SystemTray : ApplicationContext
     {
         _userSettings.AutoModeType = AutoModeType.None;
         Fun.ChangeAutoHide();
+        TaskbarHelper.InitTaskbar()?.HideTaskbar();
     }
 
     private void NotifyIconOnMouseClick(object? s, MouseEventArgs e)
@@ -192,7 +193,10 @@ internal class SystemTray : ApplicationContext
         => UserSettings.ShowTaskbarWhenExit = !_showBarOnExit.Checked;
 
     private void AutoModeOnClick(object? s, EventArgs e)
-        => _userSettings.AutoModeType = _autoMode.Checked ? AutoModeType.None : AutoModeType.Auto;
+    {
+        _userSettings.AutoModeType = _autoMode.Checked ? AutoModeType.None : AutoModeType.Auto;
+        TaskbarHelper.InitTaskbar()?.HideTaskbar();
+    }
 
     private void AnimationInBarOnClick(object? s, EventArgs e)
         => _animationInBar.Checked = Fun.ChangeTaskbarAnimation();
