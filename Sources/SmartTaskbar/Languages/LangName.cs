@@ -1,6 +1,6 @@
 ﻿namespace SmartTaskbar.Languages
 {
-    public static class LanguagName
+    public static class LangName
     {
         public const string TrayAbout = "tray_about";
 

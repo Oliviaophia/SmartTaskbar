@@ -24,7 +24,7 @@ public sealed class Engine
 
     private void Timer_Tick(object? sender, EventArgs e)
     {
-        if (_userSettings.AutoModeType == AutoModeType.Auto)
+        if (UserSettings.AutoModeType == AutoModeType.Auto)
             Task.Run(Worker);
     }
 

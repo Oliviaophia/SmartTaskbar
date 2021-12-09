@@ -61,6 +61,7 @@
     <Compile Include="Helpers\NativeMethods.cs" />
     <Compile Include="Helpers\UISettingsHelper.cs" />
     <Compile Include="Helpers\WindowVisible.cs" />
+    <Compile Include="Languages\LangName.cs" />
     <Compile Include="Models\AutoModeTypeHelper.cs" />
     <Compile Include="Models\UserConfiguration.cs" />
     <Compile Include="Models\UserSettings.cs" />

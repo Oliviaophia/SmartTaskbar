@@ -22,7 +22,7 @@ public class UserSettings
         };
     }
 
-    public AutoModeType AutoModeType
+    public static AutoModeType AutoModeType
     {
         get => _userConfiguration.AutoModeType;
         set
@@ -32,7 +32,6 @@ public class UserSettings
 
             _userConfiguration.AutoModeType = value;
             ApplicationData.Current.LocalSettings.Values[nameof(UserConfiguration.AutoModeType)] = value.ToString();
-            OnAutoModeTypePropertyChanged?.Invoke(null, value);
         }
     }
 
@@ -48,6 +47,4 @@ public class UserSettings
             ApplicationData.Current.LocalSettings.Values[nameof(UserConfiguration.ShowTaskbarWhenExit)] = value;
         }
     }
-
-    public event EventHandler<AutoModeType>? OnAutoModeTypePropertyChanged;
 }

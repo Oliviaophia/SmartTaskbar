@@ -1,5 +1,4 @@
-﻿using System;
-using SmartTaskbar.Models;
+﻿using SmartTaskbar.Models;
 using SmartTaskbar.Properties;
 
 namespace SmartTaskbar
@@ -15,10 +14,13 @@ namespace SmartTaskbar
             => _userConfiguration = new UserConfiguration
             {
                 AutoModeType = Settings.Default.AutoModeType.AsAutoModeType(),
-                ShowTaskbarWhenExit = Settings.Default.ShowTaskbarWhenExit
+                ShowTaskbarWhenExit = Settings.Default.ShowTaskbarWhenExit,
+                ReverseSizeModeBehavior = Settings.Default.ReverseSizeModeBehavior,
+                ReverseDisplayModeBehavior = Settings.Default.ReverseDisplayModeBehavior,
+                PauseInTabletMode = Settings.Default.PauseInTabletMode
             };
 
-        public AutoModeType AutoModeType
+        public static AutoModeType AutoModeType
         {
             get => _userConfiguration.AutoModeType;
             set
@@ -28,11 +30,9 @@ namespace SmartTaskbar
 
                 _userConfiguration.AutoModeType = value;
                 Settings.Default.AutoModeType = value.ToString();
-                OnAutoModeTypePropertyChanged?.Invoke(null, value);
+                Settings.Default.Save();
             }
         }
-
-        public event EventHandler<AutoModeType> OnAutoModeTypePropertyChanged;
 
         public static bool ReverseDisplayModeBehavior
         {
@@ -44,6 +44,7 @@ namespace SmartTaskbar
 
                 _userConfiguration.ReverseDisplayModeBehavior = value;
                 Settings.Default.ReverseDisplayModeBehavior = value;
+                Settings.Default.Save();
             }
         }
 
@@ -57,6 +58,7 @@ namespace SmartTaskbar
 
                 _userConfiguration.ReverseSizeModeBehavior = value;
                 Settings.Default.ReverseSizeModeBehavior = value;
+                Settings.Default.Save();
             }
         }
 
@@ -70,6 +72,7 @@ namespace SmartTaskbar
 
                 _userConfiguration.PauseInTabletMode = value;
                 Settings.Default.PauseInTabletMode = value;
+                Settings.Default.Save();
             }
         }
 
@@ -83,6 +86,7 @@ namespace SmartTaskbar
 
                 _userConfiguration.ShowTaskbarWhenExit = value;
                 Settings.Default.ShowTaskbarWhenExit = value;
+                Settings.Default.Save();
             }
         }
     }
