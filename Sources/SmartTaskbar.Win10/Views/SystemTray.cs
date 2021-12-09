@@ -77,11 +77,13 @@ namespace SmartTaskbar
                 _smallIcon,
                 _animation,
                 _pauseInTabletMode,
-
+                _reverseDisplayModeBehavior,
+                _reverseSizeModeBehavior,
                 new ToolStripSeparator(),
                 _autoDisplay,
                 _autoSize,
                 new ToolStripSeparator(),
+                _showTaskbarWhenExit,
                 _exit
             });
 
