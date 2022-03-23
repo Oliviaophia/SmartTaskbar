@@ -65,6 +65,7 @@
     <Compile Include="Models\AutoModeTypeHelper.cs" />
     <Compile Include="Models\TaskbarBehavior.cs" />
     <Compile Include="Models\TaskbarInfo.cs" />
+    <Compile Include="Models\TaskbarPosition.cs" />
     <Compile Include="Models\UserConfiguration.cs" />
     <Compile Include="Models\UserSettings.cs" />
     <Compile Include="Program.cs" />

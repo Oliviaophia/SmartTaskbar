@@ -30,20 +30,88 @@ namespace SmartTaskbar
                 // unable to get the rectangle of the taskbar.
                 return null;
 
-            // Currently, the taskbar of Windows 11 is only at the bottom,
-            // so you only need to calculate the difference between the taskbar and the bottom of the screen
-            // to get the rectangle when the taskbar is fully displayed.
-            var heightΔ = rect.bottom - Screen.PrimaryScreen.Bounds.Bottom;
+            // determine the taskbar position
 
+            if (rect.right - rect.left == Screen.PrimaryScreen.Bounds.Width)
+            {
+                var bottomΔ = rect.bottom - Screen.PrimaryScreen.Bounds.Bottom;
+                // taskbar on the top or bottom
+                if (bottomΔ == 0)
+                    return new TaskbarInfo(handle,
+                                           new TagRect
+                                           {
+                                               left = rect.left,
+                                               top = rect.top,
+                                               right = rect.right,
+                                               bottom = rect.bottom
+                                           },
+                                           true,
+                                           TaskbarPosition.Bottom);
+
+                if (bottomΔ > 0)
+                    return new TaskbarInfo(handle,
+                                           new TagRect
+                                           {
+                                               left = rect.left,
+                                               top = rect.top - bottomΔ,
+                                               right = rect.right,
+                                               bottom = rect.bottom - bottomΔ
+                                           },
+                                           false,
+                                           TaskbarPosition.Bottom);
+
+                var topΔ = rect.top - Screen.PrimaryScreen.Bounds.Top;
+                return new TaskbarInfo(handle,
+                                       new TagRect
+                                       {
+                                           left = rect.left,
+                                           top = rect.top - topΔ,
+                                           right = rect.right,
+                                           bottom = rect.bottom - topΔ
+                                       },
+                                       topΔ == 0,
+                                       TaskbarPosition.Top);
+            }
+
+            // taskbar on the left or right
+
+            var leftΔ = rect.left - Screen.PrimaryScreen.Bounds.Left;
+
+            if (leftΔ == 0)
+                return new TaskbarInfo(handle,
+                                       new TagRect
+                                       {
+                                           left = rect.left,
+                                           top = rect.top,
+                                           right = rect.right,
+                                           bottom = rect.bottom
+                                       },
+                                       true,
+                                       TaskbarPosition.Left);
+
+            if (leftΔ < 0)
+                return new TaskbarInfo(handle,
+                                       new TagRect
+                                       {
+                                           left = rect.left - leftΔ,
+                                           top = rect.top,
+                                           right = rect.right - leftΔ,
+                                           bottom = rect.bottom
+                                       },
+                                       true,
+                                       TaskbarPosition.Left);
+
+            var rightΔ = rect.right - Screen.PrimaryScreen.Bounds.Right;
             return new TaskbarInfo(handle,
                                    new TagRect
                                    {
-                                       left = rect.left,
-                                       top = rect.top - heightΔ,
-                                       right = rect.right,
-                                       bottom = rect.bottom - heightΔ
+                                       left = rect.left - rightΔ,
+                                       top = rect.top,
+                                       right = rect.right - rightΔ,
+                                       bottom = rect.bottom
                                    },
-                                   heightΔ == 0);
+                                   rightΔ == 0,
+                                   TaskbarPosition.Right);
         }
 
         #endregion
