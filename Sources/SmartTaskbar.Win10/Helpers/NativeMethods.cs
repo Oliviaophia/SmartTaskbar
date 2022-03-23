@@ -167,7 +167,7 @@ namespace SmartTaskbar
 
         #endregion
 
-        #region SHAppBarMessage
+        #region Taskbar Display State
 
         [StructLayout(LayoutKind.Sequential)]
         public struct AppbarData
@@ -278,6 +278,23 @@ namespace SmartTaskbar
 
         #endregion
 
+        #region GetProcessId
+
+        /// <summary>
+        ///     Retrieves the identifier of the thread that created the specified window and, optionally, the identifier of the
+        ///     process that created the window.
+        /// </summary>
+        /// <param name="hWnd"></param>
+        /// <param name="lpdwProcessId">
+        ///     A pointer to a variable that receives the process identifier. If this parameter is not NULL,
+        ///     GetWindowThreadProcessId copies the identifier of the process to the variable; otherwise, it does not.
+        /// </param>
+        /// <returns>The return value is the identifier of the thread that created the window.</returns>
+        [DllImport("user32.dll")]
+        public static extern uint GetWindowThreadProcessId(IntPtr hWnd, out int lpdwProcessId);
+
+        #endregion
+
         #region SendNotifyMessage
 
         /// <summary>
@@ -296,3 +313,4 @@ namespace SmartTaskbar
         #endregion
     }
 }
+

@@ -63,6 +63,8 @@
     <Compile Include="Helpers\WindowVisible.cs" />
     <Compile Include="Languages\LangName.cs" />
     <Compile Include="Models\AutoModeTypeHelper.cs" />
+    <Compile Include="Models\TaskbarBehavior.cs" />
+    <Compile Include="Models\TaskbarInfo.cs" />
     <Compile Include="Models\UserConfiguration.cs" />
     <Compile Include="Models\UserSettings.cs" />
     <Compile Include="Program.cs" />
@@ -71,6 +73,8 @@
     <Compile Include="Views\MenuStyle.cs" />
     <Compile Include="Views\ResourceCulture.cs" />
     <Compile Include="Views\SystemTray.cs" />
+    <Compile Include="Worker\Engine.cs" />
+    <Compile Include="Worker\TaskbarHelper.cs" />
     <EmbeddedResource Include="Languages\Resource.ru-RU.resx" />
     <EmbeddedResource Include="Languages\Resource.uk-UA.resx" />
     <EmbeddedResource Include="Languages\Resource.zh-CN.resx" />

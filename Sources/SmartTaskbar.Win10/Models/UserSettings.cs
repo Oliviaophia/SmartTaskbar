@@ -10,7 +10,7 @@ namespace SmartTaskbar
         /// <summary>
         ///     ctor
         /// </summary>
-        public UserSettings()
+        static UserSettings()
             => _userConfiguration = new UserConfiguration
             {
                 AutoModeType = Settings.Default.AutoModeType.AsAutoModeType(),

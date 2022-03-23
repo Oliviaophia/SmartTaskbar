@@ -4,6 +4,7 @@
     {
         None,
         Display,
-        Size
+        Size,
+        Auto
     }
 }

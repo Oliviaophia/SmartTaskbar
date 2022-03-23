@@ -24,10 +24,12 @@ namespace SmartTaskbar
         private readonly ToolStripMenuItem _showTaskbarWhenExit;
         private readonly ToolStripMenuItem _smallIcon;
 
-        private readonly UserSettings _userSettings = new UserSettings();
+        private readonly Engine _engine;
 
         public SystemTray()
         {
+            _engine = new Engine(_container);
+
             #region Initialization
 
             var resource = new ResourceCulture();
@@ -201,6 +203,8 @@ namespace SmartTaskbar
 
         private void ExitOnClick(object s, EventArgs e)
         {
+            if (UserSettings.ShowTaskbarWhenExit)
+                Fun.CancelAutoHide();
             _container?.Dispose();
             Application.Exit();
         }
