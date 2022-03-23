@@ -48,7 +48,7 @@
 
         private const uint BarFlag = 0x05D1;
 
-        private const uint MonitorDefaultToPrimary = 1;
+        private const uint TrayMonitorDefaulttonearest = 2;
         private static readonly TagPoint PointZero = new() { x = 0, y = 0 };
 
         /// <summary>
@@ -76,8 +76,8 @@
                 _ = PostMessage(
                     taskbar.Handle,
                     BarFlag,
-                    (IntPtr)1,
-                    MonitorFromPoint(PointZero, MonitorDefaultToPrimary));
+                    (IntPtr) 1,
+                    MonitorFromPoint(PointZero, TrayMonitorDefaulttonearest));
         }
 
         #endregion
