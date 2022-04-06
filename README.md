@@ -14,7 +14,7 @@ SmartTaskbar  <img src="https://github.com/ChanpleCai/SmartTaskbar/blob/main/log
 Features
 -----
 
-#### Auto Mode (Windows 11 Only)
+#### Auto Mode
 
 * In the Auto Mode, SmartTaskbar will set the Taskbar to hide when When the focused window and the taskbar intersect<sup>[[1]](#footnote)</sup>.
   
@@ -23,7 +23,7 @@ Features
 Known Issues
 ----
   
-* The Windows 11 version of Auto Mode is based on Auto-Hide mode, so it does not change the default behavior of win11 taskbar in Auto-Hide mode. Therefore, you will encounter the following "bugs", but they are not actually:
+* The Auto Mode is based on Auto-Hide mode, so it does not change the default behavior of win11 taskbar in Auto-Hide mode. Therefore, you will encounter the following "bugs", but they are not actually:
 
     * When you close the start menu or the search panel, the taskbar will be automatically hidden (this is the system's own behavior), and then may be displayed again immediately (this is the work of SmartTaskbar).
     
