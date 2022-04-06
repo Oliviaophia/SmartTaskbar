@@ -57,7 +57,6 @@
     <Compile Include="Helpers\AnimationHelper.cs" />
     <Compile Include="Helpers\AutoHideHelper.cs" />
     <Compile Include="Helpers\ClassName.cs" />
-    <Compile Include="Helpers\IconSizeHelper.cs" />
     <Compile Include="Helpers\NativeMethods.cs" />
     <Compile Include="Helpers\UISettingsHelper.cs" />
     <Compile Include="Helpers\WindowVisible.cs" />

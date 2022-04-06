@@ -4,8 +4,6 @@
     {
         public const string TrayAbout = "tray_about";
 
-        public const string TraySmallIcon = "tray_smallIcon";
-
         public const string TrayAnimation = "tray_animation";
 
         public const string TrayAuto = "tray_auto";

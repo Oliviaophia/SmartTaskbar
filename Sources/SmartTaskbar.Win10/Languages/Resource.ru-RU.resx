@@ -132,7 +132,4 @@
   <data name="tray_showBarOnExit" xml:space="preserve">
     <value>Show the taskbar after exit</value>
   </data>
-  <data name="tray_smallIcon" xml:space="preserve">
-    <value>Маленькие кнопки</value>
-  </data>
 </root>

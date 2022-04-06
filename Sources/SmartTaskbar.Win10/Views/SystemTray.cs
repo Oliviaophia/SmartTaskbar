@@ -21,7 +21,6 @@ namespace SmartTaskbar
         private readonly ToolStripMenuItem _exit;
         private readonly NotifyIcon _notifyIcon;
         private readonly ToolStripMenuItem _showTaskbarWhenExit;
-        private readonly ToolStripMenuItem _smallIcon;
 
         public SystemTray()
         {
@@ -34,11 +33,6 @@ namespace SmartTaskbar
             _about = new ToolStripMenuItem
             {
                 Text = resource.GetString(LangName.TrayAbout),
-                Font = font
-            };
-            _smallIcon = new ToolStripMenuItem
-            {
-                Text = resource.GetString(LangName.TraySmallIcon),
                 Font = font
             };
             _animation = new ToolStripMenuItem
@@ -69,8 +63,6 @@ namespace SmartTaskbar
             _contextMenuStrip.Items.AddRange(new ToolStripItem[]
             {
                 _about,
-                new ToolStripSeparator(),
-                _smallIcon,
                 _animation,
                 new ToolStripSeparator(),
                 _autoMode,
@@ -91,8 +83,6 @@ namespace SmartTaskbar
             #region Load Event
 
             _about.Click += AboutOnClick;
-
-            _smallIcon.Click += SmallIconOnClick;
 
             _animation.Click += AnimationOnClick;
 
@@ -129,8 +119,6 @@ namespace SmartTaskbar
             if (e.Button != MouseButtons.Right) return;
 
             _animation.Checked = Fun.IsEnableTaskbarAnimation();
-
-            _smallIcon.Checked = Fun.IsUseSmallIcon();
 
             _showTaskbarWhenExit.Checked = UserSettings.ShowTaskbarWhenExit;
 
@@ -212,8 +200,6 @@ namespace SmartTaskbar
         }
 
         private void AnimationOnClick(object s, EventArgs e) { _animation.Checked = Fun.ChangeTaskbarAnimation(); }
-
-        private void SmallIconOnClick(object s, EventArgs e) { Fun.ChangeIconSize(); }
 
         private void AboutOnClick(object s, EventArgs e)
         {
