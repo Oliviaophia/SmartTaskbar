@@ -123,23 +123,11 @@
   <data name="tray_animation" xml:space="preserve">
     <value>Animations in the taskbar</value>
   </data>
-  <data name="tray_autoDisplay" xml:space="preserve">
+  <data name="tray_auto" xml:space="preserve">
     <value>Auto</value>
-  </data>
-  <data name="tray_autoSize" xml:space="preserve">
-    <value>Adaptive</value>
   </data>
   <data name="tray_exit" xml:space="preserve">
     <value>Exit</value>
-  </data>
-  <data name="tray_pauseInTabletMode" xml:space="preserve">
-    <value>Pause in tablet mode</value>
-  </data>
-  <data name="tray_reverseDisplayModeBehavior" xml:space="preserve">
-    <value>Reverse display mode behavior</value>
-  </data>
-  <data name="tray_reverseSizeModeBehavior" xml:space="preserve">
-    <value>Reverse size mode behavior</value>
   </data>
   <data name="tray_showBarOnExit" xml:space="preserve">
     <value>Show the taskbar after exit</value>

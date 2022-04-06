@@ -12,12 +12,13 @@ namespace SmartTaskbar
         ///     Initialize taskbar information
         /// </summary>
         /// <returns></returns>
-        public TaskbarInfo(IntPtr handle, TagRect rect, bool isShow, TaskbarPosition position)
+        public TaskbarInfo(IntPtr handle, TagRect rect, bool isShow, TaskbarPosition position, IntPtr monitor)
         {
             Handle = handle;
             Rect = rect;
             IsShow = isShow;
             Position = position;
+            Monitor = monitor;
         }
 
         /// <summary>
@@ -39,5 +40,10 @@ namespace SmartTaskbar
         ///     Taskbar Position
         /// </summary>
         public readonly TaskbarPosition Position;
+
+        /// <summary>
+        ///     Taskbar Monitor
+        /// </summary>
+        public readonly IntPtr Monitor;
     }
 }

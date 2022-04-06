@@ -18,17 +18,13 @@ namespace SmartTaskbar
             _timer.Start();
         }
 
+        private static ForegroundWindowInfo ForegroundWindowInfo { get; set; }
+
         private static void Timer_Tick(object sender, EventArgs e)
         {
             switch (UserSettings.AutoModeType)
             {
                 case AutoModeType.None:
-                    break;
-                case AutoModeType.Display:
-                    Task.Run(DisplayModeWorker);
-                    break;
-                case AutoModeType.Size:
-                    Task.Run(SizeModeWorker);
                     break;
                 case AutoModeType.Auto:
                     Task.Run(AutoModeWorker);
@@ -38,62 +34,10 @@ namespace SmartTaskbar
             }
         }
 
-        private static void DisplayModeWorker()
-        {
-            var taskbar = TaskbarHelper.InitTaskbar();
-
-            // Some users will kill the explorer.exe under certain situation.
-            // In this case, the taskbar cannot be found, just return and wait for the user to reopen the file explorer.
-            if (!taskbar.HasValue)
-                return;
-
-            var behavior = taskbar.Value.ShouldMouseOverWindowShowTheTaskbar();
-
-            if (behavior == TaskbarBehavior.Pending) behavior = taskbar.Value.ShouldMaximizedWindowHideTheTaskbar();
-
-            switch (behavior)
-            {
-                case TaskbarBehavior.Show:
-                    Fun.CancelAutoHide();
-                    break;
-                case TaskbarBehavior.Hide:
-                    Fun.SetAutoHide();
-                    break;
-            }
-        }
-
-        private static void SizeModeWorker()
-        {
-            Fun.CancelAutoHide();
-
-            var taskbar = TaskbarHelper.InitTaskbar();
-
-            // Some users will kill the explorer.exe under certain situation.
-            // In this case, the taskbar cannot be found, just return and wait for the user to reopen the file explorer.
-            if (!taskbar.HasValue)
-                return;
-
-            var behavior = taskbar.Value.ShouldMouseOverWindowShowTheTaskbar();
-
-            if (behavior == TaskbarBehavior.Pending) behavior = taskbar.Value.ShouldMaximizedWindowHideTheTaskbar();
-
-
-            switch (behavior)
-            {
-                case TaskbarBehavior.Show:
-                    Fun.SetBigIcon();
-                    break;
-                case TaskbarBehavior.Hide:
-                    Fun.SetSmallIcon();
-                    break;
-            }
-        }
-
         private static void AutoModeWorker()
         {
             // Make sure the taskbar has been automatically hidden, otherwise it will not work
             Fun.SetAutoHide();
-
 
             var taskbar = TaskbarHelper.InitTaskbar();
 
@@ -106,7 +50,21 @@ namespace SmartTaskbar
 
             if (behavior == TaskbarBehavior.Pending)
             {
-                behavior = taskbar.Value.ShouldForegroundWindowShowTheTaskbar();
+                var (taskbarBehavior, foregroundWindowInfo) = taskbar.Value.ShouldForegroundWindowShowTheTaskbar();
+
+                behavior = taskbarBehavior;
+
+                if (behavior == TaskbarBehavior.Hide)
+                {
+                    if (foregroundWindowInfo != ForegroundWindowInfo)
+                        taskbar.Value.HideTaskbar();
+
+                    ForegroundWindowInfo = foregroundWindowInfo;
+                    return;
+                }
+
+                ForegroundWindowInfo = foregroundWindowInfo;
+
                 if (behavior == TaskbarBehavior.Pending)
                     behavior = taskbar.Value.ShouldDesktopShowTheTaskbar();
             }

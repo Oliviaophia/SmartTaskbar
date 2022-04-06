@@ -10,21 +10,18 @@ namespace SmartTaskbar
 {
     internal class SystemTray : ApplicationContext
     {
+        private const int TrayTolerance = 4;
         private readonly ToolStripMenuItem _about;
         private readonly ToolStripMenuItem _animation;
-        private readonly ToolStripMenuItem _autoDisplay;
-        private readonly ToolStripMenuItem _autoSize;
+        private readonly ToolStripMenuItem _autoMode;
         private readonly Container _container = new Container();
         private readonly ContextMenuStrip _contextMenuStrip;
-        private readonly ToolStripMenuItem _exit;
-        private readonly NotifyIcon _notifyIcon;
-        private readonly ToolStripMenuItem _pauseInTabletMode;
-        private readonly ToolStripMenuItem _reverseDisplayModeBehavior;
-        private readonly ToolStripMenuItem _reverseSizeModeBehavior;
-        private readonly ToolStripMenuItem _showTaskbarWhenExit;
-        private readonly ToolStripMenuItem _smallIcon;
 
         private readonly Engine _engine;
+        private readonly ToolStripMenuItem _exit;
+        private readonly NotifyIcon _notifyIcon;
+        private readonly ToolStripMenuItem _showTaskbarWhenExit;
+        private readonly ToolStripMenuItem _smallIcon;
 
         public SystemTray()
         {
@@ -49,29 +46,9 @@ namespace SmartTaskbar
                 Text = resource.GetString(LangName.TrayAnimation),
                 Font = font
             };
-            _pauseInTabletMode = new ToolStripMenuItem
+            _autoMode = new ToolStripMenuItem
             {
-                Text = resource.GetString(LangName.TrayPauseInTabletMode),
-                Font = font
-            };
-            _reverseDisplayModeBehavior = new ToolStripMenuItem
-            {
-                Text = resource.GetString(LangName.TrayReverseDisplayModeBehavior),
-                Font = font
-            };
-            _reverseSizeModeBehavior = new ToolStripMenuItem
-            {
-                Text = resource.GetString(LangName.TrayReverseSizeModeBehavior),
-                Font = font
-            };
-            _autoDisplay = new ToolStripMenuItem
-            {
-                Text = resource.GetString(LangName.TrayAutoDisplay),
-                Font = font
-            };
-            _autoSize = new ToolStripMenuItem
-            {
-                Text = resource.GetString(LangName.TrayAutoSize),
+                Text = resource.GetString(LangName.TrayAuto),
                 Font = font
             };
             _showTaskbarWhenExit = new ToolStripMenuItem
@@ -95,13 +72,8 @@ namespace SmartTaskbar
                 new ToolStripSeparator(),
                 _smallIcon,
                 _animation,
-                _pauseInTabletMode,
                 new ToolStripSeparator(),
-                _reverseDisplayModeBehavior,
-                _reverseSizeModeBehavior,
-                new ToolStripSeparator(),
-                _autoDisplay,
-                _autoSize,
+                _autoMode,
                 new ToolStripSeparator(),
                 _showTaskbarWhenExit,
                 _exit
@@ -109,7 +81,6 @@ namespace SmartTaskbar
 
             _notifyIcon = new NotifyIcon(_container)
             {
-                ContextMenuStrip = _contextMenuStrip,
                 Text = @"SmartTaskbar v1.4.0",
                 Icon = Fun.IsLightTheme() ? Resources.Logo_Black : Resources.Logo_White,
                 Visible = true
@@ -125,15 +96,7 @@ namespace SmartTaskbar
 
             _animation.Click += AnimationOnClick;
 
-            _pauseInTabletMode.Click += PauseInTabletModeOnClick;
-
-            _reverseDisplayModeBehavior.Click += ReverseDisplayModeBehaviorOnClick;
-
-            _reverseSizeModeBehavior.Click += ReverseSizeModeBehaviorOnClick;
-
-            _autoSize.Click += AutoSizeOnClick;
-
-            _autoDisplay.Click += AutoDisplayOnClick;
+            _autoMode.Click += AutoModeOnClick;
 
             _showTaskbarWhenExit.Click += ShowTaskbarWhenExitOnClick;
 
@@ -151,15 +114,6 @@ namespace SmartTaskbar
         private void ShowTaskbarWhenExitOnClick(object sender, EventArgs e)
             => UserSettings.ShowTaskbarWhenExit = !_showTaskbarWhenExit.Checked;
 
-        private void ReverseSizeModeBehaviorOnClick(object sender, EventArgs e)
-            => UserSettings.ReverseSizeModeBehavior = !_reverseSizeModeBehavior.Checked;
-
-        private void ReverseDisplayModeBehaviorOnClick(object sender, EventArgs e)
-            => UserSettings.ReverseDisplayModeBehavior = !_reverseDisplayModeBehavior.Checked;
-
-        private void PauseInTabletModeOnClick(object sender, EventArgs e)
-            => UserSettings.PauseInTabletMode = !_pauseInTabletMode.Checked;
-
         private void UISettingsOnColorValuesChanged(UISettings sender, object args)
             => _notifyIcon.Icon = Fun.IsLightTheme() ? Resources.Logo_Black : Resources.Logo_White;
 
@@ -167,6 +121,7 @@ namespace SmartTaskbar
         {
             UserSettings.AutoModeType = AutoModeType.None;
             Fun.ChangeAutoHide();
+            TaskbarHelper.InitTaskbar()?.HideTaskbar();
         }
 
         private void NotifyIconOnMouseClick(object s, MouseEventArgs e)
@@ -177,26 +132,68 @@ namespace SmartTaskbar
 
             _smallIcon.Checked = Fun.IsUseSmallIcon();
 
-            _pauseInTabletMode.Checked = UserSettings.PauseInTabletMode;
-
-            _reverseSizeModeBehavior.Checked = UserSettings.ReverseSizeModeBehavior;
-
-            _reverseDisplayModeBehavior.Checked = UserSettings.ReverseDisplayModeBehavior;
-
             _showTaskbarWhenExit.Checked = UserSettings.ShowTaskbarWhenExit;
 
             switch (UserSettings.AutoModeType)
             {
-                case AutoModeType.Display:
-                    _autoDisplay.Checked = true;
-                    _autoSize.Checked = false;
-                    break;
-                case AutoModeType.Size:
-                    _autoDisplay.Checked = false;
-                    _autoSize.Checked = true;
+                case AutoModeType.Auto:
+                    _autoMode.Checked = true;
                     break;
                 case AutoModeType.None:
-                    _autoDisplay.Checked = _autoSize.Checked = false;
+                    _autoMode.Checked = false;
+                    break;
+            }
+
+            ShowMenu();
+
+            Fun.SetForegroundWindow(_contextMenuStrip.Handle);
+        }
+
+        private void ShowMenu()
+        {
+            var taskbar = TaskbarHelper.InitTaskbar();
+
+            if (!taskbar.HasValue) return;
+
+            switch (taskbar.Value.Position)
+            {
+                case TaskbarPosition.Bottom:
+                    if (Cursor.Position.X + _contextMenuStrip.Width > Screen.PrimaryScreen.Bounds.Right)
+                        _contextMenuStrip.Show(
+                            Screen.PrimaryScreen.Bounds.Right - _contextMenuStrip.Width - TrayTolerance,
+                            taskbar.Value.Rect.top - _contextMenuStrip.Height - TrayTolerance);
+                    else
+                        _contextMenuStrip.Show(Cursor.Position.X - TrayTolerance,
+                                               taskbar.Value.Rect.top - _contextMenuStrip.Height - TrayTolerance);
+                    break;
+                case TaskbarPosition.Left:
+                    if (Cursor.Position.Y + _contextMenuStrip.Height > Screen.PrimaryScreen.Bounds.Bottom)
+                        _contextMenuStrip.Show(taskbar.Value.Rect.right + TrayTolerance,
+                                               Screen.PrimaryScreen.Bounds.Bottom
+                                               - _contextMenuStrip.Height
+                                               - TrayTolerance);
+                    else
+                        _contextMenuStrip.Show(taskbar.Value.Rect.right + TrayTolerance,
+                                               Cursor.Position.Y - TrayTolerance);
+                    break;
+                case TaskbarPosition.Right:
+                    if (Cursor.Position.Y + _contextMenuStrip.Height > Screen.PrimaryScreen.Bounds.Bottom)
+                        _contextMenuStrip.Show(taskbar.Value.Rect.left - TrayTolerance - _contextMenuStrip.Width,
+                                               Screen.PrimaryScreen.Bounds.Bottom
+                                               - _contextMenuStrip.Height
+                                               - TrayTolerance);
+                    else
+                        _contextMenuStrip.Show(taskbar.Value.Rect.left - TrayTolerance - _contextMenuStrip.Width,
+                                               Cursor.Position.Y - TrayTolerance);
+                    break;
+                case TaskbarPosition.Top:
+                    if (Cursor.Position.X + _contextMenuStrip.Width > Screen.PrimaryScreen.Bounds.Right)
+                        _contextMenuStrip.Show(
+                            Screen.PrimaryScreen.Bounds.Right - _contextMenuStrip.Width - TrayTolerance,
+                            taskbar.Value.Rect.bottom + TrayTolerance);
+                    else
+                        _contextMenuStrip.Show(Cursor.Position.X - TrayTolerance,
+                                               taskbar.Value.Rect.top + TrayTolerance);
                     break;
             }
         }
@@ -209,14 +206,9 @@ namespace SmartTaskbar
             Application.Exit();
         }
 
-        private void AutoDisplayOnClick(object s, EventArgs e)
+        private void AutoModeOnClick(object s, EventArgs e)
         {
-            UserSettings.AutoModeType = _autoDisplay.Checked ? AutoModeType.None : AutoModeType.Display;
-        }
-
-        private void AutoSizeOnClick(object s, EventArgs e)
-        {
-            UserSettings.AutoModeType = _autoSize.Checked ? AutoModeType.None : AutoModeType.Size;
+            UserSettings.AutoModeType = _autoMode.Checked ? AutoModeType.None : AutoModeType.Auto;
         }
 
         private void AnimationOnClick(object s, EventArgs e) { _animation.Checked = Fun.ChangeTaskbarAnimation(); }

@@ -8,15 +8,7 @@
 
         public const string TrayAnimation = "tray_animation";
 
-        public const string TrayPauseInTabletMode = "tray_pauseInTabletMode";
-
-        public const string TrayAutoSize = "tray_autoSize";
-
-        public const string TrayAutoDisplay = "tray_autoDisplay";
-
-        public const string TrayReverseDisplayModeBehavior = "tray_reverseDisplayModeBehavior";
-
-        public const string TrayReverseSizeModeBehavior = "tray_reverseSizeModeBehavior";
+        public const string TrayAuto = "tray_auto";
 
         public const string TrayShowBarOnExit = "tray_showBarOnExit";
 

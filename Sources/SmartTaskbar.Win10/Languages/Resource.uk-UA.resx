@@ -123,25 +123,13 @@
   <data name="tray_animation" xml:space="preserve">
     <value>Анімація</value>
   </data>
-  <data name="tray_autoDisplay" xml:space="preserve">
+  <data name="tray_auto" xml:space="preserve">
     <value>Авто</value>
-  </data>
-  <data name="tray_autoSize" xml:space="preserve">
-    <value>Адаптивний</value>
   </data>
   <data name="tray_exit" xml:space="preserve">
     <value>Вихід</value>
   </data>
-  <data name="tray_pauseInTabletMode" xml:space="preserve">
-    <value>Pause in tablet mode</value>
-  </data>
-  <data name="tray_reverseDisplayModeBehavior1" xml:space="preserve">
-    <value>Reverse display mode behavior</value>
-  </data>
-  <data name="tray_reverseSizeModeBehavior1" xml:space="preserve">
-    <value>Reverse size mode behavior</value>
-  </data>
-  <data name="tray_showBarOnExit1" xml:space="preserve">
+  <data name="tray_showBarOnExit" xml:space="preserve">
     <value>Show the taskbar after exit</value>
   </data>
   <data name="tray_smallIcon" xml:space="preserve">

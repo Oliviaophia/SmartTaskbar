@@ -3,8 +3,6 @@
     public enum AutoModeType
     {
         None,
-        Display,
-        Size,
         Auto
     }
 }

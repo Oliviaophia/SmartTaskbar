@@ -151,6 +151,13 @@ public static partial class Fun
 
     #endregion
 
+    #region MonitorFromWindow
+
+    [DllImport("user32.dll")]
+    public static extern IntPtr MonitorFromWindow(IntPtr hwnd, uint dwFlags);
+
+    #endregion
+
     #region FindWindow
 
     /// <summary>

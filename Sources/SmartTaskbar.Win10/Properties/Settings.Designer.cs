@@ -12,7 +12,7 @@ namespace SmartTaskbar.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "17.0.3.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "17.1.0.0")]
     internal sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase {
         
         private static Settings defaultInstance = ((Settings)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new Settings())));
@@ -44,42 +44,6 @@ namespace SmartTaskbar.Properties {
             }
             set {
                 this["ShowTaskbarWhenExit"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool ReverseDisplayModeBehavior {
-            get {
-                return ((bool)(this["ReverseDisplayModeBehavior"]));
-            }
-            set {
-                this["ReverseDisplayModeBehavior"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool ReverseSizeModeBehavior {
-            get {
-                return ((bool)(this["ReverseSizeModeBehavior"]));
-            }
-            set {
-                this["ReverseSizeModeBehavior"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool PauseInTabletMode {
-            get {
-                return ((bool)(this["PauseInTabletMode"]));
-            }
-            set {
-                this["PauseInTabletMode"] = value;
             }
         }
     }

@@ -39,7 +39,8 @@
                                        right = rect.right,
                                        bottom = rect.bottom - heightΔ
                                    },
-                                   heightΔ == 0);
+                                   heightΔ == 0,
+                                   MonitorFromPoint(PointZero, TrayMonitorDefaulttonearest));
         }
 
         #endregion
@@ -77,7 +78,7 @@
                     taskbar.Handle,
                     BarFlag,
                     (IntPtr) 1,
-                    MonitorFromPoint(PointZero, TrayMonitorDefaulttonearest));
+                    taskbar.Monitor);
         }
 
         #endregion
@@ -154,6 +155,9 @@
             if (foregroundHandle.IsWindowInvisible())
                 return TaskbarBehavior.Pending;
 
+            // If window is in another desktop, do not automatically hide the taskbar.
+            if (MonitorFromWindow(foregroundHandle, TrayMonitorDefaulttonearest) != taskbar.Monitor)
+                return TaskbarBehavior.Pending;
 
             // Get foreground window Rectange.
             if (!GetWindowRect(foregroundHandle, out var rect))

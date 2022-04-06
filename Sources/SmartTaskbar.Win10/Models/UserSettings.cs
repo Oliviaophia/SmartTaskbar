@@ -14,10 +14,7 @@ namespace SmartTaskbar
             => _userConfiguration = new UserConfiguration
             {
                 AutoModeType = Settings.Default.AutoModeType.AsAutoModeType(),
-                ShowTaskbarWhenExit = Settings.Default.ShowTaskbarWhenExit,
-                ReverseSizeModeBehavior = Settings.Default.ReverseSizeModeBehavior,
-                ReverseDisplayModeBehavior = Settings.Default.ReverseDisplayModeBehavior,
-                PauseInTabletMode = Settings.Default.PauseInTabletMode
+                ShowTaskbarWhenExit = Settings.Default.ShowTaskbarWhenExit
             };
 
         public static AutoModeType AutoModeType
@@ -30,48 +27,6 @@ namespace SmartTaskbar
 
                 _userConfiguration.AutoModeType = value;
                 Settings.Default.AutoModeType = value.ToString();
-                Settings.Default.Save();
-            }
-        }
-
-        public static bool ReverseDisplayModeBehavior
-        {
-            get => _userConfiguration.ReverseDisplayModeBehavior;
-            set
-            {
-                if (value == _userConfiguration.ReverseDisplayModeBehavior)
-                    return;
-
-                _userConfiguration.ReverseDisplayModeBehavior = value;
-                Settings.Default.ReverseDisplayModeBehavior = value;
-                Settings.Default.Save();
-            }
-        }
-
-        public static bool ReverseSizeModeBehavior
-        {
-            get => _userConfiguration.ReverseSizeModeBehavior;
-            set
-            {
-                if (value == _userConfiguration.ReverseSizeModeBehavior)
-                    return;
-
-                _userConfiguration.ReverseSizeModeBehavior = value;
-                Settings.Default.ReverseSizeModeBehavior = value;
-                Settings.Default.Save();
-            }
-        }
-
-        public static bool PauseInTabletMode
-        {
-            get => _userConfiguration.PauseInTabletMode;
-            set
-            {
-                if (value == _userConfiguration.PauseInTabletMode)
-                    return;
-
-                _userConfiguration.PauseInTabletMode = value;
-                Settings.Default.PauseInTabletMode = value;
                 Settings.Default.Save();
             }
         }

@@ -11,15 +11,12 @@
         {
             switch (str)
             {
-                case nameof(AutoModeType.Display):
-                    return AutoModeType.Display;
                 case nameof(AutoModeType.None):
                     return AutoModeType.None;
-                case nameof(AutoModeType.Size):
-                    return AutoModeType.Size;
-
+                case nameof(AutoModeType.Auto):
+                    return AutoModeType.Auto;
                 default:
-                    return AutoModeType.Display;
+                    return AutoModeType.Auto;
             }
         }
     }

@@ -62,7 +62,11 @@
     <Compile Include="Helpers\UISettingsHelper.cs" />
     <Compile Include="Helpers\WindowVisible.cs" />
     <Compile Include="Languages\LangName.cs" />
+    <Compile Include="Models\AppbarData.cs" />
     <Compile Include="Models\AutoModeTypeHelper.cs" />
+    <Compile Include="Models\ForegroundWindowInfo.cs" />
+    <Compile Include="Models\TagPoint.cs" />
+    <Compile Include="Models\TagRect.cs" />
     <Compile Include="Models\TaskbarBehavior.cs" />
     <Compile Include="Models\TaskbarInfo.cs" />
     <Compile Include="Models\TaskbarPosition.cs" />

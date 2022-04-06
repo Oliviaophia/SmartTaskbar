@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Windows.Forms;
 
 namespace SmartTaskbar
@@ -32,6 +31,10 @@ namespace SmartTaskbar
 
             // determine the taskbar position
 
+            var monitor = MonitorFromPoint(PointZero, TrayMonitorDefaulttoprimary);
+
+            // todo: The main taskbar is not always on the Primary desktop!!! When this happens, the program will run abnormally
+
             if (rect.right - rect.left == Screen.PrimaryScreen.Bounds.Width)
             {
                 var bottomΔ = rect.bottom - Screen.PrimaryScreen.Bounds.Bottom;
@@ -46,7 +49,8 @@ namespace SmartTaskbar
                                                bottom = rect.bottom
                                            },
                                            true,
-                                           TaskbarPosition.Bottom);
+                                           TaskbarPosition.Bottom,
+                                           monitor);
 
                 if (bottomΔ > 0)
                     return new TaskbarInfo(handle,
@@ -58,7 +62,8 @@ namespace SmartTaskbar
                                                bottom = rect.bottom - bottomΔ
                                            },
                                            false,
-                                           TaskbarPosition.Bottom);
+                                           TaskbarPosition.Bottom,
+                                           monitor);
 
                 var topΔ = rect.top - Screen.PrimaryScreen.Bounds.Top;
                 return new TaskbarInfo(handle,
@@ -70,7 +75,8 @@ namespace SmartTaskbar
                                            bottom = rect.bottom - topΔ
                                        },
                                        topΔ == 0,
-                                       TaskbarPosition.Top);
+                                       TaskbarPosition.Top,
+                                       monitor);
             }
 
             // taskbar on the left or right
@@ -87,7 +93,8 @@ namespace SmartTaskbar
                                            bottom = rect.bottom
                                        },
                                        true,
-                                       TaskbarPosition.Left);
+                                       TaskbarPosition.Left,
+                                       monitor);
 
             if (leftΔ < 0)
                 return new TaskbarInfo(handle,
@@ -98,8 +105,9 @@ namespace SmartTaskbar
                                            right = rect.right - leftΔ,
                                            bottom = rect.bottom
                                        },
-                                       true,
-                                       TaskbarPosition.Left);
+                                       false,
+                                       TaskbarPosition.Left,
+                                       monitor);
 
             var rightΔ = rect.right - Screen.PrimaryScreen.Bounds.Right;
             return new TaskbarInfo(handle,
@@ -111,7 +119,8 @@ namespace SmartTaskbar
                                        bottom = rect.bottom
                                    },
                                    rightΔ == 0,
-                                   TaskbarPosition.Right);
+                                   TaskbarPosition.Right,
+                                   monitor);
         }
 
         #endregion
@@ -120,7 +129,8 @@ namespace SmartTaskbar
 
         private const uint BarFlag = 0x05D1;
 
-        private const uint MonitorDefaultToPrimary = 1;
+        private const uint TrayMonitorDefaulttoprimary = 1;
+        private const uint TrayMonitorDefaulttonearest = 2;
         private static readonly TagPoint PointZero = new TagPoint {x = 0, y = 0};
 
         /// <summary>
@@ -148,8 +158,8 @@ namespace SmartTaskbar
                 _ = PostMessage(
                     taskbar.Handle,
                     BarFlag,
-                    (IntPtr)1,
-                    MonitorFromPoint(PointZero, MonitorDefaultToPrimary));
+                    (IntPtr) 1,
+                    taskbar.Monitor);
         }
 
         #endregion
@@ -209,51 +219,57 @@ namespace SmartTaskbar
                 : TaskbarBehavior.Pending;
         }
 
-        public static TaskbarBehavior ShouldForegroundWindowShowTheTaskbar(this in TaskbarInfo taskbar)
+        public static (TaskbarBehavior, ForegroundWindowInfo) ShouldForegroundWindowShowTheTaskbar(
+            this in TaskbarInfo taskbar)
         {
             var foregroundHandle = GetForegroundWindow();
 
             if (foregroundHandle == IntPtr.Zero)
-                return TaskbarBehavior.Pending;
+                return (TaskbarBehavior.Pending, new ForegroundWindowInfo());
 
             // When the system is start up or a window is closed,
             // there is a certain probability that the taskbar will be set to foreground window.
             if (foregroundHandle == taskbar.Handle)
-                return TaskbarBehavior.Show;
+                return (TaskbarBehavior.Show, new ForegroundWindowInfo());
 
             // Somehow, the foreground window is not necessarily visible.
             if (foregroundHandle.IsWindowInvisible())
-                return TaskbarBehavior.Pending;
+                return (TaskbarBehavior.Pending, new ForegroundWindowInfo());
 
+            var monitor = MonitorFromWindow(foregroundHandle, TrayMonitorDefaulttonearest);
+
+            // If window is in another desktop, do not automatically hide the taskbar.
+            if (monitor != taskbar.Monitor)
+                return (TaskbarBehavior.Pending, new ForegroundWindowInfo());
 
             // Get foreground window Rectange.
             if (!GetWindowRect(foregroundHandle, out var rect))
-                return TaskbarBehavior.Pending;
+                return (TaskbarBehavior.Pending, new ForegroundWindowInfo());
 
             // If the window and the taskbar do not intersect, the taskbar should be displayed.
             if (rect.bottom <= taskbar.Rect.top
                 || rect.top >= taskbar.Rect.bottom
                 || rect.left >= taskbar.Rect.right
                 || rect.right <= taskbar.Rect.left)
-                return TaskbarBehavior.Show;
+                return (TaskbarBehavior.Show, new ForegroundWindowInfo(foregroundHandle, monitor, rect));
 
             // If the foreground Window is closing or idle, do nothing
             _ = GetWindowThreadProcessId(foregroundHandle, out var processId);
             if (processId == 0)
-                return TaskbarBehavior.DoNothing;
+                return (TaskbarBehavior.DoNothing, new ForegroundWindowInfo(foregroundHandle, monitor, rect));
 
             switch (foregroundHandle.GetName())
             {
                 // it's a desktop.
                 case Progman:
                 case WorkerW:
-                    return TaskbarBehavior.Show;
+                    return (TaskbarBehavior.Show, new ForegroundWindowInfo(foregroundHandle, monitor, rect));
                 // In rare circumstances, the start menu and search will not be displayed in the correct position,
                 // causing the taskbar keep display, then hide, display, hide... in an endless loop.
                 case CoreWindow:
-                    return TaskbarBehavior.DoNothing;
+                    return (TaskbarBehavior.DoNothing, new ForegroundWindowInfo(foregroundHandle, monitor, rect));
                 default:
-                    return TaskbarBehavior.Hide;
+                    return (TaskbarBehavior.Hide, new ForegroundWindowInfo(foregroundHandle, monitor, rect));
             }
         }
 
@@ -261,7 +277,8 @@ namespace SmartTaskbar
         {
             // Take a point on the taskbar to determine whether its current window is the desktop,
             // if it is, the taskbar should be displayed
-            var window = WindowFromPoint(new TagPoint { x = taskbar.Rect.left, y = taskbar.Rect.top });
+
+            var window = GetWindowIntPtr(taskbar);
 
             if (window == IntPtr.Zero)
                 return TaskbarBehavior.Pending;
@@ -286,58 +303,21 @@ namespace SmartTaskbar
             }
         }
 
-        public static TaskbarBehavior ShouldMaximizedWindowHideTheTaskbar(this in TaskbarInfo taskbar)
+        private static IntPtr GetWindowIntPtr(in TaskbarInfo taskbar)
         {
-            var windows = GetEightPointsWindow();
-
-            foreach (var window in windows)
+            switch (taskbar.Position)
             {
-                if (window == IntPtr.Zero)
-                    continue;
-
-                if (window == taskbar.Handle)
-                    continue;
-
-                var rootWindow = GetAncestor(window, GaRoot);
-
-                if (rootWindow == taskbar.Handle)
-                    continue;
-
-                var name = rootWindow.GetName();
-
-                switch (name)
-                {
-                    case Progman:
-                    case WorkerW:
-                        return TaskbarBehavior.Show;
-                    default:
-                        continue;
-                }
+                case TaskbarPosition.Bottom:
+                    return WindowFromPoint(new TagPoint {x = taskbar.Rect.left, y = taskbar.Rect.top});
+                case TaskbarPosition.Left:
+                    return WindowFromPoint(new TagPoint {x = taskbar.Rect.right, y = taskbar.Rect.top});
+                case TaskbarPosition.Right:
+                    return WindowFromPoint(new TagPoint {x = taskbar.Rect.left, y = taskbar.Rect.top});
+                case TaskbarPosition.Top:
+                    return WindowFromPoint(new TagPoint {x = taskbar.Rect.left, y = taskbar.Rect.bottom});
+                default:
+                    return WindowFromPoint(new TagPoint {x = taskbar.Rect.left, y = taskbar.Rect.top});
             }
-
-            return TaskbarBehavior.Hide;
-        }
-
-        private const int AreaTol = 4;
-
-        private static HashSet<IntPtr> GetEightPointsWindow()
-        {
-            var workingArea = Screen.PrimaryScreen.WorkingArea;
-
-            var midX = workingArea.Left + workingArea.Width / 2;
-            var midY = workingArea.Top + workingArea.Height / 2;
-
-            return new HashSet<IntPtr>
-            {
-                WindowFromPoint(new TagPoint {x = workingArea.Left + AreaTol, y = workingArea.Top + AreaTol}),
-                WindowFromPoint(new TagPoint {x = workingArea.Left + AreaTol, y = workingArea.Bottom - AreaTol}),
-                WindowFromPoint(new TagPoint {x = workingArea.Right - AreaTol, y = workingArea.Top + AreaTol}),
-                WindowFromPoint(new TagPoint {x = workingArea.Right - AreaTol, y = workingArea.Bottom - AreaTol}),
-                WindowFromPoint(new TagPoint {x = midX - AreaTol, y = midY - AreaTol}),
-                WindowFromPoint(new TagPoint {x = midX - AreaTol, y = midY + AreaTol}),
-                WindowFromPoint(new TagPoint {x = midX + AreaTol, y = midY - AreaTol}),
-                WindowFromPoint(new TagPoint {x = midX + AreaTol, y = midY + AreaTol})
-            };
         }
 
         #endregion

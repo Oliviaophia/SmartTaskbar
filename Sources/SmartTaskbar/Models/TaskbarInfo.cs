@@ -11,11 +11,12 @@ public readonly struct TaskbarInfo
     ///     Initialize taskbar information
     /// </summary>
     /// <returns></returns>
-    public TaskbarInfo(IntPtr handle, TagRect rect, bool isShow)
+    public TaskbarInfo(IntPtr handle, TagRect rect, bool isShow, IntPtr monitor)
     {
         Handle = handle;
         Rect = rect;
         IsShow = isShow;
+        Monitor = monitor;
     }
 
     /// <summary>
@@ -32,4 +33,9 @@ public readonly struct TaskbarInfo
     ///     Whether the taskbar is displayed
     /// </summary>
     public readonly bool IsShow;
+
+    /// <summary>
+    ///     Taskbar Monitor
+    /// </summary>
+    public readonly IntPtr Monitor;
 }

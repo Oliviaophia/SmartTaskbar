@@ -123,23 +123,11 @@
   <data name="tray_animation" xml:space="preserve">
     <value>任务栏中的动画</value>
   </data>
-  <data name="tray_autoDisplay" xml:space="preserve">
+  <data name="tray_auto" xml:space="preserve">
     <value>智能</value>
-  </data>
-  <data name="tray_autoSize" xml:space="preserve">
-    <value>自适应</value>
   </data>
   <data name="tray_exit" xml:space="preserve">
     <value>退出</value>
-  </data>
-  <data name="tray_pauseInTabletMode" xml:space="preserve">
-    <value>在平板模式暂停</value>
-  </data>
-  <data name="tray_reverseDisplayModeBehavior" xml:space="preserve">
-    <value>反转智能模式行为</value>
-  </data>
-  <data name="tray_reverseSizeModeBehavior" xml:space="preserve">
-    <value>反转自适应模式行为</value>
   </data>
   <data name="tray_showBarOnExit" xml:space="preserve">
     <value>退出后显示任务栏</value>

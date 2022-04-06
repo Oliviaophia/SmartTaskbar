@@ -27,7 +27,7 @@ namespace SmartTaskbar
         public static bool ChangeTaskbarAnimation()
         {
             _ = GetSystemParameters(SpiGetMenuAnimation, 0, out var animation, 0);
-            _ = SetSystemParameters(SpiSetMenuAnimation, 0, animation ? IntPtr.Zero : (IntPtr)1, UpdateAndSend);
+            _ = SetSystemParameters(SpiSetMenuAnimation, 0, animation ? IntPtr.Zero : (IntPtr) 1, UpdateAndSend);
             return !animation;
         }
     }

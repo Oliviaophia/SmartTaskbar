@@ -31,7 +31,7 @@ namespace SmartTaskbar
         public Win10Renderer() : base(new Win10ColorTable())
         {
             var g = Graphics.FromHwnd(IntPtr.Zero);
-            _x = (int)Math.Floor(-0.03 * g.DpiX);
+            _x = (int) Math.Floor(-0.03 * g.DpiX);
         }
 
         protected override void OnRenderItemCheck(ToolStripItemImageRenderEventArgs e)

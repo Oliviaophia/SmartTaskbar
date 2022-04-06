@@ -152,6 +152,13 @@ namespace SmartTaskbar
 
         #endregion
 
+        #region MonitorFromWindow
+
+        [DllImport("user32.dll")]
+        public static extern IntPtr MonitorFromWindow(IntPtr hwnd, uint dwFlags);
+
+        #endregion
+
         #region FindWindow
 
         /// <summary>
@@ -167,23 +174,58 @@ namespace SmartTaskbar
 
         #endregion
 
+        #region GetWindowRect
+
+        /// <summary>
+        ///     Retrieves the dimensions of the bounding rectangle of the specified window.
+        ///     The dimensions are given in screen coordinates that are relative to the upper-left corner of the screen.
+        ///     If the function succeeds, the return value is nonzero.
+        ///     If the function fails, the return value is zero.
+        /// </summary>
+        /// <param name="hWnd"></param>
+        /// <param name="lpRect"></param>
+        /// <returns></returns>
+        [DllImport("user32.dll", EntryPoint = "GetWindowRect")]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern bool GetWindowRect([In] IntPtr hWnd, out TagRect lpRect);
+
+        #endregion
+
+        #region GetProcessId
+
+        /// <summary>
+        ///     Retrieves the identifier of the thread that created the specified window and, optionally, the identifier of the
+        ///     process that created the window.
+        /// </summary>
+        /// <param name="hWnd"></param>
+        /// <param name="lpdwProcessId">
+        ///     A pointer to a variable that receives the process identifier. If this parameter is not NULL,
+        ///     GetWindowThreadProcessId copies the identifier of the process to the variable; otherwise, it does not.
+        /// </param>
+        /// <returns>The return value is the identifier of the thread that created the window.</returns>
+        [DllImport("user32.dll")]
+        public static extern uint GetWindowThreadProcessId(IntPtr hWnd, out int lpdwProcessId);
+
+        #endregion
+
+        #region SendNotifyMessage
+
+        /// <summary>
+        ///     If the function succeeds, the return value is nonzero.
+        ///     If the function fails, the return value is zero.
+        /// </summary>
+        /// <param name="hWnd"></param>
+        /// <param name="msg"></param>
+        /// <param name="wParam"></param>
+        /// <param name="lParam"></param>
+        /// <returns></returns>
+        [DllImport("user32.dll")]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern bool SendNotifyMessage(IntPtr hWnd, uint msg, UIntPtr wParam, string lParam);
+
+        #endregion
+
         #region Taskbar Display State
-
-        [StructLayout(LayoutKind.Sequential)]
-        public struct AppbarData
-        {
-            public uint cbSize;
-
-            public IntPtr hWnd;
-
-            public uint uCallbackMessage;
-
-            public uint uEdge;
-
-            public TagRect rc;
-
-            public int lParam;
-        }
 
         /// <summary>
         ///     This function returns a message-dependent value.
@@ -226,35 +268,6 @@ namespace SmartTaskbar
 
         #endregion
 
-        #region GetWindowRect
-
-        /// <summary>
-        ///     Retrieves the dimensions of the bounding rectangle of the specified window.
-        ///     The dimensions are given in screen coordinates that are relative to the upper-left corner of the screen.
-        ///     If the function succeeds, the return value is nonzero.
-        ///     If the function fails, the return value is zero.
-        /// </summary>
-        /// <param name="hWnd"></param>
-        /// <param name="lpRect"></param>
-        /// <returns></returns>
-        [DllImport("user32.dll", EntryPoint = "GetWindowRect")]
-        [return: MarshalAs(UnmanagedType.Bool)]
-        public static extern bool GetWindowRect([In] IntPtr hWnd, out TagRect lpRect);
-
-        [StructLayout(LayoutKind.Sequential)]
-        public struct TagRect
-        {
-            public int left;
-
-            public int top;
-
-            public int right;
-
-            public int bottom;
-        }
-
-        #endregion
-
         #region WindowFromPoint
 
         /// <summary>
@@ -268,49 +281,6 @@ namespace SmartTaskbar
         [DllImport("user32.dll", EntryPoint = "WindowFromPoint")]
         public static extern IntPtr WindowFromPoint(TagPoint point);
 
-        [StructLayout(LayoutKind.Sequential)]
-        public struct TagPoint
-        {
-            public int x;
-
-            public int y;
-        }
-
-        #endregion
-
-        #region GetProcessId
-
-        /// <summary>
-        ///     Retrieves the identifier of the thread that created the specified window and, optionally, the identifier of the
-        ///     process that created the window.
-        /// </summary>
-        /// <param name="hWnd"></param>
-        /// <param name="lpdwProcessId">
-        ///     A pointer to a variable that receives the process identifier. If this parameter is not NULL,
-        ///     GetWindowThreadProcessId copies the identifier of the process to the variable; otherwise, it does not.
-        /// </param>
-        /// <returns>The return value is the identifier of the thread that created the window.</returns>
-        [DllImport("user32.dll")]
-        public static extern uint GetWindowThreadProcessId(IntPtr hWnd, out int lpdwProcessId);
-
-        #endregion
-
-        #region SendNotifyMessage
-
-        /// <summary>
-        ///     If the function succeeds, the return value is nonzero.
-        ///     If the function fails, the return value is zero.
-        /// </summary>
-        /// <param name="hWnd"></param>
-        /// <param name="msg"></param>
-        /// <param name="wParam"></param>
-        /// <param name="lParam"></param>
-        /// <returns></returns>
-        [DllImport("user32.dll")]
-        [return: MarshalAs(UnmanagedType.Bool)]
-        public static extern bool SendNotifyMessage(IntPtr hWnd, uint msg, UIntPtr wParam, string lParam);
-
         #endregion
     }
 }
-
