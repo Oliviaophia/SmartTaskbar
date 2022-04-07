@@ -29,11 +29,9 @@ Known Issues
     
     * When there is already a full-screen application, open a window that does not intersect the taskbar, and the taskbar will be automatically hidden when the mouse is moved away (this is the system's own behavior), and then it may be displayed again immediately (this is SmartTaskbar working ), since the currently focused window does not intersect the taskbar.
 
-* Some applications are not compatible with Auto Mode and Adaptive Mode, for example:
+* Some applications are not compatible with Auto-Hide mode (This problem has nothing to do with SmartTaskbar), for example:
   
-    * If you use the Dell Display Manager, the taskbar will switch between the show and hide frequently.
-      
-    * Some applications, such as Steam, cannot be maximized properly(After the taskbar is hidden, it will leave a blank space).
+    * Some applications use special maximization logic. When the mouse is moved to the taskbar position, the taskbar doesn't pop up. In this case, you can use the shortcut (`WIN` + `T`) to force the taskbar to pop up.
 
 Build
 -----
