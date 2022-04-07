@@ -1,17 +1,18 @@
-﻿namespace SmartTaskbar;
-
-/// <summary>
-///     Auto mode type
-/// </summary>
-public enum AutoModeType
+﻿namespace SmartTaskbar
 {
     /// <summary>
-    ///     None
+    ///     Auto mode type
     /// </summary>
-    None,
+    public enum AutoModeType
+    {
+        /// <summary>
+        ///     None
+        /// </summary>
+        None,
 
-    /// <summary>
-    ///     Auto
-    /// </summary>
-    Auto
+        /// <summary>
+        ///     Auto
+        /// </summary>
+        Auto
+    }
 }

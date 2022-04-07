@@ -1,5 +1,4 @@
 ﻿using System;
-using static SmartTaskbar.Fun;
 
 namespace SmartTaskbar
 {

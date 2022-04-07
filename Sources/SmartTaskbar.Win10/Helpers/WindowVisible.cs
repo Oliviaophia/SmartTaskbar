@@ -15,5 +15,3 @@ namespace SmartTaskbar
         }
     }
 }
-
-

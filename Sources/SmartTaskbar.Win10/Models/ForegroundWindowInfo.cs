@@ -4,6 +4,8 @@ namespace SmartTaskbar
 {
     public readonly struct ForegroundWindowInfo
     {
+        public static readonly ForegroundWindowInfo Empty = new ForegroundWindowInfo();
+
         /// <summary>
         ///     ctor
         /// </summary>

@@ -1,50 +1,52 @@
 ﻿using Windows.Storage;
 
-namespace SmartTaskbar;
-
-public class UserSettings
+namespace SmartTaskbar
 {
-    private static UserConfiguration _userConfiguration;
-
-    /// <summary>
-    ///     ctor
-    /// </summary>
-    public UserSettings()
+    public class UserSettings
     {
-        var autoMode = ApplicationData.Current.LocalSettings.Values[nameof(UserConfiguration.AutoModeType)] as string;
+        private static UserConfiguration _userConfiguration;
 
-        _userConfiguration = new UserConfiguration
+        /// <summary>
+        ///     ctor
+        /// </summary>
+        public UserSettings()
         {
-            AutoModeType = autoMode == nameof(AutoModeType.None) ? AutoModeType.None : AutoModeType.Auto,
-            ShowTaskbarWhenExit =
-                ApplicationData.Current.LocalSettings.Values[nameof(UserConfiguration.ShowTaskbarWhenExit)] as bool?
-                ?? true
-        };
-    }
+            var autoMode =
+                ApplicationData.Current.LocalSettings.Values[nameof(UserConfiguration.AutoModeType)] as string;
 
-    public static AutoModeType AutoModeType
-    {
-        get => _userConfiguration.AutoModeType;
-        set
-        {
-            if (value == _userConfiguration.AutoModeType)
-                return;
-
-            _userConfiguration.AutoModeType = value;
-            ApplicationData.Current.LocalSettings.Values[nameof(UserConfiguration.AutoModeType)] = value.ToString();
+            _userConfiguration = new UserConfiguration
+            {
+                AutoModeType = autoMode == nameof(AutoModeType.None) ? AutoModeType.None : AutoModeType.Auto,
+                ShowTaskbarWhenExit =
+                    ApplicationData.Current.LocalSettings.Values[nameof(UserConfiguration.ShowTaskbarWhenExit)] as bool?
+                    ?? true
+            };
         }
-    }
 
-    public static bool ShowTaskbarWhenExit
-    {
-        get => _userConfiguration.ShowTaskbarWhenExit;
-        set
+        public static AutoModeType AutoModeType
         {
-            if (value == _userConfiguration.ShowTaskbarWhenExit)
-                return;
+            get => _userConfiguration.AutoModeType;
+            set
+            {
+                if (value == _userConfiguration.AutoModeType)
+                    return;
 
-            _userConfiguration.ShowTaskbarWhenExit = value;
-            ApplicationData.Current.LocalSettings.Values[nameof(UserConfiguration.ShowTaskbarWhenExit)] = value;
+                _userConfiguration.AutoModeType = value;
+                ApplicationData.Current.LocalSettings.Values[nameof(UserConfiguration.AutoModeType)] = value.ToString();
+            }
+        }
+
+        public static bool ShowTaskbarWhenExit
+        {
+            get => _userConfiguration.ShowTaskbarWhenExit;
+            set
+            {
+                if (value == _userConfiguration.ShowTaskbarWhenExit)
+                    return;
+
+                _userConfiguration.ShowTaskbarWhenExit = value;
+                ApplicationData.Current.LocalSettings.Values[nameof(UserConfiguration.ShowTaskbarWhenExit)] = value;
+            }
         }
     }
 }

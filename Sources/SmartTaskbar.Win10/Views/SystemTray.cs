@@ -181,7 +181,7 @@ namespace SmartTaskbar
                             taskbar.Value.Rect.bottom + TrayTolerance);
                     else
                         _contextMenuStrip.Show(Cursor.Position.X - TrayTolerance,
-                                               taskbar.Value.Rect.top + TrayTolerance);
+                                               taskbar.Value.Rect.bottom + TrayTolerance);
                     break;
             }
         }

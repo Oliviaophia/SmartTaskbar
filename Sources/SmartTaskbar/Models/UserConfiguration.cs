@@ -1,17 +1,18 @@
-﻿namespace SmartTaskbar;
-
-/// <summary>
-///     User settings configuration
-/// </summary>
-internal struct UserConfiguration
+﻿namespace SmartTaskbar
 {
     /// <summary>
-    ///     Auto mode type
+    ///     User settings configuration
     /// </summary>
-    public AutoModeType AutoModeType { get; set; }
+    internal struct UserConfiguration
+    {
+        /// <summary>
+        ///     Auto mode type
+        /// </summary>
+        public AutoModeType AutoModeType { get; set; }
 
-    /// <summary>
-    ///     Show taskbar when exiting
-    /// </summary>
-    public bool ShowTaskbarWhenExit { get; set; }
+        /// <summary>
+        ///     Show taskbar when exiting
+        /// </summary>
+        public bool ShowTaskbarWhenExit { get; set; }
+    }
 }

@@ -1,21 +1,22 @@
-namespace SmartTaskbar;
-
-public static class Program
+namespace SmartTaskbar
 {
-    /// <summary>
-    ///     The main entry point for the application.
-    /// </summary>
-    [STAThread]
-    private static void Main()
+    public static class Program
     {
-        // Use a mutex to ensure single instance
-        using (new Mutex(true, "{959d3545-aa5c-42a8-a327-6e2c079daa94}", out var createNew))
+        /// <summary>
+        ///     The main entry point for the application.
+        /// </summary>
+        [STAThread]
+        private static void Main()
         {
-            if (!createNew) return;
+            // Use a mutex to ensure single instance
+            using (new Mutex(true, "{959d3545-aa5c-42a8-a327-6e2c079daa94}", out var createNew))
+            {
+                if (!createNew) return;
 
-            ApplicationConfiguration.Initialize();
-            // Start a tray instead of a WinForm to reduce memory usage
-            Application.Run(new SystemTray());
+                ApplicationConfiguration.Initialize();
+                // Start a tray instead of a WinForm to reduce memory usage
+                Application.Run(new SystemTray());
+            }
         }
     }
 }

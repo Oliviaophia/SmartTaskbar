@@ -1,9 +1,10 @@
-﻿namespace SmartTaskbar;
-
-public enum TaskbarBehavior
+﻿namespace SmartTaskbar
 {
-    Pending,
-    DoNothing,
-    Show,
-    Hide
+    public enum TaskbarBehavior
+    {
+        Pending,
+        DoNothing,
+        Show,
+        Hide
+    }
 }

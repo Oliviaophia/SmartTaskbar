@@ -238,6 +238,21 @@ namespace SmartTaskbar
 
         #endregion
 
+        #region WindowFromPoint
+
+        /// <summary>
+        ///     The return value is a handle to the window that contains the point.
+        ///     If no window exists at the given point, the return value is NULL.
+        ///     If the point is over a static text control, the return value is a handle to the window under the static text
+        ///     control.
+        /// </summary>
+        /// <param name="point"></param>
+        /// <returns></returns>
+        [DllImport("user32.dll", EntryPoint = "WindowFromPoint")]
+        public static extern IntPtr WindowFromPoint(TagPoint point);
+
+        #endregion
+
         #region SystemParametersInfo
 
         /// <summary>
@@ -265,21 +280,6 @@ namespace SmartTaskbar
         [DllImport("user32.dll", EntryPoint = "SystemParametersInfoW")]
         [return: MarshalAs(UnmanagedType.Bool)]
         public static extern bool GetSystemParameters(uint uiAction, uint uiParam, out bool pvParam, uint fWinIni);
-
-        #endregion
-
-        #region WindowFromPoint
-
-        /// <summary>
-        ///     The return value is a handle to the window that contains the point.
-        ///     If no window exists at the given point, the return value is NULL.
-        ///     If the point is over a static text control, the return value is a handle to the window under the static text
-        ///     control.
-        /// </summary>
-        /// <param name="point"></param>
-        /// <returns></returns>
-        [DllImport("user32.dll", EntryPoint = "WindowFromPoint")]
-        public static extern IntPtr WindowFromPoint(TagPoint point);
 
         #endregion
     }

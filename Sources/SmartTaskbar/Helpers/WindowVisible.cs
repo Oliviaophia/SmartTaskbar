@@ -1,14 +1,15 @@
-﻿namespace SmartTaskbar;
-
-public static partial class Fun
+﻿namespace SmartTaskbar
 {
-    private const int DwmWaCloaked = 14;
-
-    public static bool IsWindowInvisible(this IntPtr handle)
+    public static partial class Fun
     {
-        if (IsWindowVisible(handle) == false) return true;
+        private const int DwmWaCloaked = 14;
 
-        _ = DwmGetWindowAttribute(handle, DwmWaCloaked, out var cloaked, sizeof(int));
-        return cloaked;
+        public static bool IsWindowInvisible(this IntPtr handle)
+        {
+            if (IsWindowVisible(handle) == false) return true;
+
+            _ = DwmGetWindowAttribute(handle, DwmWaCloaked, out var cloaked, sizeof(int));
+            return cloaked;
+        }
     }
 }

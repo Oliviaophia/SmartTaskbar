@@ -19,7 +19,7 @@ namespace SmartTaskbar
                    Registry.CurrentUser.OpenSubKey(@"Software\Microsoft\Windows\CurrentVersion\Themes\Personalize",
                                                    false))
             {
-                return (int)(personalizeKey?.GetValue("SystemUsesLightTheme", 0) ?? 0) == 1;
+                return (int) (personalizeKey?.GetValue("SystemUsesLightTheme", 0) ?? 0) == 1;
             }
         }
 

@@ -12,5 +12,3 @@ namespace SmartTaskbar
             => GetClassName(handle, Sb.Clear(), Capacity) == 0 ? "" : Sb.ToString();
     }
 }
-
-

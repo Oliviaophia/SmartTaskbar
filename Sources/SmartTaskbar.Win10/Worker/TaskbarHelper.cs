@@ -225,26 +225,26 @@ namespace SmartTaskbar
             var foregroundHandle = GetForegroundWindow();
 
             if (foregroundHandle == IntPtr.Zero)
-                return (TaskbarBehavior.Pending, new ForegroundWindowInfo());
+                return (TaskbarBehavior.Pending, ForegroundWindowInfo.Empty);
 
             // When the system is start up or a window is closed,
             // there is a certain probability that the taskbar will be set to foreground window.
             if (foregroundHandle == taskbar.Handle)
-                return (TaskbarBehavior.Show, new ForegroundWindowInfo());
+                return (TaskbarBehavior.Show, ForegroundWindowInfo.Empty);
 
             // Somehow, the foreground window is not necessarily visible.
             if (foregroundHandle.IsWindowInvisible())
-                return (TaskbarBehavior.Pending, new ForegroundWindowInfo());
+                return (TaskbarBehavior.Pending, ForegroundWindowInfo.Empty);
 
             var monitor = MonitorFromWindow(foregroundHandle, TrayMonitorDefaulttonearest);
 
             // If window is in another desktop, do not automatically hide the taskbar.
             if (monitor != taskbar.Monitor)
-                return (TaskbarBehavior.Pending, new ForegroundWindowInfo());
+                return (TaskbarBehavior.Pending, ForegroundWindowInfo.Empty);
 
             // Get foreground window Rectange.
             if (!GetWindowRect(foregroundHandle, out var rect))
-                return (TaskbarBehavior.Pending, new ForegroundWindowInfo());
+                return (TaskbarBehavior.Pending, ForegroundWindowInfo.Empty);
 
             // If the window and the taskbar do not intersect, the taskbar should be displayed.
             if (rect.bottom <= taskbar.Rect.top

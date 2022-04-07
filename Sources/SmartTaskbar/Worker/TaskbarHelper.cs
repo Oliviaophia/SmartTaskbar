@@ -50,7 +50,7 @@
         private const uint BarFlag = 0x05D1;
 
         private const uint TrayMonitorDefaulttonearest = 2;
-        private static readonly TagPoint PointZero = new() { x = 0, y = 0 };
+        private static readonly TagPoint PointZero = new() {x = 0, y = 0};
 
         /// <summary>
         ///     Hide the taskbar, in auto-hide mode
@@ -195,7 +195,7 @@
         {
             // Take a point on the taskbar to determine whether its current window is the desktop,
             // if it is, the taskbar should be displayed
-            var window = WindowFromPoint(new TagPoint { x = taskbar.Rect.left, y = taskbar.Rect.top });
+            var window = WindowFromPoint(new TagPoint {x = taskbar.Rect.left, y = taskbar.Rect.top});
 
             if (window == IntPtr.Zero)
                 return TaskbarBehavior.Pending;
