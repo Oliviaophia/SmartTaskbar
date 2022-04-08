@@ -45,6 +45,7 @@ namespace SmartTaskbar
             switch (taskbar.CheckIfMouseOver())
             {
                 case TaskbarBehavior.DoNothing:
+                    taskbar.ShowTaskar();
                     return;
                 case TaskbarBehavior.Pending:
                     CheckCurrentWindow(taskbar);
@@ -95,7 +96,8 @@ namespace SmartTaskbar
                 case TaskbarBehavior.DoNothing:
                     break;
                 case TaskbarBehavior.Pending:
-                    CheckIfDesktop(taskbar);
+                    if (taskbar.CheckIfDesktopShow() == TaskbarBehavior.Show)
+                        taskbar.ShowTaskar();
                     break;
                 case TaskbarBehavior.Show:
                     taskbar.ShowTaskar();
@@ -109,14 +111,6 @@ namespace SmartTaskbar
             }
 
             _lastForegroundWindow = info;
-        }
-
-        private static void CheckIfDesktop(in TaskbarInfo taskbar)
-        {
-            var behavior = taskbar.CheckIfDesktopShow();
-
-            if (behavior == TaskbarBehavior.Show)
-                taskbar.ShowTaskar();
         }
     }
 }
