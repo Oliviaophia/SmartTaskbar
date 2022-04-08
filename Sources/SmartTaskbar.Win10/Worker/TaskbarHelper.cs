@@ -224,6 +224,13 @@ namespace SmartTaskbar
         {
             var foregroundHandle = GetForegroundWindow();
 
+            return taskbar.ShouldWindowShowTheTaskbar(foregroundHandle);
+        }
+
+        public static (TaskbarBehavior, ForegroundWindowInfo) ShouldWindowShowTheTaskbar(
+            this in TaskbarInfo taskbar,
+            IntPtr              foregroundHandle)
+        {
             if (foregroundHandle == IntPtr.Zero)
                 return (TaskbarBehavior.Pending, ForegroundWindowInfo.Empty);
 
@@ -272,6 +279,7 @@ namespace SmartTaskbar
                     return (TaskbarBehavior.Hide, new ForegroundWindowInfo(foregroundHandle, monitor, rect));
             }
         }
+
 
         public static TaskbarBehavior ShouldDesktopShowTheTaskbar(this in TaskbarInfo taskbar)
         {
