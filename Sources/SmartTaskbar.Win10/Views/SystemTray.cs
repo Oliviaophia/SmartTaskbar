@@ -111,7 +111,10 @@ namespace SmartTaskbar
         {
             UserSettings.AutoModeType = AutoModeType.None;
             Fun.ChangeAutoHide();
-            TaskbarHelper.InitTaskbar()?.HideTaskbar();
+            var taskbar = TaskbarHelper.InitTaskbar();
+
+            if (taskbar.Handle != IntPtr.Zero)
+                taskbar.HideTaskbar();
         }
 
         private void NotifyIconOnMouseClick(object s, MouseEventArgs e)
@@ -141,47 +144,48 @@ namespace SmartTaskbar
         {
             var taskbar = TaskbarHelper.InitTaskbar();
 
-            if (!taskbar.HasValue) return;
+            if (taskbar.Handle == IntPtr.Zero)
+                return;
 
-            switch (taskbar.Value.Position)
+            switch (taskbar.Position)
             {
                 case TaskbarPosition.Bottom:
                     if (Cursor.Position.X + _contextMenuStrip.Width > Screen.PrimaryScreen.Bounds.Right)
                         _contextMenuStrip.Show(
                             Screen.PrimaryScreen.Bounds.Right - _contextMenuStrip.Width - TrayTolerance,
-                            taskbar.Value.Rect.top - _contextMenuStrip.Height - TrayTolerance);
+                            taskbar.Rect.top - _contextMenuStrip.Height - TrayTolerance);
                     else
                         _contextMenuStrip.Show(Cursor.Position.X - TrayTolerance,
-                                               taskbar.Value.Rect.top - _contextMenuStrip.Height - TrayTolerance);
+                                               taskbar.Rect.top - _contextMenuStrip.Height - TrayTolerance);
                     break;
                 case TaskbarPosition.Left:
                     if (Cursor.Position.Y + _contextMenuStrip.Height > Screen.PrimaryScreen.Bounds.Bottom)
-                        _contextMenuStrip.Show(taskbar.Value.Rect.right + TrayTolerance,
+                        _contextMenuStrip.Show(taskbar.Rect.right + TrayTolerance,
                                                Screen.PrimaryScreen.Bounds.Bottom
                                                - _contextMenuStrip.Height
                                                - TrayTolerance);
                     else
-                        _contextMenuStrip.Show(taskbar.Value.Rect.right + TrayTolerance,
+                        _contextMenuStrip.Show(taskbar.Rect.right + TrayTolerance,
                                                Cursor.Position.Y - TrayTolerance);
                     break;
                 case TaskbarPosition.Right:
                     if (Cursor.Position.Y + _contextMenuStrip.Height > Screen.PrimaryScreen.Bounds.Bottom)
-                        _contextMenuStrip.Show(taskbar.Value.Rect.left - TrayTolerance - _contextMenuStrip.Width,
+                        _contextMenuStrip.Show(taskbar.Rect.left - TrayTolerance - _contextMenuStrip.Width,
                                                Screen.PrimaryScreen.Bounds.Bottom
                                                - _contextMenuStrip.Height
                                                - TrayTolerance);
                     else
-                        _contextMenuStrip.Show(taskbar.Value.Rect.left - TrayTolerance - _contextMenuStrip.Width,
+                        _contextMenuStrip.Show(taskbar.Rect.left - TrayTolerance - _contextMenuStrip.Width,
                                                Cursor.Position.Y - TrayTolerance);
                     break;
                 case TaskbarPosition.Top:
                     if (Cursor.Position.X + _contextMenuStrip.Width > Screen.PrimaryScreen.Bounds.Right)
                         _contextMenuStrip.Show(
                             Screen.PrimaryScreen.Bounds.Right - _contextMenuStrip.Width - TrayTolerance,
-                            taskbar.Value.Rect.bottom + TrayTolerance);
+                            taskbar.Rect.bottom + TrayTolerance);
                     else
                         _contextMenuStrip.Show(Cursor.Position.X - TrayTolerance,
-                                               taskbar.Value.Rect.bottom + TrayTolerance);
+                                               taskbar.Rect.bottom + TrayTolerance);
                     break;
             }
         }

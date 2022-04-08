@@ -7,6 +7,8 @@ namespace SmartTaskbar
     /// </summary>
     public readonly struct TaskbarInfo
     {
+        public static readonly TaskbarInfo Empty = new TaskbarInfo();
+
         /// <summary>
         ///     Initialize taskbar information
         /// </summary>

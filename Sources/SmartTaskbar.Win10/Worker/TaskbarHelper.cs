@@ -15,19 +15,19 @@ namespace SmartTaskbar
         /// </summary>
         private const string MainTaskbarClassName = "Shell_TrayWnd";
 
-        public static TaskbarInfo? InitTaskbar()
+        public static TaskbarInfo InitTaskbar()
         {
             // Find the main taskbar handle
             var handle = FindWindow(MainTaskbarClassName, null);
 
             // unable to get the handle of the taskbar.
             if (handle == IntPtr.Zero)
-                return null;
+                return TaskbarInfo.Empty;
 
             // Get taskbar window rectangle
             if (!GetWindowRect(handle, out var rect))
                 // unable to get the rectangle of the taskbar.
-                return null;
+                return TaskbarInfo.Empty;
 
             // determine the taskbar position
 
@@ -180,7 +180,7 @@ namespace SmartTaskbar
         /// </summary>
         /// <param name="taskbar"></param>
         /// <returns></returns>
-        public static TaskbarBehavior ShouldMouseOverWindowShowTheTaskbar(this in TaskbarInfo taskbar)
+        public static TaskbarBehavior CheckIfMouseOver(this in TaskbarInfo taskbar)
         {
             // Get mouse coordinates
             if (!GetCursorPos(out var point))
@@ -219,15 +219,7 @@ namespace SmartTaskbar
                 : TaskbarBehavior.Pending;
         }
 
-        public static (TaskbarBehavior, ForegroundWindowInfo) ShouldForegroundWindowShowTheTaskbar(
-            this in TaskbarInfo taskbar)
-        {
-            var foregroundHandle = GetForegroundWindow();
-
-            return taskbar.ShouldWindowShowTheTaskbar(foregroundHandle);
-        }
-
-        public static (TaskbarBehavior, ForegroundWindowInfo) ShouldWindowShowTheTaskbar(
+        public static (TaskbarBehavior, ForegroundWindowInfo) CheckIfWindowIntersectTaskbar(
             this in TaskbarInfo taskbar,
             IntPtr              foregroundHandle)
         {
@@ -281,7 +273,7 @@ namespace SmartTaskbar
         }
 
 
-        public static TaskbarBehavior ShouldDesktopShowTheTaskbar(this in TaskbarInfo taskbar)
+        public static TaskbarBehavior CheckIfDesktopShow(this in TaskbarInfo taskbar)
         {
             // Take a point on the taskbar to determine whether its current window is the desktop,
             // if it is, the taskbar should be displayed
