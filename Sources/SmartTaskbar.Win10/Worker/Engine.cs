@@ -1,6 +1,5 @@
 ﻿using System;
 using System.ComponentModel;
-using System.Diagnostics;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -52,7 +51,6 @@ namespace SmartTaskbar
 
                     return;
                 case TaskbarBehavior.Show:
-                    Debug.WriteLine("CheckIfMouseOver");
                     taskbar.ShowTaskar();
                     return;
             }
@@ -71,7 +69,6 @@ namespace SmartTaskbar
                     CheckLastWindow(taskbar);
                     break;
                 case TaskbarBehavior.Show:
-                    Debug.WriteLine($"Current {info.Handle}");
                     taskbar.ShowTaskar();
                     break;
                 case TaskbarBehavior.Hide:
@@ -99,14 +96,10 @@ namespace SmartTaskbar
                     break;
                 case TaskbarBehavior.Pending:
                     if (taskbar.CheckIfDesktopShow() == TaskbarBehavior.Show)
-                    {
-                        Debug.WriteLine("CheckIfDesktopShow");
                         taskbar.ShowTaskar();
-                    }
 
                     break;
                 case TaskbarBehavior.Show:
-                    Debug.WriteLine($"Last {info.Handle}");
                     taskbar.ShowTaskar();
                     break;
                 case TaskbarBehavior.Hide:
