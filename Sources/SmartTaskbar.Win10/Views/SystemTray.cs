@@ -111,6 +111,14 @@ namespace SmartTaskbar
         {
             UserSettings.AutoModeType = AutoModeType.None;
             Fun.ChangeAutoHide();
+            HideBar();
+        }
+
+        private static void HideBar()
+        {
+            if (Fun.IsNotAutoHide())
+                return;
+
             var taskbar = TaskbarHelper.InitTaskbar();
 
             if (taskbar.Handle != IntPtr.Zero)
@@ -125,15 +133,7 @@ namespace SmartTaskbar
 
             _showTaskbarWhenExit.Checked = UserSettings.ShowTaskbarWhenExit;
 
-            switch (UserSettings.AutoModeType)
-            {
-                case AutoModeType.Auto:
-                    _autoMode.Checked = true;
-                    break;
-                case AutoModeType.None:
-                    _autoMode.Checked = false;
-                    break;
-            }
+            _autoMode.Checked = UserSettings.AutoModeType == AutoModeType.Auto;
 
             ShowMenu();
 
@@ -194,16 +194,24 @@ namespace SmartTaskbar
         {
             if (UserSettings.ShowTaskbarWhenExit)
                 Fun.CancelAutoHide();
+            else
+                HideBar();
             _container?.Dispose();
             Application.Exit();
         }
 
         private void AutoModeOnClick(object s, EventArgs e)
         {
-            UserSettings.AutoModeType = _autoMode.Checked ? AutoModeType.None : AutoModeType.Auto;
+            if (_autoMode.Checked)
+            {
+                UserSettings.AutoModeType = AutoModeType.None;
+                HideBar();
+            }
+            else { UserSettings.AutoModeType = AutoModeType.Auto; }
         }
 
-        private void AnimationOnClick(object s, EventArgs e) { _animation.Checked = Fun.ChangeTaskbarAnimation(); }
+        private void AnimationOnClick(object s, EventArgs e)
+            => _animation.Checked = Fun.ChangeTaskbarAnimation();
 
         private void AboutOnClick(object s, EventArgs e)
         {

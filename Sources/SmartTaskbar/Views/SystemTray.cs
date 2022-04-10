@@ -8,6 +8,7 @@ namespace SmartTaskbar
 {
     internal class SystemTray : ApplicationContext
     {
+        private const int TrayTolerance = 4;
         private readonly ToolStripMenuItem _animationInBar;
         private readonly ToolStripMenuItem _autoMode;
 
@@ -15,24 +16,20 @@ namespace SmartTaskbar
         private readonly ContextMenuStrip _contextMenuStrip;
 
         private readonly Engine _engine;
+        private readonly ToolStripMenuItem _exit;
         private readonly NotifyIcon _notifyIcon;
         private readonly ResourceCulture _resourceCulture = new();
         private readonly ToolStripMenuItem _showBarOnExit;
-        private readonly UserSettings _userSettings = new();
 
         public SystemTray()
         {
             #region Initialization
 
-            _engine = new Engine(_container, _userSettings);
+            _engine = new Engine(_container);
 
             var font = new Font("Segoe UI", 10.5F);
 
             var about = new ToolStripMenuItem(_resourceCulture.GetString(LangName.TrayAbout))
-            {
-                Font = font
-            };
-            var debugItem = new ToolStripMenuItem(_resourceCulture.GetString(LangName.TrayDebug))
             {
                 Font = font
             };
@@ -48,7 +45,7 @@ namespace SmartTaskbar
             {
                 Font = font
             };
-            var exit = new ToolStripMenuItem(_resourceCulture.GetString(LangName.TrayExit))
+            _exit = new ToolStripMenuItem(_resourceCulture.GetString(LangName.TrayExit))
             {
                 Font = font
             };
@@ -61,14 +58,12 @@ namespace SmartTaskbar
             _contextMenuStrip.Items.AddRange(new ToolStripItem[]
             {
                 about,
-                debugItem,
-                new ToolStripSeparator(),
                 _animationInBar,
-                _showBarOnExit,
                 new ToolStripSeparator(),
                 _autoMode,
                 new ToolStripSeparator(),
-                exit
+                _showBarOnExit,
+                _exit
             });
 
             _notifyIcon = new NotifyIcon(_container)
@@ -84,15 +79,13 @@ namespace SmartTaskbar
 
             about.Click += AboutOnClick;
 
-            debugItem.Click += DebugItem_Click;
-
             _animationInBar.Click += AnimationInBarOnClick;
 
             _showBarOnExit.Click += ShowBarOnExitOnClick;
 
             _autoMode.Click += AutoModeOnClick;
 
-            exit.Click += ExitOnClick;
+            _exit.Click += ExitOnClick;
 
             _notifyIcon.MouseClick += NotifyIconOnMouseClick;
 
@@ -105,36 +98,6 @@ namespace SmartTaskbar
             #endregion
         }
 
-        private void DebugItem_Click(object? sender, EventArgs e)
-        {
-            if (_engine.LastHiddenHandle == IntPtr.Zero)
-            {
-                MessageBox.Show(_resourceCulture.GetString(LangName.ShowNoFindInfo),
-                                _resourceCulture.GetString(LangName.TrayDebug),
-                                MessageBoxButtons.OK,
-                                MessageBoxIcon.Warning);
-                return;
-            }
-
-            _ = Fun.GetWindowThreadProcessId(_engine.LastHiddenHandle, out var processId);
-
-            if (processId == 0)
-            {
-                MessageBox.Show(_resourceCulture.GetString(LangName.ShowNoFindInfo),
-                                _resourceCulture.GetString(LangName.TrayDebug),
-                                MessageBoxButtons.OK,
-                                MessageBoxIcon.Error);
-                return;
-            }
-
-            var process = Process.GetProcessById(processId);
-
-            MessageBox.Show($@"{process.MainWindowTitle} {process.ProcessName}",
-                            _resourceCulture.GetString(LangName.TrayDebug),
-                            MessageBoxButtons.OK,
-                            MessageBoxIcon.Information);
-        }
-
         private void AboutOnClick(object? sender, EventArgs e)
             => _ = Launcher.LaunchUriAsync(new Uri("https://github.com/ChanpleCai/SmartTaskbar"));
 
@@ -144,8 +107,9 @@ namespace SmartTaskbar
         private void NotifyIconOnMouseDoubleClick(object? s, MouseEventArgs e)
         {
             UserSettings.AutoModeType = AutoModeType.None;
+
             Fun.ChangeAutoHide();
-            TaskbarHelper.InitTaskbar()?.HideTaskbar();
+            HideBar();
         }
 
         private void NotifyIconOnMouseClick(object? s, MouseEventArgs e)
@@ -156,20 +120,79 @@ namespace SmartTaskbar
             _showBarOnExit.Checked = UserSettings.ShowTaskbarWhenExit;
             _autoMode.Checked = UserSettings.AutoModeType == AutoModeType.Auto;
 
+            ShowMenu();
+
+            Fun.SetForegroundWindow(_contextMenuStrip.Handle);
+        }
+
+        private void ShowMenu()
+        {
             var taskbar = TaskbarHelper.InitTaskbar();
 
-            var y = taskbar?.Rect.top ?? Cursor.Position.Y;
+            if (taskbar.Handle == IntPtr.Zero)
+                return;
 
-            _contextMenuStrip.Show(Cursor.Position.X - 30,
-                                   y - _contextMenuStrip.Height - 20);
-            Fun.SetForegroundWindow(_contextMenuStrip.Handle);
+            switch (taskbar.Position)
+            {
+                case TaskbarPosition.Bottom:
+                    if (Cursor.Position.X + _contextMenuStrip.Width > Screen.PrimaryScreen.Bounds.Right)
+                        _contextMenuStrip.Show(
+                            Screen.PrimaryScreen.Bounds.Right - _contextMenuStrip.Width - TrayTolerance,
+                            taskbar.Rect.top - _contextMenuStrip.Height - TrayTolerance);
+                    else
+                        _contextMenuStrip.Show(Cursor.Position.X - TrayTolerance,
+                                               taskbar.Rect.top - _contextMenuStrip.Height - TrayTolerance);
+                    break;
+                case TaskbarPosition.Left:
+                    if (Cursor.Position.Y + _contextMenuStrip.Height > Screen.PrimaryScreen.Bounds.Bottom)
+                        _contextMenuStrip.Show(taskbar.Rect.right + TrayTolerance,
+                                               Screen.PrimaryScreen.Bounds.Bottom
+                                               - _contextMenuStrip.Height
+                                               - TrayTolerance);
+                    else
+                        _contextMenuStrip.Show(taskbar.Rect.right + TrayTolerance,
+                                               Cursor.Position.Y - TrayTolerance);
+                    break;
+                case TaskbarPosition.Right:
+                    if (Cursor.Position.Y + _contextMenuStrip.Height > Screen.PrimaryScreen.Bounds.Bottom)
+                        _contextMenuStrip.Show(taskbar.Rect.left - TrayTolerance - _contextMenuStrip.Width,
+                                               Screen.PrimaryScreen.Bounds.Bottom
+                                               - _contextMenuStrip.Height
+                                               - TrayTolerance);
+                    else
+                        _contextMenuStrip.Show(taskbar.Rect.left - TrayTolerance - _contextMenuStrip.Width,
+                                               Cursor.Position.Y - TrayTolerance);
+                    break;
+                case TaskbarPosition.Top:
+                    if (Cursor.Position.X + _contextMenuStrip.Width > Screen.PrimaryScreen.Bounds.Right)
+                        _contextMenuStrip.Show(
+                            Screen.PrimaryScreen.Bounds.Right - _contextMenuStrip.Width - TrayTolerance,
+                            taskbar.Rect.bottom + TrayTolerance);
+                    else
+                        _contextMenuStrip.Show(Cursor.Position.X - TrayTolerance,
+                                               taskbar.Rect.bottom + TrayTolerance);
+                    break;
+            }
+        }
+
+        private static void HideBar()
+        {
+            if (Fun.IsNotAutoHide())
+                return;
+
+            var taskbar = TaskbarHelper.InitTaskbar();
+
+            if (taskbar.Handle != IntPtr.Zero)
+                taskbar.HideTaskbar();
         }
 
         private void ExitOnClick(object? s, EventArgs e)
         {
-            _container.Dispose();
-            TaskbarHelper.InitTaskbar()?.HideTaskbar();
-            if (UserSettings.ShowTaskbarWhenExit) Fun.CancelAutoHide();
+            if (UserSettings.ShowTaskbarWhenExit)
+                Fun.CancelAutoHide();
+            else
+                HideBar();
+            _container?.Dispose();
             Application.Exit();
         }
 
@@ -178,8 +201,12 @@ namespace SmartTaskbar
 
         private void AutoModeOnClick(object? s, EventArgs e)
         {
-            UserSettings.AutoModeType = _autoMode.Checked ? AutoModeType.None : AutoModeType.Auto;
-            TaskbarHelper.InitTaskbar()?.HideTaskbar();
+            if (_autoMode.Checked)
+            {
+                UserSettings.AutoModeType = AutoModeType.None;
+                HideBar();
+            }
+            else { UserSettings.AutoModeType = AutoModeType.Auto; }
         }
 
         private void AnimationInBarOnClick(object? s, EventArgs e)

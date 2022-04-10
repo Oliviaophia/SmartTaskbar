@@ -11,29 +11,31 @@ namespace SmartTaskbar
         private const uint AbmSetState = 10;
 
         private const uint AbmGetState = 4;
+        private static AppbarData _msg;
 
         /// <summary>
         ///     Set taskbar to Auto-Hide
         /// </summary>
         public static void SetAutoHide()
         {
-            var msg = new AppbarData();
-            if (SHAppBarMessage(AbmGetState, ref msg) != IntPtr.Zero)
+            if (!IsNotAutoHide())
                 return;
 
-            msg.lParam = AbsAutoHide;
+            _msg.lParam = AbsAutoHide;
 
-            _ = SHAppBarMessage(AbmSetState, ref msg);
+            _ = SHAppBarMessage(AbmSetState, ref _msg);
         }
+
+        public static bool IsNotAutoHide()
+            => SHAppBarMessage(AbmGetState, ref _msg) == IntPtr.Zero;
 
         /// <summary>
         ///     Change Auto-Hide status
         /// </summary>
         public static void ChangeAutoHide()
         {
-            var msg = new AppbarData();
-            msg.lParam = SHAppBarMessage(AbmGetState, ref msg) == IntPtr.Zero ? AbsAutoHide : AbsAlwaysOnTop;
-            _ = SHAppBarMessage(AbmSetState, ref msg);
+            _msg.lParam = IsNotAutoHide() ? AbsAutoHide : AbsAlwaysOnTop;
+            _ = SHAppBarMessage(AbmSetState, ref _msg);
         }
 
         /// <summary>
@@ -41,13 +43,12 @@ namespace SmartTaskbar
         /// </summary>
         public static void CancelAutoHide()
         {
-            var msg = new AppbarData();
-            if (SHAppBarMessage(AbmGetState, ref msg) == IntPtr.Zero)
+            if (IsNotAutoHide())
                 return;
 
-            msg.lParam = AbsAlwaysOnTop;
+            _msg.lParam = AbsAlwaysOnTop;
 
-            _ = SHAppBarMessage(AbmSetState, ref msg);
+            _ = SHAppBarMessage(AbmSetState, ref _msg);
         }
     }
 }

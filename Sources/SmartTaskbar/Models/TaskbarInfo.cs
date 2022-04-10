@@ -1,21 +1,22 @@
 ﻿namespace SmartTaskbar
 {
-    using static Fun;
-
     /// <summary>
     ///     Taskbar information structure
     /// </summary>
     public readonly struct TaskbarInfo
     {
+        public static readonly TaskbarInfo Empty = new();
+
         /// <summary>
         ///     Initialize taskbar information
         /// </summary>
         /// <returns></returns>
-        public TaskbarInfo(IntPtr handle, TagRect rect, bool isShow, IntPtr monitor)
+        public TaskbarInfo(IntPtr handle, TagRect rect, bool isShow, TaskbarPosition position, IntPtr monitor)
         {
             Handle = handle;
             Rect = rect;
             IsShow = isShow;
+            Position = position;
             Monitor = monitor;
         }
 
@@ -33,6 +34,11 @@
         ///     Whether the taskbar is displayed
         /// </summary>
         public readonly bool IsShow;
+
+        /// <summary>
+        ///     Taskbar Position
+        /// </summary>
+        public readonly TaskbarPosition Position;
 
         /// <summary>
         ///     Taskbar Monitor

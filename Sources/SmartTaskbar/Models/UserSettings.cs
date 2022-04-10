@@ -9,7 +9,7 @@ namespace SmartTaskbar
         /// <summary>
         ///     ctor
         /// </summary>
-        public UserSettings()
+        static UserSettings()
         {
             var autoMode =
                 ApplicationData.Current.LocalSettings.Values[nameof(UserConfiguration.AutoModeType)] as string;

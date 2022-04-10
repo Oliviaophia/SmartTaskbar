@@ -169,7 +169,24 @@ namespace SmartTaskbar
         /// <param name="strWindowName"></param>
         /// <returns></returns>
         [DllImport("user32.dll", CharSet = CharSet.Unicode)]
-        public static extern IntPtr FindWindow([In] string? strClassName, [In] string? strWindowName);
+        public static extern IntPtr FindWindow([In] string strClassName, [In] string strWindowName);
+
+        #endregion
+
+        #region GetWindowRect
+
+        /// <summary>
+        ///     Retrieves the dimensions of the bounding rectangle of the specified window.
+        ///     The dimensions are given in screen coordinates that are relative to the upper-left corner of the screen.
+        ///     If the function succeeds, the return value is nonzero.
+        ///     If the function fails, the return value is zero.
+        /// </summary>
+        /// <param name="hWnd"></param>
+        /// <param name="lpRect"></param>
+        /// <returns></returns>
+        [DllImport("user32.dll", EntryPoint = "GetWindowRect")]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern bool GetWindowRect([In] IntPtr hWnd, out TagRect lpRect);
 
         #endregion
 
@@ -190,23 +207,24 @@ namespace SmartTaskbar
 
         #endregion
 
+        #region SendNotifyMessage
+
+        /// <summary>
+        ///     If the function succeeds, the return value is nonzero.
+        ///     If the function fails, the return value is zero.
+        /// </summary>
+        /// <param name="hWnd"></param>
+        /// <param name="msg"></param>
+        /// <param name="wParam"></param>
+        /// <param name="lParam"></param>
+        /// <returns></returns>
+        [DllImport("user32.dll")]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern bool SendNotifyMessage(IntPtr hWnd, uint msg, UIntPtr wParam, string lParam);
+
+        #endregion
+
         #region Taskbar Display State
-
-        [StructLayout(LayoutKind.Sequential)]
-        public struct AppbarData
-        {
-            public uint cbSize;
-
-            public IntPtr hWnd;
-
-            public uint uCallbackMessage;
-
-            public uint uEdge;
-
-            public TagRect rc;
-
-            public int lParam;
-        }
 
         /// <summary>
         ///     This function returns a message-dependent value.
@@ -216,6 +234,21 @@ namespace SmartTaskbar
         /// <returns></returns>
         [DllImport("shell32.dll", EntryPoint = "SHAppBarMessage", CallingConvention = CallingConvention.StdCall)]
         public static extern IntPtr SHAppBarMessage(uint dwMessage, ref AppbarData pData);
+
+        #endregion
+
+        #region WindowFromPoint
+
+        /// <summary>
+        ///     The return value is a handle to the window that contains the point.
+        ///     If no window exists at the given point, the return value is NULL.
+        ///     If the point is over a static text control, the return value is a handle to the window under the static text
+        ///     control.
+        /// </summary>
+        /// <param name="point"></param>
+        /// <returns></returns>
+        [DllImport("user32.dll", EntryPoint = "WindowFromPoint")]
+        public static extern IntPtr WindowFromPoint(TagPoint point);
 
         #endregion
 
@@ -246,58 +279,6 @@ namespace SmartTaskbar
         [DllImport("user32.dll", EntryPoint = "SystemParametersInfoW")]
         [return: MarshalAs(UnmanagedType.Bool)]
         public static extern bool GetSystemParameters(uint uiAction, uint uiParam, out bool pvParam, uint fWinIni);
-
-        #endregion
-
-        #region GetWindowRect
-
-        /// <summary>
-        ///     Retrieves the dimensions of the bounding rectangle of the specified window.
-        ///     The dimensions are given in screen coordinates that are relative to the upper-left corner of the screen.
-        ///     If the function succeeds, the return value is nonzero.
-        ///     If the function fails, the return value is zero.
-        /// </summary>
-        /// <param name="hWnd"></param>
-        /// <param name="lpRect"></param>
-        /// <returns></returns>
-        [DllImport("user32.dll", EntryPoint = "GetWindowRect")]
-        [return: MarshalAs(UnmanagedType.Bool)]
-        public static extern bool GetWindowRect([In] IntPtr hWnd, out TagRect lpRect);
-
-        [StructLayout(LayoutKind.Sequential)]
-        public struct TagRect
-        {
-            public int left;
-
-            public int top;
-
-            public int right;
-
-            public int bottom;
-        }
-
-        #endregion
-
-        #region WindowFromPoint
-
-        /// <summary>
-        ///     The return value is a handle to the window that contains the point.
-        ///     If no window exists at the given point, the return value is NULL.
-        ///     If the point is over a static text control, the return value is a handle to the window under the static text
-        ///     control.
-        /// </summary>
-        /// <param name="point"></param>
-        /// <returns></returns>
-        [DllImport("user32.dll", EntryPoint = "WindowFromPoint")]
-        public static extern IntPtr WindowFromPoint(TagPoint point);
-
-        [StructLayout(LayoutKind.Sequential)]
-        public struct TagPoint
-        {
-            public int x;
-
-            public int y;
-        }
 
         #endregion
     }

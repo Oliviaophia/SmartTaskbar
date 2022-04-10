@@ -11,9 +11,5 @@
         public const string TrayExit = "tray_exit";
 
         public const string TrayShowBarOnExit = "tray_showBarOnExit";
-
-        public const string TrayDebug = "tray_debug";
-
-        public const string ShowNoFindInfo = "show_noFindInfo";
     }
 }
