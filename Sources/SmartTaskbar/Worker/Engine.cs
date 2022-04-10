@@ -6,8 +6,7 @@ namespace SmartTaskbar
     internal sealed class Engine
     {
         private static Timer _timer;
-        private static IntPtr _lastForegroundHandle;
-        private static ForegroundWindowInfo _lastForegroundWindow = ForegroundWindowInfo.Empty;
+        private static readonly Stack<IntPtr> LastHideForegroundHandle = new();
         private static ForegroundWindowInfo _currentForegroundWindow = ForegroundWindowInfo.Empty;
 
 
@@ -57,58 +56,43 @@ namespace SmartTaskbar
         private static void CheckCurrentWindow(in TaskbarInfo taskbar)
         {
             var (behavior, info) =
-                taskbar.CheckIfWindowIntersectTaskbar(Fun.GetForegroundWindow());
+                taskbar.CheckIfForegroundWindowIntersectTaskbar();
 
             switch (behavior)
             {
                 case TaskbarBehavior.DoNothing:
                     break;
                 case TaskbarBehavior.Pending:
-                    CheckLastWindow(taskbar);
+                    if (taskbar.CheckIfDesktopShow())
+                        BeforeShowBar(taskbar);
                     break;
                 case TaskbarBehavior.Show:
-                    taskbar.ShowTaskar();
+                    BeforeShowBar(taskbar);
                     break;
                 case TaskbarBehavior.Hide:
                     if (info == _currentForegroundWindow) return;
 
+                    if (!LastHideForegroundHandle.Contains(info.Handle))
+                        LastHideForegroundHandle.Push(info.Handle);
+
                     taskbar.HideTaskbar();
                     break;
             }
-
-            // Determine whether the last foreground window exists, and if so, save its handle.
-            if (info.Handle != IntPtr.Zero)
-                _lastForegroundHandle = info.Handle;
 
             _currentForegroundWindow = info;
         }
 
-        private static void CheckLastWindow(in TaskbarInfo taskbar)
+        private static void BeforeShowBar(in TaskbarInfo taskbar)
         {
-            var (behavior, info) =
-                taskbar.CheckIfWindowIntersectTaskbar(_lastForegroundHandle);
-
-            switch (behavior)
+            while (LastHideForegroundHandle.Count != 0)
             {
-                case TaskbarBehavior.DoNothing:
-                    break;
-                case TaskbarBehavior.Pending:
-                    if (taskbar.CheckIfDesktopShow() == TaskbarBehavior.Show)
-                        taskbar.ShowTaskar();
+                if (taskbar.CheckIfWindowShouldHideTaskbar(LastHideForegroundHandle.Peek()))
+                    return;
 
-                    break;
-                case TaskbarBehavior.Show:
-                    taskbar.ShowTaskar();
-                    break;
-                case TaskbarBehavior.Hide:
-                    if (info == _lastForegroundWindow) return;
-
-                    taskbar.HideTaskbar();
-
-                    break;
+                LastHideForegroundHandle.Pop();
             }
 
-            _lastForegroundWindow = info;
+            taskbar.ShowTaskar();
         }
     }
 }

@@ -219,10 +219,49 @@ namespace SmartTaskbar
                 : TaskbarBehavior.Pending;
         }
 
-        public static (TaskbarBehavior, ForegroundWindowInfo) CheckIfWindowIntersectTaskbar(
-            this in TaskbarInfo taskbar,
-            IntPtr              foregroundHandle)
+        public static bool CheckIfWindowShouldHideTaskbar(this in TaskbarInfo taskbar, IntPtr foregroundHandle)
         {
+            if (foregroundHandle == IntPtr.Zero)
+                return false;
+            // When the system is start up or a window is closed,
+            // there is a certain probability that the taskbar will be set to foreground window.
+            if (foregroundHandle == taskbar.Handle)
+                return false;
+
+            // Somehow, the foreground window is not necessarily visible.
+            if (foregroundHandle.IsWindowInvisible())
+                return false;
+
+            var monitor = MonitorFromWindow(foregroundHandle, TrayMonitorDefaulttonearest);
+
+            // If window is in another desktop, do not automatically hide the taskbar.
+            if (monitor != taskbar.Monitor)
+                return false;
+
+            // Get foreground window Rectange.
+            if (!GetWindowRect(foregroundHandle, out var rect))
+                return false;
+
+            // If the window and the taskbar do not intersect, the taskbar should be displayed.
+            if (rect.bottom <= taskbar.Rect.top
+                || rect.top >= taskbar.Rect.bottom
+                || rect.left >= taskbar.Rect.right
+                || rect.right <= taskbar.Rect.left)
+                return false;
+
+            // If the foreground Window is closing or idle, do nothing
+            _ = GetWindowThreadProcessId(foregroundHandle, out var processId);
+            if (processId == 0)
+                return false;
+
+            return true;
+        }
+
+        public static (TaskbarBehavior, ForegroundWindowInfo) CheckIfForegroundWindowIntersectTaskbar(
+            this in TaskbarInfo taskbar)
+        {
+            var foregroundHandle = GetForegroundWindow();
+
             if (foregroundHandle == IntPtr.Zero)
                 return (TaskbarBehavior.Pending, ForegroundWindowInfo.Empty);
 
@@ -273,7 +312,7 @@ namespace SmartTaskbar
         }
 
 
-        public static TaskbarBehavior CheckIfDesktopShow(this in TaskbarInfo taskbar)
+        public static bool CheckIfDesktopShow(this in TaskbarInfo taskbar)
         {
             // Take a point on the taskbar to determine whether its current window is the desktop,
             // if it is, the taskbar should be displayed
@@ -281,15 +320,15 @@ namespace SmartTaskbar
             var window = GetWindowIntPtr(taskbar);
 
             if (window == IntPtr.Zero)
-                return TaskbarBehavior.Pending;
+                return false;
 
             if (window == taskbar.Handle)
-                return TaskbarBehavior.Pending;
+                return false;
 
             var rootWindow = GetAncestor(window, GaRoot);
 
             if (rootWindow == taskbar.Handle)
-                return TaskbarBehavior.Pending;
+                return false;
 
             var name = rootWindow.GetName();
 
@@ -297,9 +336,9 @@ namespace SmartTaskbar
             {
                 case Progman:
                 case WorkerW:
-                    return TaskbarBehavior.Show;
+                    return true;
                 default:
-                    return TaskbarBehavior.Pending;
+                    return false;
             }
         }
 

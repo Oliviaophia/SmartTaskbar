@@ -29,7 +29,7 @@ namespace SmartTaskbar
             #region Initialization
 
             var resource = new ResourceCulture();
-            var font = new Font("Segoe UI", 10.5F);
+            var font = new Font("Segoe UI", 11F);
             _about = new ToolStripMenuItem
             {
                 Text = resource.GetString(LangName.TrayAbout),
@@ -73,7 +73,7 @@ namespace SmartTaskbar
 
             _notifyIcon = new NotifyIcon(_container)
             {
-                Text = @"SmartTaskbar v1.4.1",
+                Text = @"SmartTaskbar v1.4.2",
                 Icon = Fun.IsLightTheme() ? Resources.Logo_Black : Resources.Logo_White,
                 Visible = true
             };
