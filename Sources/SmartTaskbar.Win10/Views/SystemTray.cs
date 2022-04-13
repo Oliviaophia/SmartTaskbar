@@ -29,30 +29,30 @@ namespace SmartTaskbar
             #region Initialization
 
             var resource = new ResourceCulture();
-            var font = new Font("Segoe UI", 11F);
+            var font = new Font("Segoe UI", 10.5F);
             _about = new ToolStripMenuItem
             {
-                Text = resource.GetString(LangName.TrayAbout),
+                Text = resource.GetString(LangName.About),
                 Font = font
             };
             _animation = new ToolStripMenuItem
             {
-                Text = resource.GetString(LangName.TrayAnimation),
+                Text = resource.GetString(LangName.Animation),
                 Font = font
             };
             _autoMode = new ToolStripMenuItem
             {
-                Text = resource.GetString(LangName.TrayAuto),
+                Text = resource.GetString(LangName.Auto),
                 Font = font
             };
             _showTaskbarWhenExit = new ToolStripMenuItem
             {
-                Text = resource.GetString(LangName.TrayShowBarOnExit),
+                Text = resource.GetString(LangName.ShowBarOnExit),
                 Font = font
             };
             _exit = new ToolStripMenuItem
             {
-                Text = resource.GetString(LangName.TrayExit),
+                Text = resource.GetString(LangName.Exit),
                 Font = font
             };
             _contextMenuStrip = new ContextMenuStrip
@@ -96,7 +96,7 @@ namespace SmartTaskbar
 
             _notifyIcon.MouseDoubleClick += NotifyIconOnMouseDoubleClick;
 
-            Fun.UISettings.ColorValuesChanged += UISettingsOnColorValuesChanged;
+            Fun.UiSettings.ColorValuesChanged += UISettingsOnColorValuesChanged;
 
             #endregion
         }
@@ -213,9 +213,7 @@ namespace SmartTaskbar
         private void AnimationOnClick(object s, EventArgs e)
             => _animation.Checked = Fun.ChangeTaskbarAnimation();
 
-        private void AboutOnClick(object s, EventArgs e)
-        {
-            Process.Start(@"https://github.com/ChanpleCai/SmartTaskbar");
-        }
+        private static void AboutOnClick(object s, EventArgs e)
+            => Process.Start(@"https://github.com/ChanpleCai/SmartTaskbar");
     }
 }

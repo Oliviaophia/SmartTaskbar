@@ -4,11 +4,11 @@ namespace SmartTaskbar
 {
     public static partial class Fun
     {
-        private const uint SpiGetMenuAnimation = 0x1002;
+        private const uint TraySpiGetMenuAnimation = 0x1002;
 
-        private const uint SpiSetMenuAnimation = 0x1003;
+        private const uint TraySpiSetMenuAnimation = 0x1003;
 
-        private const uint UpdateAndSend = 3;
+        private const uint TrayUpdateAndSend = 3;
 
         /// <summary>
         ///     Get taskbar animation status
@@ -16,7 +16,7 @@ namespace SmartTaskbar
         /// <returns></returns>
         public static bool IsEnableTaskbarAnimation()
         {
-            _ = GetSystemParameters(SpiGetMenuAnimation, 0, out var animation, 0);
+            _ = GetSystemParameters(TraySpiGetMenuAnimation, 0, out var animation, 0);
             return animation;
         }
 
@@ -26,8 +26,11 @@ namespace SmartTaskbar
         /// <returns></returns>
         public static bool ChangeTaskbarAnimation()
         {
-            _ = GetSystemParameters(SpiGetMenuAnimation, 0, out var animation, 0);
-            _ = SetSystemParameters(SpiSetMenuAnimation, 0, animation ? IntPtr.Zero : (IntPtr) 1, UpdateAndSend);
+            _ = GetSystemParameters(TraySpiGetMenuAnimation, 0, out var animation, 0);
+            _ = SetSystemParameters(TraySpiSetMenuAnimation,
+                                    0,
+                                    animation ? IntPtr.Zero : (IntPtr) 1,
+                                    TrayUpdateAndSend);
             return !animation;
         }
     }

@@ -29,23 +29,23 @@ namespace SmartTaskbar
 
             var font = new Font("Segoe UI", 10.5F);
 
-            var about = new ToolStripMenuItem(_resourceCulture.GetString(LangName.TrayAbout))
+            var about = new ToolStripMenuItem(_resourceCulture.GetString(LangName.About))
             {
                 Font = font
             };
-            _animationInBar = new ToolStripMenuItem(_resourceCulture.GetString(LangName.TrayAnimation))
+            _animationInBar = new ToolStripMenuItem(_resourceCulture.GetString(LangName.Animation))
             {
                 Font = font
             };
-            _showBarOnExit = new ToolStripMenuItem(_resourceCulture.GetString(LangName.TrayShowBarOnExit))
+            _showBarOnExit = new ToolStripMenuItem(_resourceCulture.GetString(LangName.ShowBarOnExit))
             {
                 Font = font
             };
-            _autoMode = new ToolStripMenuItem(_resourceCulture.GetString(LangName.TrayAuto))
+            _autoMode = new ToolStripMenuItem(_resourceCulture.GetString(LangName.Auto))
             {
                 Font = font
             };
-            _exit = new ToolStripMenuItem(_resourceCulture.GetString(LangName.TrayExit))
+            _exit = new ToolStripMenuItem(_resourceCulture.GetString(LangName.Exit))
             {
                 Font = font
             };
@@ -91,7 +91,7 @@ namespace SmartTaskbar
 
             _notifyIcon.MouseDoubleClick += NotifyIconOnMouseDoubleClick;
 
-            Fun.UISettings.ColorValuesChanged += UISettingsOnColorValuesChanged;
+            Fun.UiSettings.ColorValuesChanged += UISettingsOnColorValuesChanged;
 
             Application.ApplicationExit += Application_ApplicationExit;
 

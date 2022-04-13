@@ -2,13 +2,13 @@
 {
     public static partial class Fun
     {
-        private const int AbsAutoHide = 1;
+        private const int TrayAbsAutoHide = 1;
 
-        private const int AbsAlwaysOnTop = 2;
+        private const int TrayAbsAlwaysOnTop = 2;
 
-        private const uint AbmSetState = 10;
+        private const uint TrayAbmSetState = 10;
 
-        private const uint AbmGetState = 4;
+        private const uint TrayAbmGetState = 4;
         private static AppbarData _msg;
 
         /// <summary>
@@ -19,21 +19,21 @@
             if (!IsNotAutoHide())
                 return;
 
-            _msg.lParam = AbsAutoHide;
+            _msg.lParam = TrayAbsAutoHide;
 
-            _ = SHAppBarMessage(AbmSetState, ref _msg);
+            _ = SHAppBarMessage(TrayAbmSetState, ref _msg);
         }
 
         public static bool IsNotAutoHide()
-            => SHAppBarMessage(AbmGetState, ref _msg) == IntPtr.Zero;
+            => SHAppBarMessage(TrayAbmGetState, ref _msg) == IntPtr.Zero;
 
         /// <summary>
         ///     Change Auto-Hide status
         /// </summary>
         public static void ChangeAutoHide()
         {
-            _msg.lParam = IsNotAutoHide() ? AbsAutoHide : AbsAlwaysOnTop;
-            _ = SHAppBarMessage(AbmSetState, ref _msg);
+            _msg.lParam = IsNotAutoHide() ? TrayAbsAutoHide : TrayAbsAlwaysOnTop;
+            _ = SHAppBarMessage(TrayAbmSetState, ref _msg);
         }
 
         /// <summary>
@@ -44,9 +44,9 @@
             if (IsNotAutoHide())
                 return;
 
-            _msg.lParam = AbsAlwaysOnTop;
+            _msg.lParam = TrayAbsAlwaysOnTop;
 
-            _ = SHAppBarMessage(AbmSetState, ref _msg);
+            _ = SHAppBarMessage(TrayAbmSetState, ref _msg);
         }
     }
 }

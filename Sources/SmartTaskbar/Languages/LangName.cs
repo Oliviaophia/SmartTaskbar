@@ -2,14 +2,14 @@
 {
     public static class LangName
     {
-        public const string TrayAbout = "tray_about";
+        public const string About = "tray_about";
 
-        public const string TrayAnimation = "tray_animation";
+        public const string Animation = "tray_animation";
 
-        public const string TrayAuto = "tray_auto";
+        public const string Auto = "tray_auto";
 
-        public const string TrayExit = "tray_exit";
+        public const string Exit = "tray_exit";
 
-        public const string TrayShowBarOnExit = "tray_showBarOnExit";
+        public const string ShowBarOnExit = "tray_showBarOnExit";
     }
 }

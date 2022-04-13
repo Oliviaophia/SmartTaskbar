@@ -6,7 +6,7 @@ namespace SmartTaskbar
 {
     public static partial class Fun
     {
-        public static readonly UISettings UISettings = new UISettings();
+        public static readonly UISettings UiSettings = new UISettings();
 
         /// <summary>
         ///     Determine whether it is a light theme

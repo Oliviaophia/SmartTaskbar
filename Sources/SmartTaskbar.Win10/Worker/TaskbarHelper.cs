@@ -13,12 +13,12 @@ namespace SmartTaskbar
         /// <summary>
         ///     Main Taskbar Class Name
         /// </summary>
-        private const string MainTaskbarClassName = "Shell_TrayWnd";
+        private const string TrayMainTaskbarClassName = "Shell_TrayWnd";
 
         public static TaskbarInfo InitTaskbar()
         {
             // Find the main taskbar handle
-            var handle = FindWindow(MainTaskbarClassName, null);
+            var handle = FindWindow(TrayMainTaskbarClassName, null);
 
             // unable to get the handle of the taskbar.
             if (handle == IntPtr.Zero)
@@ -31,7 +31,7 @@ namespace SmartTaskbar
 
             // determine the taskbar position
 
-            var monitor = MonitorFromPoint(PointZero, TrayMonitorDefaulttoprimary);
+            var monitor = MonitorFromPoint(PointZero, TrayMonitorDefaultToPrimary);
 
             // todo: The main taskbar is not always on the Primary desktop!!! When this happens, the program will run abnormally
 
@@ -127,10 +127,10 @@ namespace SmartTaskbar
 
         #region Show Or Hide Taskbar
 
-        private const uint BarFlag = 0x05D1;
+        private const uint TrayBarFlag = 0x05D1;
 
-        private const uint TrayMonitorDefaulttoprimary = 1;
-        private const uint TrayMonitorDefaulttonearest = 2;
+        private const uint TrayMonitorDefaultToPrimary = 1;
+        private const uint TrayMonitorDefaultToNearest = 2;
         private static readonly TagPoint PointZero = new TagPoint {x = 0, y = 0};
 
         /// <summary>
@@ -142,7 +142,7 @@ namespace SmartTaskbar
             if (taskbar.IsShow)
                 // Send a message to hide the taskbar, if taskbar is display
                 _ = PostMessage(taskbar.Handle,
-                                BarFlag,
+                                TrayBarFlag,
                                 IntPtr.Zero,
                                 IntPtr.Zero);
         }
@@ -157,7 +157,7 @@ namespace SmartTaskbar
             if (!taskbar.IsShow)
                 _ = PostMessage(
                     taskbar.Handle,
-                    BarFlag,
+                    TrayBarFlag,
                     (IntPtr) 1,
                     taskbar.Monitor);
         }
@@ -166,13 +166,13 @@ namespace SmartTaskbar
 
         #region Determine whether it need to display the taskbar
 
-        private const uint GaRoot = 2;
-        private const int Tolerance = 20;
+        private const uint TrayGaRoot = 2;
+        private const int TrayTolerance = 20;
 
-        private const string Progman = "Progman";
-        private const string WorkerW = "WorkerW";
-        private const string TaskListThumbnailWnd = "TaskListThumbnailWnd";
-        private const string CoreWindow = "Windows.UI.Core.CoreWindow";
+        private const string TrayProgman = "Progman";
+        private const string TrayWorkerW = "WorkerW";
+        private const string TrayTaskListThumbnailWnd = "TaskListThumbnailWnd";
+        private const string TrayCoreWindow = "Windows.UI.Core.CoreWindow";
 
         /// <summary>
         ///     Mouse over the taskbar or a specific window,
@@ -199,22 +199,22 @@ namespace SmartTaskbar
                 return TaskbarBehavior.DoNothing;
 
             // If the current handle is within the taskbar, return directly.
-            if (taskbar.Handle == GetAncestor(mouseOverHandle, GaRoot))
+            if (taskbar.Handle == GetAncestor(mouseOverHandle, TrayGaRoot))
                 return TaskbarBehavior.DoNothing;
 
             // Some third-party software will parasitic on the taskbar
             // in order to prevent hide the taskbar by misjudgment.
             // Skip the windows that satisfy top and bottom in the range.
             if (GetWindowRect(mouseOverHandle, out var mouseOverRect)
-                && mouseOverRect.top >= taskbar.Rect.top - Tolerance
-                && mouseOverRect.bottom <= taskbar.Rect.bottom + Tolerance
-                && mouseOverRect.left >= taskbar.Rect.left - Tolerance
-                && mouseOverRect.right <= taskbar.Rect.right + Tolerance)
+                && mouseOverRect.top >= taskbar.Rect.top - TrayTolerance
+                && mouseOverRect.bottom <= taskbar.Rect.bottom + TrayTolerance
+                && mouseOverRect.left >= taskbar.Rect.left - TrayTolerance
+                && mouseOverRect.right <= taskbar.Rect.right + TrayTolerance)
                 return TaskbarBehavior.DoNothing;
 
             // If it is a thumbnail of the floating taskbar icon,
             // the taskbar needs to be displayed.
-            return mouseOverHandle.GetName() is TaskListThumbnailWnd
+            return mouseOverHandle.GetClassName() is TrayTaskListThumbnailWnd
                 ? TaskbarBehavior.Show
                 : TaskbarBehavior.Pending;
         }
@@ -232,7 +232,7 @@ namespace SmartTaskbar
             if (foregroundHandle.IsWindowInvisible())
                 return false;
 
-            var monitor = MonitorFromWindow(foregroundHandle, TrayMonitorDefaulttonearest);
+            var monitor = MonitorFromWindow(foregroundHandle, TrayMonitorDefaultToNearest);
 
             // If window is in another desktop, do not automatically hide the taskbar.
             if (monitor != taskbar.Monitor)
@@ -274,7 +274,7 @@ namespace SmartTaskbar
             if (foregroundHandle.IsWindowInvisible())
                 return (TaskbarBehavior.Pending, ForegroundWindowInfo.Empty);
 
-            var monitor = MonitorFromWindow(foregroundHandle, TrayMonitorDefaulttonearest);
+            var monitor = MonitorFromWindow(foregroundHandle, TrayMonitorDefaultToNearest);
 
             // If window is in another desktop, do not automatically hide the taskbar.
             if (monitor != taskbar.Monitor)
@@ -296,15 +296,15 @@ namespace SmartTaskbar
             if (processId == 0)
                 return (TaskbarBehavior.DoNothing, new ForegroundWindowInfo(foregroundHandle, monitor, rect));
 
-            switch (foregroundHandle.GetName())
+            switch (foregroundHandle.GetClassName())
             {
                 // it's a desktop.
-                case Progman:
-                case WorkerW:
+                case TrayProgman:
+                case TrayWorkerW:
                     return (TaskbarBehavior.Show, new ForegroundWindowInfo(foregroundHandle, monitor, rect));
                 // In rare circumstances, the start menu and search will not be displayed in the correct position,
                 // causing the taskbar keep display, then hide, display, hide... in an endless loop.
-                case CoreWindow:
+                case TrayCoreWindow:
                     return (TaskbarBehavior.DoNothing, new ForegroundWindowInfo(foregroundHandle, monitor, rect));
                 default:
                     return (TaskbarBehavior.Hide, new ForegroundWindowInfo(foregroundHandle, monitor, rect));
@@ -325,17 +325,17 @@ namespace SmartTaskbar
             if (window == taskbar.Handle)
                 return false;
 
-            var rootWindow = GetAncestor(window, GaRoot);
+            var rootWindow = GetAncestor(window, TrayGaRoot);
 
             if (rootWindow == taskbar.Handle)
                 return false;
 
-            var name = rootWindow.GetName();
+            var name = rootWindow.GetClassName();
 
             switch (name)
             {
-                case Progman:
-                case WorkerW:
+                case TrayProgman:
+                case TrayWorkerW:
                     return true;
                 default:
                     return false;
