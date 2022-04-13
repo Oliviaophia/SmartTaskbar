@@ -40,7 +40,12 @@ namespace SmartTaskbar
             // Some users will kill the explorer.exe under certain situation.
             // In this case, the taskbar cannot be found, just return and wait for the user to reopen the file explorer.
             if (taskbar.Handle == IntPtr.Zero)
+            {
+                HookHelper.ReleaseHook();
                 return;
+            }
+
+            HookHelper.SetHook();
 
             switch (taskbar.CheckIfMouseOver())
             {

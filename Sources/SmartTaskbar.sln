@@ -9,6 +9,8 @@ Project("{C7167F0D-BC9F-4E6E-AFE1-012C56B48DB5}") = "SmartTaskbar.WapProj", "Sma
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartTaskbar.Win10", "SmartTaskbar.Win10\SmartTaskbar.Win10.csproj", "{780DE93F-CBC8-4B08-930A-6B3EFFBD7D3F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartTaskbar.Win10.Hook", "SmartTaskbar.Win10.Hook\SmartTaskbar.Win10.Hook.csproj", "{537C876F-DD20-4A8A-83FA-D87F2F6F20CB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -93,6 +95,26 @@ Global
 		{780DE93F-CBC8-4B08-930A-6B3EFFBD7D3F}.Release|x64.Build.0 = Release|Any CPU
 		{780DE93F-CBC8-4B08-930A-6B3EFFBD7D3F}.Release|x86.ActiveCfg = Release|Any CPU
 		{780DE93F-CBC8-4B08-930A-6B3EFFBD7D3F}.Release|x86.Build.0 = Release|Any CPU
+		{537C876F-DD20-4A8A-83FA-D87F2F6F20CB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{537C876F-DD20-4A8A-83FA-D87F2F6F20CB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{537C876F-DD20-4A8A-83FA-D87F2F6F20CB}.Debug|ARM.ActiveCfg = Debug|Any CPU
+		{537C876F-DD20-4A8A-83FA-D87F2F6F20CB}.Debug|ARM.Build.0 = Debug|Any CPU
+		{537C876F-DD20-4A8A-83FA-D87F2F6F20CB}.Debug|ARM64.ActiveCfg = Debug|Any CPU
+		{537C876F-DD20-4A8A-83FA-D87F2F6F20CB}.Debug|ARM64.Build.0 = Debug|Any CPU
+		{537C876F-DD20-4A8A-83FA-D87F2F6F20CB}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{537C876F-DD20-4A8A-83FA-D87F2F6F20CB}.Debug|x64.Build.0 = Debug|Any CPU
+		{537C876F-DD20-4A8A-83FA-D87F2F6F20CB}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{537C876F-DD20-4A8A-83FA-D87F2F6F20CB}.Debug|x86.Build.0 = Debug|Any CPU
+		{537C876F-DD20-4A8A-83FA-D87F2F6F20CB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{537C876F-DD20-4A8A-83FA-D87F2F6F20CB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{537C876F-DD20-4A8A-83FA-D87F2F6F20CB}.Release|ARM.ActiveCfg = Release|Any CPU
+		{537C876F-DD20-4A8A-83FA-D87F2F6F20CB}.Release|ARM.Build.0 = Release|Any CPU
+		{537C876F-DD20-4A8A-83FA-D87F2F6F20CB}.Release|ARM64.ActiveCfg = Release|Any CPU
+		{537C876F-DD20-4A8A-83FA-D87F2F6F20CB}.Release|ARM64.Build.0 = Release|Any CPU
+		{537C876F-DD20-4A8A-83FA-D87F2F6F20CB}.Release|x64.ActiveCfg = Release|Any CPU
+		{537C876F-DD20-4A8A-83FA-D87F2F6F20CB}.Release|x64.Build.0 = Release|Any CPU
+		{537C876F-DD20-4A8A-83FA-D87F2F6F20CB}.Release|x86.ActiveCfg = Release|Any CPU
+		{537C876F-DD20-4A8A-83FA-D87F2F6F20CB}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

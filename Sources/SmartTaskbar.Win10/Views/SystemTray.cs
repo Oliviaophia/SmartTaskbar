@@ -112,6 +112,7 @@ namespace SmartTaskbar
             UserSettings.AutoModeType = AutoModeType.None;
             Fun.ChangeAutoHide();
             HideBar();
+            HookHelper.ReleaseHook();
         }
 
         private static void HideBar()
@@ -197,6 +198,7 @@ namespace SmartTaskbar
             else
                 HideBar();
             _container?.Dispose();
+            HookHelper.ReleaseHook();
             Application.Exit();
         }
 
@@ -206,6 +208,7 @@ namespace SmartTaskbar
             {
                 UserSettings.AutoModeType = AutoModeType.None;
                 HideBar();
+                HookHelper.ReleaseHook();
             }
             else { UserSettings.AutoModeType = AutoModeType.Auto; }
         }

@@ -125,6 +125,30 @@ namespace SmartTaskbar
 
         #endregion
 
+        #region Get explorer.exe ProcessId
+
+        /// <summary>
+        ///     Get explorer.exe ProcessId
+        /// </summary>
+        /// <remarks>
+        ///     https://stackoverflow.com/a/13484624
+        /// </remarks>
+        /// <returns>return 0 if not find</returns>
+        public static int GetExplorerId()
+        {
+            // Find the main taskbar handle
+            var handle = FindWindow(TrayMainTaskbarClassName, null);
+
+            if (handle == IntPtr.Zero)
+                return 0;
+
+            // If the foreground Window is closing or idle, do nothing
+            _ = GetWindowThreadProcessId(handle, out var processId);
+            return processId;
+        }
+
+        #endregion
+
         #region Show Or Hide Taskbar
 
         private const uint TrayBarFlag = 0x05D1;
