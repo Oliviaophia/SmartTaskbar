@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.IO;
 using System.Reflection;
 using System.Runtime.Remoting;
@@ -41,13 +42,23 @@ namespace SmartTaskbar
             if (_targetPid == 0)
                 return;
 
-            _channel = RemoteHooking.IpcCreateServer<ServerInterface>(ref _channelName, WellKnownObjectMode.Singleton);
+            try
+            {
+                _channel = RemoteHooking.IpcCreateServer<ServerInterface>(
+                    ref _channelName,
+                    WellKnownObjectMode.Singleton);
 
-            RemoteHooking.Inject(
-                _targetPid,
-                InjectionLibrary,
-                InjectionLibrary,
-                _channelName);
+                RemoteHooking.Inject(
+                    _targetPid,
+                    InjectionLibrary,
+                    InjectionLibrary,
+                    _channelName);
+            }
+            catch (Exception e)
+            {
+                ReleaseHook();
+                Debug.WriteLine(e.Message);
+            }
         }
     }
 }

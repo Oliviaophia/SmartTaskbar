@@ -11,15 +11,11 @@ namespace SmartTaskbar.Hook
 
         public InjectionEntryPoint(RemoteHooking.IContext context,
                                    string                 channelName)
-        {
-            _server = RemoteHooking.IpcConnectClient<ServerInterface>(channelName);
-            _server.Ping();
-        }
+            => _server = RemoteHooking.IpcConnectClient<ServerInterface>(channelName);
 
         public void Run(RemoteHooking.IContext context,
                         string                 channelName)
         {
-            _server.Ping();
             var postMessageHook = LocalHook.Create(
                 LocalHook.GetProcAddress("user32.dll", "PostMessageW"),
                 new PostMessageDelegate(PostMessageHook),
