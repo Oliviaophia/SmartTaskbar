@@ -29,10 +29,7 @@ namespace SmartTaskbar.Hook
             {
                 while (true)
                 {
-                    Thread.Sleep(750);
-
-                    if (!Mutex.TryOpenExisting("{959d3545-aa5c-42a8-a327-6e2c079daa94}", out _))
-                        break;
+                    Thread.Sleep(1000);
 
                     _server.Ping();
                 }
