@@ -26,10 +26,12 @@ namespace SmartTaskbar
 
         private static async void Timer_Tick(object sender, EventArgs e)
         {
+            if (UserSettings.AutoModeType != AutoModeType.Auto)
+                return;
+
             _timer.Stop();
 
-            if (UserSettings.AutoModeType == AutoModeType.Auto)
-                await Task.Run(AutoModeWorker);
+            await Task.Run(AutoModeWorker);
 
             _timer.Start();
         }
