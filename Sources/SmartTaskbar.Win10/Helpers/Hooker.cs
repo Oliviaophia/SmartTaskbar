@@ -59,6 +59,7 @@ namespace SmartTaskbar
                     InjectionLibrary,
                     InjectionLibrary,
                     _channelName);
+
                 #if DEBUG
                 Debug.WriteLine("Hooked!");
 

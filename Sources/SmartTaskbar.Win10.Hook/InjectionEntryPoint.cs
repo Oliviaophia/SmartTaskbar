@@ -25,6 +25,7 @@ namespace SmartTaskbar.Hook
                 this);
             postMessageHook.ThreadACL.SetExclusiveACL(new[] {0});
             //RemoteHooking.WakeUpProcess();
+            _server.Ping();
             try
             {
                 while (true)

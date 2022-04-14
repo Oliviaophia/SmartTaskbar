@@ -73,7 +73,7 @@ namespace SmartTaskbar
 
             _notifyIcon = new NotifyIcon(_container)
             {
-                Text = @"SmartTaskbar v1.4.3",
+                Text = @"SmartTaskbar v1.4.4",
                 Icon = Fun.IsLightTheme() ? Resources.Logo_Black : Resources.Logo_White,
                 Visible = true
             };
