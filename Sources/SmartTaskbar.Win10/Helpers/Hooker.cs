@@ -33,7 +33,7 @@ namespace SmartTaskbar
             _channelName = null;
         }
 
-        public static void SetHook()
+        public static void SetHook(IntPtr handle)
         {
             if (_hookFailed)
                 return;
@@ -42,7 +42,8 @@ namespace SmartTaskbar
             if (_channel != null)
                 return;
 
-            var pid = TaskbarHelper.GetExplorerId();
+            // If the foreground Window is closing or idle, do nothing
+            _ = Fun.GetWindowThreadProcessId(handle, out var pid);
 
             if (pid == 0)
                 return;
@@ -65,8 +66,9 @@ namespace SmartTaskbar
             }
             catch (Exception e)
             {
-                _hookFailed = true;
                 ReleaseHook();
+                _hookFailed = true;
+
 
                 #if DEBUG
                 Debug.WriteLine(e.Message);

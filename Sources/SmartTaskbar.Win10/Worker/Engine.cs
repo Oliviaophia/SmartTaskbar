@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace SmartTaskbar
@@ -24,20 +23,11 @@ namespace SmartTaskbar
             _timer.Start();
         }
 
-        private static async void Timer_Tick(object sender, EventArgs e)
+        private static void Timer_Tick(object sender, EventArgs e)
         {
             if (UserSettings.AutoModeType != AutoModeType.Auto)
                 return;
 
-            _timer.Stop();
-
-            await Task.Run(AutoModeWorker);
-
-            _timer.Start();
-        }
-
-        private static void AutoModeWorker()
-        {
             // Make sure the taskbar has been automatically hidden, otherwise it will not work
             Fun.SetAutoHide();
 
@@ -51,7 +41,7 @@ namespace SmartTaskbar
                 return;
             }
 
-            Hooker.SetHook();
+            Hooker.SetHook(taskbar.Handle);
 
             switch (taskbar.CheckIfMouseOver())
             {
