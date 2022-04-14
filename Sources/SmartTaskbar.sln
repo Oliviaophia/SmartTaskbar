@@ -11,6 +11,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartTaskbar.Win10", "Smart
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartTaskbar.Win10.Hook", "SmartTaskbar.Win10.Hook\SmartTaskbar.Win10.Hook.csproj", "{537C876F-DD20-4A8A-83FA-D87F2F6F20CB}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Store", "Store", "{EAE5EB89-B66B-475E-A7B9-32FC41348097}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Win10", "Win10", "{58C3A6BD-4234-40E8-9624-2354A551A44B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -118,6 +122,12 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{6CE38B0B-A527-4875-89B3-686D0B3CCFA7} = {EAE5EB89-B66B-475E-A7B9-32FC41348097}
+		{4BB030E8-5894-4CA4-B80B-EAD44B9B4DE4} = {EAE5EB89-B66B-475E-A7B9-32FC41348097}
+		{780DE93F-CBC8-4B08-930A-6B3EFFBD7D3F} = {58C3A6BD-4234-40E8-9624-2354A551A44B}
+		{537C876F-DD20-4A8A-83FA-D87F2F6F20CB} = {58C3A6BD-4234-40E8-9624-2354A551A44B}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {AF4C7B1E-7889-46F0-BE45-A86EC3837675}
