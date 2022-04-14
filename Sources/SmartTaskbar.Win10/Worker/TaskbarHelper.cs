@@ -347,15 +347,16 @@ namespace SmartTaskbar
             switch (taskbar.Position)
             {
                 case TaskbarPosition.Bottom:
-                    return WindowFromPoint(new TagPoint {x = taskbar.Rect.left + 4, y = taskbar.Rect.top});
+                    return WindowFromPoint(new TagPoint {x = taskbar.Rect.left + TrayTolerance, y = taskbar.Rect.top});
                 case TaskbarPosition.Left:
-                    return WindowFromPoint(new TagPoint {x = taskbar.Rect.right, y = taskbar.Rect.top + 4});
+                    return WindowFromPoint(new TagPoint {x = taskbar.Rect.right, y = taskbar.Rect.top + TrayTolerance});
                 case TaskbarPosition.Right:
-                    return WindowFromPoint(new TagPoint {x = taskbar.Rect.left, y = taskbar.Rect.top + 4});
+                    return WindowFromPoint(new TagPoint {x = taskbar.Rect.left, y = taskbar.Rect.top + TrayTolerance});
                 case TaskbarPosition.Top:
-                    return WindowFromPoint(new TagPoint {x = taskbar.Rect.left + 4, y = taskbar.Rect.bottom});
+                    return WindowFromPoint(
+                        new TagPoint {x = taskbar.Rect.left + TrayTolerance, y = taskbar.Rect.bottom});
                 default:
-                    return WindowFromPoint(new TagPoint {x = taskbar.Rect.left + 4, y = taskbar.Rect.top});
+                    return WindowFromPoint(new TagPoint {x = taskbar.Rect.left + TrayTolerance, y = taskbar.Rect.top});
             }
         }
 

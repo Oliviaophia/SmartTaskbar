@@ -343,14 +343,14 @@
             => taskbar.Position switch
             {
                 TaskbarPosition.Bottom =>
-                    WindowFromPoint(new TagPoint {x = taskbar.Rect.left + 4, y = taskbar.Rect.top}),
+                    WindowFromPoint(new TagPoint {x = taskbar.Rect.left + TrayTolerance, y = taskbar.Rect.top}),
                 TaskbarPosition.Left =>
-                    WindowFromPoint(new TagPoint {x = taskbar.Rect.right, y = taskbar.Rect.top + 4}),
+                    WindowFromPoint(new TagPoint {x = taskbar.Rect.right, y = taskbar.Rect.top + TrayTolerance}),
                 TaskbarPosition.Right =>
-                    WindowFromPoint(new TagPoint {x = taskbar.Rect.left, y = taskbar.Rect.top + 4}),
+                    WindowFromPoint(new TagPoint {x = taskbar.Rect.left, y = taskbar.Rect.top + TrayTolerance}),
                 TaskbarPosition.Top =>
-                    WindowFromPoint(new TagPoint {x = taskbar.Rect.left + 4, y = taskbar.Rect.bottom}),
-                _ => WindowFromPoint(new TagPoint {x = taskbar.Rect.left + 4, y = taskbar.Rect.top})
+                    WindowFromPoint(new TagPoint {x = taskbar.Rect.left + TrayTolerance, y = taskbar.Rect.bottom}),
+                _ => WindowFromPoint(new TagPoint {x = taskbar.Rect.left + TrayTolerance, y = taskbar.Rect.top})
             };
 
         #endregion
