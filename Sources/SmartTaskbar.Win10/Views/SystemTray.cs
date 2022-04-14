@@ -101,6 +101,7 @@ namespace SmartTaskbar
             #endregion
         }
 
+
         private void ShowTaskbarWhenExitOnClick(object sender, EventArgs e)
             => UserSettings.ShowTaskbarWhenExit = !_showTaskbarWhenExit.Checked;
 
@@ -112,7 +113,7 @@ namespace SmartTaskbar
             UserSettings.AutoModeType = AutoModeType.None;
             Fun.ChangeAutoHide();
             HideBar();
-            HookHelper.ReleaseHook();
+            Hooker.ReleaseHook();
         }
 
         private static void HideBar()
@@ -197,8 +198,8 @@ namespace SmartTaskbar
                 Fun.CancelAutoHide();
             else
                 HideBar();
-            _container?.Dispose();
-            HookHelper.ReleaseHook();
+            _container.Dispose();
+            Hooker.ReleaseHook();
             Application.Exit();
         }
 
@@ -208,7 +209,7 @@ namespace SmartTaskbar
             {
                 UserSettings.AutoModeType = AutoModeType.None;
                 HideBar();
-                HookHelper.ReleaseHook();
+                Hooker.ReleaseHook();
             }
             else { UserSettings.AutoModeType = AutoModeType.Auto; }
         }

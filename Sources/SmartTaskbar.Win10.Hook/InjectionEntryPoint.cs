@@ -11,7 +11,10 @@ namespace SmartTaskbar.Hook
 
         public InjectionEntryPoint(RemoteHooking.IContext context,
                                    string                 channelName)
-            => _server = RemoteHooking.IpcConnectClient<ServerInterface>(channelName);
+        {
+            _server = RemoteHooking.IpcConnectClient<ServerInterface>(channelName);
+            _server.Ping();
+        }
 
         public void Run(RemoteHooking.IContext context,
                         string                 channelName)
@@ -21,12 +24,12 @@ namespace SmartTaskbar.Hook
                 new PostMessageDelegate(PostMessageHook),
                 this);
             postMessageHook.ThreadACL.SetExclusiveACL(new[] {0});
-            RemoteHooking.WakeUpProcess();
+            //RemoteHooking.WakeUpProcess();
             try
             {
                 while (true)
                 {
-                    Thread.Sleep(1000);
+                    Thread.Sleep(750);
 
                     if (!Mutex.TryOpenExisting("{959d3545-aa5c-42a8-a327-6e2c079daa94}", out _))
                         break;
@@ -40,23 +43,6 @@ namespace SmartTaskbar.Hook
                 LocalHook.Release();
             }
         }
-
-        #region GetProcessId
-
-        /// <summary>
-        ///     Retrieves the identifier of the thread that created the specified window and, optionally, the identifier of the
-        ///     process that created the window.
-        /// </summary>
-        /// <param name="hWnd">A handle to the window.</param>
-        /// <param name="lpdwProcessId">
-        ///     A pointer to a variable that receives the process identifier. If this parameter is not
-        ///     NULL, GetWindowThreadProcessId copies the identifier of the process to the variable; otherwise, it does not.
-        /// </param>
-        /// <returns>The return value is the identifier of the thread that created the window.</returns>
-        [DllImport("user32.dll")]
-        public static extern int GetWindowThreadProcessId(IntPtr hWnd, out int lpdwProcessId);
-
-        #endregion
 
         #region PostMessage
 
@@ -77,8 +63,9 @@ namespace SmartTaskbar.Hook
         {
             try
             {
-                if (hWnd == FindWindow("Shell_TrayWnd", null)
-                    && msg == 0x05D1)
+                if (msg == 0x05D1
+                    && lParam == IntPtr.Zero
+                    && hWnd == FindWindow("Shell_TrayWnd", null))
                     return false;
 
                 return PostMessage(hWnd, msg, wParam, lParam);

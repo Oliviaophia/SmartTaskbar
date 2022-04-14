@@ -9,9 +9,10 @@ using SmartTaskbar.Hook;
 
 namespace SmartTaskbar
 {
-    public static class HookHelper
+    public static class Hooker
     {
-        private static int _targetPid;
+        private static bool _hookFailed;
+
         private static string _channelName;
 
         private static readonly string InjectionLibrary =
@@ -34,12 +35,16 @@ namespace SmartTaskbar
 
         public static void SetHook()
         {
+            if (_hookFailed)
+                return;
+
+            // if channel is open, no need to hook again.
             if (_channel != null)
                 return;
 
-            _targetPid = TaskbarHelper.GetExplorerId();
+            var pid = TaskbarHelper.GetExplorerId();
 
-            if (_targetPid == 0)
+            if (pid == 0)
                 return;
 
             try
@@ -49,15 +54,24 @@ namespace SmartTaskbar
                     WellKnownObjectMode.Singleton);
 
                 RemoteHooking.Inject(
-                    _targetPid,
+                    pid,
                     InjectionLibrary,
                     InjectionLibrary,
                     _channelName);
+                #if DEBUG
+                Debug.WriteLine("Hooked!");
+
+                #endif
             }
             catch (Exception e)
             {
+                _hookFailed = true;
                 ReleaseHook();
+
+                #if DEBUG
                 Debug.WriteLine(e.Message);
+
+                #endif
             }
         }
     }

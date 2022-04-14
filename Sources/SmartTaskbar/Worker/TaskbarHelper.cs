@@ -340,21 +340,18 @@
         }
 
         private static IntPtr GetWindowIntPtr(in TaskbarInfo taskbar)
-        {
-            switch (taskbar.Position)
+            => taskbar.Position switch
             {
-                case TaskbarPosition.Bottom:
-                    return WindowFromPoint(new TagPoint {x = taskbar.Rect.left, y = taskbar.Rect.top});
-                case TaskbarPosition.Left:
-                    return WindowFromPoint(new TagPoint {x = taskbar.Rect.right, y = taskbar.Rect.top});
-                case TaskbarPosition.Right:
-                    return WindowFromPoint(new TagPoint {x = taskbar.Rect.left, y = taskbar.Rect.top});
-                case TaskbarPosition.Top:
-                    return WindowFromPoint(new TagPoint {x = taskbar.Rect.left, y = taskbar.Rect.bottom});
-                default:
-                    return WindowFromPoint(new TagPoint {x = taskbar.Rect.left, y = taskbar.Rect.top});
-            }
-        }
+                TaskbarPosition.Bottom =>
+                    WindowFromPoint(new TagPoint {x = taskbar.Rect.left + 4, y = taskbar.Rect.top}),
+                TaskbarPosition.Left =>
+                    WindowFromPoint(new TagPoint {x = taskbar.Rect.right, y = taskbar.Rect.top + 4}),
+                TaskbarPosition.Right =>
+                    WindowFromPoint(new TagPoint {x = taskbar.Rect.left, y = taskbar.Rect.top + 4}),
+                TaskbarPosition.Top =>
+                    WindowFromPoint(new TagPoint {x = taskbar.Rect.left + 4, y = taskbar.Rect.bottom}),
+                _ => WindowFromPoint(new TagPoint {x = taskbar.Rect.left + 4, y = taskbar.Rect.top})
+            };
 
         #endregion
     }

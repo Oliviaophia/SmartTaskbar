@@ -24,10 +24,14 @@ namespace SmartTaskbar
             _timer.Start();
         }
 
-        private static void Timer_Tick(object sender, EventArgs e)
+        private static async void Timer_Tick(object sender, EventArgs e)
         {
+            _timer.Stop();
+
             if (UserSettings.AutoModeType == AutoModeType.Auto)
-                Task.Run(AutoModeWorker);
+                await Task.Run(AutoModeWorker);
+
+            _timer.Start();
         }
 
         private static void AutoModeWorker()
@@ -41,11 +45,11 @@ namespace SmartTaskbar
             // In this case, the taskbar cannot be found, just return and wait for the user to reopen the file explorer.
             if (taskbar.Handle == IntPtr.Zero)
             {
-                HookHelper.ReleaseHook();
+                Hooker.ReleaseHook();
                 return;
             }
 
-            HookHelper.SetHook();
+            Hooker.SetHook();
 
             switch (taskbar.CheckIfMouseOver())
             {

@@ -23,6 +23,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -62,7 +63,7 @@
   <ItemGroup>
     <Compile Include="Helpers\AnimationHelper.cs" />
     <Compile Include="Helpers\AutoHideHelper.cs" />
-    <Compile Include="Helpers\HookHelper.cs" />
+    <Compile Include="Helpers\Hooker.cs" />
     <Compile Include="Helpers\NativeMethods.cs" />
     <Compile Include="Helpers\UISettingsHelper.cs" />
     <Compile Include="Helpers\WindowVisible.cs" />
