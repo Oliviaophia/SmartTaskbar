@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Windows.Forms;
 
 namespace SmartTaskbar
@@ -52,6 +53,9 @@ namespace SmartTaskbar
 
                     return;
                 case TaskbarBehavior.Show:
+                    #if DEBUG
+                    Debug.WriteLine("Show the tasbkar because of Mouse Over.");
+                    #endif
                     taskbar.ShowTaskar();
                     return;
             }
@@ -68,16 +72,34 @@ namespace SmartTaskbar
                     break;
                 case TaskbarBehavior.Pending:
                     if (taskbar.CheckIfDesktopShow())
+                    {
+                        #if DEBUG
+                        Debug.WriteLine("try SHOW because of Desktop Show.");
+                        #endif
                         BeforeShowBar(taskbar);
+                    }
+
                     break;
                 case TaskbarBehavior.Show:
+                    // #if DEBUG
+                    // Debug.WriteLine(
+                    //     $"try SHOW because of {info.Handle.ToString("x8")} Class Name: {info.Handle.GetClassName()}");
+                    // #endif
                     BeforeShowBar(taskbar);
                     break;
                 case TaskbarBehavior.Hide:
                     if (info == _currentForegroundWindow) return;
 
-                    if (!LastHideForegroundHandle.Contains(info.Handle))
+                    // Some third-party taskbar plugins will be attached to the taskbar location, but not embedded in the taskbar or desktop.
+
+                    if (!LastHideForegroundHandle.Contains(info.Handle)
+                        && 3 * info.Rect.Area > Screen.PrimaryScreen.Bounds.Width * Screen.PrimaryScreen.Bounds.Height)
                         LastHideForegroundHandle.Push(info.Handle);
+
+                    #if DEBUG
+                    Debug.WriteLine(
+                        $"HIDE because of {info.Handle.ToString("x8")} Class Name: {info.Handle.GetClassName()}");
+                    #endif
 
                     taskbar.HideTaskbar();
                     break;
@@ -91,7 +113,14 @@ namespace SmartTaskbar
             while (LastHideForegroundHandle.Count != 0)
             {
                 if (taskbar.CheckIfWindowShouldHideTaskbar(LastHideForegroundHandle.Peek()))
+                {
+                    #if DEBUG
+                    Debug.WriteLine(
+                        $"HIDE LAST because of {LastHideForegroundHandle.Peek().ToString("x8")} Class Name: {LastHideForegroundHandle.Peek().GetClassName()}");
+                    #endif
                     return;
+                }
+
 
                 LastHideForegroundHandle.Pop();
             }

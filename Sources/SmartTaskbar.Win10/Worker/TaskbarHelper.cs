@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Windows.Forms;
 
 namespace SmartTaskbar
@@ -330,12 +331,22 @@ namespace SmartTaskbar
             if (rootWindow == taskbar.Handle)
                 return false;
 
-            var name = rootWindow.GetClassName();
+            // Some third-party taskbar plugins will be attached to the taskbar location, but not embedded in the taskbar or desktop.
 
-            switch (name)
+            // Get foreground window Rectange.
+            if (!GetWindowRect(rootWindow, out var rect))
+                return true;
+
+            if (3 * rect.Area < Screen.PrimaryScreen.Bounds.Width * Screen.PrimaryScreen.Bounds.Height)
+                return true;
+
+            switch (rootWindow.GetClassName())
             {
                 case TrayProgman:
                 case TrayWorkerW:
+                    #if DEBUG
+                    Debug.WriteLine("Show the tasbkar because of Desktop Show");
+                    #endif
                     return true;
                 default:
                     return false;
@@ -344,6 +355,8 @@ namespace SmartTaskbar
 
         private static IntPtr GetWindowIntPtr(in TaskbarInfo taskbar)
         {
+            // The maximized application on the next desktop will be extended to the current desktop.
+            // Therefore a certain tolerance is necessary.
             switch (taskbar.Position)
             {
                 case TaskbarPosition.Bottom:
