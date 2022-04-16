@@ -78,6 +78,14 @@ namespace SmartTaskbar
             }
         }
 
-        public static void ResetHook() { _hookFailed = false; }
+        public static void ResetHook()
+        {
+            #if DEBUG
+            Debug.WriteLineIf(_hookFailed, "reset Hook.");
+
+            #endif
+
+            _hookFailed = false;
+        }
     }
 }

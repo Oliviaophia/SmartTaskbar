@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Windows.Forms;
 
@@ -23,12 +24,12 @@ namespace SmartTaskbar
 
             // unable to get the handle of the taskbar.
             if (handle == IntPtr.Zero)
-                return TaskbarInfo.Empty;
+                return new TaskbarInfo();
 
             // Get taskbar window rectangle
             if (!GetWindowRect(handle, out var rect))
                 // unable to get the rectangle of the taskbar.
-                return TaskbarInfo.Empty;
+                return new TaskbarInfo();
 
             // determine the taskbar position
 
@@ -259,8 +260,9 @@ namespace SmartTaskbar
         }
 
         public static TaskbarBehavior CheckIfForegroundWindowIntersectTaskbar(
-            this in TaskbarInfo          taskbar,
-            out     ForegroundWindowInfo info)
+            this in TaskbarInfo      taskbar,
+            HashSet<IntPtr>          desktopHandleSet,
+            out ForegroundWindowInfo info)
         {
             info = new ForegroundWindowInfo();
             var foregroundHandle = GetForegroundWindow();
@@ -271,6 +273,9 @@ namespace SmartTaskbar
             // When the system is start up or a window is closed,
             // there is a certain probability that the taskbar will be set to foreground window.
             if (foregroundHandle == taskbar.Handle)
+                return TaskbarBehavior.Show;
+
+            if (desktopHandleSet.Contains(foregroundHandle))
                 return TaskbarBehavior.Show;
 
             // Somehow, the foreground window is not necessarily visible.
@@ -304,6 +309,7 @@ namespace SmartTaskbar
                 // it's a desktop.
                 case TrayProgman:
                 case TrayWorkerW:
+                    desktopHandleSet.Add(foregroundHandle);
                     return TaskbarBehavior.Show;
                 // In rare circumstances, the start menu and search will not be displayed in the correct position,
                 // causing the taskbar keep display, then hide, display, hide... in an endless loop.
@@ -316,7 +322,8 @@ namespace SmartTaskbar
         }
 
 
-        public static bool CheckIfDesktopShow(this in TaskbarInfo taskbar)
+        public static bool CheckIfDesktopShow(this in TaskbarInfo taskbar,
+                                              HashSet<IntPtr>     desktopHandleSet)
         {
             // Take a point on the taskbar to determine whether its current window is the desktop,
             // if it is, the taskbar should be displayed
@@ -334,6 +341,9 @@ namespace SmartTaskbar
             if (rootWindow == taskbar.Handle)
                 return false;
 
+            if (desktopHandleSet.Contains(rootWindow))
+                return true;
+
             // Some third-party taskbar plugins will be attached to the taskbar location, but not embedded in the taskbar or desktop.
 
             // Get foreground window Rectange.
@@ -347,6 +357,7 @@ namespace SmartTaskbar
             {
                 case TrayProgman:
                 case TrayWorkerW:
+                    desktopHandleSet.Add(rootWindow);
                     #if DEBUG
                     Debug.WriteLine("Show the tasbkar because of Desktop Show");
                     #endif

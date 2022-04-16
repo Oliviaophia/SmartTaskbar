@@ -13,6 +13,7 @@ namespace SmartTaskbar
         private static int _timerCount;
         private static TaskbarInfo _taskbar;
 
+        private static readonly HashSet<IntPtr> DesktopHandleSet = new HashSet<IntPtr>();
         private static readonly Stack<IntPtr> LastHideForegroundHandle = new Stack<IntPtr>();
         private static ForegroundWindowInfo _currentForegroundWindow;
 
@@ -76,19 +77,20 @@ namespace SmartTaskbar
 
             _timerCount = 0;
 
-            Hooker.ReleaseHook();
+            DesktopHandleSet.Clear();
+            Hooker.ResetHook();
         }
 
         private static void CheckCurrentWindow()
         {
-            var behavior = _taskbar.CheckIfForegroundWindowIntersectTaskbar(out var info);
+            var behavior = _taskbar.CheckIfForegroundWindowIntersectTaskbar(DesktopHandleSet, out var info);
 
             switch (behavior)
             {
                 case TaskbarBehavior.DoNothing:
                     break;
                 case TaskbarBehavior.Pending:
-                    if (_taskbar.CheckIfDesktopShow())
+                    if (_taskbar.CheckIfDesktopShow(DesktopHandleSet))
                     {
                         #if DEBUG
                         Debug.WriteLine("try SHOW because of Desktop Show.");
