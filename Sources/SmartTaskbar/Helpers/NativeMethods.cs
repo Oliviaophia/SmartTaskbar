@@ -173,7 +173,7 @@ namespace SmartTaskbar
         ///     class name and window name. If the function fails, the return value is NULL.
         /// </returns>
         [DllImport("user32.dll", CharSet = CharSet.Unicode)]
-        public static extern IntPtr FindWindow(string lpClassName, string lpWindowName);
+        public static extern IntPtr FindWindow(string lpClassName, string? lpWindowName);
 
         #endregion
 

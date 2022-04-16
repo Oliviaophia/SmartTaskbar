@@ -1,9 +1,10 @@
-﻿namespace SmartTaskbar
+﻿using System.Diagnostics;
+
+namespace SmartTaskbar
 {
     using static Fun;
 
     public static class TaskbarHelper
-
     {
         #region Initialize the taskbar Info
 
@@ -19,16 +20,16 @@
 
             // unable to get the handle of the taskbar.
             if (handle == IntPtr.Zero)
-                return TaskbarInfo.Empty;
+                return new TaskbarInfo();
 
             // Get taskbar window rectangle
             if (!GetWindowRect(handle, out var rect))
                 // unable to get the rectangle of the taskbar.
-                return TaskbarInfo.Empty;
+                return new TaskbarInfo();
 
             // determine the taskbar position
 
-            var monitor = MonitorFromPoint(PointZero, TrayMonitorDefaulttoprimary);
+            var monitor = MonitorFromPoint(PointZero, TrayMonitorDefaultToPrimary);
 
             // todo: The main taskbar is not always on the Primary desktop!!! When this happens, the program will run abnormally
 
@@ -126,8 +127,8 @@
 
         private const uint TrayBarFlag = 0x05D1;
 
-        private const uint TrayMonitorDefaulttoprimary = 1;
-        private const uint TrayMonitorDefaulttonearest = 2;
+        private const uint TrayMonitorDefaultToPrimary = 1;
+        private const uint TrayMonitorDefaultToNearest = 2;
         private static readonly TagPoint PointZero = new() {x = 0, y = 0};
 
         /// <summary>
@@ -229,7 +230,7 @@
             if (foregroundHandle.IsWindowInvisible())
                 return false;
 
-            var monitor = MonitorFromWindow(foregroundHandle, TrayMonitorDefaulttonearest);
+            var monitor = MonitorFromWindow(foregroundHandle, TrayMonitorDefaultToNearest);
 
             // If window is in another desktop, do not automatically hide the taskbar.
             if (monitor != taskbar.Monitor)
@@ -254,62 +255,71 @@
             return true;
         }
 
-        public static (TaskbarBehavior, ForegroundWindowInfo) CheckIfForegroundWindowIntersectTaskbar(
-            this in TaskbarInfo taskbar)
+        public static TaskbarBehavior CheckIfForegroundWindowIntersectTaskbar(
+            this in TaskbarInfo      taskbar,
+            HashSet<IntPtr>          desktopHandleSet,
+            out ForegroundWindowInfo info)
         {
+            info = new ForegroundWindowInfo();
             var foregroundHandle = GetForegroundWindow();
 
             if (foregroundHandle == IntPtr.Zero)
-                return (TaskbarBehavior.Pending, ForegroundWindowInfo.Empty);
+                return TaskbarBehavior.Pending;
 
             // When the system is start up or a window is closed,
             // there is a certain probability that the taskbar will be set to foreground window.
             if (foregroundHandle == taskbar.Handle)
-                return (TaskbarBehavior.Show, ForegroundWindowInfo.Empty);
+                return TaskbarBehavior.Show;
+
+            if (desktopHandleSet.Contains(foregroundHandle))
+                return TaskbarBehavior.Show;
 
             // Somehow, the foreground window is not necessarily visible.
             if (foregroundHandle.IsWindowInvisible())
-                return (TaskbarBehavior.Pending, ForegroundWindowInfo.Empty);
+                return TaskbarBehavior.Pending;
 
-            var monitor = MonitorFromWindow(foregroundHandle, TrayMonitorDefaulttonearest);
+            var monitor = MonitorFromWindow(foregroundHandle, TrayMonitorDefaultToNearest);
 
             // If window is in another desktop, do not automatically hide the taskbar.
             if (monitor != taskbar.Monitor)
-                return (TaskbarBehavior.Pending, ForegroundWindowInfo.Empty);
+                return TaskbarBehavior.Pending;
 
             // Get foreground window Rectange.
             if (!GetWindowRect(foregroundHandle, out var rect))
-                return (TaskbarBehavior.Pending, ForegroundWindowInfo.Empty);
+                return TaskbarBehavior.Pending;
 
             // If the window and the taskbar do not intersect, the taskbar should be displayed.
             if (rect.bottom <= taskbar.Rect.top
                 || rect.top >= taskbar.Rect.bottom
                 || rect.left >= taskbar.Rect.right
                 || rect.right <= taskbar.Rect.left)
-                return (TaskbarBehavior.Show, new ForegroundWindowInfo(foregroundHandle, monitor, rect));
+                return TaskbarBehavior.Show;
 
             // If the foreground Window is closing or idle, do nothing
             _ = GetWindowThreadProcessId(foregroundHandle, out var processId);
             if (processId == 0)
-                return (TaskbarBehavior.DoNothing, new ForegroundWindowInfo(foregroundHandle, monitor, rect));
+                return TaskbarBehavior.DoNothing;
 
             switch (foregroundHandle.GetClassName())
             {
                 // it's a desktop.
                 case TrayProgman:
                 case TrayWorkerW:
-                    return (TaskbarBehavior.Show, new ForegroundWindowInfo(foregroundHandle, monitor, rect));
+                    desktopHandleSet.Add(foregroundHandle);
+                    return TaskbarBehavior.Show;
                 // In rare circumstances, the start menu and search will not be displayed in the correct position,
                 // causing the taskbar keep display, then hide, display, hide... in an endless loop.
                 case TrayCoreWindow:
-                    return (TaskbarBehavior.DoNothing, new ForegroundWindowInfo(foregroundHandle, monitor, rect));
+                    return TaskbarBehavior.DoNothing;
                 default:
-                    return (TaskbarBehavior.Hide, new ForegroundWindowInfo(foregroundHandle, monitor, rect));
+                    info = new ForegroundWindowInfo(foregroundHandle, monitor, rect);
+                    return TaskbarBehavior.Hide;
             }
         }
 
 
-        public static bool CheckIfDesktopShow(this in TaskbarInfo taskbar)
+        public static bool CheckIfDesktopShow(this in TaskbarInfo taskbar,
+                                              HashSet<IntPtr>     desktopHandleSet)
         {
             // Take a point on the taskbar to determine whether its current window is the desktop,
             // if it is, the taskbar should be displayed
@@ -327,12 +337,26 @@
             if (rootWindow == taskbar.Handle)
                 return false;
 
-            var name = rootWindow.GetClassName();
+            if (desktopHandleSet.Contains(rootWindow))
+                return true;
 
-            switch (name)
+            // Some third-party taskbar plugins will be attached to the taskbar location, but not embedded in the taskbar or desktop.
+
+            // Get foreground window Rectange.
+            if (!GetWindowRect(rootWindow, out var rect))
+                return true;
+
+            if (!rect.AreaCompare())
+                return true;
+
+            switch (rootWindow.GetClassName())
             {
                 case TrayProgman:
                 case TrayWorkerW:
+                    desktopHandleSet.Add(rootWindow);
+                    #if DEBUG
+                    Debug.WriteLine("Show the tasbkar because of Desktop Show");
+                    #endif
                     return true;
                 default:
                     return false;
@@ -340,18 +364,28 @@
         }
 
         private static IntPtr GetWindowIntPtr(in TaskbarInfo taskbar)
-            => taskbar.Position switch
+        {
+            // The maximized application on the next desktop will be extended to the current desktop.
+            // Therefore a certain tolerance is necessary.
+            switch (taskbar.Position)
             {
-                TaskbarPosition.Bottom =>
-                    WindowFromPoint(new TagPoint {x = taskbar.Rect.left + TrayTolerance, y = taskbar.Rect.top}),
-                TaskbarPosition.Left =>
-                    WindowFromPoint(new TagPoint {x = taskbar.Rect.right, y = taskbar.Rect.top + TrayTolerance}),
-                TaskbarPosition.Right =>
-                    WindowFromPoint(new TagPoint {x = taskbar.Rect.left, y = taskbar.Rect.top + TrayTolerance}),
-                TaskbarPosition.Top =>
-                    WindowFromPoint(new TagPoint {x = taskbar.Rect.left + TrayTolerance, y = taskbar.Rect.bottom}),
-                _ => WindowFromPoint(new TagPoint {x = taskbar.Rect.left + TrayTolerance, y = taskbar.Rect.top})
-            };
+                case TaskbarPosition.Bottom:
+                    return WindowFromPoint(new TagPoint {x = taskbar.Rect.left + TrayTolerance, y = taskbar.Rect.top});
+                case TaskbarPosition.Left:
+                    return WindowFromPoint(new TagPoint {x = taskbar.Rect.right, y = taskbar.Rect.top + TrayTolerance});
+                case TaskbarPosition.Right:
+                    return WindowFromPoint(new TagPoint {x = taskbar.Rect.left, y = taskbar.Rect.top + TrayTolerance});
+                case TaskbarPosition.Top:
+                    return WindowFromPoint(
+                        new TagPoint {x = taskbar.Rect.left + TrayTolerance, y = taskbar.Rect.bottom});
+                default:
+                    return WindowFromPoint(new TagPoint {x = taskbar.Rect.left + TrayTolerance, y = taskbar.Rect.top});
+            }
+        }
+
+        public static bool AreaCompare(this in TagRect rect)
+            => 3 * (rect.bottom - rect.top) * (rect.right - rect.left)
+               > Screen.PrimaryScreen.Bounds.Width * Screen.PrimaryScreen.Bounds.Height;
 
         #endregion
     }

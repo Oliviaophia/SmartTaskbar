@@ -8,9 +8,9 @@
 		<ImplicitUsings>enable</ImplicitUsings>
 		<ApplicationIcon>Resources\Logo-White.ico</ApplicationIcon>
 		<Authors>Chanple</Authors>
-		<Version>1.4.2</Version>
+		<Version>1.4.4</Version>
 		<Description>A Lightweight Windows Taskbar Enhancement Utility.</Description>
-		<Copyright>Copyright (c) 2018-2021 ChanpleCai</Copyright>
+		<Copyright>Copyright (c) 2018-2022 ChanpleCai</Copyright>
 		<PackageIcon>logo.png</PackageIcon>
 		<RootNamespace>SmartTaskbar</RootNamespace>
 		<AssemblyName>SmartTaskbar</AssemblyName>
