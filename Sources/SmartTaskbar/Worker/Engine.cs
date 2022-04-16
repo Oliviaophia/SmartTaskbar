@@ -66,8 +66,8 @@ namespace SmartTaskbar
 
             ++_timerCount;
 
-            // clear cache and reset stable every 5 min.
-            if (_timerCount <= 2400) return;
+            // clear cache and reset stable every 15 min.
+            if (_timerCount <= 7200) return;
 
             _timerCount = 0;
 
