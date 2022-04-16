@@ -270,7 +270,7 @@ namespace SmartTaskbar
         public static TaskbarBehavior CheckIfForegroundWindowIntersectTaskbar(
             this in TaskbarInfo      taskbar,
             HashSet<IntPtr>          desktopHandleSet,
-            IntPtr                   lastHideHandle,
+            HashSet<IntPtr>          nonForegroundShowHandleSet,
             out ForegroundWindowInfo info)
         {
             info = new ForegroundWindowInfo();
@@ -313,7 +313,7 @@ namespace SmartTaskbar
             if (processId == 0)
                 return TaskbarBehavior.DoNothing;
 
-            if (foregroundHandle == lastHideHandle)
+            if (nonForegroundShowHandleSet.Contains(foregroundHandle))
             {
                 info = new ForegroundWindowInfo(foregroundHandle, monitor, rect);
                 return TaskbarBehavior.Hide;

@@ -15,10 +15,10 @@ namespace SmartTaskbar
 
         private static readonly HashSet<IntPtr> NonMouseOverShowHandleSet = new HashSet<IntPtr>();
         private static readonly HashSet<IntPtr> NonDesktopShowHandleSet = new HashSet<IntPtr>();
+        private static readonly HashSet<IntPtr> NonForegroundShowHandleSet = new HashSet<IntPtr>();
         private static readonly HashSet<IntPtr> DesktopHandleSet = new HashSet<IntPtr>();
         private static readonly Stack<IntPtr> LastHideForegroundHandle = new Stack<IntPtr>();
         private static ForegroundWindowInfo _currentForegroundWindow;
-
 
         public Engine(Container container)
         {
@@ -82,6 +82,7 @@ namespace SmartTaskbar
             DesktopHandleSet.Clear();
             NonMouseOverShowHandleSet.Clear();
             NonDesktopShowHandleSet.Clear();
+            NonForegroundShowHandleSet.Clear();
             Hooker.ResetHook();
         }
 
@@ -89,7 +90,7 @@ namespace SmartTaskbar
         {
             var behavior =
                 _taskbar.CheckIfForegroundWindowIntersectTaskbar(DesktopHandleSet,
-                                                                 _currentForegroundWindow.Handle,
+                                                                 NonForegroundShowHandleSet,
                                                                  out var info);
 
             switch (behavior)
