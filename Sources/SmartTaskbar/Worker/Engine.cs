@@ -28,7 +28,7 @@ namespace SmartTaskbar
             _timer.Start();
         }
 
-        private static void Timer_Tick(object sender, EventArgs e)
+        private static void Timer_Tick(object? sender, EventArgs e)
         {
             if (UserSettings.AutoModeType != AutoModeType.Auto)
                 return;
