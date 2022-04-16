@@ -10,7 +10,7 @@ namespace SmartTaskbar
     {
         private static Timer _timer;
         private static readonly Stack<IntPtr> LastHideForegroundHandle = new Stack<IntPtr>();
-        private static ForegroundWindowInfo _currentForegroundWindow = ForegroundWindowInfo.Empty;
+        private static ForegroundWindowInfo _currentForegroundWindow;
 
 
         public Engine(Container container)
@@ -63,8 +63,7 @@ namespace SmartTaskbar
 
         private static void CheckCurrentWindow(in TaskbarInfo taskbar)
         {
-            var (behavior, info) =
-                taskbar.CheckIfForegroundWindowIntersectTaskbar();
+            var behavior = taskbar.CheckIfForegroundWindowIntersectTaskbar(out var info);
 
             switch (behavior)
             {
@@ -93,7 +92,7 @@ namespace SmartTaskbar
                     // Some third-party taskbar plugins will be attached to the taskbar location, but not embedded in the taskbar or desktop.
 
                     if (!LastHideForegroundHandle.Contains(info.Handle)
-                        && 3 * info.Rect.Area > Screen.PrimaryScreen.Bounds.Width * Screen.PrimaryScreen.Bounds.Height)
+                        && info.Rect.AreaCompare())
                         LastHideForegroundHandle.Push(info.Handle);
 
                     #if DEBUG

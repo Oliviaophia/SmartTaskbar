@@ -42,8 +42,5 @@ namespace SmartTaskbar
                 return hashCode;
             }
         }
-
-        public int Area
-            => (bottom - top) * (right - left);
     }
 }
