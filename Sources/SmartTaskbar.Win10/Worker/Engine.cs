@@ -13,6 +13,7 @@ namespace SmartTaskbar
         private static int _timerCount;
         private static TaskbarInfo _taskbar;
 
+        private static readonly HashSet<IntPtr> NonMouseOverShowHandleSet = new HashSet<IntPtr>();
         private static readonly HashSet<IntPtr> DesktopHandleSet = new HashSet<IntPtr>();
         private static readonly Stack<IntPtr> LastHideForegroundHandle = new Stack<IntPtr>();
         private static ForegroundWindowInfo _currentForegroundWindow;
@@ -53,7 +54,7 @@ namespace SmartTaskbar
                 Hooker.SetHook(_taskbar.Handle);
             }
 
-            switch (_taskbar.CheckIfMouseOver())
+            switch (_taskbar.CheckIfMouseOver(NonMouseOverShowHandleSet))
             {
                 case TaskbarBehavior.DoNothing:
                     break;
@@ -78,6 +79,7 @@ namespace SmartTaskbar
             _timerCount = 0;
 
             DesktopHandleSet.Clear();
+            NonMouseOverShowHandleSet.Clear();
             Hooker.ResetHook();
         }
 

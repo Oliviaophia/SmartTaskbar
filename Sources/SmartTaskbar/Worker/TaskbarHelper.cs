@@ -176,9 +176,9 @@ namespace SmartTaskbar
         ///     Mouse over the taskbar or a specific window,
         ///     it will only cause the taskbar to show or do nothing.
         /// </summary>
-        /// <param name="taskbar"></param>
         /// <returns></returns>
-        public static TaskbarBehavior CheckIfMouseOver(this in TaskbarInfo taskbar)
+        public static TaskbarBehavior CheckIfMouseOver(this in TaskbarInfo taskbar,
+                                                       HashSet<IntPtr>     nonMouseOverShowHandleSet)
         {
             // Get mouse coordinates
             if (!GetCursorPos(out var point))
@@ -210,11 +210,19 @@ namespace SmartTaskbar
                 && mouseOverRect.right <= taskbar.Rect.right + TrayTolerance)
                 return TaskbarBehavior.DoNothing;
 
-            // If it is a thumbnail of the floating taskbar icon,
-            // the taskbar needs to be displayed.
-            return mouseOverHandle.GetClassName() is TrayTaskListThumbnailWnd
-                ? TaskbarBehavior.Show
-                : TaskbarBehavior.Pending;
+            if (nonMouseOverShowHandleSet.Contains(mouseOverHandle))
+                return TaskbarBehavior.Pending;
+
+            switch (mouseOverHandle.GetClassName())
+            {
+                // If it is a thumbnail of the floating taskbar icon,
+                // the taskbar needs to be displayed.
+                case TrayTaskListThumbnailWnd:
+                    return TaskbarBehavior.Show;
+                default:
+                    nonMouseOverShowHandleSet.Add(mouseOverHandle);
+                    return TaskbarBehavior.Pending;
+            }
         }
 
         public static bool CheckIfWindowShouldHideTaskbar(this in TaskbarInfo taskbar, IntPtr foregroundHandle)
