@@ -14,6 +14,7 @@ namespace SmartTaskbar
         private static TaskbarInfo _taskbar;
 
         private static readonly HashSet<IntPtr> NonMouseOverShowHandleSet = new HashSet<IntPtr>();
+        private static readonly HashSet<IntPtr> NonDesktopShowHandleSet = new HashSet<IntPtr>();
         private static readonly HashSet<IntPtr> DesktopHandleSet = new HashSet<IntPtr>();
         private static readonly Stack<IntPtr> LastHideForegroundHandle = new Stack<IntPtr>();
         private static ForegroundWindowInfo _currentForegroundWindow;
@@ -80,19 +81,23 @@ namespace SmartTaskbar
 
             DesktopHandleSet.Clear();
             NonMouseOverShowHandleSet.Clear();
+            NonDesktopShowHandleSet.Clear();
             Hooker.ResetHook();
         }
 
         private static void CheckCurrentWindow()
         {
-            var behavior = _taskbar.CheckIfForegroundWindowIntersectTaskbar(DesktopHandleSet, out var info);
+            var behavior =
+                _taskbar.CheckIfForegroundWindowIntersectTaskbar(DesktopHandleSet,
+                                                                 _currentForegroundWindow.Handle,
+                                                                 out var info);
 
             switch (behavior)
             {
                 case TaskbarBehavior.DoNothing:
                     break;
                 case TaskbarBehavior.Pending:
-                    if (_taskbar.CheckIfDesktopShow(DesktopHandleSet))
+                    if (_taskbar.CheckIfDesktopShow(DesktopHandleSet, NonDesktopShowHandleSet))
                     {
                         #if DEBUG
                         Debug.WriteLine("try SHOW because of Desktop Show.");

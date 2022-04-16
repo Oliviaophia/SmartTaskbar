@@ -270,6 +270,7 @@ namespace SmartTaskbar
         public static TaskbarBehavior CheckIfForegroundWindowIntersectTaskbar(
             this in TaskbarInfo      taskbar,
             HashSet<IntPtr>          desktopHandleSet,
+            IntPtr                   lastHideHandle,
             out ForegroundWindowInfo info)
         {
             info = new ForegroundWindowInfo();
@@ -312,6 +313,12 @@ namespace SmartTaskbar
             if (processId == 0)
                 return TaskbarBehavior.DoNothing;
 
+            if (foregroundHandle == lastHideHandle)
+            {
+                info = new ForegroundWindowInfo(foregroundHandle, monitor, rect);
+                return TaskbarBehavior.Hide;
+            }
+
             switch (foregroundHandle.GetClassName())
             {
                 // it's a desktop.
@@ -331,7 +338,8 @@ namespace SmartTaskbar
 
 
         public static bool CheckIfDesktopShow(this in TaskbarInfo taskbar,
-                                              HashSet<IntPtr>     desktopHandleSet)
+                                              HashSet<IntPtr>     desktopHandleSet,
+                                              HashSet<IntPtr>     nonDesktopShowHandle)
         {
             // Take a point on the taskbar to determine whether its current window is the desktop,
             // if it is, the taskbar should be displayed
@@ -361,6 +369,9 @@ namespace SmartTaskbar
             if (!rect.AreaCompare())
                 return true;
 
+            if (nonDesktopShowHandle.Contains(rootWindow))
+                return false;
+
             switch (rootWindow.GetClassName())
             {
                 case TrayProgman:
@@ -371,6 +382,7 @@ namespace SmartTaskbar
                     #endif
                     return true;
                 default:
+                    nonDesktopShowHandle.Add(rootWindow);
                     return false;
             }
         }
