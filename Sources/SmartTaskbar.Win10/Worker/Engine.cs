@@ -9,6 +9,10 @@ namespace SmartTaskbar
     internal sealed class Engine
     {
         private static Timer _timer;
+
+        private static int _timerCount;
+        private static TaskbarInfo _taskbar;
+
         private static readonly Stack<IntPtr> LastHideForegroundHandle = new Stack<IntPtr>();
         private static ForegroundWindowInfo _currentForegroundWindow;
 
@@ -29,53 +33,68 @@ namespace SmartTaskbar
             if (UserSettings.AutoModeType != AutoModeType.Auto)
                 return;
 
-            // Make sure the taskbar has been automatically hidden, otherwise it will not work
-            Fun.SetAutoHide();
-
-            var taskbar = TaskbarHelper.InitTaskbar();
-
-            // Some users will kill the explorer.exe under certain situation.
-            // In this case, the taskbar cannot be found, just return and wait for the user to reopen the file explorer.
-            if (taskbar.Handle == IntPtr.Zero)
+            // get taskbar every 1.25 second.
+            if (_timerCount % 5 == 0)
             {
-                Hooker.ReleaseHook();
-                return;
+                // Make sure the taskbar has been automatically hidden, otherwise it will not work
+                Fun.SetAutoHide();
+
+                _taskbar = TaskbarHelper.InitTaskbar();
+
+                // Some users will kill the explorer.exe under certain situation.
+                // In this case, the taskbar cannot be found, just return and wait for the user to reopen the file explorer.
+                if (_taskbar.Handle == IntPtr.Zero)
+                {
+                    Hooker.ReleaseHook();
+                    return;
+                }
+
+                Hooker.SetHook(_taskbar.Handle);
             }
 
-            Hooker.SetHook(taskbar.Handle);
-
-            switch (taskbar.CheckIfMouseOver())
+            switch (_taskbar.CheckIfMouseOver())
             {
                 case TaskbarBehavior.DoNothing:
-                    return;
+                    break;
                 case TaskbarBehavior.Pending:
-                    CheckCurrentWindow(taskbar);
+                    CheckCurrentWindow();
 
-                    return;
+                    break;
                 case TaskbarBehavior.Show:
                     #if DEBUG
                     Debug.WriteLine("Show the tasbkar because of Mouse Over.");
                     #endif
-                    taskbar.ShowTaskar();
-                    return;
+
+                    _taskbar.ShowTaskar();
+                    break;
             }
+
+            ++_timerCount;
+
+            // clear cache and reset stable every 5 min.
+            if (_timerCount <= 2400) return;
+
+            _timerCount = 0;
+
+            Hooker.ReleaseHook();
         }
 
-        private static void CheckCurrentWindow(in TaskbarInfo taskbar)
+        private static void CheckCurrentWindow()
         {
-            var behavior = taskbar.CheckIfForegroundWindowIntersectTaskbar(out var info);
+            var behavior = _taskbar.CheckIfForegroundWindowIntersectTaskbar(out var info);
 
             switch (behavior)
             {
                 case TaskbarBehavior.DoNothing:
                     break;
                 case TaskbarBehavior.Pending:
-                    if (taskbar.CheckIfDesktopShow())
+                    if (_taskbar.CheckIfDesktopShow())
                     {
                         #if DEBUG
                         Debug.WriteLine("try SHOW because of Desktop Show.");
                         #endif
-                        BeforeShowBar(taskbar);
+
+                        BeforeShowBar();
                     }
 
                     break;
@@ -84,7 +103,7 @@ namespace SmartTaskbar
                     // Debug.WriteLine(
                     //     $"try SHOW because of {info.Handle.ToString("x8")} Class Name: {info.Handle.GetClassName()}");
                     // #endif
-                    BeforeShowBar(taskbar);
+                    BeforeShowBar();
                     break;
                 case TaskbarBehavior.Hide:
                     if (info == _currentForegroundWindow) return;
@@ -100,18 +119,18 @@ namespace SmartTaskbar
                         $"HIDE because of {info.Handle.ToString("x8")} Class Name: {info.Handle.GetClassName()}");
                     #endif
 
-                    taskbar.HideTaskbar();
+                    _taskbar.HideTaskbar();
                     break;
             }
 
             _currentForegroundWindow = info;
         }
 
-        private static void BeforeShowBar(in TaskbarInfo taskbar)
+        private static void BeforeShowBar()
         {
             while (LastHideForegroundHandle.Count != 0)
             {
-                if (taskbar.CheckIfWindowShouldHideTaskbar(LastHideForegroundHandle.Peek()))
+                if (_taskbar.CheckIfWindowShouldHideTaskbar(LastHideForegroundHandle.Peek()))
                 {
                     #if DEBUG
                     Debug.WriteLine(
@@ -124,7 +143,7 @@ namespace SmartTaskbar
                 LastHideForegroundHandle.Pop();
             }
 
-            taskbar.ShowTaskar();
+            _taskbar.ShowTaskar();
         }
     }
 }

@@ -77,5 +77,7 @@ namespace SmartTaskbar
                 #endif
             }
         }
+
+        public static void ResetHook() { _hookFailed = false; }
     }
 }
