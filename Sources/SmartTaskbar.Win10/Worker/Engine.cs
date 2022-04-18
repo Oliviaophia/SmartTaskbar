@@ -112,17 +112,23 @@ namespace SmartTaskbar
 
                     break;
                 case TaskbarBehavior.Show:
-                    // #if DEBUG
-                    // Debug.WriteLine(
-                    //     $"try SHOW because of {info.Handle.ToString("x8")} Class Name: {info.Handle.GetClassName()}");
-                    // #endif
+                    #if DEBUG
+                    Debug.WriteLine(
+                        $"SHOW because of {info.Handle.ToString("x8")} Class Name: {info.Handle.GetClassName()}");
+                    #endif
 
                     _taskbar.ShowTaskar();
                     break;
                 case TaskbarBehavior.Hide:
                     if (info == _currentForegroundWindow) return;
 
+                    #if DEBUG
+                    Debug.WriteLine(
+                        $" Hide because of {info.Handle.ToString("x8")} Class Name: {info.Handle.GetClassName()}");
+                    #endif
+
                     _taskbar.HideTaskbar();
+
                     break;
             }
 
