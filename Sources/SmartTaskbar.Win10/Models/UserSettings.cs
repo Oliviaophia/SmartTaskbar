@@ -14,7 +14,8 @@ namespace SmartTaskbar
             => _userConfiguration = new UserConfiguration
             {
                 AutoModeType = Settings.Default.AutoModeType.AsAutoModeType(),
-                ShowTaskbarWhenExit = Settings.Default.ShowTaskbarWhenExit
+                ShowTaskbarWhenExit = Settings.Default.ShowTaskbarWhenExit,
+                ReduceTaskbarDisplay = Settings.Default.ReduceTaskbarDisplay
             };
 
         public static AutoModeType AutoModeType
@@ -27,6 +28,20 @@ namespace SmartTaskbar
 
                 _userConfiguration.AutoModeType = value;
                 Settings.Default.AutoModeType = value.ToString();
+                Settings.Default.Save();
+            }
+        }
+
+        public static bool ReduceTaskbarDisplay
+        {
+            get => _userConfiguration.ReduceTaskbarDisplay;
+            set
+            {
+                if (value == _userConfiguration.ReduceTaskbarDisplay)
+                    return;
+
+                _userConfiguration.ReduceTaskbarDisplay = value;
+                Settings.Default.ReduceTaskbarDisplay = value;
                 Settings.Default.Save();
             }
         }

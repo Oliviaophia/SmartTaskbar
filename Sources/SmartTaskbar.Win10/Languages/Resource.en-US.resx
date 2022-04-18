@@ -129,6 +129,9 @@
   <data name="tray_exit" xml:space="preserve">
     <value>Exit</value>
   </data>
+  <data name="tray_reduceTaskbarDisplay" xml:space="preserve">
+    <value>Reduce taskbar display</value>
+  </data>
   <data name="tray_showBarOnExit" xml:space="preserve">
     <value>Show the taskbar after exit</value>
   </data>

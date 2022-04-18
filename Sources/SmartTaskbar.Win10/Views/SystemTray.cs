@@ -13,6 +13,7 @@ namespace SmartTaskbar
         private const int TrayTolerance = 4;
         private readonly ToolStripMenuItem _about;
         private readonly ToolStripMenuItem _animation;
+        private readonly ToolStripMenuItem _reduceTaskbarDisplay;
         private readonly ToolStripMenuItem _autoMode;
         private readonly Container _container = new Container();
         private readonly ContextMenuStrip _contextMenuStrip;
@@ -40,6 +41,11 @@ namespace SmartTaskbar
                 Text = resource.GetString(LangName.Animation),
                 Font = font
             };
+            _reduceTaskbarDisplay = new ToolStripMenuItem
+            {
+                Text = resource.GetString(LangName.ReduceTaskbarDisplay),
+                Font = font
+            };
             _autoMode = new ToolStripMenuItem
             {
                 Text = resource.GetString(LangName.Auto),
@@ -65,6 +71,7 @@ namespace SmartTaskbar
                 _about,
                 _animation,
                 new ToolStripSeparator(),
+                _reduceTaskbarDisplay,
                 _autoMode,
                 new ToolStripSeparator(),
                 _showTaskbarWhenExit,
@@ -86,6 +93,8 @@ namespace SmartTaskbar
 
             _animation.Click += AnimationOnClick;
 
+            _reduceTaskbarDisplay.Click += ReduceTaskbarDisplayOnClick;
+
             _autoMode.Click += AutoModeOnClick;
 
             _showTaskbarWhenExit.Click += ShowTaskbarWhenExitOnClick;
@@ -100,6 +109,9 @@ namespace SmartTaskbar
 
             #endregion
         }
+
+        private void ReduceTaskbarDisplayOnClick(object sender, EventArgs e)
+            => UserSettings.ReduceTaskbarDisplay = !_reduceTaskbarDisplay.Checked;
 
 
         private void ShowTaskbarWhenExitOnClick(object sender, EventArgs e)
@@ -132,6 +144,8 @@ namespace SmartTaskbar
             if (e.Button != MouseButtons.Right) return;
 
             _animation.Checked = Fun.IsEnableTaskbarAnimation();
+
+            _reduceTaskbarDisplay.Checked = UserSettings.ReduceTaskbarDisplay;
 
             _showTaskbarWhenExit.Checked = UserSettings.ShowTaskbarWhenExit;
 

@@ -46,5 +46,17 @@ namespace SmartTaskbar.Properties {
                 this["ShowTaskbarWhenExit"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool ReduceTaskbarDisplay {
+            get {
+                return ((bool)(this["ReduceTaskbarDisplay"]));
+            }
+            set {
+                this["ReduceTaskbarDisplay"] = value;
+            }
+        }
     }
 }

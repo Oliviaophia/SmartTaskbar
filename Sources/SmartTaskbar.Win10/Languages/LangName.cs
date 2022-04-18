@@ -6,6 +6,8 @@
 
         public const string Animation = "tray_animation";
 
+        public const string ReduceTaskbarDisplay = "tray_reduceTaskbarDisplay";
+
         public const string Auto = "tray_auto";
 
         public const string ShowBarOnExit = "tray_showBarOnExit";

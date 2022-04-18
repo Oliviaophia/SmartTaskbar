@@ -60,7 +60,10 @@ namespace SmartTaskbar
                 case TaskbarBehavior.DoNothing:
                     break;
                 case TaskbarBehavior.Pending:
-                    CheckCurrentWindow();
+                    if (UserSettings.ReduceTaskbarDisplay)
+                        CheckCurrentWindowReduceShowBar();
+                    else
+                        CheckCurrentWindow();
 
                     break;
                 case TaskbarBehavior.Show:
@@ -104,6 +107,47 @@ namespace SmartTaskbar
                         Debug.WriteLine("try SHOW because of Desktop Show.");
                         #endif
 
+                        _taskbar.ShowTaskar();
+                    }
+
+                    break;
+                case TaskbarBehavior.Show:
+                    // #if DEBUG
+                    // Debug.WriteLine(
+                    //     $"try SHOW because of {info.Handle.ToString("x8")} Class Name: {info.Handle.GetClassName()}");
+                    // #endif
+
+                    _taskbar.ShowTaskar();
+                    break;
+                case TaskbarBehavior.Hide:
+                    if (info == _currentForegroundWindow) return;
+
+                    _taskbar.HideTaskbar();
+                    break;
+            }
+
+            _currentForegroundWindow = info;
+        }
+
+
+        private static void CheckCurrentWindowReduceShowBar()
+        {
+            var behavior =
+                _taskbar.CheckIfForegroundWindowIntersectTaskbar(DesktopHandleSet,
+                                                                 NonForegroundShowHandleSet,
+                                                                 out var info);
+
+            switch (behavior)
+            {
+                case TaskbarBehavior.DoNothing:
+                    break;
+                case TaskbarBehavior.Pending:
+                    if (_taskbar.CheckIfDesktopShow(DesktopHandleSet, NonDesktopShowHandleSet))
+                    {
+                        #if DEBUG
+                        Debug.WriteLine("try SHOW because of Desktop Show.");
+                        #endif
+
                         BeforeShowBar();
                     }
 
@@ -113,7 +157,9 @@ namespace SmartTaskbar
                     // Debug.WriteLine(
                     //     $"try SHOW because of {info.Handle.ToString("x8")} Class Name: {info.Handle.GetClassName()}");
                     // #endif
+
                     BeforeShowBar();
+
                     break;
                 case TaskbarBehavior.Hide:
                     if (info == _currentForegroundWindow) return;
@@ -130,6 +176,7 @@ namespace SmartTaskbar
                     #endif
 
                     _taskbar.HideTaskbar();
+
                     break;
             }
 
