@@ -11,6 +11,7 @@ namespace SmartTaskbar
         private static Timer _timer;
 
         private static int _timerCount;
+        private static int _hidingCount;
         private static TaskbarInfo _taskbar;
 
         private static readonly HashSet<IntPtr> NonMouseOverShowHandleSet = new HashSet<IntPtr>();
@@ -99,6 +100,7 @@ namespace SmartTaskbar
             switch (behavior)
             {
                 case TaskbarBehavior.DoNothing:
+                    _hidingCount = 0;
                     break;
                 case TaskbarBehavior.Pending:
                     if (_taskbar.CheckIfDesktopShow(DesktopHandleSet, NonDesktopShowHandleSet))
@@ -110,6 +112,7 @@ namespace SmartTaskbar
                         _taskbar.ShowTaskar();
                     }
 
+                    _hidingCount = 0;
                     break;
                 case TaskbarBehavior.Show:
                     #if DEBUG
@@ -118,9 +121,12 @@ namespace SmartTaskbar
                     #endif
 
                     _taskbar.ShowTaskar();
+                    _hidingCount = 0;
                     break;
                 case TaskbarBehavior.Hide:
-                    if (info == _currentForegroundWindow) return;
+                    if (info == _currentForegroundWindow
+                        && _hidingCount == 5)
+                        return;
 
                     #if DEBUG
                     Debug.WriteLine(
@@ -128,7 +134,7 @@ namespace SmartTaskbar
                     #endif
 
                     _taskbar.HideTaskbar();
-
+                    _hidingCount++;
                     break;
             }
 
@@ -146,6 +152,7 @@ namespace SmartTaskbar
             switch (behavior)
             {
                 case TaskbarBehavior.DoNothing:
+                    _hidingCount = 0;
                     break;
                 case TaskbarBehavior.Pending:
                     if (_taskbar.CheckIfDesktopShow(DesktopHandleSet, NonDesktopShowHandleSet))
@@ -157,6 +164,7 @@ namespace SmartTaskbar
                         BeforeShowBar();
                     }
 
+                    _hidingCount = 0;
                     break;
                 case TaskbarBehavior.Show:
                     // #if DEBUG
@@ -166,9 +174,12 @@ namespace SmartTaskbar
 
                     BeforeShowBar();
 
+                    _hidingCount = 0;
                     break;
                 case TaskbarBehavior.Hide:
-                    if (info == _currentForegroundWindow) return;
+                    if (info == _currentForegroundWindow
+                        && _hidingCount == 5)
+                        return;
 
                     // Some third-party taskbar plugins will be attached to the taskbar location, but not embedded in the taskbar or desktop.
 
@@ -183,6 +194,7 @@ namespace SmartTaskbar
 
                     _taskbar.HideTaskbar();
 
+                    _hidingCount++;
                     break;
             }
 
